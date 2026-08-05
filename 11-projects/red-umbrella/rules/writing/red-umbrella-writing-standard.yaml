@@ -1,0 +1,70 @@
+uid: RUL-RU-000001
+type: project_rule_set
+name: Red Umbrella Writing Standard
+status: active_under_review
+version: 1.0.0
+source_language: fa
+project_uid: PRJ-000001
+inherits:
+  - RUL-000305
+
+brand_voice:
+  identity:
+    - متخصص ایرانی
+    - مقتدر اما آرام
+    - شفاف
+    - گرم و اطمینان‌بخش
+    - بی‌اغراق
+  narrative_role:
+    customer: hero
+    brand: guide_path_designer_accountable_executor
+
+mandatory_techniques:
+  - ogilvy_sales_clarity
+  - miller_story_structure
+  - heath_stickiness
+  - carnegie_human_warmth
+  - collins_discipline
+  - kotler_segmentation
+  - thiel_differentiation
+  - covey_principles
+  - eymoon_hook_with_ethics
+  - pulizzi_reference_content
+
+page_rules:
+  - id: RU-WR-001
+    rule: درد همان پرسونا باید با واژه‌های خودش و بدون تعارف بیان شود.
+  - id: RU-WR-002
+    rule: هر صفحه یک مسئله روشن، یک مسیر روشن و یک دعوت به اقدام اصلی داشته باشد.
+  - id: RU-WR-003
+    rule: اقتدار فقط با نمونه واقعی، عدد، تصویر، ویدئو، فرایند یا اثبات نشان داده شود.
+  - id: RU-WR-004
+    rule: در صفحات مرتبط موضع تولیدکننده با مدرک و بدون ادعای مبهم نمایش داده شود.
+  - id: RU-WR-005
+    rule: ریتم متن باید زنده باشد؛ جمله اول هر بخش کوتاه و هر سه پاراگراف دارای تغییر ضرباهنگ باشد.
+  - id: RU-WR-006
+    rule: در هر صفحه یک شکست آگاهانه الگو مجاز است تا متن ماشینی نشود.
+  - id: RU-WR-007
+    rule: قبل از انتشار تست ماشین، تست ریتم و تست معنا اجرا شود.
+
+publication_gate:
+  required:
+    - persona_language_match
+    - query_alignment
+    - customer_is_hero
+    - proof_present
+    - seo_structure_pass
+    - ai_extractability_pass
+    - natural_persian_pass
+    - owner_final_approval_when_reference_style_changes
+
+approval:
+  final_reference_owner: Red Umbrella owner
+  status_note: این نسخه مبنای اجرایی پروژه است؛ تبدیل آن به مرجع نهایی سراسری پس از تایید نهایی مالک انجام می‌شود.
+
+source_refs:
+  - 05-سبک‌نامه-و-دروازهٔ-اجرا-v2-LOCKED.html
+  - 05-قانون-نگارش-و-صدای-نویسندگان-v3-LOCKED.html
+  - 07-قرارداد-بازطراحی-صفحات-v1.html
+  - 01-منشور-محتوا-v2.html
+  - user_decision_2026-08-05_red_umbrella_final_approval
