@@ -1,0 +1,42 @@
+uid: ENG-000014
+type: engine
+name: Audit Log Engine
+status: active
+version: 3.0.0-alpha.3
+source_language: fa
+purpose:
+  fa: ثبت تغییرناپذیر تمام عملیات حساس، تصمیم‌ها، تاییدها، انتشارها و تغییرات دانش
+logged_actions:
+  - create
+  - update
+  - approve
+  - reject
+  - publish
+  - delete
+  - override
+  - package_install
+  - permission_change
+  - knowledge_promotion
+required_fields:
+  - audit_uid
+  - actor_uid
+  - actor_type
+  - project_uid
+  - action
+  - target_uid
+  - occurred_at
+  - trace_id
+  - result
+rules:
+  - id: AUD-ENG-001
+    rule: Audit records are immutable.
+  - id: AUD-ENG-002
+    rule: Sensitive values must be redacted before storage.
+  - id: AUD-ENG-003
+    rule: High-risk actions require approval references.
+  - id: AUD-ENG-004
+    rule: Failed actions must be logged.
+outputs:
+  - audit_record
+  - audit_query_result
+  - anomaly_alert
