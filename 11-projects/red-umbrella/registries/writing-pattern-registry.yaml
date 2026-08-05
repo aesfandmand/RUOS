@@ -1,0 +1,49 @@
+uid: REG-RU-000001
+type: registry
+name: Red Umbrella Writing Pattern Registry
+status: active
+version: 1.0.0
+source_language: fa
+project_uid: PRJ-000001
+
+patterns:
+  - uid: WPT-RU-000001
+    name: Query-led opening
+    description: شروع صفحه با مسئله و عبارت نزدیک به کوئری واقعی کاربر
+    applies_to: [page, article, landing, social_caption]
+  - uid: WPT-RU-000002
+    name: Customer-as-hero narrative
+    description: مشتری قهرمان و برند راهنما است
+    applies_to: [page, proposal, campaign]
+  - uid: WPT-RU-000003
+    name: Concrete proof block
+    description: جایگزینی صفت با عدد، نمونه، تصویر، فرایند یا شاهد واقعی
+    applies_to: [service_page, product_page, case_study]
+  - uid: WPT-RU-000004
+    name: Short first sentence
+    description: جمله نخست هر بخش کوتاه و مستقیم است
+    applies_to: [all_content]
+  - uid: WPT-RU-000005
+    name: Four-sentence paragraph ceiling
+    description: پاراگراف حداکثر چهار جمله دارد مگر شکست آگاهانه ریتم
+    applies_to: [all_content]
+  - uid: WPT-RU-000006
+    name: Objection removal sequence
+    description: موانع تصمیم به‌ترتیب شناسایی و پاسخ داده می‌شوند
+    applies_to: [sales_page, landing, faq]
+  - uid: WPT-RU-000007
+    name: One primary CTA
+    description: هر صفحه یک دعوت به اقدام اصلی و روشن دارد
+    applies_to: [page, landing, campaign]
+  - uid: WPT-RU-000008
+    name: AI-extractable structure
+    description: پاسخ‌ها، تیترها، فهرست‌ها، FAQ و روابط معنایی به شکل قابل استخراج ساخته می‌شوند
+    applies_to: [website, knowledge_base]
+
+promotion_status:
+  project_reference: active
+  global_reference: pending_owner_final_approval
+
+source_refs:
+  - RUL-000305
+  - RUL-RU-000001
