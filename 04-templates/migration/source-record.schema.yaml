@@ -1,0 +1,28 @@
+uid: TPL-000210
+type: template
+name: Migration Source Record Schema
+status: active
+version: 3.0.0-alpha.3
+source_language: fa
+required:
+  - source_uid
+  - project_uid
+  - source_type
+  - title
+  - location
+  - status
+  - authority_level
+  - language
+  - checksum
+  - imported_at
+properties:
+  source_type:
+    enum: [html, docx, xlsx, markdown, image, repository_file, conversation]
+  status:
+    enum: [discovered, queued, extracted, reviewed, migrated, rejected, superseded]
+  authority_level:
+    enum: [locked, approved, working, reference, deprecated]
+  related_sources:
+    type: array
+  conflicts:
+    type: array
