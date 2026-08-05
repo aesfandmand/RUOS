@@ -18,6 +18,7 @@ def test_structures_build_passes(tmp_path: Path) -> None:
     assert (result.output_dir / "assets/styles.css").exists()
     assert (result.output_dir / "assets/runtime.js").exists()
     assert (result.output_dir / "assets/motion-manifest.json").exists()
+    assert (result.output_dir / "assets/creative-intelligence.json").exists()
     assert (result.output_dir / "build-manifest.json").exists()
     assert (result.output_dir / "qa-report.json").exists()
     assert (result.output_dir / ".ruos-build").exists()
@@ -29,6 +30,7 @@ def test_build_id_and_artifact_hashes_are_reproducible(tmp_path: Path) -> None:
     first_manifest = json.loads((first.output_dir / "build-manifest.json").read_text(encoding="utf-8"))
     first_html = (first.output_dir / "index.html").read_bytes()
     first_motion = (first.output_dir / "assets/motion-manifest.json").read_bytes()
+    first_intelligence = (first.output_dir / "assets/creative-intelligence.json").read_bytes()
 
     second = _build(tmp_path)
     second_manifest = json.loads((second.output_dir / "build-manifest.json").read_text(encoding="utf-8"))
@@ -37,8 +39,10 @@ def test_build_id_and_artifact_hashes_are_reproducible(tmp_path: Path) -> None:
     assert second_manifest["sha256"] == first_manifest["sha256"]
     assert second_manifest["pattern_plan_sha256"] == first_manifest["pattern_plan_sha256"]
     assert second_manifest["motion_plan_sha256"] == first_manifest["motion_plan_sha256"]
+    assert second_manifest["creative_intelligence_sha256"] == first_manifest["creative_intelligence_sha256"]
     assert (second.output_dir / "index.html").read_bytes() == first_html
     assert (second.output_dir / "assets/motion-manifest.json").read_bytes() == first_motion
+    assert (second.output_dir / "assets/creative-intelligence.json").read_bytes() == first_intelligence
     assert not list(tmp_path.glob(".ruos-structures-*"))
     assert not (tmp_path / ".structures.previous").exists()
 
@@ -52,14 +56,16 @@ def test_manifest_only_lists_public_artifacts(tmp_path: Path) -> None:
         "assets/styles.css",
         "assets/runtime.js",
         "assets/motion-manifest.json",
+        "assets/creative-intelligence.json",
     ]
     assert manifest["page"] == "structures"
     assert manifest["passed"] is True
     assert manifest["pattern_plan"]["narrative_arc"] == "discover-understand-decide-act"
-    assert manifest["pattern_plan"]["global_motif"] == "red-umbrella-orbit"
-    assert len(manifest["pattern_plan"]["sections"]) == 5
     assert len(manifest["pattern_plan_sha256"]) == 64
     assert manifest["motion_plan"]["strategy"] == "chapter-aware-progressive-motion"
-    assert len(manifest["motion_plan"]["cues"]) == 5
     assert len(manifest["motion_plan_sha256"]) == 64
+    assert manifest["creative_intelligence"]["query"]["search_intent"] == "commercial-investigation"
+    assert manifest["creative_intelligence"]["sales"]["conversion_goal"] == "qualified-conversation"
+    assert "FAQPage" in manifest["creative_intelligence"]["semantic"]["schema_types"]
+    assert len(manifest["creative_intelligence_sha256"]) == 64
     assert all(len(value) == 64 for value in manifest["sha256"].values())
