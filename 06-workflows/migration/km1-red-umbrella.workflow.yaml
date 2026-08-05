@@ -1,0 +1,44 @@
+uid: WRK-000405
+type: workflow
+name: KM-1 Red Umbrella Knowledge Migration
+status: active
+version: 3.0.0-alpha.3
+source_language: fa
+project_uid: PRJ-000001
+scope:
+  - governance
+  - architecture
+  - services
+  - knowledge_graph
+  - content
+  - ux_ui
+  - seo
+  - ai_visibility
+  - research
+stages:
+  - {stage_uid: STG-KM01, name: inventory_sources, actor: agent, outputs: [source_inventory]}
+  - {stage_uid: STG-KM02, name: classify_authority, actor: ai, outputs: [authority_map]}
+  - {stage_uid: STG-KM03, name: extract_rules, actor: ai, outputs: [rule_candidates]}
+  - {stage_uid: STG-KM04, name: extract_entities, actor: ai, outputs: [entity_candidates]}
+  - {stage_uid: STG-KM05, name: extract_capabilities, actor: ai, outputs: [capability_candidates]}
+  - {stage_uid: STG-KM06, name: map_relationships, actor: ai, outputs: [relationship_candidates]}
+  - {stage_uid: STG-KM07, name: resolve_conflicts, actor: human, outputs: [conflict_decisions]}
+  - {stage_uid: STG-KM08, name: register_approved_knowledge, actor: agent, outputs: [migration_commit]}
+  - {stage_uid: STG-KM09, name: validate_graph, actor: agent, outputs: [validation_report]}
+hard_stop_conditions:
+  - missing_source_reference
+  - unresolved_locked_conflict
+  - duplicate_uid
+  - unsupported_inference
+  - failed_graph_validation
+initial_source_groups:
+  - locked_governance
+  - live_change_log
+  - site_architecture
+  - knowledge_graph_model
+  - service_catalog
+  - environmental_advertising
+  - pillar_cluster_architecture
+  - writing_style
+  - market_research
+  - approved_homepage
