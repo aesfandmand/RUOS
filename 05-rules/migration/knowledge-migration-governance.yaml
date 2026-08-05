@@ -1,0 +1,27 @@
+uid: RUL-000305
+type: rule_set
+name: Knowledge Migration Governance
+status: locked
+version: 3.0.0-alpha.3
+source_language: fa
+rules:
+  - id: KMG-001
+    rule: Locked and later approved sources take precedence over older or working sources.
+  - id: KMG-002
+    rule: Source content must not be silently corrected or expanded.
+  - id: KMG-003
+    rule: Inferences must be stored separately from source-derived facts.
+  - id: KMG-004
+    rule: Duplicate entities must be merged only after provenance comparison.
+  - id: KMG-005
+    rule: Every rule, capability and relationship must retain source references.
+  - id: KMG-006
+    rule: Project knowledge remains project-scoped unless explicitly promoted.
+  - id: KMG-007
+    rule: Deprecated sources remain searchable but cannot override active sources.
+priority_order:
+  - later_locked_source
+  - approved_source
+  - project_decision_record
+  - working_source
+  - external_reference
