@@ -1,0 +1,73 @@
+uid: SRC-RU-000001
+type: source_registry
+name: Red Umbrella KM-1 Source Registry
+status: active
+version: 1.0.0
+source_language: fa
+project_uid: PRJ-000001
+
+priority_policy:
+  - latest_user_decision
+  - live_change_index
+  - locked_documents
+  - approved_architecture_and_data_models
+  - approved_page_outputs
+  - supporting_research
+  - deprecated_versions
+
+sources:
+  - uid: SRC-RU-000002
+    path: 00-فهرست-زنده-تغییرات.html
+    role: source_of_truth_index
+    priority: critical
+  - uid: SRC-RU-000003
+    path: 05-سبک‌نامه-و-دروازهٔ-اجرا-v2-LOCKED.html
+    role: writing_and_execution_gate
+    priority: locked
+  - uid: SRC-RU-000004
+    path: 05-قانون-نگارش-و-صدای-نویسندگان-v3-LOCKED.html
+    role: writing_voice_and_qc
+    priority: locked
+  - uid: SRC-RU-000005
+    path: 08-تولید-محتوا-و-معماری-پیلار-کلاستر-v1-LOCKED.html
+    role: content_and_topic_architecture
+    priority: locked
+  - uid: SRC-RU-000006
+    path: 01-منشور-محتوا-v2.html
+    role: persuasion_and_content_charter
+    priority: approved
+  - uid: SRC-RU-000007
+    path: 07-قرارداد-بازطراحی-صفحات-v1.html
+    role: page_redesign_contract
+    priority: approved
+  - uid: SRC-RU-000008
+    path: چتر_قرمز_معماری_سایت_v1.xlsx
+    role: site_architecture
+    priority: pending_full_extraction
+  - uid: SRC-RU-000009
+    path: چتر_قرمز_نالج‌گراف_و_مدل‌داده_v1.xlsx
+    role: knowledge_graph_and_data_model
+    priority: pending_full_extraction
+  - uid: SRC-RU-000010
+    path: لیست خدمات آژانس تبلیغات چتر قرمز copy.docx
+    role: service_catalog
+    priority: pending_full_extraction
+  - uid: SRC-RU-000011
+    path: توضیحات لایه تبلیغات محیطی از لیست خدمات copy.docx
+    role: outdoor_advertising_service_detail
+    priority: pending_full_extraction
+  - uid: SRC-RU-000012
+    path: chatreghermez-home-desktop-v10-final.html
+    role: approved_home_reference
+    priority: approved_output
+  - uid: SRC-RU-000013
+    path: chatreghermez-architecture-map.html
+    role: architecture_visual_map
+    priority: approved_supporting
+  - uid: SRC-RU-000014
+    path: project_conversations
+    role: latest_decisions_and_corrections
+    priority: highest_dynamic
+
+conflict_rule:
+  rule: در تعارض میان منابع، تصمیم متاخر کاربر و سپس سند قفل‌شده متاخر حاکم است؛ تعارض حل‌نشده باید پیش از ثبت پرسیده شود.
