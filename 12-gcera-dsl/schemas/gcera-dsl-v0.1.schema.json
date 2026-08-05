@@ -1,0 +1,531 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ruos.dev/schemas/gcera-dsl-v0.1.schema.json",
+  "title": "GCERA-DSL v0.1",
+  "description": "Machine-readable schema for RUOS enterprise description documents.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ruos", "objects"],
+  "properties": {
+    "ruos": { "$ref": "#/$defs/header" },
+    "objects": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/object" }
+    }
+  },
+  "$defs": {
+    "localizedText": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "localizedStringList": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 },
+        "uniqueItems": true
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "approved",
+        "canonical",
+        "published",
+        "superseded",
+        "deprecated",
+        "archived",
+        "rejected"
+      ]
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "organization",
+        "brand",
+        "project",
+        "page",
+        "entity",
+        "structure",
+        "structure_category",
+        "capability",
+        "service",
+        "solution",
+        "journey",
+        "workflow",
+        "task",
+        "persona",
+        "query",
+        "search_intent",
+        "location",
+        "campaign",
+        "investment",
+        "article",
+        "video",
+        "guide",
+        "faq",
+        "project_case",
+        "media",
+        "component",
+        "design_token",
+        "rule",
+        "decision",
+        "evidence",
+        "metric",
+        "schema"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "type"],
+      "properties": {
+        "source_id": { "type": "string", "minLength": 3 },
+        "type": {
+          "type": "string",
+          "enum": [
+            "conversation",
+            "document",
+            "spreadsheet",
+            "html",
+            "image",
+            "video",
+            "system_event",
+            "analytics",
+            "research",
+            "external_reference",
+            "human_decision"
+          ]
+        },
+        "status": { "type": "string" },
+        "locator": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sources"],
+      "properties": {
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/source" }
+        },
+        "extracted_at": { "type": "string", "format": "date" },
+        "extracted_by": { "type": "string" }
+      }
+    },
+    "header": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec",
+        "version",
+        "document_id",
+        "namespace",
+        "language",
+        "status",
+        "provenance"
+      ],
+      "properties": {
+        "spec": { "const": "gcera-dsl" },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "document_id": { "type": "string", "minLength": 5 },
+        "namespace": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "language": { "type": "string", "minLength": 2 },
+        "status": { "$ref": "#/$defs/status" },
+        "provenance": { "$ref": "#/$defs/provenance" }
+      }
+    },
+    "evidenceRef": {
+      "type": "string",
+      "pattern": "^evidence:[a-z0-9-]+:[a-z0-9-]+$"
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["predicate", "target"],
+      "properties": {
+        "predicate": {
+          "type": "string",
+          "enum": [
+            "is_a",
+            "belongs_to",
+            "part_of",
+            "contains",
+            "uses",
+            "requires",
+            "supports",
+            "solves",
+            "serves",
+            "suitable_for",
+            "installed_at",
+            "available_for",
+            "related_to",
+            "alternative_to",
+            "complementary_to",
+            "depends_on",
+            "produces",
+            "demonstrated_by",
+            "references",
+            "derived_from",
+            "validated_by",
+            "supersedes",
+            "contradicts",
+            "renders"
+          ]
+        },
+        "target": { "type": "string", "minLength": 5 },
+        "external": { "type": "boolean", "default": false },
+        "qualifiers": { "type": "object", "additionalProperties": true },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidenceRef" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": { "$ref": "#/$defs/status" },
+        "date": { "type": "string", "format": "date" },
+        "approved_by": { "type": "string" },
+        "conditions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "historyEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "action"],
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "action": { "type": "string", "minLength": 2 },
+        "actor": { "type": "string" },
+        "reason": { "type": "string" },
+        "previous_version": { "type": "string" },
+        "new_version": { "type": "string" }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "owner": { "type": "string" },
+        "reviewer": { "type": "string" },
+        "approver": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "approval": { "$ref": "#/$defs/approval" },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/source" }
+        },
+        "history": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/historyEntry" }
+        }
+      }
+    },
+    "selector": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "oneOf": [
+            { "$ref": "#/$defs/kind" },
+            {
+              "type": "array",
+              "items": { "$ref": "#/$defs/kind" },
+              "uniqueItems": true
+            }
+          ]
+        },
+        "namespace": { "type": "string" },
+        "status": {
+          "oneOf": [
+            { "$ref": "#/$defs/status" },
+            {
+              "type": "array",
+              "items": { "$ref": "#/$defs/status" },
+              "uniqueItems": true
+            }
+          ]
+        },
+        "uids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "where": { "type": "object", "additionalProperties": true },
+        "via_relationships": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["from", "predicates"],
+          "properties": {
+            "from": { "type": "string" },
+            "predicates": {
+              "type": "array",
+              "items": { "type": "string" },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    },
+    "blockSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "select": { "$ref": "#/$defs/selector" },
+        "static": {},
+        "reference": { "type": "string" }
+      },
+      "minProperties": 1
+    },
+    "block": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "type"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "hero",
+            "executive_summary",
+            "table_of_contents",
+            "entity_grid",
+            "entity_detail",
+            "filter_bar",
+            "comparison",
+            "knowledge_graph",
+            "capability_layer",
+            "process",
+            "evidence",
+            "project_gallery",
+            "media_gallery",
+            "article_feed",
+            "video_feed",
+            "faq",
+            "cta",
+            "footer",
+            "custom"
+          ]
+        },
+        "source": { "$ref": "#/$defs/blockSource" },
+        "fields": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "conditions": { "type": "object", "additionalProperties": true },
+        "interactions": { "type": "object", "additionalProperties": true },
+        "journey": { "type": "object", "additionalProperties": true },
+        "design": { "type": "object", "additionalProperties": true },
+        "seo": { "type": "object", "additionalProperties": true },
+        "ai": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "knowledgeGraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root"],
+      "properties": {
+        "root": { "type": "string" },
+        "include_predicates": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "depth": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "expose": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "capabilityLayer": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["contextual", "explicit", "hidden", "disabled"]
+        },
+        "select": { "$ref": "#/$defs/selector" },
+        "render": { "type": "object", "additionalProperties": true },
+        "rule": { "type": "string" }
+      }
+    },
+    "seo": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "query_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "intent_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "title": { "$ref": "#/$defs/localizedText" },
+        "meta_description": { "$ref": "#/$defs/localizedText" },
+        "canonical": { "type": "string" },
+        "schemas": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "ai": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "entity_summary": { "type": "boolean" },
+        "citation_ready": { "type": "boolean" },
+        "chunk_strategy": {
+          "type": "string",
+          "enum": ["semantic_sections", "block", "entity", "custom"]
+        },
+        "expose_relationships": { "type": "boolean" },
+        "answer_questions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "pageFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["page_type", "route", "canonical_url", "primary_entity", "intents", "assembly"],
+      "properties": {
+        "page_type": {
+          "type": "string",
+          "enum": [
+            "home",
+            "hub",
+            "pillar",
+            "cluster",
+            "entity",
+            "service",
+            "capability",
+            "project",
+            "article",
+            "video",
+            "comparison",
+            "landing",
+            "directory"
+          ]
+        },
+        "route": { "type": "string", "pattern": "^/" },
+        "canonical_url": { "type": "string", "pattern": "^/" },
+        "primary_entity": { "type": "string" },
+        "mission": { "$ref": "#/$defs/localizedText" },
+        "exclusions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "intents": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "assembly": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/block" }
+        },
+        "knowledge_graph": { "$ref": "#/$defs/knowledgeGraph" },
+        "capability_layer": { "$ref": "#/$defs/capabilityLayer" },
+        "seo": { "$ref": "#/$defs/seo" },
+        "ai": { "$ref": "#/$defs/ai" },
+        "analytics": { "type": "object", "additionalProperties": true },
+        "design": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["uid", "kind", "name", "status", "version", "governance"],
+      "properties": {
+        "uid": {
+          "type": "string",
+          "pattern": "^[a-z_]+:[a-z0-9-]+:[a-z0-9-]+$"
+        },
+        "kind": { "$ref": "#/$defs/kind" },
+        "name": { "$ref": "#/$defs/localizedText" },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "aliases": { "$ref": "#/$defs/localizedStringList" },
+        "status": { "$ref": "#/$defs/status" },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "summary": { "$ref": "#/$defs/localizedText" },
+        "description": { "$ref": "#/$defs/localizedText" },
+        "intents": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "personas": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "attributes": { "type": "object", "additionalProperties": true },
+        "relationships": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/relationship" }
+        },
+        "knowledge": { "type": "object", "additionalProperties": true },
+        "capabilities": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "media": {
+          "type": "array",
+          "items": { "type": ["string", "object"] }
+        },
+        "seo": { "$ref": "#/$defs/seo" },
+        "ai": { "$ref": "#/$defs/ai" },
+        "governance": { "$ref": "#/$defs/governance" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "kind": { "const": "page" } },
+            "required": ["kind"]
+          },
+          "then": { "$ref": "#/$defs/pageFields" }
+        }
+      ]
+    }
+  }
+}
