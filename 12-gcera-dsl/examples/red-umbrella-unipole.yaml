@@ -1,0 +1,253 @@
+ruos:
+  spec: gcera-dsl
+  version: 0.1.0
+  document_id: doc:red-umbrella:structure-unipole:v1
+  namespace: red-umbrella
+  language: fa
+  status: draft
+  provenance:
+    extracted_at: 2026-08-05
+    extracted_by: ruos-km
+    sources:
+      - source_id: document:red-umbrella:structure-architecture-decisions-v1
+        type: document
+        status: canonical-project-knowledge
+        locator: 11-knowledge-migration/red-umbrella/structure/structure-architecture-decisions-v1.md
+
+objects:
+  - uid: structure:red-umbrella:unipole
+    kind: structure
+    name:
+      fa: یونی‌پل
+      en: Unipole
+    slug: unipole
+    aliases:
+      fa:
+        - تابلو یونی‌پل
+        - یونی پل
+    status: draft
+    version: 0.1.0
+    summary:
+      fa: رکورد اولیه موجودیت یونی‌پل؛ داده‌های فنی و تجاری تا دریافت منبع معتبر به‌صورت Candidate باقی می‌مانند.
+    intents:
+      - learn
+      - compare
+      - purchase
+      - invest
+      - rent
+    personas:
+      - persona:red-umbrella:municipality
+      - persona:red-umbrella:organization
+      - persona:red-umbrella:engineer
+      - persona:red-umbrella:advertiser
+
+    attributes:
+      identification:
+        canonical_name_status: candidate
+        category_status: pending_source
+
+      classification:
+        environment: outdoor
+        structure_category: pending_source
+        orientation: pending_source
+        face_count: pending_source
+        fixed_or_digital: pending_source
+
+      dimensions:
+        status: pending_source
+        width: null
+        height: null
+        display_ratio: null
+        unit: null
+
+      engineering:
+        status: pending_source
+        structural_material: null
+        display_surface_material: null
+        frame_type: null
+        weight: null
+        load_capacity: null
+        environmental_resistance: null
+        wind_load: null
+
+      foundation:
+        status: pending_source
+        foundation_type: null
+        drawing_ref: null
+        installation_detail_ref: null
+
+      lighting:
+        status: pending_source
+        type: null
+        front_lit: null
+        back_lit: null
+        internal_lit: null
+        double_sided_lit: null
+        led: null
+        digital: null
+
+      installation:
+        status: pending_source
+        method: null
+        transportation_requirements: null
+        site_requirements: null
+        installation_constraints: null
+        maintenance_requirements: null
+
+      functional:
+        status: pending_source
+        primary_applications: []
+        secondary_applications: []
+        business_goals: []
+        benefits: []
+        limitations: []
+
+      location_intelligence:
+        status: pending_source
+        suitable_locations: []
+        unsuitable_locations: []
+        ownership_types: []
+        audience_view_distance: null
+        traffic_direction: null
+        visibility_constraints: []
+
+      commercial_routes:
+        status: pending_review
+        indoor_purchase: false
+        outdoor_purchase: true
+        investment: true
+        rental: true
+        organizational_sale: true
+        campaign: true
+
+      data_quality:
+        fabricated_facts_allowed: false
+        publish_technical_facts_before_validation: false
+        missing_data_behavior: show_pending_or_hide
+
+    relationships:
+      - predicate: belongs_to
+        target: structure_category:red-umbrella:outdoor
+      - predicate: part_of
+        target: entity:red-umbrella:structure-domain
+      - predicate: supports
+        target: journey:red-umbrella:outdoor-structure-purchase
+      - predicate: supports
+        target: journey:red-umbrella:investment
+      - predicate: supports
+        target: journey:red-umbrella:campaign-rental
+      - predicate: requires
+        target: capability:red-umbrella:site-survey
+      - predicate: requires
+        target: capability:red-umbrella:structural-engineering
+      - predicate: requires
+        target: capability:red-umbrella:foundation-design
+      - predicate: requires
+        target: capability:red-umbrella:installation
+      - predicate: related_to
+        target: page:red-umbrella:structures
+
+    knowledge:
+      definition:
+        fa: pending_source
+      quick_facts: []
+      questions:
+        - ابعاد استاندارد یا قابل سفارش یونی‌پل چیست؟
+        - یونی‌پل برای چه مکان‌هایی مناسب است؟
+        - فونداسیون و الزامات نصب یونی‌پل چیست؟
+        - یونی‌پل برای خرید، سرمایه‌گذاری یا اجاره مناسب است؟
+        - چه مدل‌های نورپردازی برای یونی‌پل قابل اجراست؟
+      missing_knowledge:
+        - definition
+        - verified_dimensions
+        - verified_materials
+        - verified_foundation
+        - verified_installation_method
+        - verified_applications
+        - verified_location_rules
+        - verified_commercial_models
+
+    capabilities:
+      - capability:red-umbrella:site-survey
+      - capability:red-umbrella:structural-engineering
+      - capability:red-umbrella:foundation-design
+      - capability:red-umbrella:manufacturing
+      - capability:red-umbrella:transportation
+      - capability:red-umbrella:installation
+      - capability:red-umbrella:inspection
+      - capability:red-umbrella:maintenance
+
+    media:
+      - media_type: image
+        status: required
+        view: front
+        alt:
+          fa: نمای روبه‌روی سازه یونی‌پل
+      - media_type: image
+        status: required
+        view: side
+        alt:
+          fa: نمای جانبی سازه یونی‌پل و پایه آن
+      - media_type: image
+        status: required
+        view: foundation
+        alt:
+          fa: فونداسیون و دیتیل نصب سازه یونی‌پل
+      - media_type: drawing
+        status: required
+        view: technical
+        alt:
+          fa: نقشه فنی و ابعاد سازه یونی‌پل
+      - media_type: video
+        status: recommended
+        view: installation
+        alt:
+          fa: مراحل حمل و نصب سازه یونی‌پل
+
+    seo:
+      query_refs: []
+      intent_refs: []
+      title:
+        fa: یونی‌پل چیست؟ کاربرد، مشخصات، نصب و مسیرهای خرید
+      meta_description:
+        fa: معرفی یونی‌پل، کاربردها، اجزای سازه، نورپردازی، فونداسیون، نصب و مسیرهای مرتبط خرید، سرمایه‌گذاری و اجاره؛ اطلاعات فنی پس از تأیید منبع منتشر می‌شوند.
+      canonical: /structures/unipole
+      schemas:
+        - Product
+        - Thing
+        - BreadcrumbList
+        - FAQPage
+
+    ai:
+      entity_summary: true
+      citation_ready: false
+      chunk_strategy: semantic_sections
+      expose_relationships: true
+      answer_questions:
+        - یونی‌پل چیست؟
+        - یونی‌پل کجا نصب می‌شود؟
+        - خرید یونی‌پل برای چه سازمان‌هایی مناسب است؟
+        - برای ساخت و نصب یونی‌پل چه قابلیت‌هایی لازم است؟
+
+    governance:
+      owner: role:red-umbrella:structure-data-owner
+      reviewer: role:red-umbrella:engineering-reviewer
+      approver: person:red-umbrella:owner
+      confidence: 0.35
+      approval:
+        state: draft
+        conditions:
+          - دریافت مشخصات فنی معتبر
+          - دریافت تصاویر و نقشه‌های واقعی
+          - تأیید تیم مهندسی
+          - تأیید مسیرهای تجاری
+      sources:
+        - source_id: document:red-umbrella:structure-architecture-decisions-v1
+          type: document
+          status: canonical-project-knowledge
+          locator: 11-knowledge-migration/red-umbrella/structure/structure-architecture-decisions-v1.md
+      history:
+        - date: 2026-08-05
+          action: candidate_entity_created
+          actor: ruos-km
+          reason: نمونه اجرایی GCERA-DSL بدون درج فکت فنی ساختگی
