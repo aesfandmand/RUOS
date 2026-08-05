@@ -1,0 +1,45 @@
+uid: KM-RED-000001
+type: migration_status
+name: Red Umbrella Knowledge Migration
+status: in_progress
+version: 1.1.0
+source_language: fa
+project_uid: PRJ-000001
+phases:
+  source_inventory:
+    status: in_progress
+    reviewed:
+      - 00-فهرست-زنده-تغییرات.html
+      - 01-منشور-محتوا-v2.html
+      - 05-سبک‌نامه-و-دروازهٔ-اجرا-v2-LOCKED.html
+      - 05-قانون-نگارش-و-صدای-نویسندگان-v3-LOCKED.html
+      - 07-قرارداد-بازطراحی-صفحات-v1.html
+      - 08-تولید-محتوا-و-معماری-پیلار-کلاستر-v1-LOCKED.html
+    queued:
+      - architecture_files
+      - service_catalog
+      - knowledge_graph_spreadsheet
+      - data_model_spreadsheet
+      - valid_page_implementations
+      - project_conversation_decisions
+  rule_extraction:
+    status: in_progress
+    completed_batches: [REG-RED-000001]
+    next_scope: execution_seo_qc_pillar_cluster
+  entity_extraction:
+    status: pending
+  relationship_extraction:
+    status: pending
+  capability_mapping:
+    status: pending
+  workflow_mapping:
+    status: pending
+  prompt_mapping:
+    status: pending
+  validation:
+    status: pending
+governance:
+  no_assumption_import: true
+  source_trace_required: true
+  latest_approved_decision_wins: true
+  unresolved_conflict_action: ask_human_owner
