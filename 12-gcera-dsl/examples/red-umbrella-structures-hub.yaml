@@ -1,0 +1,472 @@
+ruos:
+  spec: gcera-dsl
+  version: 0.1.0
+  document_id: doc:red-umbrella:structures-hub:v1
+  namespace: red-umbrella
+  language: fa
+  status: approved
+  provenance:
+    extracted_at: 2026-08-05
+    extracted_by: ruos-km
+    sources:
+      - source_id: conversation:red-umbrella:structure-final-continuation
+        type: conversation
+        status: user_confirmed
+      - source_id: document:red-umbrella:structure-architecture-decisions-v1
+        type: document
+        status: canonical-project-knowledge
+        locator: 11-knowledge-migration/red-umbrella/structure/structure-architecture-decisions-v1.md
+
+objects:
+  - uid: entity:red-umbrella:structure-domain
+    kind: entity
+    name:
+      fa: دامنه سازه‌های تبلیغاتی
+      en: Advertising Structures Domain
+    slug: structure-domain
+    status: approved
+    version: 1.0.0
+    summary:
+      fa: موجودیت مادر برای تعریف، طبقه‌بندی، ارتباط‌دهی و استفاده مجدد از تمام دانش سازه‌های تبلیغاتی.
+    intents:
+      - learn
+      - explore
+      - compare
+    attributes:
+      canonical_principle: write_once_use_everywhere
+      duplicate_data_allowed: false
+    relationships:
+      - predicate: contains
+        target: structure_category:red-umbrella:indoor
+      - predicate: contains
+        target: structure_category:red-umbrella:outdoor
+      - predicate: related_to
+        target: page:red-umbrella:investment
+      - predicate: related_to
+        target: page:red-umbrella:indoor-structure-purchase
+      - predicate: related_to
+        target: page:red-umbrella:outdoor-structure-purchase
+      - predicate: related_to
+        target: page:red-umbrella:campaign-rental
+    governance:
+      owner: role:red-umbrella:website-architecture-owner
+      reviewer: role:red-umbrella:knowledge-architect
+      approver: person:red-umbrella:owner
+      confidence: 1.0
+      approval:
+        state: approved
+        date: 2026-08-05
+        approved_by: person:red-umbrella:owner
+      history:
+        - date: 2026-08-05
+          action: mission_changed
+          actor: person:red-umbrella:owner
+          reason: تبدیل صفحه از کاتالوگ ساده به دانشنامه و منبع داده مادر سازه‌ها
+
+  - uid: journey:red-umbrella:indoor-structure-purchase
+    kind: journey
+    name:
+      fa: مسیر خرید سازه‌های ایندور
+      en: Indoor Structure Purchase Journey
+    slug: indoor-structure-purchase
+    status: approved
+    version: 1.0.0
+    summary:
+      fa: مسیر خرید، ساخت و نصب سازه‌های داخل فضای تجاری برای کسب‌وکارهای هدف.
+    personas:
+      - persona:red-umbrella:business-owner
+      - persona:red-umbrella:marketing-manager
+    attributes:
+      stages:
+        - discover
+        - understand
+        - compare
+        - capability_validation
+        - consultation
+        - quotation
+        - purchase
+      primary_conversion: quotation
+    governance:
+      owner: role:red-umbrella:website-architecture-owner
+      confidence: 1.0
+      approval:
+        state: approved
+        date: 2026-08-05
+
+  - uid: journey:red-umbrella:outdoor-structure-purchase
+    kind: journey
+    name:
+      fa: مسیر خرید سازه‌های اوتدور
+      en: Outdoor Structure Purchase Journey
+    slug: outdoor-structure-purchase
+    status: approved
+    version: 1.0.0
+    summary:
+      fa: مسیر خرید، ساخت و نصب سازه‌های محیطی برای شهرداری‌ها، سازمان‌ها و مجموعه‌های دارای قابلیت نصب.
+    personas:
+      - persona:red-umbrella:municipality
+      - persona:red-umbrella:organization
+      - persona:red-umbrella:procurement-manager
+    attributes:
+      stages:
+        - discover
+        - understand
+        - compare
+        - technical_validation
+        - capability_validation
+        - consultation
+        - quotation
+        - purchase
+      primary_conversion: quotation
+    governance:
+      owner: role:red-umbrella:website-architecture-owner
+      confidence: 1.0
+      approval:
+        state: approved
+        date: 2026-08-05
+
+  - uid: journey:red-umbrella:investment
+    kind: journey
+    name:
+      fa: مسیر سرمایه‌گذاری
+      en: Investment Journey
+    slug: investment
+    status: approved
+    version: 1.0.0
+    summary:
+      fa: مسیر واگذاری فضا، تأمین هزینه، ساخت، بهره‌برداری و مدل همکاری برای مالکان فضا، شهرداری‌ها و سازمان‌ها.
+    personas:
+      - persona:red-umbrella:investor
+      - persona:red-umbrella:space-owner
+      - persona:red-umbrella:municipality
+      - persona:red-umbrella:organization
+    attributes:
+      stages:
+        - opportunity
+        - business_model
+        - location
+        - financial_model
+        - risk_review
+        - consultation
+        - agreement
+      primary_conversion: consultation
+    governance:
+      owner: role:red-umbrella:investment-owner
+      confidence: 1.0
+      approval:
+        state: approved
+        date: 2026-08-05
+
+  - uid: journey:red-umbrella:campaign-rental
+    kind: journey
+    name:
+      fa: مسیر اجاره تابلو و اجرای کمپین
+      en: Campaign Rental Journey
+    slug: campaign-rental
+    status: approved
+    version: 1.0.0
+    summary:
+      fa: مسیر مستقل انتخاب و اجاره موقعیت‌های موجود و اجرای کمپین برای تبلیغ‌دهندگان.
+    personas:
+      - persona:red-umbrella:advertiser
+      - persona:red-umbrella:brand-manager
+    attributes:
+      stages:
+        - campaign_goal
+        - audience
+        - location
+        - media_selection
+        - proposal
+        - reservation
+        - execution
+      primary_conversion: proposal
+    governance:
+      owner: role:red-umbrella:media-owner
+      confidence: 1.0
+      approval:
+        state: approved
+        date: 2026-08-05
+
+  - uid: page:red-umbrella:structures
+    kind: page
+    name:
+      fa: سازه‌های تبلیغاتی
+      en: Advertising Structures
+    slug: structures
+    status: approved
+    version: 1.0.0
+    page_type: hub
+    route: /structures
+    canonical_url: /structures
+    primary_entity: entity:red-umbrella:structure-domain
+    mission:
+      fa: دانشنامه و کاتالوگ مادر تمام سازه‌ها و منبع مرکزی داده برای مسیرهای خرید، سرمایه‌گذاری، اجاره، فروش سازمانی، بلاگ و ویدئو.
+    exclusions:
+      - direct_sales_page
+      - investment_page
+      - rental_page
+      - isolated_static_catalog
+    intents:
+      - learn
+      - explore
+      - compare
+      - route_to_next_best_journey
+    personas:
+      - persona:red-umbrella:business-owner
+      - persona:red-umbrella:municipality
+      - persona:red-umbrella:organization
+      - persona:red-umbrella:investor
+      - persona:red-umbrella:advertiser
+      - persona:red-umbrella:engineer
+    relationships:
+      - predicate: renders
+        target: entity:red-umbrella:structure-domain
+      - predicate: supports
+        target: journey:red-umbrella:indoor-structure-purchase
+      - predicate: supports
+        target: journey:red-umbrella:outdoor-structure-purchase
+      - predicate: supports
+        target: journey:red-umbrella:investment
+      - predicate: supports
+        target: journey:red-umbrella:campaign-rental
+    assembly:
+      - id: hero
+        type: hero
+        source:
+          static:
+            title:
+              fa: هر سازه، یک ابزار رسانه‌ای با منطق فنی و کاربرد مشخص
+            summary:
+              fa: انواع سازه‌های تبلیغاتی را بر اساس محیط، ابعاد، تعداد وجه، جهت، نورپردازی، کاربرد و مسیر تجاری بشناسید و مقایسه کنید.
+        design:
+          baseline: structure-v16
+          preserve_approved_color_system: true
+          preserve_approved_motion_system: true
+          black_hero_required: false
+
+      - id: structure-filters
+        type: filter_bar
+        source:
+          select:
+            kind: structure
+            namespace: red-umbrella
+            status:
+              - approved
+              - canonical
+              - published
+        interactions:
+          filters:
+            - attributes.environment
+            - attributes.category
+            - attributes.dimensions
+            - attributes.face_count
+            - attributes.orientation
+            - attributes.lighting
+            - attributes.digital_mode
+            - attributes.suitable_locations
+            - attributes.business_goal
+            - attributes.commercial_routes
+
+      - id: structures-grid
+        type: entity_grid
+        source:
+          select:
+            kind: structure
+            namespace: red-umbrella
+            status:
+              - approved
+              - canonical
+              - published
+        fields:
+          - name.fa
+          - summary.fa
+          - media.primary
+          - attributes.environment
+          - attributes.orientation
+          - attributes.face_count
+          - attributes.lighting
+          - attributes.suitable_locations
+          - attributes.business_goal
+          - attributes.commercial_routes
+        journey:
+          next_best_actions:
+            - journey:red-umbrella:indoor-structure-purchase
+            - journey:red-umbrella:outdoor-structure-purchase
+            - journey:red-umbrella:investment
+            - journey:red-umbrella:campaign-rental
+
+      - id: compare-structures
+        type: comparison
+        source:
+          select:
+            kind: structure
+            namespace: red-umbrella
+        fields:
+          - attributes.environment
+          - attributes.dimensions
+          - attributes.face_count
+          - attributes.orientation
+          - attributes.lighting
+          - attributes.foundation
+          - attributes.installation_method
+          - attributes.applications
+          - attributes.limitations
+
+      - id: local-knowledge-graph
+        type: knowledge_graph
+        source:
+          reference: entity:red-umbrella:structure-domain
+
+      - id: contextual-capabilities
+        type: capability_layer
+        source:
+          select:
+            kind: capability
+            namespace: red-umbrella
+            where:
+              domain: structures
+        fields:
+          - name.fa
+          - summary.fa
+          - attributes.problem
+          - attributes.business_value
+          - attributes.process
+          - attributes.evidence
+          - attributes.related_services
+
+      - id: related-articles
+        type: article_feed
+        source:
+          select:
+            kind: article
+            namespace: red-umbrella
+            where:
+              domain: structures
+
+      - id: related-videos
+        type: video_feed
+        source:
+          select:
+            kind: video
+            namespace: red-umbrella
+            where:
+              domain: structures
+
+      - id: structure-faq
+        type: faq
+        source:
+          select:
+            kind: faq
+            namespace: red-umbrella
+            where:
+              domain: structures
+
+      - id: next-best-route
+        type: cta
+        source:
+          static:
+            mode: contextual
+        journey:
+          next_best_actions:
+            - journey:red-umbrella:indoor-structure-purchase
+            - journey:red-umbrella:outdoor-structure-purchase
+            - journey:red-umbrella:investment
+            - journey:red-umbrella:campaign-rental
+
+      - id: global-footer
+        type: footer
+        source:
+          reference: component:red-umbrella:global-footer
+
+    knowledge_graph:
+      root: entity:red-umbrella:structure-domain
+      include_predicates:
+        - contains
+        - belongs_to
+        - suitable_for
+        - supports
+        - available_for
+        - related_to
+        - requires
+      depth: 2
+      expose:
+        visual: true
+        internal_links: true
+        json_ld: true
+        ai_context: true
+
+    capability_layer:
+      mode: contextual
+      select:
+        kind: capability
+        namespace: red-umbrella
+        where:
+          domain: structures
+      render:
+        fields:
+          - name.fa
+          - summary.fa
+          - attributes.problem
+          - attributes.business_value
+          - attributes.process
+          - attributes.evidence
+          - attributes.related_services
+      rule: capability_is_not_service
+
+    seo:
+      title:
+        fa: سازه‌های تبلیغاتی؛ مرجع انواع، کاربردها و مشخصات
+      meta_description:
+        fa: مرجع شناخت و مقایسه انواع سازه‌های تبلیغاتی، کاربرد، ابعاد، نورپردازی، فونداسیون و مسیرهای خرید، سرمایه‌گذاری و اجاره.
+      canonical: /structures
+      schemas:
+        - CollectionPage
+        - ItemList
+        - BreadcrumbList
+        - FAQPage
+
+    ai:
+      entity_summary: true
+      citation_ready: true
+      chunk_strategy: semantic_sections
+      expose_relationships: true
+      answer_questions:
+        - چه سازه‌ای برای فضای داخلی مناسب است؟
+        - چه سازه‌ای برای شهرداری یا سازمان مناسب است؟
+        - تفاوت سازه‌های ثابت و دیجیتال چیست؟
+        - سازه‌ها بر اساس نوع نورپردازی چگونه طبقه‌بندی می‌شوند؟
+        - برای خرید، سرمایه‌گذاری یا اجاره کدام مسیر مناسب است؟
+
+    analytics:
+      events:
+        - filter_used
+        - structure_opened
+        - comparison_started
+        - related_article_opened
+        - related_video_opened
+        - journey_selected
+
+    design:
+      baseline: structure-v16
+      responsive_codebase: single
+      desktop_mobile_qc: mandatory
+      global_shell: inherited
+      mobile_bottom_navigation: inherited
+      motion:
+        preserve_approved_baseline: true
+        meaningful_only: true
+
+    governance:
+      owner: role:red-umbrella:website-architecture-owner
+      reviewer: role:red-umbrella:multi-disciplinary-qc
+      approver: person:red-umbrella:owner
+      confidence: 1.0
+      approval:
+        state: approved
+        date: 2026-08-05
+        approved_by: person:red-umbrella:owner
+      history:
+        - date: 2026-08-05
+          action: canonical_architecture_registered
+          actor: ruos-km
+          reason: ثبت تصمیم نهایی صفحه استراکچر و مسیرهای تجاری وابسته
