@@ -1,0 +1,29 @@
+uid: DEC-RED-000001
+type: decision_record
+name: Red Umbrella Writing Standard Promotion
+status: approved
+version: 1.0.0
+source_language: fa
+project_uid: PRJ-000001
+decision:
+  global_requirement:
+    - روانی و طبیعی‌بودن فارسی
+    - انطباق با کوئری واقعی
+    - انطباق با پرسونا و مرحله سفر
+    - سازگاری با الزامات سئو گوگل
+    - قابلیت درک و استناد توسط موتورهای هوش مصنوعی
+  project_reference: نگارش نهایی و تاییدشده چتر قرمز
+  promotion_policy:
+    current_scope: project_standard
+    global_candidate: true
+    promotion_authority: human_owner
+    promotion_condition: تایید نهایی مالک پس از اجرای واقعی در صفحات چتر قرمز
+  inheritance:
+    before_promotion: سایر پروژه‌ها از اصول عمومی استفاده می‌کنند، نه از امضای اختصاصی چتر قرمز.
+    after_promotion: الگوهای تاییدشده و قابل تعمیم به هسته عمومی RUOS منتقل می‌شوند.
+  safeguards:
+    - واژگان، لحن و امضای خاص برند بدون بررسی به پروژه دیگر منتقل نمی‌شود.
+    - معیارهای کوئری، پرسونا، سئو و AI Visibility عمومی و قابل ارث‌بری‌اند.
+source_trace:
+  type: approved_conversation_decision
+  date: 2026-08-05
