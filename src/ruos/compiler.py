@@ -11,13 +11,14 @@ from pathlib import Path
 
 from .component_resolver import ComponentPlan, resolve_components
 from .models import BuildContext, BuildResult, PageSpec
+from .pattern_resolver import PatternPlan, resolve_patterns
 from .qa import evaluate
 from .render import render_css, render_document, render_runtime
 from .visual_dna import VisualDNA, resolve_visual_dna
 
 
 ENGINE_NAME = "ruos-engine"
-ENGINE_VERSION = "0.4.0"
+ENGINE_VERSION = "0.5.0"
 
 
 class BuildRejected(RuntimeError):
@@ -54,18 +55,48 @@ def _component_payload(plan: ComponentPlan) -> list[dict[str, object]]:
     ]
 
 
+def _pattern_payload(plan: PatternPlan) -> dict[str, object]:
+    return {
+        "page_slug": plan.page_slug,
+        "narrative_arc": plan.narrative_arc,
+        "global_motif": plan.global_motif,
+        "scroll_model": plan.scroll_model,
+        "sections": [
+            {
+                "section_id": pattern.section_id,
+                "chapter": pattern.chapter,
+                "entrance": pattern.entrance,
+                "transition": pattern.transition,
+                "alignment": pattern.alignment,
+                "pacing": pattern.pacing,
+                "motif": pattern.motif,
+                "attributes": dict(pattern.attributes),
+            }
+            for pattern in plan.sections
+        ],
+    }
+
+
 def _canonical_payload(
     page: PageSpec,
     dna: VisualDNA,
     components: ComponentPlan,
+    patterns: PatternPlan,
     html: str,
     css: str,
     runtime: str,
 ) -> dict[str, object]:
     visual_payload = dict(dna.fingerprint_payload())
     component_payload = _component_payload(components)
+    pattern_payload = _pattern_payload(patterns)
     canonical_components = json.dumps(
         component_payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    canonical_patterns = json.dumps(
+        pattern_payload,
         ensure_ascii=False,
         sort_keys=True,
         separators=(",", ":"),
@@ -81,6 +112,8 @@ def _canonical_payload(
         ).hexdigest(),
         "component_plan": component_payload,
         "component_plan_sha256": hashlib.sha256(canonical_components.encode("utf-8")).hexdigest(),
+        "pattern_plan": pattern_payload,
+        "pattern_plan_sha256": hashlib.sha256(canonical_patterns.encode("utf-8")).hexdigest(),
         "spec": asdict(page),
         "artifacts": {
             "index.html": _digest(html),
@@ -114,6 +147,7 @@ def compile_page(page: PageSpec, context: BuildContext) -> BuildResult:
 
     dna = resolve_visual_dna(page.visual_profile)
     components = resolve_components(page)
+    patterns = resolve_patterns(page, components)
     html = render_document(page, components)
     css = render_css(dna)
     runtime = render_runtime()
@@ -124,7 +158,7 @@ def compile_page(page: PageSpec, context: BuildContext) -> BuildResult:
         summary = "; ".join(f"{gate.gate}: {', '.join(gate.failures)}" for gate in rejected)
         raise BuildRejected(summary)
 
-    payload = _canonical_payload(page, dna, components, html, css, runtime)
+    payload = _canonical_payload(page, dna, components, patterns, html, css, runtime)
     build_id = hashlib.sha256(
         json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest()[:16]
