@@ -1,0 +1,115 @@
+migration:
+  uid: ruos:global:migration:canonical-repository:v0.1
+  version: 0.1.0
+  status: candidate
+  strategy: map_before_move
+  preserve_git_history: true
+  delete_without_mapping: false
+
+known_current_assets:
+  - current_path: README.md
+    canonical_role: repository_entrypoint
+    action: keep
+    target_path: README.md
+    validation:
+      - source_of_truth_statement_present
+      - validation_command_present
+
+  - current_path: 11-knowledge-migration/red-umbrella/structure/structure-architecture-decisions-v1.md
+    canonical_role: project_decision_source
+    action: reference_then_migrate
+    target_path: 03-projects/red-umbrella/decisions/structure-master-architecture-v1.md
+    canonical_uid: ruos:project:red-umbrella:decision:structure-master-mission
+    requirements:
+      - preserve_original_source_path_in_provenance
+      - preserve_commit_history
+      - add_supersession_links_if_updated
+
+  - current_path: 12-gcera-dsl/README.md
+    canonical_role: dsl_entrypoint
+    action: keep
+    target_path: 12-gcera-dsl/README.md
+
+  - current_path: 12-gcera-dsl/schemas/gcera-dsl-v0.1.schema.json
+    canonical_role: dsl_schema
+    action: keep
+    target_path: 12-gcera-dsl/schemas/gcera-dsl-v0.1.schema.json
+
+  - current_path: 12-gcera-dsl/examples/red-umbrella-structures-hub.yaml
+    canonical_role: page_definition_example
+    action: reference_then_promote
+    target_path: 08-pages/red-umbrella/structures-hub.yaml
+    canonical_uid: ruos:project:red-umbrella:page:structures-hub
+    promotion_gate:
+      - schema_valid
+      - source_links_resolved
+      - design_baseline_confirmed
+      - knowledge_graph_scope_present
+      - capability_layer_present
+
+  - current_path: 12-gcera-dsl/examples/red-umbrella-unipole.yaml
+    canonical_role: entity_definition_example
+    action: reference_then_promote
+    target_path: 04-entities/structures/unipole.yaml
+    canonical_uid: ruos:project:red-umbrella:entity:structure:unipole
+    promotion_gate:
+      - schema_valid
+      - verified_fields_only
+      - pending_fields_not_exposed_as_facts
+      - source_and_owner_present
+
+  - current_path: 13-canonical-repository
+    canonical_role: repository_specification
+    action: keep
+    target_path: 13-canonical-repository
+
+required_inventory:
+  status: pending
+  scopes:
+    - governance_files
+    - enterprise_registries
+    - project_workspaces
+    - entity_records
+    - capability_records
+    - knowledge_assets
+    - journeys
+    - page_definitions
+    - templates
+    - design_system
+    - writing_system
+    - integrations
+    - tests
+    - releases
+  output: 13-canonical-repository/migration/repository-inventory.yaml
+
+migration_sequence:
+  - inventory
+  - classify
+  - assign_uid
+  - detect_duplicates
+  - resolve_source_priority
+  - create_reference_map
+  - validate
+  - approve
+  - move_or_promote
+  - update_references
+  - run_repository_qc
+  - release_manifest
+
+hard_gates:
+  - no_unmapped_deletion
+  - no_duplicate_canonical_uid
+  - no_pending_fact_in_production
+  - no_silent_override
+  - preserve_source_lineage
+  - preserve_superseded_history
+
+next_stage_inputs:
+  assembly_engine:
+    required:
+      - 13-canonical-repository/spec/repository-layout-v0.1.yaml
+      - 13-canonical-repository/schemas/repository-manifest-v0.1.schema.json
+      - 13-canonical-repository/examples/red-umbrella.repository.yaml
+      - 12-gcera-dsl/schemas/gcera-dsl-v0.1.schema.json
+      - 12-gcera-dsl/examples/red-umbrella-structures-hub.yaml
+      - 12-gcera-dsl/examples/red-umbrella-unipole.yaml
