@@ -1,0 +1,27 @@
+uid: TPL-000209
+type: template
+name: API Command Schema
+status: active
+version: 3.0.0-alpha.3
+source_language: fa
+required:
+  - command_uid
+  - command_type
+  - actor_uid
+  - actor_type
+  - project_uid
+  - target_uid
+  - payload
+  - trace_id
+  - requested_at
+properties:
+  actor_type:
+    enum: [human, ai, agent]
+  command_type:
+    enum: [create, update, approve, reject, publish, delete, install, migrate]
+  payload:
+    type: object
+  approval_refs:
+    type: array
+  expected_version:
+    type: string
