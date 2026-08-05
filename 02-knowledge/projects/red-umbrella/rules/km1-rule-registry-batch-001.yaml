@@ -1,0 +1,119 @@
+uid: REG-RED-000001
+type: rule_registry
+name: Red Umbrella KM-1 Rule Registry Batch 001
+status: active
+version: 1.0.0
+source_language: fa
+project_uid: PRJ-000001
+scope: [content, writing, page_architecture, seo, ai_visibility, brand, qc]
+source_priority:
+  - 00-فهرست-زنده-تغییرات.html
+  - locked_documents
+  - approved_project_decisions
+  - current_valid_architecture
+  - current_valid_pages
+rules:
+  - uid: RUL-RED-000001
+    status: locked
+    domain: governance
+    statement: پیش از هر عملیات باید فهرست زنده تغییرات بررسی شود و فقط نسخه‌های معتبر مبنا قرار گیرند.
+    source: 00-فهرست-زنده-تغییرات.html
+  - uid: RUL-RED-000002
+    status: locked
+    domain: writing
+    statement: متن فارسی باید روان، طبیعی، متناسب با کوئری، پرسونا و مرحله سفر کاربر باشد.
+    source: approved_project_decision
+  - uid: RUL-RED-000003
+    status: locked
+    domain: writing
+    statement: فرمول نگارش مرجع زبان ساده همراه با جزئیات سخت است؛ ساده‌سازی نباید تخصص را حذف کند.
+    source: 05-سبک‌نامه-نگارش-v1.html
+  - uid: RUL-RED-000004
+    status: locked
+    domain: writing
+    statement: هر پاراگراف حداکثر چهار جمله داشته باشد، جمله اول هر بخش کوتاه باشد و ریتم متن یکنواخت نماند.
+    source: 07-قرارداد-بازطراحی-صفحات-v1.html
+  - uid: RUL-RED-000005
+    status: locked
+    domain: writing
+    statement: کلیشه‌های ترجمه‌ای، عبارت‌های ماشینی، صفت بدون مدرک و ساخت‌های نمایشی ممنوع‌اند.
+    source: 05-سبک‌نامه-و-دروازهٔ-اجرا-v2-LOCKED.html
+  - uid: RUL-RED-000006
+    status: locked
+    domain: narrative
+    statement: مشتری قهرمان است و چتر قرمز راهنما، طراح مسیر و مجری پاسخگو است.
+    source: 01-منشور-محتوا-v2.html
+  - uid: RUL-RED-000007
+    status: locked
+    domain: page_architecture
+    statement: هر صفحه باید به یک محصول، موتور، پرسونا، تمپلیت و اسکیما نگاشت شود؛ صفحه کلی مجاز نیست.
+    source: 07-قرارداد-بازطراحی-صفحات-v1.html
+  - uid: RUL-RED-000008
+    status: locked
+    domain: page_architecture
+    statement: اسکلت اجباری صفحه شامل هیرو، مسئله، راهنما، مسیر، اثبات، جمله طلایی، FAQ و CTA پایانی است.
+    source: 07-قرارداد-بازطراحی-صفحات-v1.html
+  - uid: RUL-RED-000009
+    status: locked
+    domain: proof
+    statement: اقتدار باید با نمونه‌کار، عدد، تصویر، ویدئو، فرایند و مدرک اثبات شود؛ ادعای بدون سند منتشر نمی‌شود.
+    source: 07-قرارداد-بازطراحی-صفحات-v1.html
+  - uid: RUL-RED-000010
+    status: locked
+    domain: brand
+    statement: در ارتباط عمومی فقط نام چتر قرمز استفاده می‌شود و دارایی‌ها به عنوان اجزای یک مجموعه یکپارچه معرفی می‌شوند.
+    source: 07-قرارداد-بازطراحی-صفحات-v1.html
+  - uid: RUL-RED-000011
+    status: locked
+    domain: brand
+    statement: هویت برند مجموعه یکپارچه با دو قطب اصفهان-جنوب و تهران-شمال است؛ نه آژانس عمومی و نه صرفا تابلوساز یا چاپخانه.
+    source: 00-فهرست-زنده-تغییرات.html
+  - uid: RUL-RED-000012
+    status: locked
+    domain: seo
+    statement: عنوان، H1 و معماری محتوا باید از کوئری واقعی و کوئری‌مپ استخراج شوند، نه از ذوق نویسنده.
+    source: 07-قرارداد-بازطراحی-صفحات-v1.html
+  - uid: RUL-RED-000013
+    status: locked
+    domain: seo
+    statement: هر تمپلیت باید اسکیمای درست، لینک‌سازی داخلی مبتنی بر گراف و ساختار موبایل‌اول داشته باشد.
+    source: 07-قرارداد-بازطراحی-صفحات-v1.html
+  - uid: RUL-RED-000014
+    status: locked
+    domain: ai_visibility
+    statement: محتوا باید برای درک، استخراج، استناد و معرفی توسط موتورهای هوش مصنوعی ساختارمند و قابل اتکا باشد.
+    source: approved_project_decision
+  - uid: RUL-RED-000015
+    status: locked
+    domain: qc
+    statement: انتشار فقط پس از عبور از دروازه‌های داستان، فروش، زبان و فنی مجاز است.
+    source: 07-قرارداد-بازطراحی-صفحات-v1.html
+  - uid: RUL-RED-000016
+    status: locked
+    domain: production
+    statement: نسخه موبایل و دسکتاپ باید در یک کدبیس ریسپانسیو و با QC واقعی هر دو ویوپورت تحویل شوند.
+    source: approved_project_decision
+  - uid: RUL-RED-000017
+    status: locked
+    domain: mobile_ux
+    statement: نسخه موبایل باید حس اپلیکیشن، ناوبری پایین صفحه و اکشن‌های روشن داشته باشد.
+    source: approved_project_decision
+  - uid: RUL-RED-000018
+    status: locked
+    domain: research
+    statement: پیش از تولید هر صفحه حداقل شش تا هفت مرجع ایرانی و سه تا چهار مرجع بین‌المللی بررسی می‌شود.
+    source: approved_project_decision
+  - uid: RUL-RED-000019
+    status: locked
+    domain: business
+    statement: هر صفحه باید با اهداف بقا، فروش، تبدیل و مسیر واقعی کاربر ایرانی سازگار باشد.
+    source: approved_project_decision
+  - uid: RUL-RED-000020
+    status: locked
+    domain: content_architecture
+    statement: لایه نالج گراف باید متناسب با پیلار، کلاستر و خوشه مربوط در همه صفحات حضور داشته باشد.
+    source: approved_project_decision
+traceability:
+  chat_decisions_status: project_context_reviewed
+  unresolved_conflicts: []
+  next_batch: execution_seo_qc_and_pillar_cluster_rules
