@@ -1,0 +1,17 @@
+uid: VER-000302
+type: release_manifest
+name: RUOS v3.0.0-alpha.3
+status: active
+version: 3.0.0-alpha.3
+source_language: fa
+release_type: major_alpha
+theme: api_audit_migration
+new_entities:
+  - ENG-000013
+  - ENG-000014
+  - ENG-000015
+  - TPL-000209
+  - TPL-000210
+  - RUL-000305
+  - WRK-000405
+commit_message: "feat(enterprise): add API, audit and migration core"
