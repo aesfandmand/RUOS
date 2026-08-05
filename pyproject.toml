@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ruos-engine"
+version = "0.1.0"
+description = "Red Umbrella Operating System executable website compiler"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+ruos = "ruos.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
