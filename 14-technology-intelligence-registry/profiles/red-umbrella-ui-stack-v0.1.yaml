@@ -1,0 +1,79 @@
+profile:
+  id: tir:profile.red-umbrella-public-web
+  version: 0.1.0
+  status: active-draft
+  purpose: professional Persian marketing and knowledge website
+
+principles:
+  - custom art direction before component selection
+  - semantic and framework-neutral public output
+  - progressive enhancement
+  - source traceability
+  - conversion and business value before visual novelty
+  - mobile and desktop in one responsive codebase
+
+production_default:
+  markup: semantic-html
+  styling:
+    system: custom-css
+    tokens: css-custom-properties
+    layout: [css-grid, flexbox]
+  scripting:
+    system: modular-vanilla-javascript
+    policy: minimal-runtime
+  cms_target: wordpress
+  static_target: html
+  source_control: github
+  rtl: mandatory
+  primary_language: fa
+
+approved_reference_stack:
+  accessibility_and_interaction:
+    primary: [tir:react-aria-components]
+    compare_with: [tir:radix-primitives, tir:base-ui, tir:headless-ui]
+    usage_mode: pattern-and-poc
+  source_owned_components:
+    conditional: [tir:shadcn-ui]
+    usage_mode: redesign-required
+  design_system_governance:
+    references: [tir:carbon-design-system]
+  application_ui:
+    conditional: [tir:material-ui, tir:chakra-ui, tir:mantine, tir:ant-design]
+    allowed_scope: [dashboard, admin, internal-tool, data-heavy-application]
+
+prohibited_defaults:
+  - React runtime for every public page
+  - copying a library theme as Red Umbrella design
+  - consecutive generic card grids
+  - dashboard visual language on public marketing pages
+  - component-first page architecture
+  - unverified RTL behavior
+  - interaction without business or comprehension purpose
+
+page_composition_palette:
+  - editorial narrative
+  - full-bleed visual
+  - sticky chapter
+  - interactive explorer
+  - filterable catalog
+  - structured comparison
+  - timeline and process
+  - project evidence
+  - video and media sequence
+  - knowledge graph relationships
+  - contextual capability proof
+  - conversion pathway
+
+required_validation:
+  browsers: [Safari-iOS, Safari-macOS, Chromium]
+  viewports: [mobile-portrait, mobile-landscape, desktop]
+  accessibility: [keyboard, focus, screen-reader-semantics, reduced-motion]
+  localization: [Persian-copy, RTL-layout, Persian-numerals-where-approved]
+  business: [intent-match, journey-continuity, CTA-validity, evidence]
+  technical: [performance, dependency-audit, schema, no-console-errors]
+
+current_build_target:
+  page: /structures
+  design_baseline: Structure-v16-approved
+  runtime_rule: no-framework-by-default
+  next_registry: motion-and-animation
