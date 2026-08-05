@@ -1,0 +1,43 @@
+uid: DEC-RU-000001
+type: decision_record
+name: Global Writing Promotion Decision
+status: approved
+version: 1.0.0
+source_language: fa
+project_uid: PRJ-000001
+created_at: 2026-08-05
+actor: human
+decision_type: content
+
+inputs:
+  - user requires fluent Persian writing across all projects
+  - writing must align with query and persona
+  - output must pass Google SEO and AI readability requirements
+  - Red Umbrella final writing remains subject to owner final approval
+
+selected_option:
+  id: hybrid_promotion
+  description: اصول عمومی نگارش فوراً وارد هسته RUOS شوند؛ سبک نهایی چتر قرمز در سطح پروژه تکامل یابد و پس از تایید نهایی مالک به مرجع سراسری ارتقا پیدا کند.
+
+rationale:
+  - نیاز مشترک همه پروژه‌های آژانس به نگارش فارسی روان و هدفمند
+  - جلوگیری از قفل‌کردن زودهنگام سبک نهایی قبل از تایید مالک
+  - امکان استفاده مجدد بدون از بین بردن هویت هر برند
+
+applied_rules:
+  - RUL-000305
+  - RUL-RU-000001
+
+graph_references:
+  - PRJ-000001
+  - REG-RU-000001
+  - SRC-RU-000001
+
+approval_status: approved
+approved_by: Red Umbrella owner
+confidence: 1.0
+risks:
+  - تعمیم زودهنگام جزئیات لحن چتر قرمز به برندهای دیگر
+mitigations:
+  - global core contains only universal principles
+  - brand-specific voice remains project-scoped until final approval
