@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ruos.local/schemas/tir-tool-record-v0.1.schema.json",
+  "title": "RUOS Technology Intelligence Tool Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "category",
+    "official_sources",
+    "license",
+    "cost",
+    "runtime",
+    "documented_strengths",
+    "ruos_assessment",
+    "last_verified"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^tir:[a-z0-9][a-z0-9._-]+$"},
+    "name": {"type": "string", "minLength": 1},
+    "category": {"type": "string"},
+    "official_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type", "url"],
+        "properties": {
+          "type": {"enum": ["repository", "documentation", "license", "security", "pricing"]},
+          "url": {"type": "string", "format": "uri"}
+        }
+      }
+    },
+    "license": {
+      "type": "object",
+      "required": ["model", "open_source"],
+      "properties": {
+        "model": {"type": "string"},
+        "open_source": {"type": "boolean"},
+        "notes": {"type": "string"}
+      }
+    },
+    "cost": {
+      "type": "object",
+      "required": ["free_core", "paid_layer"],
+      "properties": {
+        "free_core": {"type": "boolean"},
+        "paid_layer": {"enum": ["none-documented", "optional", "required", "unknown"]},
+        "notes": {"type": "string"}
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "required": ["frameworks", "ownership_model"],
+      "properties": {
+        "frameworks": {"type": "array", "items": {"type": "string"}},
+        "ownership_model": {"enum": ["dependency", "source-owned", "reference-only"]},
+        "wordpress_portability": {"enum": ["native", "high", "conditional", "low", "not-assessed"]}
+      }
+    },
+    "documented_strengths": {"type": "array", "items": {"type": "string"}},
+    "documented_rtl": {"enum": ["yes", "partial", "not-documented", "not-assessed"]},
+    "ruos_assessment": {
+      "type": "object",
+      "required": ["role", "marketing_site_fit", "app_ui_fit", "brand_freedom", "decision"],
+      "properties": {
+        "role": {"enum": ["preferred-foundation", "conditional-runtime", "reference-governance", "not-default"]},
+        "marketing_site_fit": {"type": "integer", "minimum": 1, "maximum": 5},
+        "app_ui_fit": {"type": "integer", "minimum": 1, "maximum": 5},
+        "brand_freedom": {"type": "integer", "minimum": 1, "maximum": 5},
+        "decision": {"type": "string"},
+        "approved_uses": {"type": "array", "items": {"type": "string"}},
+        "prohibited_uses": {"type": "array", "items": {"type": "string"}},
+        "validation_required": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "last_verified": {"type": "string", "format": "date"},
+    "assessment_status": {"enum": ["provisional", "validated", "deprecated"]}
+  }
+}
