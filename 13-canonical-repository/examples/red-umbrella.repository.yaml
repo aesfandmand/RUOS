@@ -1,0 +1,173 @@
+repository:
+  uid: ruos:project:red-umbrella:repository:canonical
+  name: Red Umbrella Canonical Repository
+  version: 0.1.0
+  status: approved
+  default_language: fa
+  supported_languages:
+    - fa
+    - en
+    - ar
+    - ku
+  source_of_truth: true
+
+namespaces:
+  - id: ruos-global
+    kind: global
+    root: 01-enterprise/shared
+    inheritance_rank: 0
+    owner: RUOS
+    description: دانش و دارایی قابل استفاده در همه پروژه‌ها
+
+  - id: advertising-industry
+    kind: industry
+    root: 02-domains/advertising
+    inheritance_rank: 10
+    owner: RUOS
+    description: دانش مشترک تبلیغات، رسانه و بازاریابی
+
+  - id: red-umbrella-project
+    kind: project
+    root: 03-projects/red-umbrella
+    inheritance_rank: 20
+    owner: Red Umbrella
+    description: دانش و تصمیم‌های اختصاصی پروژه وب‌سایت چتر قرمز
+
+  - id: red-umbrella-brand
+    kind: brand
+    root: 03-projects/red-umbrella/brand
+    inheritance_rank: 30
+    owner: Red Umbrella
+    description: هویت، صدا، طراحی و قواعد برند چتر قرمز
+
+  - id: red-umbrella-wordpress
+    kind: implementation
+    root: 16-integrations/wordpress/red-umbrella
+    inheritance_rank: 40
+    owner: Red Umbrella Web Unit
+    description: نگاشت اشیای مرجع به WordPress
+
+projects:
+  - uid: ruos:project:red-umbrella
+    slug: red-umbrella
+    status: active
+    namespace: red-umbrella-project
+    primary_language: fa
+    future_languages:
+      - en
+      - ar
+      - ku
+    translation_gate: approved_primary_source
+    manifest_path: 03-projects/red-umbrella/project.repository.yaml
+    routes_path: 03-projects/red-umbrella/project.routes.yaml
+    rules_path: 03-projects/red-umbrella/project.rules.yaml
+    sources_path: 03-projects/red-umbrella/project.sources.yaml
+    design_baselines:
+      - scope: global-shell
+        reference: approved-home-shell
+        status: approved
+      - scope: structure-page
+        reference: structure-v16
+        status: approved
+
+governance:
+  source_priority:
+    - latest_explicit_client_decision
+    - later_locked_document
+    - live_change_log
+    - approved_architecture_and_data_model
+    - approved_design_baseline
+    - working_draft
+  production_statuses:
+    - approved
+    - canonical
+    - published
+  approval_required_for:
+    - strategic_change
+    - architecture_change
+    - brand_change
+    - canonical_promotion
+    - translation_release
+    - publication
+  preserve_superseded_history: true
+  forbid_silent_override: true
+
+validation:
+  fail_on:
+    - duplicate_uid
+    - missing_required_field
+    - invalid_status
+    - unresolved_required_reference
+    - pending_fact_in_production
+    - silent_canonical_override
+  warn_on:
+    - missing_evidence
+    - missing_owner
+    - orphan_page
+    - missing_capability_layer
+    - missing_knowledge_graph_scope
+    - weak_relationship_coverage
+
+canonical_routes:
+  - uid: ruos:project:red-umbrella:route:structures
+    path: /structures
+    page_uid: ruos:project:red-umbrella:page:structures-hub
+    role: master_knowledge_and_data_source
+    conversion_paths:
+      - ruos:project:red-umbrella:route:indoor-structure-purchase
+      - ruos:project:red-umbrella:route:outdoor-structure-purchase
+      - ruos:project:red-umbrella:route:investment
+      - ruos:project:red-umbrella:route:rental-campaign
+    forbidden_roles:
+      - primary_sales_page
+      - primary_investment_page
+      - primary_rental_page
+
+  - uid: ruos:project:red-umbrella:route:investment
+    path: /investment
+    role: investment_hub
+    primary_audiences:
+      - space_owner
+      - municipality
+      - organization
+      - investor
+
+  - uid: ruos:project:red-umbrella:route:indoor-structure-purchase
+    path: /structures/indoor-purchase
+    role: purchase_conversion
+    primary_audiences:
+      - business_owner
+      - retail
+      - mall
+      - parking
+      - gas_station
+
+  - uid: ruos:project:red-umbrella:route:outdoor-structure-purchase
+    path: /structures/outdoor-purchase
+    role: organizational_purchase_conversion
+    primary_audiences:
+      - municipality
+      - government_organization
+      - organization_with_installation_capacity
+
+  - uid: ruos:project:red-umbrella:route:rental-campaign
+    path: /campaigns/outdoor-media
+    role: media_rental_and_campaign
+    primary_audiences:
+      - advertiser
+      - marketing_manager
+      - brand_manager
+
+canonical_objects:
+  - uid: ruos:project:red-umbrella:page:structures-hub
+    source: 12-gcera-dsl/examples/red-umbrella-structures-hub.yaml
+    status: approved
+
+  - uid: ruos:project:red-umbrella:entity:structure:unipole
+    source: 12-gcera-dsl/examples/red-umbrella-unipole.yaml
+    status: pending
+    production_rule: render_only_verified_fields
+
+  - uid: ruos:project:red-umbrella:decision:structure-master-mission
+    source: 11-knowledge-migration/red-umbrella/structure/structure-architecture-decisions-v1.md
+    status: canonical
