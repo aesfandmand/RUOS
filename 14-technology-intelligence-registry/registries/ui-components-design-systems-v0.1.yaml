@@ -1,0 +1,298 @@
+registry:
+  id: tir:registry.ui-design-systems
+  version: 0.1.0
+  status: active-draft
+  last_verified: 2026-08-05
+  assessment_note: >-
+    امتیازهای RUOS ارزیابی داخلی و موقت‌اند؛ اطلاعات License و ویژگی‌های مستند
+    از منابع رسمی ثبت شده‌اند. پذیرش Production نیازمند PoC و QC واقعی است.
+
+tools:
+  - id: tir:react-aria-components
+    name: React Aria Components
+    category: accessible-interaction-primitives
+    official_sources:
+      - {type: repository, url: "https://github.com/adobe/react-spectrum"}
+      - {type: documentation, url: "https://react-spectrum.adobe.com/react-aria/"}
+    license: {model: Apache-2.0, open_source: true}
+    cost: {free_core: true, paid_layer: none-documented}
+    runtime:
+      frameworks: [React]
+      ownership_model: dependency
+      wordpress_portability: low
+    documented_strengths:
+      - accessible components and hooks
+      - adaptive interaction for mouse, touch and keyboard
+      - internationalization and RTL support
+      - unstyled building blocks for custom design systems
+    documented_rtl: yes
+    ruos_assessment:
+      role: preferred-foundation
+      marketing_site_fit: 4
+      app_ui_fit: 5
+      brand_freedom: 5
+      decision: >-
+        مرجع اول برای رفتار، دسترس‌پذیری و RTL در Componentهای پیچیده؛
+        Runtime فقط در ماژول‌های React توجیه‌شده.
+      approved_uses: [interaction-specification, accessibility-reference, react-modules]
+      prohibited_uses: [forcing-react-on-static-pages, visual-style-copy]
+      validation_required: [Persian RTL, Mobile Safari, bundle impact]
+    assessment_status: provisional
+    last_verified: 2026-08-05
+
+  - id: tir:radix-primitives
+    name: Radix Primitives
+    category: accessible-interaction-primitives
+    official_sources:
+      - {type: repository, url: "https://github.com/radix-ui/primitives"}
+      - {type: license, url: "https://github.com/radix-ui/primitives/blob/main/LICENSE"}
+    license: {model: MIT, open_source: true}
+    cost: {free_core: true, paid_layer: none-documented}
+    runtime:
+      frameworks: [React]
+      ownership_model: dependency
+      wordpress_portability: low
+    documented_strengths:
+      - unstyled primitives
+      - accessibility-oriented component foundation
+      - suitable for custom design systems
+    documented_rtl: not-assessed
+    ruos_assessment:
+      role: preferred-foundation
+      marketing_site_fit: 4
+      app_ui_fit: 5
+      brand_freedom: 5
+      decision: >-
+        برای Dialog، Menu، Tabs، Tooltip و رفتارهای پیچیده مناسب است؛
+        ظاهر آماده آن نباید وارد زبان بصری چتر قرمز شود.
+      approved_uses: [interaction-primitives, prototype, react-modules]
+      prohibited_uses: [default-theme-copy, full-site-react-without-need]
+      validation_required: [RTL, hydration, Mobile Safari]
+    assessment_status: provisional
+    last_verified: 2026-08-05
+
+  - id: tir:base-ui
+    name: Base UI
+    category: accessible-interaction-primitives
+    official_sources:
+      - {type: repository, url: "https://github.com/mui/base-ui"}
+      - {type: documentation, url: "https://base-ui.com/"}
+    license: {model: MIT, open_source: true}
+    cost: {free_core: true, paid_layer: none-documented}
+    runtime:
+      frameworks: [React]
+      ownership_model: dependency
+      wordpress_portability: low
+    documented_strengths:
+      - unstyled accessible components
+      - foundation for web apps and design systems
+    documented_rtl: not-assessed
+    ruos_assessment:
+      role: preferred-foundation
+      marketing_site_fit: 4
+      app_ui_fit: 5
+      brand_freedom: 5
+      decision: گزینه جایگزین Radix برای PoC تطبیقی؛ پذیرش نهایی پس از تست RTL و Safari.
+      approved_uses: [interaction-primitives, react-modules, comparative-poc]
+      prohibited_uses: [unverified-production-adoption]
+      validation_required: [RTL, API stability, Mobile Safari]
+    assessment_status: provisional
+    last_verified: 2026-08-05
+
+  - id: tir:headless-ui
+    name: Headless UI
+    category: headless-components
+    official_sources:
+      - {type: repository, url: "https://github.com/tailwindlabs/headlessui"}
+      - {type: documentation, url: "https://headlessui.com/"}
+    license: {model: MIT, open_source: true}
+    cost: {free_core: true, paid_layer: none-documented}
+    runtime:
+      frameworks: [React, Vue]
+      ownership_model: dependency
+      wordpress_portability: conditional
+    documented_strengths:
+      - completely unstyled components
+      - accessibility-focused behavior
+      - Tailwind integration
+    documented_rtl: not-assessed
+    ruos_assessment:
+      role: conditional-runtime
+      marketing_site_fit: 4
+      app_ui_fit: 4
+      brand_freedom: 5
+      decision: فقط وقتی Tailwind و React یا Vue در Build Profile تصویب شده باشند.
+      approved_uses: [tailwind-react, tailwind-vue, prototype]
+      prohibited_uses: [framework-introduction-without-business-value]
+      validation_required: [RTL, keyboard, dependency cost]
+    assessment_status: provisional
+    last_verified: 2026-08-05
+
+  - id: tir:shadcn-ui
+    name: shadcn/ui
+    category: source-owned-component-distribution
+    official_sources:
+      - {type: repository, url: "https://github.com/shadcn-ui/ui"}
+      - {type: license, url: "https://github.com/shadcn-ui/ui/blob/main/LICENSE.md"}
+    license: {model: MIT, open_source: true, notes: retain applicable license notices}
+    cost: {free_core: true, paid_layer: unknown}
+    runtime:
+      frameworks: [React-ecosystem]
+      ownership_model: source-owned
+      wordpress_portability: conditional
+    documented_strengths:
+      - accessible components
+      - open code distribution model
+      - project-owned component source after installation
+    documented_rtl: not-assessed
+    ruos_assessment:
+      role: conditional-runtime
+      marketing_site_fit: 3
+      app_ui_fit: 5
+      brand_freedom: 4
+      decision: >-
+        برای سرعت ساخت Componentهای تعاملی مفید است، اما Default Look آن خطر تولید
+        سایت شبیه Dashboard و ترکیب کارت‌ها را دارد؛ هر Component باید بازطراحی شود.
+      approved_uses: [source-owned-components, admin-ui, complex-interactions]
+      prohibited_uses: [copy-paste-page-composition, default-card-aesthetic, brand-direction]
+      validation_required: [license notices, RTL, source audit, visual differentiation]
+    assessment_status: provisional
+    last_verified: 2026-08-05
+
+  - id: tir:material-ui
+    name: Material UI
+    category: styled-enterprise-component-library
+    official_sources:
+      - {type: repository, url: "https://github.com/mui/material-ui"}
+    license: {model: MIT, open_source: true, notes: core repository}
+    cost: {free_core: true, paid_layer: unknown}
+    runtime:
+      frameworks: [React]
+      ownership_model: dependency
+      wordpress_portability: low
+    documented_strengths:
+      - comprehensive React component library
+      - independent implementation of Material Design
+      - long-running open-source project
+    documented_rtl: not-assessed
+    ruos_assessment:
+      role: not-default
+      marketing_site_fit: 2
+      app_ui_fit: 5
+      brand_freedom: 2
+      decision: مناسب Dashboard و سامانه داخلی؛ برای سایت برندمحور چتر قرمز پیش‌فرض نیست.
+      approved_uses: [dashboard, internal-tools, data-heavy-apps]
+      prohibited_uses: [brand-marketing-default, public-page-design-direction]
+      validation_required: [RTL, bundle, theme divergence]
+    assessment_status: provisional
+    last_verified: 2026-08-05
+
+  - id: tir:chakra-ui
+    name: Chakra UI
+    category: styled-component-system
+    official_sources:
+      - {type: repository, url: "https://github.com/chakra-ui/chakra-ui"}
+    license: {model: MIT, open_source: true}
+    cost: {free_core: true, paid_layer: unknown}
+    runtime:
+      frameworks: [React]
+      ownership_model: dependency
+      wordpress_portability: low
+    documented_strengths:
+      - component system for SaaS products
+      - accessibility-oriented component ecosystem
+    documented_rtl: not-assessed
+    ruos_assessment:
+      role: not-default
+      marketing_site_fit: 2
+      app_ui_fit: 4
+      brand_freedom: 3
+      decision: برای پنل و SaaS مناسب‌تر از وب‌سایت روایت‌محور و برندمحور است.
+      approved_uses: [dashboard, saas-ui, internal-tools]
+      prohibited_uses: [default-public-site-composition]
+      validation_required: [RTL, visual differentiation, bundle]
+    assessment_status: provisional
+    last_verified: 2026-08-05
+
+  - id: tir:mantine
+    name: Mantine
+    category: full-featured-component-library
+    official_sources:
+      - {type: repository, url: "https://github.com/mantinedev/mantine"}
+    license: {model: MIT, open_source: true}
+    cost: {free_core: true, paid_layer: none-documented}
+    runtime:
+      frameworks: [React]
+      ownership_model: dependency
+      wordpress_portability: low
+    documented_strengths:
+      - fully featured React component library
+      - broad component and hooks coverage
+    documented_rtl: not-assessed
+    ruos_assessment:
+      role: not-default
+      marketing_site_fit: 2
+      app_ui_fit: 4
+      brand_freedom: 3
+      decision: گزینه سریع برای ابزارهای داخلی؛ نه پایه Art Direction سایت عمومی.
+      approved_uses: [internal-tools, prototypes, data-interfaces]
+      prohibited_uses: [marketing-site-default]
+      validation_required: [RTL, bundle, visual-system-fit]
+    assessment_status: provisional
+    last_verified: 2026-08-05
+
+  - id: tir:ant-design
+    name: Ant Design
+    category: enterprise-application-design-system
+    official_sources:
+      - {type: repository, url: "https://github.com/ant-design/ant-design"}
+    license: {model: MIT, open_source: true}
+    cost: {free_core: true, paid_layer: unknown}
+    runtime:
+      frameworks: [React]
+      ownership_model: dependency
+      wordpress_portability: low
+    documented_strengths:
+      - enterprise-class UI design language
+      - extensive React component coverage
+    documented_rtl: not-assessed
+    ruos_assessment:
+      role: not-default
+      marketing_site_fit: 1
+      app_ui_fit: 5
+      brand_freedom: 2
+      decision: مناسب سامانه‌های عملیاتی سازمانی؛ برای وب‌سایت چتر قرمز تنها در پنل‌های مستقل.
+      approved_uses: [enterprise-app, admin, operational-system]
+      prohibited_uses: [public-brand-site, marketing-page-look]
+      validation_required: [RTL, localization, bundle]
+    assessment_status: provisional
+    last_verified: 2026-08-05
+
+  - id: tir:carbon-design-system
+    name: Carbon Design System
+    category: design-system-governance
+    official_sources:
+      - {type: repository, url: "https://github.com/carbon-design-system/carbon"}
+      - {type: documentation, url: "https://carbondesignsystem.com/"}
+    license: {model: Apache-2.0, open_source: true}
+    cost: {free_core: true, paid_layer: none-documented}
+    runtime:
+      frameworks: [React, Svelte, SCSS]
+      ownership_model: reference-only
+      wordpress_portability: conditional
+    documented_strengths:
+      - open-source design system built by IBM
+      - code, design tools, resources and interface guidelines
+      - token, typography, layout and motion foundations
+    documented_rtl: not-assessed
+    ruos_assessment:
+      role: reference-governance
+      marketing_site_fit: 3
+      app_ui_fit: 5
+      brand_freedom: 2
+      decision: مرجع بلوغ Design System و Governance؛ ظاهر IBM نباید کپی شود.
+      approved_uses: [governance-reference, token-architecture, documentation-patterns]
+      prohibited_uses: [visual-cloning, brand-layer-adoption]
+      validation_required: [license, pattern adaptation]
+    assessment_status: provisional
+    last_verified: 2026-08-05
