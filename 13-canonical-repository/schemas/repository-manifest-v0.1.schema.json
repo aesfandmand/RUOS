@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ruos.local/schemas/repository-manifest-v0.1.schema.json",
+  "title": "RUOS Canonical Repository Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "repository",
+    "namespaces",
+    "projects",
+    "governance",
+    "validation"
+  ],
+  "properties": {
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uid", "name", "version", "status", "default_language"],
+      "properties": {
+        "uid": {"type": "string", "pattern": "^ruos:[a-z0-9._:-]+$"},
+        "name": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?$"},
+        "status": {
+          "type": "string",
+          "enum": ["draft", "candidate", "review", "approved", "canonical", "published", "deprecated", "archived"]
+        },
+        "default_language": {"type": "string", "minLength": 2},
+        "supported_languages": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 2},
+          "uniqueItems": true
+        },
+        "source_of_truth": {"type": "boolean", "default": true}
+      }
+    },
+    "namespaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/namespace"}
+    },
+    "projects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/project"}
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_priority", "production_statuses", "approval_required_for"],
+      "properties": {
+        "source_priority": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "production_statuses": {
+          "type": "array",
+          "items": {"enum": ["approved", "canonical", "published"]},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "approval_required_for": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "strategic_change",
+              "architecture_change",
+              "brand_change",
+              "canonical_promotion",
+              "translation_release",
+              "publication"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "preserve_superseded_history": {"type": "boolean", "const": true},
+        "forbid_silent_override": {"type": "boolean", "const": true}
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fail_on", "warn_on"],
+      "properties": {
+        "fail_on": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "duplicate_uid",
+              "missing_required_field",
+              "invalid_status",
+              "unresolved_required_reference",
+              "pending_fact_in_production",
+              "silent_canonical_override"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "warn_on": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "missing_evidence",
+              "missing_owner",
+              "orphan_page",
+              "missing_capability_layer",
+              "missing_knowledge_graph_scope",
+              "weak_relationship_coverage"
+            ]
+          },
+          "uniqueItems": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "namespace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "root", "inheritance_rank"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$"},
+        "kind": {
+          "type": "string",
+          "enum": ["global", "industry", "project", "brand", "implementation", "archive"]
+        },
+        "root": {"type": "string", "minLength": 1},
+        "inheritance_rank": {"type": "integer", "minimum": 0},
+        "owner": {"type": "string"},
+        "description": {"type": "string"}
+      }
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "uid",
+        "slug",
+        "status",
+        "namespace",
+        "primary_language",
+        "manifest_path",
+        "routes_path"
+      ],
+      "properties": {
+        "uid": {"type": "string", "pattern": "^ruos:project:[a-z0-9._:-]+$"},
+        "slug": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+        "status": {
+          "type": "string",
+          "enum": ["active", "paused", "archived"]
+        },
+        "namespace": {"type": "string", "minLength": 1},
+        "primary_language": {"type": "string", "minLength": 2},
+        "future_languages": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 2},
+          "uniqueItems": true
+        },
+        "translation_gate": {
+          "type": "string",
+          "enum": ["approved_primary_source", "manual_approval", "not_enabled"]
+        },
+        "manifest_path": {"type": "string", "minLength": 1},
+        "routes_path": {"type": "string", "minLength": 1},
+        "rules_path": {"type": "string"},
+        "sources_path": {"type": "string"},
+        "design_baselines": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["scope", "reference", "status"],
+            "properties": {
+              "scope": {"type": "string", "minLength": 1},
+              "reference": {"type": "string", "minLength": 1},
+              "status": {"enum": ["approved", "canonical", "superseded"]}
+            }
+          }
+        }
+      }
+    }
+  }
+}
