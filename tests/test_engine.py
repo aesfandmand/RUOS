@@ -37,6 +37,7 @@ def test_build_id_and_artifact_hashes_are_reproducible(tmp_path: Path) -> None:
 
     assert second_manifest["build_id"] == first_manifest["build_id"]
     assert second_manifest["sha256"] == first_manifest["sha256"]
+    assert second_manifest["pattern_plan_sha256"] == first_manifest["pattern_plan_sha256"]
     assert (second.output_dir / "index.html").read_bytes() == first_html
     assert not list(tmp_path.glob(".ruos-structures-*"))
     assert not (tmp_path / ".structures.previous").exists()
@@ -53,4 +54,8 @@ def test_manifest_only_lists_public_artifacts(tmp_path: Path) -> None:
     ]
     assert manifest["page"] == "structures"
     assert manifest["passed"] is True
+    assert manifest["pattern_plan"]["narrative_arc"] == "discover-understand-decide-act"
+    assert manifest["pattern_plan"]["global_motif"] == "red-umbrella-orbit"
+    assert len(manifest["pattern_plan"]["sections"]) == 5
+    assert len(manifest["pattern_plan_sha256"]) == 64
     assert all(len(value) == 64 for value in manifest["sha256"].values())
