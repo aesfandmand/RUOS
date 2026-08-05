@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import shutil
+import tempfile
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -11,19 +14,64 @@ from .qa import evaluate
 from .render import render_css, render_document, render_runtime
 
 
+ENGINE_NAME = "ruos-engine"
+ENGINE_VERSION = "0.2.0"
+
+
 class BuildRejected(RuntimeError):
+    pass
+
+
+class BuildFailure(RuntimeError):
     pass
 
 
 def _write(path: Path, content: str) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(content, encoding="utf-8")
+    path.write_text(content, encoding="utf-8", newline="\n")
     return path
+
+
+def _digest(content: str) -> str:
+    return hashlib.sha256(content.encode("utf-8")).hexdigest()
+
+
+def _canonical_payload(page: PageSpec, html: str, css: str, runtime: str) -> dict[str, object]:
+    return {
+        "engine": ENGINE_NAME,
+        "engine_version": ENGINE_VERSION,
+        "page": page.slug,
+        "visual_profile": page.visual_profile,
+        "spec": asdict(page),
+        "artifacts": {
+            "index.html": _digest(html),
+            "assets/styles.css": _digest(css),
+            "assets/runtime.js": _digest(runtime),
+        },
+    }
+
+
+def _atomic_publish(staging_dir: Path, output_dir: Path) -> None:
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    backup_dir = output_dir.with_name(f".{output_dir.name}.previous")
+    if backup_dir.exists():
+        shutil.rmtree(backup_dir)
+    if output_dir.exists():
+        output_dir.replace(backup_dir)
+    try:
+        staging_dir.replace(output_dir)
+    except OSError as exc:
+        if backup_dir.exists() and not output_dir.exists():
+            backup_dir.replace(output_dir)
+        raise BuildFailure(f"Unable to publish build for {output_dir.name}: {exc}") from exc
+    else:
+        if backup_dir.exists():
+            shutil.rmtree(backup_dir)
 
 
 def compile_page(page: PageSpec, context: BuildContext) -> BuildResult:
     output_dir = context.output_root / page.slug
-    assets_dir = output_dir / "assets"
+    context.output_root.mkdir(parents=True, exist_ok=True)
 
     html = render_document(page)
     css = render_css()
@@ -35,39 +83,58 @@ def compile_page(page: PageSpec, context: BuildContext) -> BuildResult:
         summary = "; ".join(f"{gate.gate}: {', '.join(gate.failures)}" for gate in rejected)
         raise BuildRejected(summary)
 
-    files = (
-        _write(output_dir / "index.html", html),
-        _write(assets_dir / "styles.css", css),
-        _write(assets_dir / "runtime.js", runtime),
-    )
+    payload = _canonical_payload(page, html, css, runtime)
+    build_id = hashlib.sha256(
+        json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()[:16]
 
-    manifest = {
-        "engine": "ruos-engine",
-        "engine_version": "0.1.0",
-        "page": page.slug,
-        "visual_profile": page.visual_profile,
-        "built_at": datetime.now(timezone.utc).isoformat(),
-        "strict": context.strict,
-        "passed": all(gate.passed for gate in gates),
-        "files": [str(path.relative_to(output_dir)) for path in files],
-        "sha256": {
-            str(path.relative_to(output_dir)): hashlib.sha256(path.read_bytes()).hexdigest()
-            for path in files
-        },
-        "gates": [asdict(gate) for gate in gates],
-    }
-    manifest_path = _write(
-        output_dir / "build-manifest.json",
-        json.dumps(manifest, ensure_ascii=False, indent=2),
+    staging_root = Path(
+        tempfile.mkdtemp(prefix=f".ruos-{page.slug}-", dir=str(context.output_root))
     )
-    qa_path = _write(
-        output_dir / "qa-report.json",
-        json.dumps([asdict(gate) for gate in gates], ensure_ascii=False, indent=2),
-    )
+    try:
+        assets_dir = staging_root / "assets"
+        files = (
+            _write(staging_root / "index.html", html),
+            _write(assets_dir / "styles.css", css),
+            _write(assets_dir / "runtime.js", runtime),
+        )
+        built_at = datetime.now(timezone.utc).isoformat()
+        manifest = {
+            **payload,
+            "build_id": build_id,
+            "built_at": built_at,
+            "strict": context.strict,
+            "passed": all(gate.passed for gate in gates),
+            "files": [str(path.relative_to(staging_root)) for path in files],
+            "sha256": {
+                str(path.relative_to(staging_root)): hashlib.sha256(path.read_bytes()).hexdigest()
+                for path in files
+            },
+            "gates": [asdict(gate) for gate in gates],
+        }
+        manifest_path = _write(
+            staging_root / "build-manifest.json",
+            json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True),
+        )
+        qa_path = _write(
+            staging_root / "qa-report.json",
+            json.dumps([asdict(gate) for gate in gates], ensure_ascii=False, indent=2),
+        )
+        _write(staging_root / ".ruos-build", f"{build_id}\n")
+        _atomic_publish(staging_root, output_dir)
+    except Exception:
+        if staging_root.exists():
+            shutil.rmtree(staging_root, ignore_errors=True)
+        raise
 
+    published_files = tuple(output_dir / path.relative_to(staging_root) for path in files)
+    published_manifest = output_dir / manifest_path.relative_to(staging_root)
+    published_qa = output_dir / qa_path.relative_to(staging_root)
+
+    os.utime(output_dir, None)
     return BuildResult(
         page=page,
         output_dir=output_dir,
-        files=files + (manifest_path, qa_path),
+        files=published_files + (published_manifest, published_qa),
         gates=gates,
     )
