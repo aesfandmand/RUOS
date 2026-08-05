@@ -1,0 +1,35 @@
+uid: ENG-000015
+type: engine
+name: Migration Engine
+status: active
+version: 3.0.0-alpha.3
+source_language: fa
+purpose:
+  fa: انتقال کنترل‌شده اسناد، داده‌ها و دانش پروژه‌ها به ساختار Entity و Graph در RUOS
+migration_types:
+  - document_to_entities
+  - legacy_to_current
+  - project_to_shared_core
+  - language_version
+  - schema_upgrade
+pipeline:
+  - {id: MIG-01, name: inventory_sources, output: source_inventory}
+  - {id: MIG-02, name: classify_sources, output: classified_sources}
+  - {id: MIG-03, name: extract_candidates, output: entity_candidates}
+  - {id: MIG-04, name: detect_duplicates, output: duplicate_report}
+  - {id: MIG-05, name: map_relationships, output: relationship_candidates}
+  - {id: MIG-06, name: validate_provenance, output: provenance_report}
+  - {id: MIG-07, name: request_human_review, output: review_record}
+  - {id: MIG-08, name: register_approved_entities, output: migration_commit}
+hard_rules:
+  - {id: MIG-R001, rule: Source terminology and meaning must be preserved.}
+  - {id: MIG-R002, rule: Unsupported information must not be invented during migration.}
+  - {id: MIG-R003, rule: Every migrated entity must reference its source document.}
+  - {id: MIG-R004, rule: Conflicting locked sources require human resolution.}
+  - {id: MIG-R005, rule: Migration must be reversible and versioned.}
+outputs:
+  - source_inventory
+  - entity_candidates
+  - relationship_candidates
+  - conflict_report
+  - migration_commit
