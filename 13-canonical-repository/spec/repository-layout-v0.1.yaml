@@ -1,0 +1,300 @@
+specification:
+  uid: ruos:global:spec:canonical-repository:v0.1
+  name: Canonical Repository Specification
+  version: 0.1.0
+  status: implemented-draft
+  language: fa
+  purpose:
+    - define_one_source_of_truth
+    - enable_cross_project_reuse
+    - preserve_provenance_and_approval
+    - prepare_inputs_for_assembly_engine
+
+principles:
+  - one_canonical_object_many_views
+  - knowledge_before_pages
+  - capability_before_service_expression
+  - references_before_duplication
+  - approved_practice_before_theoretical_promotion
+  - preserve_history_do_not_overwrite
+
+namespaces:
+  global:
+    purpose: reusable_across_all_projects
+    path_root: 01-enterprise/shared
+  industry:
+    purpose: reusable_inside_a_domain_or_industry
+    path_root: 02-domains
+  project:
+    purpose: isolated_project_knowledge
+    path_root: 03-projects
+  brand:
+    purpose: brand_identity_voice_and_design
+    path_root: 03-projects/{project}/brand
+  implementation:
+    purpose: channel_or_technology_specific_material
+    path_root: 16-integrations
+  archive:
+    purpose: superseded_deprecated_or_historical_objects
+    path_root: 19-archive
+
+root_directories:
+  - id: governance
+    path: 00-governance
+    owns:
+      - constitution
+      - policies
+      - source_priority
+      - approval_rules
+      - inheritance_rules
+      - deprecation_rules
+  - id: enterprise
+    path: 01-enterprise
+    owns:
+      - organizations
+      - brands
+      - missions
+      - goals
+      - shared_registries
+  - id: domains
+    path: 02-domains
+    owns:
+      - industry_knowledge
+      - domain_ontologies
+      - shared_patterns
+  - id: projects
+    path: 03-projects
+    owns:
+      - project_manifest
+      - project_rules
+      - project_decisions
+      - project_mappings
+      - project_memory
+  - id: entities
+    path: 04-entities
+    owns:
+      - entity_records
+      - entity_taxonomies
+      - entity_relationships
+  - id: capabilities
+    path: 05-capabilities
+    owns:
+      - capability_records
+      - evidence
+      - inputs_outputs
+      - workflows
+  - id: knowledge
+    path: 06-knowledge
+    owns:
+      - rules
+      - decisions
+      - patterns
+      - faqs
+      - articles
+      - videos
+      - glossary
+      - research
+  - id: journeys
+    path: 07-journeys
+    owns:
+      - personas
+      - intents
+      - journey_maps
+      - conversions
+  - id: pages
+    path: 08-pages
+    owns:
+      - page_definitions
+      - routes
+      - assembly_manifests
+  - id: templates
+    path: 09-templates
+    owns:
+      - page_templates
+      - content_templates
+      - schema_templates
+  - id: design_system
+    path: 10-design-system
+    owns:
+      - tokens
+      - components
+      - interaction_patterns
+      - motion_patterns
+      - accessibility_rules
+  - id: writing_system
+    path: 11-writing-system
+    owns:
+      - language_standards
+      - tone
+      - vocabulary
+      - seo_writing
+      - ai_writing
+  - id: dsl
+    path: 12-gcera-dsl
+    owns:
+      - schemas
+      - examples
+      - validators
+  - id: repository_spec
+    path: 13-canonical-repository
+    owns:
+      - repository_contract
+      - path_rules
+      - manifests
+  - id: assembly
+    path: 14-assembly
+    owns:
+      - retrieval_rules
+      - block_selection
+      - composition
+      - output_profiles
+  - id: runtime
+    path: 15-runtime
+    owns:
+      - request_contracts
+      - execution_state
+      - runtime_validation
+  - id: integrations
+    path: 16-integrations
+    owns:
+      - github
+      - wordpress
+      - figma
+      - analytics
+      - crm
+  - id: tests
+    path: 17-tests
+    owns:
+      - schema_tests
+      - repository_tests
+      - assembly_tests
+      - qc_tests
+  - id: releases
+    path: 18-releases
+    owns:
+      - manifests
+      - changelogs
+      - migration_notes
+  - id: archive
+    path: 19-archive
+    owns:
+      - superseded
+      - deprecated
+      - historical
+
+canonical_object_contract:
+  required_fields:
+    - uid
+    - kind
+    - namespace
+    - version
+    - status
+    - title
+    - summary
+    - source
+    - governance
+    - relationships
+  optional_fields:
+    - aliases
+    - language
+    - attributes
+    - capabilities
+    - journeys
+    - knowledge_graph
+    - seo
+    - ai
+    - media
+    - lifecycle
+
+statuses:
+  allowed:
+    - draft
+    - candidate
+    - pending
+    - review
+    - approved
+    - canonical
+    - published
+    - superseded
+    - deprecated
+    - archived
+  production_eligible:
+    - approved
+    - canonical
+    - published
+
+uid_pattern:
+  format: ruos:{namespace}:{scope}:{kind}:{name}
+  examples:
+    - ruos:project:red-umbrella:page:structures-hub
+    - ruos:project:red-umbrella:entity:structure:unipole
+    - ruos:global:capability:knowledge-graph-architecture
+
+inheritance:
+  order:
+    - global
+    - industry
+    - project
+    - brand
+    - implementation
+  rules:
+    - child_may_extend_parent
+    - child_must_not_silently_overwrite_parent
+    - project_exception_requires_decision_reference
+    - locked_source_requires_provenance
+
+reference_rules:
+  canonical_reference: uid
+  local_reference: relative_path_allowed_with_uid
+  external_reference: requires_source_and_access_date
+  duplicate_fact_policy: prohibited
+  view_policy: reference_and_render
+
+project_contract:
+  required_files:
+    - project.repository.yaml
+    - project.rules.yaml
+    - project.sources.yaml
+    - project.routes.yaml
+  recommended_files:
+    - project.decisions.yaml
+    - project.capabilities.yaml
+    - project.memory.yaml
+    - project.languages.yaml
+
+validation:
+  fail_on:
+    - duplicate_uid
+    - missing_required_field
+    - invalid_status
+    - unresolved_required_reference
+    - production_use_of_pending_fact
+    - silent_override_of_canonical_object
+  warn_on:
+    - missing_evidence
+    - missing_owner
+    - weak_relationship_coverage
+    - orphan_page
+    - missing_capability_layer
+    - missing_knowledge_graph_scope
+
+red_umbrella_constraints:
+  primary_language: fa
+  later_languages:
+    - en
+    - ar
+    - ku
+  translation_gate: approved_persian_source_required
+  structure_page:
+    role: master_knowledge_and_data_source
+    not_roles:
+      - sales_page
+      - investment_page
+      - rental_page
+    design_baseline: structure-v16
+  route_separation:
+    - investment
+    - indoor_purchase
+    - outdoor_purchase
+    - rental_campaign
+    - structures_knowledge_hub
