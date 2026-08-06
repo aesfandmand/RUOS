@@ -191,7 +191,9 @@ class OpenSourceRegistry:
         matches = []
         for asset in self.assets:
             capabilities = {item.casefold() for item in asset.capabilities}
-            if asset.category != category or asset.composite_score < minimum_score:
+            if asset.category != category:
+                continue
+            if asset.composite_score < minimum_score or asset.production_score < minimum_score:
                 continue
             if not required.issubset(capabilities):
                 continue
