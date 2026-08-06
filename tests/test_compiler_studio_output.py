@@ -9,6 +9,10 @@ from ruos.spec_loader import load_page_spec
 
 EXPECTED_STUDIO_FILES = (
     "research.json",
+    "query-intelligence.json",
+    "competitive-analysis.json",
+    "pattern-selection.json",
+    "design-brief.json",
     "creative-direction.json",
     "art-direction.json",
     "ux-plan.json",
