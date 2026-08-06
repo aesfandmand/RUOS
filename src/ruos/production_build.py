@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from datetime import timedelta
 from pathlib import Path
 
 from .build_research_gate import require_verified_live_research
@@ -63,7 +64,7 @@ def verify_production_discovery(
         expected_query=_primary_query(page),
         expected_market=market,
         expected_language=page.lang,
-        max_age=__import__("datetime").timedelta(days=max_age_days),
+        max_age=timedelta(days=max_age_days),
         minimum_results=minimum_results,
     )
 
@@ -81,11 +82,12 @@ def _page_with_verified_inputs(
     if snapshot.sha256 != verified_research.snapshot_sha256:
         raise ProductionBuildError("Verified research snapshot changed before compilation")
 
-    metadata = dict(page.metadata)
-    metadata["verified_live_research"] = {
+    research_provenance: dict[str, object] = {
         **verified_research.payload(),
         "evidence": [item.payload() for item in snapshot.evidence],
     }
+    metadata = dict(page.metadata)
+
     if verified_discovery is not None:
         if context.discovery_snapshot_root is None:
             raise ProductionBuildError("Production build requires a discovery snapshot root")
@@ -93,10 +95,15 @@ def _page_with_verified_inputs(
         discovery = load_discovery(discovery_path)
         if discovery.sha256 != verified_discovery.sha256:
             raise ProductionBuildError("Verified search discovery changed before compilation")
-        metadata["verified_search_discovery"] = {
+        discovery_provenance = {
             **verified_discovery.payload(),
             "results": [item.payload() for item in discovery.results],
         }
+        metadata["verified_search_discovery"] = discovery_provenance
+        research_provenance["search_discovery"] = discovery_provenance
+        research_provenance["status"] = "verified-live-with-search-discovery"
+
+    metadata["verified_live_research"] = research_provenance
     return replace(page, metadata=metadata)
 
 
