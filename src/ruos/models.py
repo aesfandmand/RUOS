@@ -39,6 +39,8 @@ class BuildContext:
     research_snapshot_root: Path | None = None
     require_search_discovery: bool = False
     discovery_snapshot_root: Path | None = None
+    require_competitor_evidence: bool = False
+    competitor_snapshot_root: Path | None = None
 
 
 @dataclass(frozen=True)
