@@ -20,13 +20,17 @@ def _parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
 
     build = sub.add_parser("build", help="Compile one page specification")
-    build.add_argument("page", help="Page slug, for example: structures")
-    build.add_argument("--spec-root", default="pages", help="Directory containing page JSON specs")
-    build.add_argument("--output", default="dist", help="Build output directory")
-    build.add_argument("--no-strict", action="store_true", help="Write output even when a gate fails")
-    build.add_argument("--require-live-research", action="store_true", help="Require verified live research")
-    build.add_argument("--snapshot-root", default=".ruos/research", help="Verified research snapshots")
+    build.add_argument("page")
+    build.add_argument("--spec-root", default="pages")
+    build.add_argument("--output", default="dist")
+    build.add_argument("--no-strict", action="store_true")
+    build.add_argument("--require-live-research", action="store_true")
+    build.add_argument("--snapshot-root", default=".ruos/research")
     build.add_argument("--research-max-age-days", type=int, default=14)
+    build.add_argument("--require-search-discovery", action="store_true")
+    build.add_argument("--discovery-root", default=".ruos/discovery")
+    build.add_argument("--discovery-max-age-days", type=int, default=7)
+    build.add_argument("--discovery-minimum-results", type=int, default=5)
 
     research = sub.add_parser("research", help="Fetch configured live sources")
     research.add_argument("page")
@@ -37,7 +41,7 @@ def _parser() -> argparse.ArgumentParser:
     discover.add_argument("page")
     discover.add_argument("--spec-root", default="pages")
     discover.add_argument("--provider", choices=("brave", "serper"), default="brave")
-    discover.add_argument("--query", default="", help="Override the page primary query")
+    discover.add_argument("--query", default="")
     discover.add_argument("--market", default="ir")
     discover.add_argument("--language", default="fa")
     discover.add_argument("--count", type=int, default=10)
@@ -111,17 +115,28 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "discover":
             return _run_discovery(page, args, project_root)
 
-        snapshot_root = project_root / args.snapshot_root
+        if args.require_search_discovery and not args.require_live_research:
+            raise BuildRejected("Search discovery requires --require-live-research")
         context = BuildContext(
             project_root=project_root,
             output_root=project_root / args.output,
             strict=not args.no_strict,
             require_live_research=args.require_live_research,
-            research_snapshot_root=snapshot_root,
+            research_snapshot_root=project_root / args.snapshot_root,
+            require_search_discovery=args.require_search_discovery,
+            discovery_snapshot_root=project_root / args.discovery_root,
         )
         if args.require_live_research:
-            result, verified = compile_production_page(page, context, max_age_days=args.research_max_age_days)
+            result, verified, discovery = compile_production_page(
+                page,
+                context,
+                max_age_days=args.research_max_age_days,
+                discovery_max_age_days=args.discovery_max_age_days,
+                discovery_minimum_results=args.discovery_minimum_results,
+            )
             print(f"RUOS LIVE RESEARCH VERIFIED: {verified.source_count} sources snapshot={verified.snapshot_sha256}")
+            if discovery is not None:
+                print(f"RUOS SEARCH DISCOVERY VERIFIED: {discovery.result_count} results snapshot={discovery.sha256}")
         else:
             result = compile_page(page, context)
     except (SpecError, BuildRejected, LiveResearchError) as exc:
