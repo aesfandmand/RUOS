@@ -37,6 +37,8 @@ class BuildContext:
     strict: bool = True
     require_live_research: bool = False
     research_snapshot_root: Path | None = None
+    require_search_discovery: bool = False
+    discovery_snapshot_root: Path | None = None
 
 
 @dataclass(frozen=True)
