@@ -33,6 +33,10 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--discovery-root", default=".ruos/discovery")
     build.add_argument("--discovery-max-age-days", type=int, default=7)
     build.add_argument("--discovery-minimum-results", type=int, default=5)
+    build.add_argument("--require-competitor-evidence", action="store_true")
+    build.add_argument("--competitor-root", default=".ruos/competitors")
+    build.add_argument("--competitor-max-age-days", type=int, default=7)
+    build.add_argument("--competitor-minimum-pages", type=int, default=3)
 
     research = sub.add_parser("research", help="Fetch configured live sources")
     research.add_argument("page")
@@ -49,7 +53,7 @@ def _parser() -> argparse.ArgumentParser:
     discover.add_argument("--count", type=int, default=10)
     discover.add_argument("--output-root", default=".ruos/discovery")
 
-    competitors = sub.add_parser("research-competitors", help="Fetch top-ranked competitor pages")
+    competitors = sub.add_parser("research-competitors", help="Fetch pages from verified discovery results")
     competitors.add_argument("page")
     competitors.add_argument("--spec-root", default="pages")
     competitors.add_argument("--discovery-root", default=".ruos/discovery")
@@ -104,9 +108,7 @@ def _run_research(page, snapshot_path: Path) -> int:
 
 def _run_discovery(page, args, project_root: Path) -> int:
     query = args.query.strip() or _primary_query(page)
-    discovery = discover_search(
-        create_provider(args.provider), query, market=args.market, language=args.language, count=args.count
-    )
+    discovery = discover_search(create_provider(args.provider), query, market=args.market, language=args.language, count=args.count)
     output = project_root / args.output_root / f"{page.slug}.json"
     write_discovery(discovery, output)
     print(f"RUOS SEARCH DISCOVERY: {output}")
@@ -115,23 +117,13 @@ def _run_discovery(page, args, project_root: Path) -> int:
 
 
 def _run_competitor_research(page, args, project_root: Path) -> int:
-    discovery_path = project_root / args.discovery_root / f"{page.slug}.json"
-    discovery = load_discovery(discovery_path)
-    expected_query = _primary_query(page)
-    if discovery.query.strip() != expected_query:
-        raise LiveResearchError("Competitor research discovery query does not match the page query")
-    research = fetch_competitor_pages(
-        discovery,
-        LiveResearchAdapter(),
-        limit=args.limit,
-        minimum_success=args.minimum_success,
-    )
+    discovery = load_discovery(project_root / args.discovery_root / f"{page.slug}.json")
+    research = fetch_competitor_pages(discovery, LiveResearchAdapter(), limit=args.limit, minimum_success=args.minimum_success)
     snapshot = build_competitor_snapshot(page.slug, research)
     output = project_root / args.output_root / f"{page.slug}.json"
     write_competitor_snapshot(snapshot, output)
     print(f"RUOS COMPETITOR EVIDENCE: {output}")
     print(f"RUOS COMPETITOR SHA256: {snapshot.sha256}")
-    print(f"RUOS COMPETITOR PAGES: {len(snapshot.evidence)}")
     return 0
 
 
@@ -150,6 +142,8 @@ def main(argv: list[str] | None = None) -> int:
 
         if args.require_search_discovery and not args.require_live_research:
             raise BuildRejected("Search discovery requires --require-live-research")
+        if args.require_competitor_evidence and not args.require_search_discovery:
+            raise BuildRejected("Competitor evidence requires --require-search-discovery")
         context = BuildContext(
             project_root=project_root,
             output_root=project_root / args.output,
@@ -158,18 +152,24 @@ def main(argv: list[str] | None = None) -> int:
             research_snapshot_root=project_root / args.snapshot_root,
             require_search_discovery=args.require_search_discovery,
             discovery_snapshot_root=project_root / args.discovery_root,
+            require_competitor_evidence=args.require_competitor_evidence,
+            competitor_snapshot_root=project_root / args.competitor_root,
         )
         if args.require_live_research:
-            result, verified, discovery = compile_production_page(
+            result, verified, discovery, competitors = compile_production_page(
                 page,
                 context,
                 max_age_days=args.research_max_age_days,
                 discovery_max_age_days=args.discovery_max_age_days,
                 discovery_minimum_results=args.discovery_minimum_results,
+                competitor_max_age_days=args.competitor_max_age_days,
+                competitor_minimum_pages=args.competitor_minimum_pages,
             )
             print(f"RUOS LIVE RESEARCH VERIFIED: {verified.source_count} sources snapshot={verified.snapshot_sha256}")
             if discovery is not None:
                 print(f"RUOS SEARCH DISCOVERY VERIFIED: {discovery.result_count} results snapshot={discovery.sha256}")
+            if competitors is not None:
+                print(f"RUOS COMPETITOR EVIDENCE VERIFIED: {competitors.evidence_count} pages snapshot={competitors.snapshot_sha256}")
         else:
             result = compile_page(page, context)
     except (SpecError, BuildRejected, LiveResearchError) as exc:
