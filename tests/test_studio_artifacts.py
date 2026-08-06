@@ -46,6 +46,7 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
         "art-direction.json",
         "ux-decision.json",
         "ux-plan.json",
+        "ui-decision.json",
         "ui-plan.json",
         "motion-plan.json",
         "content-plan.json",
@@ -85,6 +86,17 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
         "component-selection.json",
     )
     assert bundle.by_name("ux-plan.json").dependencies == ("ux-decision.json", "art-direction.json")
+    assert bundle.by_name("ui-decision.json").dependencies == (
+        "art-decision.json",
+        "ux-decision.json",
+        "component-selection.json",
+    )
+    assert bundle.by_name("ui-plan.json").dependencies == (
+        "art-direction.json",
+        "ux-plan.json",
+        "ui-decision.json",
+        "component-selection.json",
+    )
     critique = bundle.by_name("design-critique.json")
     review = bundle.by_name("agency-review.json")
     assert critique.payload["release_recommendation"] != "reject"
@@ -98,14 +110,12 @@ def test_studio_artifacts_are_deterministic_and_dependency_addressable() -> None
     second = _bundle()
     assert first.manifest() == second.manifest()
     assert all(len(artifact.sha256) == 64 for artifact in first.artifacts)
-    assert first.by_name("ui-plan.json").dependencies == (
-        "art-direction.json",
-        "ux-plan.json",
-        "component-selection.json",
-    )
     assert first.by_name("creative-direction.json").payload["knowledge_graph_sha256"] == first.by_name("knowledge-graph.json").sha256
     assert first.by_name("creative-direction.json").payload["inspiration_intelligence_sha256"] == first.by_name("inspiration-intelligence.json").sha256
     assert first.by_name("art-direction.json").payload["art_decision_sha256"] == first.by_name("art-decision.json").sha256
     assert first.by_name("ux-plan.json").payload["ux_decision_sha256"] == first.by_name("ux-decision.json").sha256
+    assert first.by_name("ui-plan.json").payload["ui_decision_sha256"] == first.by_name("ui-decision.json").sha256
+    assert first.by_name("motion-plan.json").payload["ui_direction_sha256"] == first.by_name("ui-decision.json").sha256
     assert first.by_name("agency-review.json").payload["research"]["ux_decision_sha256"] == first.by_name("ux-decision.json").sha256
+    assert first.by_name("agency-review.json").payload["research"]["ui_decision_sha256"] == first.by_name("ui-decision.json").sha256
     assert first.by_name("agency-review.json").payload["design_critique_sha256"] == first.by_name("design-critique.json").sha256
