@@ -34,6 +34,10 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
     bundle = _bundle()
     assert [artifact.name for artifact in bundle.artifacts] == [
         "research.json",
+        "query-intelligence.json",
+        "competitive-analysis.json",
+        "pattern-selection.json",
+        "design-brief.json",
         "creative-direction.json",
         "art-direction.json",
         "ux-plan.json",
@@ -45,6 +49,13 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
         "agency-review.json",
     ]
     assert bundle.by_name("research.json").payload["primary_query"] == "سازه‌های تبلیغاتی"
+    assert bundle.by_name("design-brief.json").dependencies == (
+        "research.json",
+        "query-intelligence.json",
+        "competitive-analysis.json",
+        "pattern-selection.json",
+    )
+    assert bundle.by_name("creative-direction.json").dependencies == ("design-brief.json",)
     assert bundle.by_name("agency-review.json").payload["publishable"] is True
 
 
