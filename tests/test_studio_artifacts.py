@@ -37,6 +37,7 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
         "query-intelligence.json",
         "competitive-analysis.json",
         "pattern-selection.json",
+        "knowledge-graph.json",
         "design-brief.json",
         "creative-direction.json",
         "art-direction.json",
@@ -49,12 +50,21 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
         "agency-review.json",
     ]
     assert bundle.by_name("research.json").payload["primary_query"] == "سازه‌های تبلیغاتی"
+    assert bundle.by_name("knowledge-graph.json").dependencies == (
+        "research.json",
+        "query-intelligence.json",
+        "pattern-selection.json",
+    )
     assert bundle.by_name("design-brief.json").dependencies == (
         "query-intelligence.json",
         "competitive-analysis.json",
         "pattern-selection.json",
+        "knowledge-graph.json",
     )
-    assert bundle.by_name("creative-direction.json").dependencies == ("design-brief.json",)
+    assert bundle.by_name("creative-direction.json").dependencies == (
+        "design-brief.json",
+        "knowledge-graph.json",
+    )
     assert bundle.by_name("agency-review.json").payload["publishable"] is True
 
 
@@ -65,3 +75,4 @@ def test_studio_artifacts_are_deterministic_and_dependency_addressable() -> None
     assert all(len(artifact.sha256) == 64 for artifact in first.artifacts)
     assert first.by_name("ui-plan.json").dependencies == ("art-direction.json", "ux-plan.json")
     assert first.by_name("agency-review.json").dependencies[-1] == "cro-plan.json"
+    assert first.by_name("creative-direction.json").payload["knowledge_graph_sha256"] == first.by_name("knowledge-graph.json").sha256
