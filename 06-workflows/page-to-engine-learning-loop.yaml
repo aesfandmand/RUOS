@@ -1,0 +1,40 @@
+workflow_id: page-to-engine-learning-loop
+version: 1.0.0
+status: locked
+scope: core
+trigger:
+  - page_build_completed
+  - defect_discovered
+  - owner_feedback_received
+  - library_failed_or_succeeded
+  - conversion_or_usability_evidence_received
+steps:
+  - capture_issue_or_success
+  - classify_as_project_specific_or_core_reusable
+  - identify_root_cause
+  - update_decision_registry
+  - update_library_registry_and_scores
+  - update_contracts_or_validators
+  - add_or_update_tests
+  - record_before_after_evidence
+  - open_pull_request
+  - require_green_ci
+  - merge_and_update_handoff
+required_records:
+  - page_postmortem
+  - defects_and_causes
+  - technology_outcomes
+  - reusable_patterns
+  - rejected_patterns
+  - owner_corrections
+  - engine_patch
+rules:
+  - every_built_page_must_improve_the_engine
+  - repeated_manual_fix_without_engine_patch_is_failure
+  - project_specific_style_must_not_pollute_core
+  - reusable_learning_must_not_remain_only_in_chat
+  - library_scores_must_be_updated_from_real_implementation
+  - conversion_findings_require_observable_evidence
+completion_gate:
+  page_is_not_complete_until_learning_is_persisted: true
+failure_policy: block_next_page
