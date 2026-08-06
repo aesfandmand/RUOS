@@ -9,6 +9,7 @@ from .competitive_intelligence import build_competitive_intelligence
 from .component_resolver import ComponentPlan
 from .content_composer import ContentPlan
 from .creative_intelligence import CreativeIntelligencePlan
+from .creative_selection import select_creative_library
 from .design_brief import compile_design_brief
 from .models import GateResult, PageSpec
 from .motion_composer import MotionPlan
@@ -74,6 +75,7 @@ _REQUIRED_ORDER = (
     "competitive-analysis.json",
     "pattern-selection.json",
     "knowledge-graph.json",
+    "component-selection.json",
     "design-brief.json",
     "creative-direction.json",
     "art-direction.json",
@@ -114,221 +116,101 @@ def build_studio_artifacts(
     competition = build_competitive_intelligence(page, research)
     pattern_intelligence = select_patterns(page, research, query_intelligence, competition)
     knowledge_graph = compose_studio_knowledge(page, research, query_intelligence, pattern_intelligence)
-    design_brief = compile_design_brief(
-        page,
-        research,
-        query_intelligence,
-        competition,
-        pattern_intelligence,
-        voice,
-    )
+    component_selection = select_creative_library(page, query_intelligence, components, pattern_intelligence, knowledge_graph)
+    design_brief = compile_design_brief(page, research, query_intelligence, competition, pattern_intelligence, voice)
     studio_review = conduct_virtual_studio_review(page, research, gates, quality)
 
     artifacts = (
         _artifact("research.json", "Research Studio", (), research.payload()),
         _artifact("query-intelligence.json", "SEO Strategist", ("research.json",), query_intelligence.payload()),
-        _artifact(
-            "competitive-analysis.json",
-            "Competitive Intelligence Lead",
-            ("research.json", "query-intelligence.json"),
-            competition.payload(),
-        ),
-        _artifact(
-            "pattern-selection.json",
-            "Creative Research Lead",
-            ("research.json", "query-intelligence.json", "competitive-analysis.json"),
-            pattern_intelligence.payload(),
-        ),
-        _artifact(
-            "knowledge-graph.json",
-            "Creative Knowledge Architect",
-            ("research.json", "query-intelligence.json", "pattern-selection.json"),
-            knowledge_graph.payload(),
-        ),
-        _artifact(
-            "design-brief.json",
-            "Creative Director",
-            ("query-intelligence.json", "competitive-analysis.json", "pattern-selection.json", "knowledge-graph.json"),
-            design_brief.payload(),
-        ),
-        _artifact(
-            "creative-direction.json",
-            "Creative Director",
-            ("design-brief.json", "knowledge-graph.json"),
-            {
-                "narrative_model": creative.narrative_model,
-                "emotional_curve": list(creative.emotional_curve),
-                "persuasion_principles": list(creative.persuasion_principles),
-                "visual_direction": creative.visual_direction,
-                "page_identity": page.visual_profile,
-                "research_sha256": research.sha256,
-                "design_brief_sha256": design_brief.sha256,
-                "knowledge_graph_sha256": knowledge_graph.sha256,
-                "selected_pattern_candidates": [item.id for item in pattern_intelligence.selected],
-            },
-        ),
-        _artifact(
-            "art-direction.json",
-            "Art Director",
-            ("creative-direction.json", "pattern-selection.json"),
-            {
-                "visual_dna": dict(dna.fingerprint_payload()),
-                "global_motif": patterns.global_motif,
-                "scroll_model": patterns.scroll_model,
-                "section_motifs": [section.motif for section in patterns.sections],
-                "research_constraints": list(design_brief.constraints),
-            },
-        ),
-        _artifact(
-            "ux-plan.json",
-            "UX Lead",
-            ("design-brief.json", "creative-direction.json"),
-            {
-                "narrative_arc": patterns.narrative_arc,
-                "journey": page.metadata.get("journey", ""),
-                "audience_hypotheses": list(research.audience_hypotheses),
-                "reading_strategy": design_brief.reading_strategy,
-                "interaction_strategy": design_brief.interaction_strategy,
-                "sections": [
-                    {"id": section.section_id, "chapter": section.chapter, "pacing": section.pacing, "transition": section.transition}
-                    for section in patterns.sections
-                ],
-            },
-        ),
-        _artifact(
-            "ui-plan.json",
-            "UI Lead",
-            ("art-direction.json", "ux-plan.json"),
-            {
-                "components": [
-                    {
-                        "id": component.id,
-                        "section_id": component.section_id,
-                        "family": component.family,
-                        "variant": component.variant,
-                        "density": component.density,
-                        "emphasis": component.emphasis,
-                        "capabilities": list(component.capabilities),
-                    }
-                    for component in components.components
-                ]
-            },
-        ),
-        _artifact(
-            "motion-plan.json",
-            "Motion Lead",
-            ("ux-plan.json", "ui-plan.json"),
-            {
-                "strategy": motion.strategy,
-                "reduced_motion_policy": motion.reduced_motion_policy,
-                "cues": [
-                    {
-                        "section_id": cue.section_id,
-                        "order": cue.order,
-                        "trigger": cue.trigger,
-                        "target": cue.target,
-                        "effect": cue.effect,
-                        "duration_ms": cue.duration_ms,
-                        "delay_ms": cue.delay_ms,
-                        "easing": cue.easing,
-                    }
-                    for cue in motion.cues
-                ],
-            },
-        ),
-        _artifact(
-            "content-plan.json",
-            "Content Director",
-            ("design-brief.json", "ux-plan.json"),
-            {
-                "language": content.language,
-                "direction": content.direction,
-                "primary_intent": content.primary_intent,
-                "voice": {**voice.payload(), "sha256": voice.sha256},
-                "blocks": [
-                    {
-                        "section_id": block.section_id,
-                        "role": block.role,
-                        "heading_level": block.heading_level,
-                        "intent": block.intent,
-                        "title": block.title,
-                        "body": block.body,
-                        "cta_label": block.cta_label,
-                        "cta_href": block.cta_href,
-                        "entities": list(block.entities),
-                        "attributes": dict(block.attributes),
-                    }
-                    for block in content.blocks
-                ],
-            },
-        ),
-        _artifact(
-            "seo-plan.json",
-            "SEO Lead",
-            ("query-intelligence.json", "content-plan.json"),
-            {
-                "title": page.title,
-                "description": page.description,
-                "primary_query": query.primary_query,
-                "supporting_queries": list(query.supporting_queries),
-                "clusters": [cluster.payload() for cluster in query_intelligence.clusters],
-                "schema_types": list(semantic.schema_types),
-                "answer_targets": list(semantic.answer_targets),
-                "ai_summary": semantic.ai_summary,
+        _artifact("competitive-analysis.json", "Competitive Intelligence Lead", ("research.json", "query-intelligence.json"), competition.payload()),
+        _artifact("pattern-selection.json", "Creative Research Lead", ("research.json", "query-intelligence.json", "competitive-analysis.json"), pattern_intelligence.payload()),
+        _artifact("knowledge-graph.json", "Creative Knowledge Architect", ("research.json", "query-intelligence.json", "pattern-selection.json"), knowledge_graph.payload()),
+        _artifact("component-selection.json", "Creative Systems Lead", ("query-intelligence.json", "pattern-selection.json", "knowledge-graph.json"), component_selection.payload()),
+        _artifact("design-brief.json", "Creative Director", ("query-intelligence.json", "competitive-analysis.json", "pattern-selection.json", "knowledge-graph.json", "component-selection.json"), design_brief.payload()),
+        _artifact("creative-direction.json", "Creative Director", ("design-brief.json", "knowledge-graph.json", "component-selection.json"), {
+            "narrative_model": creative.narrative_model,
+            "emotional_curve": list(creative.emotional_curve),
+            "persuasion_principles": list(creative.persuasion_principles),
+            "visual_direction": creative.visual_direction,
+            "page_identity": page.visual_profile,
+            "research_sha256": research.sha256,
+            "design_brief_sha256": design_brief.sha256,
+            "knowledge_graph_sha256": knowledge_graph.sha256,
+            "component_selection_sha256": component_selection.sha256,
+            "selected_pattern_candidates": [item.id for item in pattern_intelligence.selected],
+            "selected_library_candidates": [decision.candidate_id for decision in component_selection.decisions],
+        }),
+        _artifact("art-direction.json", "Art Director", ("creative-direction.json", "pattern-selection.json", "component-selection.json"), {
+            "visual_dna": dict(dna.fingerprint_payload()),
+            "global_motif": patterns.global_motif,
+            "scroll_model": patterns.scroll_model,
+            "section_motifs": [section.motif for section in patterns.sections],
+            "research_constraints": list(design_brief.constraints),
+            "library_decisions": [decision.payload() for decision in component_selection.decisions],
+        }),
+        _artifact("ux-plan.json", "UX Lead", ("design-brief.json", "creative-direction.json", "component-selection.json"), {
+            "narrative_arc": patterns.narrative_arc,
+            "journey": page.metadata.get("journey", ""),
+            "audience_hypotheses": list(research.audience_hypotheses),
+            "reading_strategy": design_brief.reading_strategy,
+            "interaction_strategy": design_brief.interaction_strategy,
+            "sections": [{"id": section.section_id, "chapter": section.chapter, "pacing": section.pacing, "transition": section.transition} for section in patterns.sections],
+        }),
+        _artifact("ui-plan.json", "UI Lead", ("art-direction.json", "ux-plan.json", "component-selection.json"), {
+            "selection_sha256": component_selection.sha256,
+            "components": [{"id": component.id, "section_id": component.section_id, "family": component.family, "variant": component.variant, "density": component.density, "emphasis": component.emphasis, "capabilities": list(component.capabilities)} for component in components.components],
+        }),
+        _artifact("motion-plan.json", "Motion Lead", ("ux-plan.json", "ui-plan.json", "component-selection.json"), {
+            "strategy": motion.strategy,
+            "reduced_motion_policy": motion.reduced_motion_policy,
+            "cues": [{"section_id": cue.section_id, "order": cue.order, "trigger": cue.trigger, "target": cue.target, "effect": cue.effect, "duration_ms": cue.duration_ms, "delay_ms": cue.delay_ms, "easing": cue.easing} for cue in motion.cues],
+        }),
+        _artifact("content-plan.json", "Content Director", ("design-brief.json", "ux-plan.json"), {
+            "language": content.language,
+            "direction": content.direction,
+            "primary_intent": content.primary_intent,
+            "voice": {**voice.payload(), "sha256": voice.sha256},
+            "blocks": [{"section_id": block.section_id, "role": block.role, "heading_level": block.heading_level, "intent": block.intent, "title": block.title, "body": block.body, "cta_label": block.cta_label, "cta_href": block.cta_href, "entities": list(block.entities), "attributes": dict(block.attributes)} for block in content.blocks],
+        }),
+        _artifact("seo-plan.json", "SEO Lead", ("query-intelligence.json", "content-plan.json"), {
+            "title": page.title,
+            "description": page.description,
+            "primary_query": query.primary_query,
+            "supporting_queries": list(query.supporting_queries),
+            "clusters": [cluster.payload() for cluster in query_intelligence.clusters],
+            "schema_types": list(semantic.schema_types),
+            "answer_targets": list(semantic.answer_targets),
+            "ai_summary": semantic.ai_summary,
+            "evidence_status": research.evidence_status,
+            "limitations": list(research.limitations),
+        }),
+        _artifact("cro-plan.json", "CRO Lead", ("design-brief.json", "content-plan.json", "ux-plan.json"), {
+            "conversion_goal": sales.conversion_goal,
+            "value_proposition": sales.value_proposition,
+            "friction_policy": sales.friction_policy,
+            "proof_requirements": list(sales.proof_requirements),
+            "cta_sequence": list(sales.cta_sequence),
+            "commercial_routes": list(page.metadata.get("commercial_routes", [])),
+            "opportunity_gaps": list(competition.opportunity_gaps),
+        }),
+        _artifact("agency-review.json", "Virtual Studio Review Board", ("knowledge-graph.json", "component-selection.json", "design-brief.json", "creative-direction.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json"), {
+            **studio_review.payload(),
+            "studio_review_sha256": studio_review.sha256,
+            "agency_quality": {"score": quality.total, "grade": quality.grade, "publishable": quality.publishable},
+            "research": {
+                "evidence_score": research.evidence_score,
                 "evidence_status": research.evidence_status,
-                "limitations": list(research.limitations),
+                "sha256": research.sha256,
+                "query_intelligence_sha256": query_intelligence.sha256,
+                "competitive_intelligence_sha256": competition.sha256,
+                "pattern_intelligence_sha256": pattern_intelligence.sha256,
+                "knowledge_graph_sha256": knowledge_graph.sha256,
+                "component_selection_sha256": component_selection.sha256,
+                "design_brief_sha256": design_brief.sha256,
             },
-        ),
-        _artifact(
-            "cro-plan.json",
-            "CRO Lead",
-            ("design-brief.json", "content-plan.json", "ux-plan.json"),
-            {
-                "conversion_goal": sales.conversion_goal,
-                "value_proposition": sales.value_proposition,
-                "friction_policy": sales.friction_policy,
-                "proof_requirements": list(sales.proof_requirements),
-                "cta_sequence": list(sales.cta_sequence),
-                "commercial_routes": list(page.metadata.get("commercial_routes", [])),
-                "opportunity_gaps": list(competition.opportunity_gaps),
-            },
-        ),
-        _artifact(
-            "agency-review.json",
-            "Virtual Studio Review Board",
-            (
-                "knowledge-graph.json",
-                "design-brief.json",
-                "creative-direction.json",
-                "art-direction.json",
-                "ux-plan.json",
-                "ui-plan.json",
-                "motion-plan.json",
-                "content-plan.json",
-                "seo-plan.json",
-                "cro-plan.json",
-            ),
-            {
-                **studio_review.payload(),
-                "studio_review_sha256": studio_review.sha256,
-                "agency_quality": {"score": quality.total, "grade": quality.grade, "publishable": quality.publishable},
-                "research": {
-                    "evidence_score": research.evidence_score,
-                    "evidence_status": research.evidence_status,
-                    "sha256": research.sha256,
-                    "query_intelligence_sha256": query_intelligence.sha256,
-                    "competitive_intelligence_sha256": competition.sha256,
-                    "pattern_intelligence_sha256": pattern_intelligence.sha256,
-                    "knowledge_graph_sha256": knowledge_graph.sha256,
-                    "design_brief_sha256": design_brief.sha256,
-                },
-                "content_voice": {
-                    "approved_voice_id": voice.approved_voice_id,
-                    "approval_status": voice.approval_status,
-                    "sha256": voice.sha256,
-                },
-            },
-        ),
+            "content_voice": {"approved_voice_id": voice.approved_voice_id, "approval_status": voice.approval_status, "sha256": voice.sha256},
+        }),
     )
     names = tuple(artifact.name for artifact in artifacts)
     if names != _REQUIRED_ORDER:
