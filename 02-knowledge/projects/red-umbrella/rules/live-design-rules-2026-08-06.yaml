@@ -1,0 +1,102 @@
+version: 1
+status: locked-live
+project: red-umbrella
+updated_at: 2026-08-06
+scope:
+  - all_new_pages
+  - all_redesigns
+  - all_ruos_generated_outputs
+rules:
+  - id: RU-LIVE-2026-08-06-01
+    priority: critical
+    title: product-page-reference-is-primary-layout-source
+    statement: >-
+      هر صفحه محصولی که کاربر ارسال می‌کند، منبع اصلی یادگیری برای نوع فونت، مقیاس تایپوگرافی،
+      چیدمان اجزا، ترتیب سکشن‌ها، ریتم فاصله‌گذاری، تراکم اطلاعات و الگوی ارائه محصول است.
+      سیستم حق ندارد این مرجع را با دانش عمومی، قالب آماده یا سلیقه پیش‌فرض خود جایگزین کند.
+    enforcement:
+      - extract_typography
+      - extract_section_order
+      - extract_component_hierarchy
+      - extract_spacing_rhythm
+      - extract_product_information_architecture
+      - block_build_when_reference_not_reviewed
+
+  - id: RU-LIVE-2026-08-06-02
+    priority: critical
+    title: ban-red-black-hero-combination
+    statement: >-
+      ترکیب غالب قرمز و سیاه در هیرو، پس‌زمینه تیره با هاله قرمز، گرادیان قرمز-مشکی،
+      یا هر ترکیب بصری هم‌خانواده برای پروژه چتر قرمز ممنوع است. رنگ قرمز فقط به‌عنوان اکسنت محدود،
+      کنترل‌شده و غیرغالب قابل استفاده است؛ نه به‌عنوان فضای اصلی هیرو.
+    forbidden_patterns:
+      - black_hero_with_red_glow
+      - red_black_gradient
+      - dominant_dark_hero_with_red_objects
+      - cinematic_red_black_palette
+    enforcement:
+      - fail_visual_gate
+      - fail_art_direction_gate
+      - fail_brand_gate
+
+  - id: RU-LIVE-2026-08-06-03
+    priority: critical
+    title: live-rules-must-be-consulted-before-new-work
+    statement: >-
+      پیش از هر طراحی، بازطراحی، تولید HTML، تولید PageSpec، انتخاب پالت، فونت، موشن، کامپوننت یا
+      چیدمان، آخرین فایل قانون زنده پروژه باید خوانده و اعمال شود. خروجی‌ای که بدون خواندن قانون زنده
+      ساخته شود مردود است.
+    enforcement:
+      - require_live_rules_loaded
+      - record_live_rules_sha_in_build_manifest
+      - block_build_without_live_rules_provenance
+
+  - id: RU-LIVE-2026-08-06-04
+    priority: high
+    title: tablonamvar-research-reference
+    source:
+      url: https://tablonamvar.com/%D8%AA%D8%A7%D8%A8%D9%84%D9%88-%D8%AA%D8%A8%D9%84%DB%8C%D8%BA%D8%A7%D8%AA%DB%8C/
+      role: market-and-content-reference
+    statement: >-
+      صفحه «تابلو تبلیغاتی» نامور باید از بالا تا پایین برای ایده‌گیری اولیه در معماری اطلاعات،
+      دسته‌بندی محصولات، ترتیب معرفی، نقاط اعتماد، پرسش‌های متداول، معرفی کاربردها، مسیر تماس و
+      عمق محتوای محصول بررسی شود. این مرجع برای کپی مستقیم طراحی یا متن نیست؛ فقط برای استخراج
+      منطق ارائه، پوشش موضوعی و شکاف‌های رقابتی استفاده می‌شود.
+    extracted_observations:
+      - ناوبری محصول‌محور با تفکیک فضای داخلی، فضای خارجی، دستگاه‌های تبلیغاتی و تابلو مغازه
+      - دسته‌بندی روشن محصولات در چند خانواده و لینک‌دهی مستقیم به صفحات محصول
+      - معرفی ابتدا خانواده‌های اصلی و سپس محصولات هر خانواده
+      - CTA مستقیم برای مشاهده قیمت در سطح هر محصول
+      - بخش مستقل «چرا محصولات ما بهترند» با متریال، LED، نصب، گارانتی و ارزش بلندمدت
+      - FAQ عملی درباره پیش‌نمایش، LED، سفارشی‌سازی، طول عمر و نصب شهرستان
+      - محتوای آموزشی تکمیلی برای لایت‌باکس ایستاده، توتم، کاربردها و طراحی مهندسی
+      - استفاده از سابقه، تجهیزات، طراحی مهندسی و نصب به‌عنوان اعتمادساز
+    usage_constraints:
+      - do_not_copy_text
+      - do_not_copy_visual_design
+      - verify_claims_before_use
+      - treat_unverified_statistics_as_untrusted
+
+  - id: RU-LIVE-2026-08-06-05
+    priority: high
+    title: content-and-design-must-follow-approved-reference
+    statement: >-
+      پس از دریافت صفحه محصول مرجع از کاربر، طراحی جدید باید با آن از نظر فونت، سلسله‌مراتب، ترتیب
+      سکشن‌ها و ریتم بصری تطبیق داده شود. هر اختلاف عمده باید قبل از تولید نهایی مستند و توجیه شود.
+    enforcement:
+      - require_reference_comparison
+      - require_section_order_map
+      - require_typography_map
+      - require_visual_diff_review
+
+  - id: RU-LIVE-2026-08-06-06
+    priority: critical
+    title: no-generic-template-output
+    statement: >-
+      خروجی نباید مجموعه‌ای از کارت‌های تکراری، هیروی عمومی، فونت پیش‌فرض یا سکشن‌های مستقل و بی‌روایت
+      باشد. صفحه باید یک ساختار یکپارچه، محصول‌محور، قابل‌خواندن و مبتنی بر مرجع تأییدشده داشته باشد.
+    enforcement:
+      - reject_repetitive_card_wall
+      - reject_unapproved_font
+      - reject_disconnected_sections
+      - reject_generic_hero
