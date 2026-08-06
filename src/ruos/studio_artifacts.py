@@ -17,6 +17,7 @@ from .pattern_resolver import PatternPlan
 from .quality_score import AgencyQualityScore
 from .query_intelligence import build_query_intelligence
 from .research_studio import conduct_research
+from .studio_knowledge import compose_studio_knowledge
 from .virtual_studio import conduct_virtual_studio_review
 from .visual_dna import VisualDNA
 from .voice_studio import select_voice
@@ -72,6 +73,7 @@ _REQUIRED_ORDER = (
     "query-intelligence.json",
     "competitive-analysis.json",
     "pattern-selection.json",
+    "knowledge-graph.json",
     "design-brief.json",
     "creative-direction.json",
     "art-direction.json",
@@ -111,6 +113,7 @@ def build_studio_artifacts(
     query_intelligence = build_query_intelligence(page, research, intelligence)
     competition = build_competitive_intelligence(page, research)
     pattern_intelligence = select_patterns(page, research, query_intelligence, competition)
+    knowledge_graph = compose_studio_knowledge(page, research, query_intelligence, pattern_intelligence)
     design_brief = compile_design_brief(
         page,
         research,
@@ -123,12 +126,7 @@ def build_studio_artifacts(
 
     artifacts = (
         _artifact("research.json", "Research Studio", (), research.payload()),
-        _artifact(
-            "query-intelligence.json",
-            "SEO Strategist",
-            ("research.json",),
-            query_intelligence.payload(),
-        ),
+        _artifact("query-intelligence.json", "SEO Strategist", ("research.json",), query_intelligence.payload()),
         _artifact(
             "competitive-analysis.json",
             "Competitive Intelligence Lead",
@@ -142,15 +140,21 @@ def build_studio_artifacts(
             pattern_intelligence.payload(),
         ),
         _artifact(
+            "knowledge-graph.json",
+            "Creative Knowledge Architect",
+            ("research.json", "query-intelligence.json", "pattern-selection.json"),
+            knowledge_graph.payload(),
+        ),
+        _artifact(
             "design-brief.json",
             "Creative Director",
-            ("query-intelligence.json", "competitive-analysis.json", "pattern-selection.json"),
+            ("query-intelligence.json", "competitive-analysis.json", "pattern-selection.json", "knowledge-graph.json"),
             design_brief.payload(),
         ),
         _artifact(
             "creative-direction.json",
             "Creative Director",
-            ("design-brief.json",),
+            ("design-brief.json", "knowledge-graph.json"),
             {
                 "narrative_model": creative.narrative_model,
                 "emotional_curve": list(creative.emotional_curve),
@@ -159,6 +163,7 @@ def build_studio_artifacts(
                 "page_identity": page.visual_profile,
                 "research_sha256": research.sha256,
                 "design_brief_sha256": design_brief.sha256,
+                "knowledge_graph_sha256": knowledge_graph.sha256,
                 "selected_pattern_candidates": [item.id for item in pattern_intelligence.selected],
             },
         ),
@@ -292,6 +297,7 @@ def build_studio_artifacts(
             "agency-review.json",
             "Virtual Studio Review Board",
             (
+                "knowledge-graph.json",
                 "design-brief.json",
                 "creative-direction.json",
                 "art-direction.json",
@@ -305,11 +311,7 @@ def build_studio_artifacts(
             {
                 **studio_review.payload(),
                 "studio_review_sha256": studio_review.sha256,
-                "agency_quality": {
-                    "score": quality.total,
-                    "grade": quality.grade,
-                    "publishable": quality.publishable,
-                },
+                "agency_quality": {"score": quality.total, "grade": quality.grade, "publishable": quality.publishable},
                 "research": {
                     "evidence_score": research.evidence_score,
                     "evidence_status": research.evidence_status,
@@ -317,6 +319,7 @@ def build_studio_artifacts(
                     "query_intelligence_sha256": query_intelligence.sha256,
                     "competitive_intelligence_sha256": competition.sha256,
                     "pattern_intelligence_sha256": pattern_intelligence.sha256,
+                    "knowledge_graph_sha256": knowledge_graph.sha256,
                     "design_brief_sha256": design_brief.sha256,
                 },
                 "content_voice": {
