@@ -1,0 +1,29 @@
+id: decision-2026-08-06-digital-creative-studio
+scope: core
+date: 2026-08-06
+status: locked
+owner_approved: true
+decision: >-
+  RUOS must operate as a digital creative studio engine for distinctive,
+  conversion-oriented websites. It must research and select the best-fit current
+  libraries for each objective and actually use the selected stack. Each page
+  build and every discovered defect must feed improvements back into the core
+  engine. Raw HTML generation without a justified stack is not the intended
+  product.
+reason: >-
+  The engine was created to combine creativity, technology intelligence and
+  conversion performance. A registry that is not used during implementation has
+  no operational value, and repeated page fixes without engine learning waste
+  prior work.
+affected_paths:
+  - 14-technology-intelligence-registry/policies/library-selection-and-use.yaml
+  - 15-website-studio-engine/contracts/digital-creative-studio-build.yaml
+  - 06-workflows/page-to-engine-learning-loop.yaml
+supersedes: []
+evidence:
+  - explicit owner correction on 2026-08-06
+enforcement:
+  - live_library_research_is_blocking
+  - selected_library_usage_is_blocking
+  - raw_html_only_requires_explicit_justification
+  - every_page_must_patch_engine_learning
