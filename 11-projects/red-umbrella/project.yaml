@@ -1,0 +1,40 @@
+schema_version: 1.0.0
+kind: ruos-project
+project_id: red-umbrella
+name: Red Umbrella Advertising Agency
+status: active
+locale:
+  primary_language: fa
+  direction: rtl
+source_of_truth:
+  constitution: 00-governance/UNIVERSAL_ENGINE_CONSTITUTION.md
+  decision_index: 11-projects/red-umbrella/decisions/index.yaml
+active_decisions:
+  - 11-projects/red-umbrella/decisions/2026-08-06-universal-living-repository.yaml
+  - 11-projects/red-umbrella/decisions/2026-08-06-v16-gold-master.yaml
+baselines:
+  - id: website-v16-gold-master
+    artifact: 11-projects/red-umbrella/artifacts/services-urban-investment-final-v16.html
+    checksum: sha256:5e79c597cf8a3ae2af72accb9f621c715a83ebf44b564976b485c733ae030064
+    bytes: 4004577
+    status: locked
+architecture:
+  routes: 11-projects/red-umbrella/architecture/routes.yaml
+  personas: 11-projects/red-umbrella/architecture/personas.yaml
+  pillars: 11-projects/red-umbrella/architecture/pillars.yaml
+  clusters: 11-projects/red-umbrella/architecture/clusters.yaml
+voice:
+  contract: 11-projects/red-umbrella/voice/voice-contract.yaml
+knowledge_graph:
+  entity_registry: 11-projects/red-umbrella/knowledge/entities.yaml
+  relation_registry: 11-projects/red-umbrella/knowledge/relations.yaml
+capabilities:
+  registry: 11-projects/red-umbrella/capabilities/registry.yaml
+quality_gates:
+  - 15-website-studio-engine/contracts/website-v16-non-regression.yaml
+assistant_adapters:
+  - adapters/chatgpt.md
+  - adapters/claude.md
+  - adapters/gemini.md
+  - adapters/codex.md
+handoff: 11-projects/red-umbrella/HANDOFF.md
