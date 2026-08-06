@@ -1,0 +1,13 @@
+schema_version: 1.0.0
+project_id: red-umbrella
+active:
+  - id: decision-2026-08-06-universal-living-repository
+    path: 11-projects/red-umbrella/decisions/2026-08-06-universal-living-repository.yaml
+    status: locked
+  - id: decision-2026-08-06-v16-gold-master
+    path: 11-projects/red-umbrella/decisions/2026-08-06-v16-gold-master.yaml
+    status: locked
+rules:
+  - only_approved_or_locked_records_are_active
+  - superseded_records_must_remain_auditable
+  - assistants_must_load_this_index_before_project_work
