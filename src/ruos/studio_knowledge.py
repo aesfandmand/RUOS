@@ -13,6 +13,18 @@ from .query_intelligence import QueryIntelligence
 from .research_studio import ResearchBrief
 
 
+def _ordered_queries(queries: QueryIntelligence) -> tuple[str, ...]:
+    """Return the primary query followed by unique cluster queries in strategy order."""
+    seen = {queries.primary_query}
+    ordered = [queries.primary_query]
+    for cluster in queries.clusters:
+        for query in cluster.queries:
+            if query not in seen:
+                seen.add(query)
+                ordered.append(query)
+    return tuple(ordered)
+
+
 def compose_studio_knowledge(
     page: PageSpec,
     research: ResearchBrief,
@@ -40,10 +52,8 @@ def compose_studio_knowledge(
     intent_id = "intent:" + queries.search_intent
     relations.append(KnowledgeRelation(brand_id, "fits", industry_id, "page-spec"))
 
-    query_ids: list[str] = []
-    for index, query in enumerate((queries.primary_query,) + queries.supporting_queries):
+    for index, query in enumerate(_ordered_queries(queries)):
         query_id = f"query:{index}:{query}"
-        query_ids.append(query_id)
         entities.append(KnowledgeEntity(query_id, "query", query))
         relations.append(KnowledgeRelation(query_id, "suggests", intent_id, "query-intelligence.json"))
         relations.append(KnowledgeRelation(query_id, "targets", industry_id, "research.json"))
@@ -54,6 +64,11 @@ def compose_studio_knowledge(
         relations.append(KnowledgeRelation(intent_id, "targets", persona_id, "research.json"))
 
     selected_ids = {item.id for item in patterns.selected}
+    registry_ids = {item.id for item in registry.items}
+    missing = selected_ids - registry_ids
+    if missing:
+        raise ValueError("Selected patterns are missing from creative registry: " + ", ".join(sorted(missing)))
+
     for selected in patterns.selected:
         registry_item = registry.get(selected.id)
         pattern_id = "pattern:" + selected.id
@@ -88,10 +103,6 @@ def compose_studio_knowledge(
                 weight=registry_item.rtl_score,
             )
         )
-
-    missing = selected_ids - {item.id for item in registry.items}
-    if missing:
-        raise ValueError("Selected patterns are missing from creative registry: " + ", ".join(sorted(missing)))
 
     cta_id = "cta:qualified-conversation"
     entities.append(KnowledgeEntity(cta_id, "cta", "qualified-conversation"))
