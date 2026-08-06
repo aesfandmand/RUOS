@@ -11,6 +11,7 @@ from .content_composer import ContentPlan
 from .creative_intelligence import CreativeIntelligencePlan
 from .creative_selection import select_creative_library
 from .design_brief import compile_design_brief
+from .design_critic import critique_design
 from .models import GateResult, PageSpec
 from .motion_composer import MotionPlan
 from .pattern_intelligence import select_patterns
@@ -85,6 +86,7 @@ _REQUIRED_ORDER = (
     "content-plan.json",
     "seo-plan.json",
     "cro-plan.json",
+    "design-critique.json",
     "agency-review.json",
 )
 
@@ -118,6 +120,7 @@ def build_studio_artifacts(
     knowledge_graph = compose_studio_knowledge(page, research, query_intelligence, pattern_intelligence)
     component_selection = select_creative_library(page, query_intelligence, components, pattern_intelligence, knowledge_graph)
     design_brief = compile_design_brief(page, research, query_intelligence, competition, pattern_intelligence, voice)
+    design_critique = critique_design(page, gates, quality, component_selection)
     studio_review = conduct_virtual_studio_review(page, research, gates, quality)
 
     artifacts = (
@@ -194,9 +197,12 @@ def build_studio_artifacts(
             "commercial_routes": list(page.metadata.get("commercial_routes", [])),
             "opportunity_gaps": list(competition.opportunity_gaps),
         }),
-        _artifact("agency-review.json", "Virtual Studio Review Board", ("knowledge-graph.json", "component-selection.json", "design-brief.json", "creative-direction.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json"), {
+        _artifact("design-critique.json", "Design Critic", ("component-selection.json", "creative-direction.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json"), design_critique.payload()),
+        _artifact("agency-review.json", "Virtual Studio Review Board", ("knowledge-graph.json", "component-selection.json", "design-brief.json", "creative-direction.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json", "design-critique.json"), {
             **studio_review.payload(),
             "studio_review_sha256": studio_review.sha256,
+            "design_critique_sha256": design_critique.sha256,
+            "design_critique_recommendation": design_critique.release_recommendation,
             "agency_quality": {"score": quality.total, "grade": quality.grade, "publishable": quality.publishable},
             "research": {
                 "evidence_score": research.evidence_score,
