@@ -6,7 +6,6 @@ from .models import GateResult, PageSpec
 
 
 REQUIRED_SEQUENCE = ("hero", "story", "knowledge", "interaction", "conversion")
-_REQUIRED_SCHEMA_MARKERS = ('"@type": "WebPage"', '"@type": "ItemList"')
 
 
 def _score(base: int, failures: list[str], penalty: int = 18) -> int:
@@ -31,13 +30,14 @@ def evaluate(page: PageSpec, html: str, css: str, runtime: str) -> tuple[GateRes
     gate("creative-direction", _score(100, creative_failures), [f"visual_profile={page.visual_profile}", f"section_kinds={','.join(kinds)}"], creative_failures)
 
     reading_failures: list[str] = []
+    heading_count = html.count("<h1") + html.count("<h2")
     if text_length < 240:
         reading_failures.append("content is too thin for a deliberate reading journey")
-    if html.count("<h1") != 1:
-        reading_failures.append("document must contain exactly one H1")
-    if html.count("<h2") < 4:
-        reading_failures.append("document lacks a complete heading hierarchy")
-    gate("reading-experience", _score(min(100, 70 + text_length // 20), reading_failures), [f"content_chars={text_length}", f"h1_count={html.count('<h1')}", f"h2_count={html.count('<h2')}"], reading_failures)
+    if heading_count != len(page.sections):
+        reading_failures.append("document heading structure does not map one-to-one to sections")
+    if html.count("<h2") < 5:
+        reading_failures.append("document lacks a complete primary heading sequence")
+    gate("reading-experience", _score(min(100, 70 + text_length // 20), reading_failures), [f"content_chars={text_length}", f"heading_count={heading_count}"], reading_failures)
 
     rhythm_failures: list[str] = []
     if kinds != list(REQUIRED_SEQUENCE):
