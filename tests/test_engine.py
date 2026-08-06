@@ -12,6 +12,7 @@ STUDIO_ARTIFACTS = [
     "studio/query-intelligence.json",
     "studio/competitive-analysis.json",
     "studio/pattern-selection.json",
+    "studio/knowledge-graph.json",
     "studio/design-brief.json",
     "studio/creative-direction.json",
     "studio/art-direction.json",
@@ -54,10 +55,7 @@ def test_build_id_and_artifact_hashes_are_reproducible(tmp_path: Path) -> None:
     first_motion = (first.output_dir / "assets/motion-manifest.json").read_bytes()
     first_intelligence = (first.output_dir / "assets/creative-intelligence.json").read_bytes()
     first_quality = (first.output_dir / "agency-quality-report.json").read_bytes()
-    first_studio = {
-        relative_path: (first.output_dir / relative_path).read_bytes()
-        for relative_path in STUDIO_ARTIFACTS
-    }
+    first_studio = {relative_path: (first.output_dir / relative_path).read_bytes() for relative_path in STUDIO_ARTIFACTS}
 
     second = _build(tmp_path)
     second_manifest = json.loads((second.output_dir / "build-manifest.json").read_text(encoding="utf-8"))
