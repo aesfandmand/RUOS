@@ -174,32 +174,38 @@ def analyze_inspiration(page: PageSpec) -> InspirationIntelligence:
     if not page.sections:
         raise InspirationIntelligenceError("Inspiration analysis requires a page with sections")
     page_kinds = {section.kind for section in page.sections}
-    decisions: list[InspirationDecision] = []
+    ranked: list[tuple[int, InspirationDecision]] = []
     for reference in _APPROVED_REFERENCES:
         overlap = page_kinds & set(reference.suitable_page_kinds)
-        score = reference.confidence + min(6, len(overlap) * 2)
+        raw_score = reference.confidence + min(6, len(overlap) * 2)
+        priority = 0
         reasons = [f"evidence-confidence:{reference.confidence}"]
         if overlap:
             reasons.append("page-kind-fit:" + ",".join(sorted(overlap)))
         if page.slug == "structures" and reference.id == "nrg-data-center":
-            score += 8
+            raw_score += 8
+            priority = 1
             reasons.append("user-declared-primary-structures-reference")
-        decisions.append(
-            InspirationDecision(
-                reference_id=reference.id,
-                score=min(100, score),
-                reasons=tuple(reasons),
-                adopted_principles=reference.principles,
-                prohibited_actions=("copy-layout", "copy-code", "copy-brand-assets", "imitate-signature-composition"),
+        ranked.append(
+            (
+                priority,
+                InspirationDecision(
+                    reference_id=reference.id,
+                    score=min(100, raw_score),
+                    reasons=tuple(reasons),
+                    adopted_principles=reference.principles,
+                    prohibited_actions=("copy-layout", "copy-code", "copy-brand-assets", "imitate-signature-composition"),
+                ),
             )
         )
-    decisions.sort(key=lambda item: (-item.score, item.reference_id))
+    ranked.sort(key=lambda item: (-item[0], -item[1].score, item[1].reference_id))
+    decisions = tuple(item[1] for item in ranked)
     if len(decisions) < 5 or decisions[0].score < 90:
         raise InspirationIntelligenceError("Approved inspiration evidence is insufficient for production")
     return InspirationIntelligence(
         page_slug=page.slug,
         references=_APPROVED_REFERENCES,
-        decisions=tuple(decisions),
+        decisions=decisions,
         synthesis=(
             "Build one continuous visual argument instead of a stack of interchangeable cards.",
             "Use industrial scale and spatial depth for structures while preserving B2B clarity.",
