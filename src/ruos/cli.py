@@ -6,7 +6,9 @@ from pathlib import Path
 from typing import Mapping
 
 from .compiler import BuildRejected, compile_page
-from .discovery_snapshot import write_discovery
+from .competitor_page_research import fetch_competitor_pages
+from .competitor_snapshot import build_competitor_snapshot, write_competitor_snapshot
+from .discovery_snapshot import load_discovery, write_discovery
 from .live_research import LiveResearchAdapter, LiveResearchError
 from .models import BuildContext
 from .production_build import compile_production_page
@@ -46,6 +48,14 @@ def _parser() -> argparse.ArgumentParser:
     discover.add_argument("--language", default="fa")
     discover.add_argument("--count", type=int, default=10)
     discover.add_argument("--output-root", default=".ruos/discovery")
+
+    competitors = sub.add_parser("research-competitors", help="Fetch top-ranked competitor pages")
+    competitors.add_argument("page")
+    competitors.add_argument("--spec-root", default="pages")
+    competitors.add_argument("--discovery-root", default=".ruos/discovery")
+    competitors.add_argument("--output-root", default=".ruos/competitors")
+    competitors.add_argument("--limit", type=int, default=5)
+    competitors.add_argument("--minimum-success", type=int, default=3)
     return parser
 
 
@@ -104,6 +114,27 @@ def _run_discovery(page, args, project_root: Path) -> int:
     return 0
 
 
+def _run_competitor_research(page, args, project_root: Path) -> int:
+    discovery_path = project_root / args.discovery_root / f"{page.slug}.json"
+    discovery = load_discovery(discovery_path)
+    expected_query = _primary_query(page)
+    if discovery.query.strip() != expected_query:
+        raise LiveResearchError("Competitor research discovery query does not match the page query")
+    research = fetch_competitor_pages(
+        discovery,
+        LiveResearchAdapter(),
+        limit=args.limit,
+        minimum_success=args.minimum_success,
+    )
+    snapshot = build_competitor_snapshot(page.slug, research)
+    output = project_root / args.output_root / f"{page.slug}.json"
+    write_competitor_snapshot(snapshot, output)
+    print(f"RUOS COMPETITOR EVIDENCE: {output}")
+    print(f"RUOS COMPETITOR SHA256: {snapshot.sha256}")
+    print(f"RUOS COMPETITOR PAGES: {len(snapshot.evidence)}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     project_root = Path.cwd()
@@ -114,6 +145,8 @@ def main(argv: list[str] | None = None) -> int:
             return _run_research(page, project_root / args.snapshot_root / f"{page.slug}.json")
         if args.command == "discover":
             return _run_discovery(page, args, project_root)
+        if args.command == "research-competitors":
+            return _run_competitor_research(page, args, project_root)
 
         if args.require_search_discovery and not args.require_live_research:
             raise BuildRejected("Search discovery requires --require-live-research")
@@ -140,7 +173,7 @@ def main(argv: list[str] | None = None) -> int:
         else:
             result = compile_page(page, context)
     except (SpecError, BuildRejected, LiveResearchError) as exc:
-        label = "RESEARCH FAILED" if args.command in {"research", "discover"} else "BUILD REJECTED"
+        label = "RESEARCH FAILED" if args.command in {"research", "discover", "research-competitors"} else "BUILD REJECTED"
         print(f"RUOS {label}: {exc}", file=sys.stderr)
         return 2
 
