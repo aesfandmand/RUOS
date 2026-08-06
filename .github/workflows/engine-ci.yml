@@ -10,24 +10,97 @@ on:
       - ".github/workflows/engine-ci.yml"
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ruos-engine-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test-and-build:
+  test:
+    name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install engine
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e . pytest
+      - name: Run test suite
+        run: pytest -q
+
+  production-build:
+    name: Clean production build
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
       - name: Install engine
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e . pytest
-      - name: Run tests
-        run: pytest -q
-      - name: Compile structures
+          python -m pip install .
+      - name: Compile structures from clean checkout
         run: ruos build structures
-      - name: Upload build
+      - name: Validate production artifacts
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path("dist/structures")
+          required = {
+              "index.html",
+              "assets/styles.css",
+              "assets/runtime.js",
+              "assets/motion-manifest.json",
+              "assets/creative-intelligence.json",
+              "agency-quality-report.json",
+              "build-manifest.json",
+              "qa-report.json",
+              ".ruos-build",
+          }
+          missing = sorted(path for path in required if not (root / path).is_file())
+          if missing:
+              raise SystemExit(f"Missing production artifacts: {', '.join(missing)}")
+
+          manifest = json.loads((root / "build-manifest.json").read_text(encoding="utf-8"))
+          quality = json.loads((root / "agency-quality-report.json").read_text(encoding="utf-8"))
+          qa = json.loads((root / "qa-report.json").read_text(encoding="utf-8"))
+
+          if not manifest.get("passed"):
+              raise SystemExit("Build manifest is not publishable")
+          if not quality.get("publishable") or quality.get("total", 0) < quality.get("threshold", 88):
+              raise SystemExit("Agency quality threshold was not met")
+          failed = [gate["gate"] for gate in qa if not gate.get("passed")]
+          if failed:
+              raise SystemExit(f"Failed QA gates: {', '.join(failed)}")
+
+          for relative, expected in manifest.get("sha256", {}).items():
+              artifact = root / relative
+              actual = hashlib.sha256(artifact.read_bytes()).hexdigest()
+              if actual != expected:
+                  raise SystemExit(f"Artifact hash mismatch: {relative}")
+          PY
+      - name: Upload verified production build
         uses: actions/upload-artifact@v4
         with:
-          name: structures-sprint-1
+          name: structures-production
           path: dist/structures
+          if-no-files-found: error
+          retention-days: 14
