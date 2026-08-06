@@ -1,0 +1,62 @@
+schema_version: 1.0.0
+kind: ruos-project-schema
+required:
+  - project_id
+  - name
+  - status
+  - locale
+  - source_of_truth
+  - active_decisions
+  - baselines
+  - architecture
+  - voice
+  - knowledge_graph
+  - capabilities
+  - quality_gates
+fields:
+  project_id:
+    type: string
+    pattern: '^[a-z0-9][a-z0-9-]+$'
+  name:
+    type: string
+  status:
+    enum: [active, paused, archived]
+  locale:
+    type: object
+    required: [primary_language, direction]
+  source_of_truth:
+    type: object
+    required: [constitution, decision_index]
+  active_decisions:
+    type: array
+    items: {type: string}
+  baselines:
+    type: array
+    items:
+      required: [id, artifact, checksum, status]
+  architecture:
+    type: object
+    required: [routes, personas, pillars, clusters]
+  voice:
+    type: object
+    required: [contract]
+  knowledge_graph:
+    type: object
+    required: [entity_registry, relation_registry]
+  capabilities:
+    type: object
+    required: [registry]
+  quality_gates:
+    type: array
+    items: {type: string}
+  assistant_adapters:
+    type: array
+    items: {type: string}
+  handoff:
+    type: string
+rules:
+  - core_engine_must_not_embed_project_specific_values
+  - all_referenced_paths_must_exist
+  - locked_baselines_are_immutable
+  - approved_decisions_must_be_repository_persisted
+  - conflicting_decisions_must_be_superseded_explicitly

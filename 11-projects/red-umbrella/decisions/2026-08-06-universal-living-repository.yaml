@@ -1,0 +1,27 @@
+id: decision-2026-08-06-universal-living-repository
+project_id: red-umbrella
+date: 2026-08-06
+status: locked
+owner_approved: true
+decision: >-
+  RUOS must serve all organizational projects, not only Red Umbrella. It must be
+  usable and extendable by all assistants and human contributors. Every new
+  decision, rule, correction, baseline and process improvement must be stored
+  live in GitHub rather than remaining only in chat memory.
+reason: >-
+  Hidden conversation context caused lost baselines, repeated mistakes and
+  inconsistent behavior across assistants. Repository-first persistence is
+  required for continuity and auditability.
+affected_paths:
+  - 00-governance/UNIVERSAL_ENGINE_CONSTITUTION.md
+  - 00-governance/ASSISTANT_INTEROPERABILITY_PROTOCOL.md
+  - 01-schemas/project.schema.yaml
+  - 11-projects/*/project.yaml
+supersedes: []
+evidence:
+  - owner statement in project conversation on 2026-08-06
+enforcement:
+  - repository_read_before_work
+  - repository_write_after_owner_approval
+  - no_chat_only_source_of_truth
+  - assistant_vendor_neutrality

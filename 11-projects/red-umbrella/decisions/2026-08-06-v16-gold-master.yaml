@@ -1,0 +1,28 @@
+id: decision-2026-08-06-v16-gold-master
+project_id: red-umbrella
+date: 2026-08-06
+status: locked
+owner_approved: true
+decision: >-
+  services-urban-investment-final-v16.html is the approved Gold Master and the
+  minimum quality floor for future Red Umbrella website pages.
+reason: >-
+  The owner verified this exact version as the complete responsive and
+  interactive page previously approved on iPhone.
+affected_paths:
+  - 11-projects/red-umbrella/project.yaml
+  - 11-projects/red-umbrella/artifacts/services-urban-investment-final-v16.html
+  - 15-website-studio-engine/contracts/website-v16-non-regression.yaml
+supersedes:
+  - any provisional baseline candidate previously inferred from filename only
+artifact:
+  name: services-urban-investment-final-v16.html
+  sha256: 5e79c597cf8a3ae2af72accb9f621c715a83ebf44b564976b485c733ae030064
+  bytes: 4004577
+evidence:
+  - owner visual confirmation in project conversation on 2026-08-06
+enforcement:
+  - immutable_baseline
+  - checksum_required
+  - no_regression
+  - explicit_owner_approval_for_replacement
