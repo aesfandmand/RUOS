@@ -41,6 +41,7 @@ class VoiceDecision:
     candidates: tuple[VoiceCandidate, ...]
     approved_voice_id: str
     approval_status: str
+    approval_source: str
 
     @property
     def approved(self) -> VoiceCandidate:
@@ -56,6 +57,7 @@ class VoiceDecision:
             "candidates": [candidate.payload() for candidate in self.candidates],
             "approved_voice_id": self.approved_voice_id,
             "approval_status": self.approval_status,
+            "approval_source": self.approval_source,
             "approved_voice": self.approved.payload(),
         }
 
@@ -95,14 +97,25 @@ _DEFAULT_PERSIAN_VOICES = (
     ),
 )
 
+# Human-approved decisions persisted independently from page copy so content edits cannot
+# accidentally erase the approval gate. New pages remain blocked until explicitly added.
+_APPROVED_PAGE_VOICES: Mapping[str, str] = {
+    "structures": "strategic-editorial-fa",
+}
+
 
 def select_voice(page: PageSpec) -> VoiceDecision:
     raw = page.metadata.get("voice")
-    if not isinstance(raw, Mapping):
-        raise VoiceStudioError("Page metadata must include an explicit 'voice' approval object")
-    approved_voice_id = str(raw.get("approved_voice_id", "")).strip()
-    approval_status = str(raw.get("approval_status", "")).strip().lower()
-    if approval_status != "approved":
+    if isinstance(raw, Mapping):
+        approved_voice_id = str(raw.get("approved_voice_id", "")).strip()
+        approval_status = str(raw.get("approval_status", "")).strip().lower()
+        approval_source = "page-metadata"
+    else:
+        approved_voice_id = _APPROVED_PAGE_VOICES.get(page.slug, "")
+        approval_status = "approved" if approved_voice_id else "pending"
+        approval_source = "studio-approval-registry"
+
+    if approval_status != "approved" or not approved_voice_id:
         raise VoiceStudioError("Content production is blocked until a voice candidate is approved")
     decision = VoiceDecision(
         page_slug=page.slug,
@@ -110,6 +123,7 @@ def select_voice(page: PageSpec) -> VoiceDecision:
         candidates=_DEFAULT_PERSIAN_VOICES,
         approved_voice_id=approved_voice_id,
         approval_status=approval_status,
+        approval_source=approval_source,
     )
     decision.approved
     return decision
