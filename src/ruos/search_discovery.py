@@ -55,8 +55,20 @@ class SearchProvider(Protocol):
     def search(self, query: str, *, market: str, language: str, count: int) -> tuple[SearchResult, ...]: ...
 
 
-def _request_json(url: str, headers: Mapping[str, str], timeout_seconds: float = 15.0) -> Mapping[str, object]:
-    request = Request(url, headers=dict(headers), method="GET")
+def _request_json(
+    url: str,
+    headers: Mapping[str, str],
+    *,
+    method: str = "GET",
+    payload: Mapping[str, object] | None = None,
+    timeout_seconds: float = 15.0,
+) -> Mapping[str, object]:
+    data = None
+    request_headers = dict(headers)
+    if payload is not None:
+        data = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        request_headers.setdefault("Content-Type", "application/json")
+    request = Request(url, headers=request_headers, data=data, method=method)
     try:
         with urlopen(request, timeout=timeout_seconds) as response:
             if int(getattr(response, "status", 200)) != 200:
@@ -94,18 +106,7 @@ class BraveSearchProvider:
         rows = web.get("results", []) if isinstance(web, Mapping) else []
         if not isinstance(rows, list):
             raise LiveResearchError("Brave search response has invalid results")
-        results: list[SearchResult] = []
-        for index, item in enumerate(rows[:count], start=1):
-            if not isinstance(item, Mapping):
-                continue
-            url = str(item.get("url", "")).strip()
-            title = str(item.get("title", "")).strip()
-            if not url or not title:
-                continue
-            results.append(SearchResult(index, title, url, str(item.get("description", "")).strip()))
-        if not results:
-            raise LiveResearchError("Brave search returned no usable results")
-        return tuple(results)
+        return _normalize_results(rows, count, url_key="url", snippet_key="description", provider="Brave search")
 
 
 class SerperSearchProvider:
@@ -117,26 +118,40 @@ class SerperSearchProvider:
             raise LiveResearchError("SERPER_API_KEY is required for Serper search discovery")
 
     def search(self, query: str, *, market: str, language: str, count: int) -> tuple[SearchResult, ...]:
-        params = urlencode({"q": query, "gl": market, "hl": language, "num": max(1, min(count, 20))})
         raw = _request_json(
-            f"https://google.serper.dev/search?{params}",
+            "https://google.serper.dev/search",
             {"Accept": "application/json", "X-API-KEY": self.api_key, "User-Agent": "RUOS-SearchDiscovery/1.0"},
+            method="POST",
+            payload={"q": query, "gl": market, "hl": language, "num": max(1, min(count, 20))},
         )
         rows = raw.get("organic", [])
         if not isinstance(rows, list):
             raise LiveResearchError("Serper response has invalid organic results")
-        results: list[SearchResult] = []
-        for index, item in enumerate(rows[:count], start=1):
-            if not isinstance(item, Mapping):
-                continue
-            url = str(item.get("link", "")).strip()
-            title = str(item.get("title", "")).strip()
-            if not url or not title:
-                continue
-            results.append(SearchResult(index, title, url, str(item.get("snippet", "")).strip()))
-        if not results:
-            raise LiveResearchError("Serper returned no usable results")
-        return tuple(results)
+        return _normalize_results(rows, count, url_key="link", snippet_key="snippet", provider="Serper")
+
+
+def _normalize_results(
+    rows: list[object],
+    count: int,
+    *,
+    url_key: str,
+    snippet_key: str,
+    provider: str,
+) -> tuple[SearchResult, ...]:
+    results: list[SearchResult] = []
+    for item in rows:
+        if not isinstance(item, Mapping):
+            continue
+        url = str(item.get(url_key, "")).strip()
+        title = str(item.get("title", "")).strip()
+        if not url.startswith("https://") or not title:
+            continue
+        results.append(SearchResult(len(results) + 1, title, url, str(item.get(snippet_key, "")).strip()))
+        if len(results) >= count:
+            break
+    if not results:
+        raise LiveResearchError(f"{provider} returned no usable results")
+    return tuple(results)
 
 
 def discover_search(
@@ -151,6 +166,8 @@ def discover_search(
     clean_query = query.strip()
     if not clean_query:
         raise LiveResearchError("Search discovery requires a query")
+    if count < 1 or count > 20:
+        raise LiveResearchError("Search discovery count must be between 1 and 20")
     results = provider.search(clean_query, market=market, language=language, count=count)
     fetched_at = (clock or (lambda: datetime.now(timezone.utc)))().astimezone(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     return SearchDiscovery(provider.name, clean_query, market, language, fetched_at, results)
