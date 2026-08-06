@@ -13,6 +13,7 @@ from .motion_composer import MotionPlan
 from .pattern_resolver import PatternPlan
 from .quality_score import AgencyQualityScore
 from .research_studio import conduct_research
+from .virtual_studio import conduct_virtual_studio_review
 from .visual_dna import VisualDNA
 
 
@@ -97,14 +98,10 @@ def build_studio_artifacts(
     semantic = intelligence.semantic
     creative = intelligence.creative
     research = conduct_research(page, intelligence)
+    studio_review = conduct_virtual_studio_review(page, research, gates, quality)
 
     artifacts = (
-        _artifact(
-            "research.json",
-            "Research Studio",
-            (),
-            research.payload(),
-        ),
+        _artifact("research.json", "Research Studio", (), research.payload()),
         _artifact(
             "creative-direction.json",
             "Creative Director",
@@ -116,9 +113,7 @@ def build_studio_artifacts(
                 "visual_direction": creative.visual_direction,
                 "page_identity": page.visual_profile,
                 "research_sha256": research.sha256,
-                "selected_pattern_candidates": [
-                    candidate.id for candidate in research.pattern_candidates
-                ],
+                "selected_pattern_candidates": [candidate.id for candidate in research.pattern_candidates],
             },
         ),
         _artifact(
@@ -130,13 +125,7 @@ def build_studio_artifacts(
                 "global_motif": patterns.global_motif,
                 "scroll_model": patterns.scroll_model,
                 "section_motifs": [section.motif for section in patterns.sections],
-                "research_constraints": sorted(
-                    {
-                        constraint
-                        for candidate in research.pattern_candidates
-                        for constraint in candidate.constraints
-                    }
-                ),
+                "research_constraints": sorted({constraint for candidate in research.pattern_candidates for constraint in candidate.constraints}),
             },
         ),
         _artifact(
@@ -249,23 +238,21 @@ def build_studio_artifacts(
         ),
         _artifact(
             "agency-review.json",
-            "QA Lead",
+            "Virtual Studio Review Board",
             ("creative-direction.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json"),
             {
-                "score": quality.total,
-                "grade": quality.grade,
-                "publishable": quality.publishable,
-                "dimensions": [
-                    {"name": dimension.name, "score": dimension.score, "weight": dimension.weight}
-                    for dimension in quality.dimensions
-                ],
-                "gates": [
-                    {"name": gate.gate, "passed": gate.passed, "score": gate.score, "failures": list(gate.failures)}
-                    for gate in gates
-                ],
-                "blockers": list(quality.blockers),
-                "research_evidence_score": research.evidence_score,
-                "research_evidence_status": research.evidence_status,
+                **studio_review.payload(),
+                "studio_review_sha256": studio_review.sha256,
+                "agency_quality": {
+                    "score": quality.total,
+                    "grade": quality.grade,
+                    "publishable": quality.publishable,
+                },
+                "research": {
+                    "evidence_score": research.evidence_score,
+                    "evidence_status": research.evidence_status,
+                    "sha256": research.sha256,
+                },
             },
         ),
     )
