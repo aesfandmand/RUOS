@@ -1,0 +1,60 @@
+policy_id: live-library-selection-and-use
+version: 1.0.0
+status: locked
+scope: core
+owner_approved_date: 2026-08-06
+mission: >-
+  RUOS is a digital creative studio engine. It must research, evaluate, select and
+  actually use the best-fit libraries, frameworks and tools for the page goal,
+  timing, project constraints and conversion objective. Producing raw hand-built
+  HTML without justified technology selection is not an acceptable default.
+required_before_build:
+  - define_page_goal
+  - define_conversion_goal
+  - define_creative_and_motion_requirements
+  - define_accessibility_and_performance_constraints
+  - run_live_library_research
+  - compare_viable_candidates
+  - select_best_fit_stack
+  - record_selection_rationale
+  - record_rejected_candidates
+  - obtain_licenses_and_risk_check
+required_domains:
+  - component_system
+  - motion_and_scroll
+  - icons
+  - typography
+  - color_and_contrast
+  - forms_and_validation
+  - media_and_image_pipeline
+  - analytics_and_experimentation
+  - accessibility
+  - performance
+  - structured_data_and_seo
+selection_criteria:
+  - fit_for_page_intent
+  - creative_capability
+  - conversion_support
+  - accessibility
+  - mobile_and_iphone_reliability
+  - performance_budget
+  - maintenance_health
+  - license_compatibility
+  - interoperability
+  - implementation_time
+  - vendor_lock_in_risk
+blocking_gates:
+  live_research_evidence_present: true
+  selected_stack_declared: true
+  selected_libraries_used_in_build: true
+  unused_or_decorative_registry_entries_forbidden: true
+  raw_html_only_requires_explicit_technical_justification: true
+  conversion_instrumentation_plan_present: true
+required_outputs:
+  - library_research_report
+  - technology_decision_record
+  - dependency_manifest
+  - implementation_evidence
+  - performance_and_accessibility_report
+  - conversion_measurement_plan
+failure_policy: reject_build
