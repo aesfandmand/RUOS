@@ -68,9 +68,12 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
         "knowledge-graph.json",
         "component-selection.json",
     )
-    assert bundle.by_name("design-critique.json").payload["release_recommendation"] != "reject"
-    assert bundle.by_name("agency-review.json").dependencies[-1] == "design-critique.json"
-    assert bundle.by_name("agency-review.json").payload["publishable"] is True
+    critique = bundle.by_name("design-critique.json")
+    review = bundle.by_name("agency-review.json")
+    assert critique.payload["release_recommendation"] != "reject"
+    assert review.dependencies[-1] == "design-critique.json"
+    assert review.payload["design_critique_publishable"] is True
+    assert review.payload["publishable"] is True
 
 
 def test_studio_artifacts_are_deterministic_and_dependency_addressable() -> None:
