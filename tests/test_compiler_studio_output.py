@@ -13,6 +13,7 @@ EXPECTED_STUDIO_FILES = (
     "competitive-analysis.json",
     "pattern-selection.json",
     "knowledge-graph.json",
+    "component-selection.json",
     "design-brief.json",
     "creative-direction.json",
     "art-direction.json",
@@ -47,9 +48,13 @@ def test_compiler_publishes_complete_studio_bundle(tmp_path: Path) -> None:
         assert hashlib.sha256(canonical.encode("utf-8")).hexdigest() == expected
 
     graph = json.loads((studio / "knowledge-graph.json").read_text(encoding="utf-8"))
+    selection = json.loads((studio / "component-selection.json").read_text(encoding="utf-8"))
     assert graph["page_slug"] == "structures"
     assert graph["entities"]
     assert graph["relations"]
+    assert selection["page_slug"] == "structures"
+    assert len(selection["decisions"]) == 6
+    assert all(decision["score"] >= 88 for decision in selection["decisions"])
 
 
 def test_agency_review_requires_unanimous_specialist_approval(tmp_path: Path) -> None:
@@ -63,6 +68,7 @@ def test_agency_review_requires_unanimous_specialist_approval(tmp_path: Path) ->
     assert len(review["verdicts"]) == 10
     assert all(verdict["passed"] for verdict in review["verdicts"])
     assert len(review["research"]["knowledge_graph_sha256"]) == 64
+    assert len(review["research"]["component_selection_sha256"]) == 64
     assert build_manifest["passed"] is True
     assert len(build_manifest["studio_sha256"]) == 64
     assert build_manifest["studio"]["artifacts"]["agency-review.json"]["payload"]["publishable"] is True
