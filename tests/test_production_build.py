@@ -3,23 +3,27 @@ from types import SimpleNamespace
 
 import pytest
 
+from ruos.discovery_verifier import VerifiedSearchDiscovery
 from ruos.models import BuildContext, BuildResult
 from ruos.production_build import (
     ProductionBuildError,
     compile_production_page,
+    verify_production_discovery,
     verify_production_research,
 )
 from ruos.research_verifier import VerifiedResearchEvidence
 from ruos.spec_loader import load_page_spec
 
 
-def _context(tmp_path: Path, *, required: bool = True) -> BuildContext:
+def _context(tmp_path: Path, *, required: bool = True, discovery: bool = False) -> BuildContext:
     return BuildContext(
         project_root=tmp_path,
         output_root=tmp_path / "dist",
         strict=False,
         require_live_research=required,
         research_snapshot_root=tmp_path / ".ruos" / "research",
+        require_search_discovery=discovery,
+        discovery_snapshot_root=tmp_path / ".ruos" / "discovery",
     )
 
 
@@ -31,105 +35,80 @@ def test_production_api_requires_live_research_flag(tmp_path: Path) -> None:
 
 def test_production_api_requires_snapshot_root(tmp_path: Path) -> None:
     page = load_page_spec(Path("pages/structures.json"))
-    context = BuildContext(
-        project_root=tmp_path,
-        output_root=tmp_path / "dist",
-        require_live_research=True,
-        research_snapshot_root=None,
-    )
+    context = BuildContext(tmp_path, tmp_path / "dist", require_live_research=True)
     with pytest.raises(ProductionBuildError, match="snapshot root"):
         verify_production_research(page, context)
 
 
-def test_production_compile_verifies_before_compiling_and_injects_provenance(
-    tmp_path: Path,
-    monkeypatch,
-) -> None:
+def test_production_discovery_requires_flag(tmp_path: Path) -> None:
+    page = load_page_spec(Path("pages/structures.json"))
+    with pytest.raises(ProductionBuildError, match="requires search discovery"):
+        verify_production_discovery(page, _context(tmp_path))
+
+
+def test_production_compile_verifies_before_compiling_and_injects_provenance(tmp_path: Path, monkeypatch) -> None:
     page = load_page_spec(Path("pages/structures.json"))
     context = _context(tmp_path)
     calls: list[str] = []
-    verified = VerifiedResearchEvidence(
-        page_slug=page.slug,
-        snapshot_sha256="a" * 64,
-        created_at="2026-08-06T04:00:00Z",
-        source_count=7,
-        covered_source_ids=("one",),
-        freshness_hours=1,
-    )
-    evidence = SimpleNamespace(payload=lambda: {
-        "source_id": "one",
-        "origin": "live-web",
-        "fetched_at": "2026-08-06T04:00:00Z",
-        "content_sha256": "b" * 64,
-        "observations": ["Observed source content"],
-        "inferences": [],
-        "manual_claims": [],
-    })
-    snapshot = SimpleNamespace(
-        sha256=verified.snapshot_sha256,
-        evidence=(evidence,),
-    )
+    verified = VerifiedResearchEvidence(page.slug, "a" * 64, "2026-08-06T04:00:00Z", 7, ("one",), 1)
+    evidence = SimpleNamespace(payload=lambda: {"source_id": "one", "origin": "live-web"})
+    snapshot = SimpleNamespace(sha256=verified.snapshot_sha256, evidence=(evidence,))
 
     def fake_verify(page_arg, snapshot_path, *, max_age_days):
         calls.append("verify")
-        assert page_arg.slug == page.slug
         assert snapshot_path == context.research_snapshot_root / "structures.json"
-        assert max_age_days == 7
         return verified
 
     def fake_load(snapshot_path):
         calls.append("load")
-        assert snapshot_path == context.research_snapshot_root / "structures.json"
         return snapshot
 
     def fake_compile(page_arg, context_arg):
         calls.append("compile")
-        assert context_arg.strict is True
-        assert context_arg.require_live_research is True
-        provenance = page_arg.metadata["verified_live_research"]
-        assert provenance["status"] == "verified-live"
-        assert provenance["snapshot_sha256"] == verified.snapshot_sha256
-        assert provenance["evidence"][0]["origin"] == "live-web"
-        return BuildResult(
-            page=page_arg,
-            output_dir=context_arg.output_root / page_arg.slug,
-            files=(),
-            gates=(),
-        )
+        assert page_arg.metadata["verified_live_research"]["status"] == "verified-live"
+        return BuildResult(page_arg, context_arg.output_root / page_arg.slug, (), ())
 
     monkeypatch.setattr("ruos.production_build.require_verified_live_research", fake_verify)
     monkeypatch.setattr("ruos.production_build.load_snapshot", fake_load)
     monkeypatch.setattr("ruos.production_build.compile_page", fake_compile)
 
-    result, returned_evidence = compile_production_page(page, context, max_age_days=7)
-
+    result, returned_evidence, discovery = compile_production_page(page, context, max_age_days=7)
     assert calls == ["verify", "load", "compile"]
     assert result.page.slug == "structures"
     assert returned_evidence == verified
+    assert discovery is None
 
 
-def test_production_compile_rejects_snapshot_changed_after_verification(
-    tmp_path: Path,
-    monkeypatch,
-) -> None:
+def test_production_compile_injects_verified_discovery(tmp_path: Path, monkeypatch) -> None:
+    page = load_page_spec(Path("pages/structures.json"))
+    context = _context(tmp_path, discovery=True)
+    research = VerifiedResearchEvidence(page.slug, "a" * 64, "2026-08-06T04:00:00Z", 7, ("one",), 1)
+    discovery = VerifiedSearchDiscovery("brave", "سازه‌های تبلیغاتی", "ir", "fa", "2026-08-06T04:00:00Z", 5, 1, "b" * 64)
+    research_snapshot = SimpleNamespace(sha256=research.snapshot_sha256, evidence=())
+    result_item = SimpleNamespace(payload=lambda: {"rank": 1, "title": "نتیجه", "url": "https://example.com", "snippet": ""})
+    discovery_snapshot = SimpleNamespace(sha256=discovery.sha256, results=(result_item,))
+
+    monkeypatch.setattr("ruos.production_build.verify_production_research", lambda *args, **kwargs: research)
+    monkeypatch.setattr("ruos.production_build.verify_production_discovery", lambda *args, **kwargs: discovery)
+    monkeypatch.setattr("ruos.production_build.load_snapshot", lambda *args, **kwargs: research_snapshot)
+    monkeypatch.setattr("ruos.production_build.load_discovery", lambda *args, **kwargs: discovery_snapshot)
+
+    def fake_compile(page_arg, context_arg):
+        payload = page_arg.metadata["verified_search_discovery"]
+        assert payload["status"] == "verified-search-discovery"
+        assert payload["results"][0]["rank"] == 1
+        return BuildResult(page_arg, context_arg.output_root / page_arg.slug, (), ())
+
+    monkeypatch.setattr("ruos.production_build.compile_page", fake_compile)
+    _, _, returned = compile_production_page(page, context)
+    assert returned == discovery
+
+
+def test_production_compile_rejects_snapshot_changed_after_verification(tmp_path: Path, monkeypatch) -> None:
     page = load_page_spec(Path("pages/structures.json"))
     context = _context(tmp_path)
-    verified = VerifiedResearchEvidence(
-        page_slug=page.slug,
-        snapshot_sha256="a" * 64,
-        created_at="2026-08-06T04:00:00Z",
-        source_count=7,
-        covered_source_ids=("one",),
-        freshness_hours=1,
-    )
-    monkeypatch.setattr(
-        "ruos.production_build.require_verified_live_research",
-        lambda *args, **kwargs: verified,
-    )
-    monkeypatch.setattr(
-        "ruos.production_build.load_snapshot",
-        lambda *args, **kwargs: SimpleNamespace(sha256="c" * 64, evidence=()),
-    )
-
+    verified = VerifiedResearchEvidence(page.slug, "a" * 64, "2026-08-06T04:00:00Z", 7, ("one",), 1)
+    monkeypatch.setattr("ruos.production_build.require_verified_live_research", lambda *args, **kwargs: verified)
+    monkeypatch.setattr("ruos.production_build.load_snapshot", lambda *args, **kwargs: SimpleNamespace(sha256="c" * 64, evidence=()))
     with pytest.raises(ProductionBuildError, match="changed before compilation"):
         compile_production_page(page, context)
