@@ -48,6 +48,7 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
         "content-plan.json",
         "seo-plan.json",
         "cro-plan.json",
+        "design-critique.json",
         "agency-review.json",
     ]
     assert bundle.by_name("research.json").payload["primary_query"] == "سازه‌های تبلیغاتی"
@@ -67,6 +68,8 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
         "knowledge-graph.json",
         "component-selection.json",
     )
+    assert bundle.by_name("design-critique.json").payload["release_recommendation"] != "reject"
+    assert bundle.by_name("agency-review.json").dependencies[-1] == "design-critique.json"
     assert bundle.by_name("agency-review.json").payload["publishable"] is True
 
 
@@ -80,6 +83,6 @@ def test_studio_artifacts_are_deterministic_and_dependency_addressable() -> None
         "ux-plan.json",
         "component-selection.json",
     )
-    assert first.by_name("agency-review.json").dependencies[-1] == "cro-plan.json"
     assert first.by_name("creative-direction.json").payload["knowledge_graph_sha256"] == first.by_name("knowledge-graph.json").sha256
     assert first.by_name("creative-direction.json").payload["component_selection_sha256"] == first.by_name("component-selection.json").sha256
+    assert first.by_name("agency-review.json").payload["design_critique_sha256"] == first.by_name("design-critique.json").sha256
