@@ -1,0 +1,60 @@
+contract_id: website-v16-non-regression
+version: 1.0.0
+status: locked
+owner_approval_date: 2026-08-06
+baseline:
+  artifact: services-urban-investment-final-v16.html
+  sha256: 5e79c597cf8a3ae2af72accb9f621c715a83ebf44b564976b485c733ae030064
+  bytes: 4004577
+  immutable: true
+required_inputs:
+  - baseline_identity
+  - page_intent
+  - primary_persona
+  - pillar
+  - cluster
+  - knowledge_graph_entities
+  - capability_statement
+  - evidence_plan
+  - reference_translation
+  - allowed_changes
+  - forbidden_changes
+gates:
+  architecture_approved:
+    blocking: true
+  baseline_loaded_and_verified:
+    blocking: true
+  header_navigation_brand_integrity:
+    blocking: true
+  footer_integrity:
+    blocking: true
+  persian_typography_and_font:
+    blocking: true
+  mobile_iphone_behavior:
+    blocking: true
+  motion_and_interaction_not_weaker_than_baseline:
+    blocking: true
+  content_specificity_and_voice:
+    blocking: true
+  accessibility_and_contrast:
+    blocking: true
+  knowledge_graph_and_schema:
+    blocking: true
+  capability_evidence_alignment:
+    blocking: true
+forbidden_patterns:
+  - free_redesign_without_baseline
+  - unsupported_claims_or_numbers
+  - fake_urgency
+  - fake_scarcity
+  - artificial_deadlines
+  - generic_black_red_hero_gradient
+  - duplicate_structure_entities
+  - publishing_without_diff_report
+required_outputs:
+  - baseline_diff
+  - non_regression_report
+  - failed_gate_list
+  - owner_review_candidate
+failure_policy: reject_delivery
+replacement_policy: explicit_owner_written_approval_only
