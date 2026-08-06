@@ -163,7 +163,7 @@ def build_competitive_intelligence(page: PageSpec, research: ResearchBrief) -> C
     for source in design_sources:
         signals.append(CompetitiveSignal(source.id, source.market, "creative-reference", source.notes, "Extract principles only; reinterpret through brand, RTL and performance constraints."))
     for item in discovered:
-        signals.append(CompetitiveSignal(f"search-discovery:{provider}:{item.rank}", "iran", "observed-search-result", f"Rank {item.rank}: {item.title} — {item.domain}. Snippet: {item.snippet}", "Fetch the page before making claims about its content, UX or visual quality."))
+        signals.append(CompetitiveSignal(f"search-discovery:{provider}:{item.rank}", "iran", "observed-search-result", f"Rank {item.rank}: {item.title} — {item.domain}. Snippet: {item.snippet}", "fetch the page before making claims about its content, UX or visual quality."))
     for item in page_evidence:
         signals.append(CompetitiveSignal(f"competitor-page:{item.rank}", "iran", "observed-page-content", f"Fetched {item.domain}; title: {item.title}; excerpt: {item.excerpt}", "Use only directly observed text and metadata; do not infer visual quality without rendered evidence."))
     gaps = ("ترکیب راهنمای تصمیم، مقایسه فنی و مسیر تجاری در یک روایت واحد", "توضیح روشن تفاوت خرید، اجاره و سرمایه‌گذاری بدون فشار فروش", "تجربه RTL خلاق با حفظ دسترسی مستقیم به اطلاعات و عملکرد موبایل")
