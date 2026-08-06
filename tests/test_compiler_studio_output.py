@@ -12,6 +12,7 @@ EXPECTED_STUDIO_FILES = (
     "query-intelligence.json",
     "competitive-analysis.json",
     "pattern-selection.json",
+    "knowledge-graph.json",
     "design-brief.json",
     "creative-direction.json",
     "art-direction.json",
@@ -45,6 +46,11 @@ def test_compiler_publishes_complete_studio_bundle(tmp_path: Path) -> None:
         canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         assert hashlib.sha256(canonical.encode("utf-8")).hexdigest() == expected
 
+    graph = json.loads((studio / "knowledge-graph.json").read_text(encoding="utf-8"))
+    assert graph["page_slug"] == "structures"
+    assert graph["entities"]
+    assert graph["relations"]
+
 
 def test_agency_review_requires_unanimous_specialist_approval(tmp_path: Path) -> None:
     result = _build(tmp_path)
@@ -56,6 +62,7 @@ def test_agency_review_requires_unanimous_specialist_approval(tmp_path: Path) ->
     assert review["total_score"] >= 88
     assert len(review["verdicts"]) == 10
     assert all(verdict["passed"] for verdict in review["verdicts"])
+    assert len(review["research"]["knowledge_graph_sha256"]) == 64
     assert build_manifest["passed"] is True
     assert len(build_manifest["studio_sha256"]) == 64
     assert build_manifest["studio"]["artifacts"]["agency-review.json"]["payload"]["publishable"] is True
