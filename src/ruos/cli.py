@@ -3,9 +3,12 @@ from __future__ import annotations
 import argparse
 import sys
 from pathlib import Path
+from typing import Mapping
 
 from .compiler import BuildRejected, compile_page
+from .live_research import LiveResearchAdapter, LiveResearchError
 from .models import BuildContext
+from .research_snapshot import build_snapshot, write_snapshot
 from .spec_loader import SpecError, load_page_spec
 
 
@@ -18,7 +21,53 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--spec-root", default="pages", help="Directory containing page JSON specs")
     build.add_argument("--output", default="dist", help="Build output directory")
     build.add_argument("--no-strict", action="store_true", help="Write output even when a gate fails")
+
+    research = sub.add_parser("research", help="Fetch live sources and write a verified evidence snapshot")
+    research.add_argument("page", help="Page slug, for example: structures")
+    research.add_argument("--spec-root", default="pages", help="Directory containing page JSON specs")
+    research.add_argument(
+        "--snapshot-root",
+        default=".ruos/research",
+        help="Directory for deterministic live research snapshots",
+    )
     return parser
+
+
+def _research_sources(page) -> tuple[Mapping[str, object], ...]:
+    research = page.metadata.get("research")
+    if not isinstance(research, Mapping):
+        raise LiveResearchError("Page metadata must include a research object")
+    raw_sources = research.get("sources")
+    if not isinstance(raw_sources, list) or not raw_sources:
+        raise LiveResearchError("Page research must include at least one source")
+    sources: list[Mapping[str, object]] = []
+    for index, source in enumerate(raw_sources, start=1):
+        if not isinstance(source, Mapping):
+            raise LiveResearchError(f"Research source #{index} must be an object")
+        sources.append(source)
+    return tuple(sources)
+
+
+def _run_research(page, snapshot_path: Path) -> int:
+    adapter = LiveResearchAdapter()
+    evidence = []
+    for source in _research_sources(page):
+        source_id = str(source.get("id", "")).strip()
+        url = str(source.get("url", "")).strip()
+        notes = str(source.get("notes", "")).strip()
+        print(f"RUOS RESEARCH FETCH: {source_id} {url}")
+        evidence.append(
+            adapter.fetch_source(
+                source_id,
+                url,
+                manual_claims=(notes,) if notes else (),
+            )
+        )
+    snapshot = build_snapshot(page.slug, evidence)
+    write_snapshot(snapshot, snapshot_path)
+    print(f"RUOS RESEARCH SNAPSHOT: {snapshot_path}")
+    print(f"RUOS RESEARCH SHA256: {snapshot.sha256}")
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -28,6 +77,10 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         page = load_page_spec(spec_path)
+        if args.command == "research":
+            snapshot_path = project_root / args.snapshot_root / f"{page.slug}.json"
+            return _run_research(page, snapshot_path)
+
         result = compile_page(
             page,
             BuildContext(
@@ -36,8 +89,9 @@ def main(argv: list[str] | None = None) -> int:
                 strict=not args.no_strict,
             ),
         )
-    except (SpecError, BuildRejected) as exc:
-        print(f"RUOS BUILD REJECTED: {exc}", file=sys.stderr)
+    except (SpecError, BuildRejected, LiveResearchError) as exc:
+        label = "RESEARCH FAILED" if args.command == "research" else "BUILD REJECTED"
+        print(f"RUOS {label}: {exc}", file=sys.stderr)
         return 2
 
     print(f"RUOS BUILD PASSED: {result.output_dir}")
