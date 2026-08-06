@@ -122,6 +122,13 @@ def build_studio_artifacts(
     design_brief = compile_design_brief(page, research, query_intelligence, competition, pattern_intelligence, voice)
     design_critique = critique_design(page, gates, quality, component_selection)
     studio_review = conduct_virtual_studio_review(page, research, gates, quality)
+    critique_publishable = design_critique.release_recommendation != "reject"
+    final_publishable = studio_review.publishable and critique_publishable
+    final_blockers = tuple(
+        dict.fromkeys(
+            (*studio_review.blockers, *design_critique.blockers)
+        )
+    )
 
     artifacts = (
         _artifact("research.json", "Research Studio", (), research.payload()),
@@ -200,9 +207,12 @@ def build_studio_artifacts(
         _artifact("design-critique.json", "Design Critic", ("component-selection.json", "creative-direction.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json"), design_critique.payload()),
         _artifact("agency-review.json", "Virtual Studio Review Board", ("knowledge-graph.json", "component-selection.json", "design-brief.json", "creative-direction.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json", "design-critique.json"), {
             **studio_review.payload(),
+            "publishable": final_publishable,
+            "blockers": list(final_blockers),
             "studio_review_sha256": studio_review.sha256,
             "design_critique_sha256": design_critique.sha256,
             "design_critique_recommendation": design_critique.release_recommendation,
+            "design_critique_publishable": critique_publishable,
             "agency_quality": {"score": quality.total, "grade": quality.grade, "publishable": quality.publishable},
             "research": {
                 "evidence_score": research.evidence_score,
