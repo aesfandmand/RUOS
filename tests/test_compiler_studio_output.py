@@ -21,6 +21,7 @@ EXPECTED_STUDIO_FILES = (
     "art-direction.json",
     "ux-decision.json",
     "ux-plan.json",
+    "ui-decision.json",
     "ui-plan.json",
     "motion-plan.json",
     "content-plan.json",
@@ -56,6 +57,7 @@ def test_compiler_publishes_complete_studio_bundle(tmp_path: Path) -> None:
     selection = json.loads((studio / "component-selection.json").read_text(encoding="utf-8"))
     art = json.loads((studio / "art-decision.json").read_text(encoding="utf-8"))
     ux = json.loads((studio / "ux-decision.json").read_text(encoding="utf-8"))
+    ui = json.loads((studio / "ui-decision.json").read_text(encoding="utf-8"))
     critique = json.loads((studio / "design-critique.json").read_text(encoding="utf-8"))
     assert graph["page_slug"] == "structures"
     assert graph["entities"]
@@ -69,11 +71,11 @@ def test_compiler_publishes_complete_studio_bundle(tmp_path: Path) -> None:
     assert art["page_slug"] == "structures"
     assert art["grid_system"]
     assert art["responsive_translation"]
-    assert ux["page_slug"] == "structures"
     assert ux["journey_model"] == "orient-understand-compare-decide-act"
     assert len(ux["stages"]) == 5
-    assert ux["stages"][0]["section_id"] == "hero"
-    assert ux["stages"][-1]["section_id"] == "conversion"
+    assert ui["system_model"] == "art-led-ux-governed-responsive-interface"
+    assert len(ui["sections"]) == 5
+    assert "repetitive equal-weight card wall" in ui["anti_patterns"]
     assert critique["page_slug"] == "structures"
     assert len(critique["findings"]) == 10
     assert critique["release_recommendation"] != "reject"
@@ -94,6 +96,7 @@ def test_agency_review_requires_unanimous_specialist_approval(tmp_path: Path) ->
     assert len(review["research"]["component_selection_sha256"]) == 64
     assert len(review["research"]["art_decision_sha256"]) == 64
     assert len(review["research"]["ux_decision_sha256"]) == 64
+    assert len(review["research"]["ui_decision_sha256"]) == 64
     assert len(review["design_critique_sha256"]) == 64
     assert review["design_critique_recommendation"] != "reject"
     assert build_manifest["passed"] is True
