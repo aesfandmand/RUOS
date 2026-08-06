@@ -90,9 +90,10 @@ class ResearchBrief:
     evidence_score: int
     evidence_status: str
     limitations: tuple[str, ...]
+    provenance: Mapping[str, object] | None = None
 
     def payload(self) -> dict[str, object]:
-        return {
+        payload: dict[str, object] = {
             "page_slug": self.page_slug,
             "market": self.market,
             "language": self.language,
@@ -105,6 +106,9 @@ class ResearchBrief:
             "evidence_status": self.evidence_status,
             "limitations": list(self.limitations),
         }
+        if self.provenance is not None:
+            payload["provenance"] = dict(self.provenance)
+        return payload
 
     @property
     def sha256(self) -> str:
@@ -229,6 +233,12 @@ def conduct_research(page: PageSpec, intelligence: CreativeIntelligencePlan) -> 
     if status != "ready":
         raise ResearchStudioError(f"Research evidence score {score} is below production threshold 75")
 
+    provenance = page.metadata.get("verified_live_research")
+    if provenance is not None and not isinstance(provenance, Mapping):
+        raise ResearchStudioError("Verified live research provenance must be an object")
+    if isinstance(provenance, Mapping):
+        status = "verified-live"
+
     return ResearchBrief(
         page_slug=page.slug,
         market=_require_text(page.metadata.get("market", "iran"), "market"),
@@ -241,4 +251,5 @@ def conduct_research(page: PageSpec, intelligence: CreativeIntelligencePlan) -> 
         evidence_score=score,
         evidence_status=status,
         limitations=limitations,
+        provenance=dict(provenance) if isinstance(provenance, Mapping) else None,
     )
