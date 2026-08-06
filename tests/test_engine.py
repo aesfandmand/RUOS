@@ -23,6 +23,7 @@ STUDIO_ARTIFACTS = [
     "studio/content-plan.json",
     "studio/seo-plan.json",
     "studio/cro-plan.json",
+    "studio/design-critique.json",
     "studio/agency-review.json",
 ]
 
