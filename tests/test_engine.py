@@ -19,6 +19,7 @@ STUDIO_ARTIFACTS = [
     "studio/creative-direction.json",
     "studio/art-decision.json",
     "studio/art-direction.json",
+    "studio/ux-decision.json",
     "studio/ux-plan.json",
     "studio/ui-plan.json",
     "studio/motion-plan.json",
