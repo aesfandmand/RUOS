@@ -5,6 +5,7 @@ from types import MappingProxyType
 from typing import Mapping
 
 from .models import PageSpec
+from .voice_studio import select_voice
 
 
 class ContentCompositionError(ValueError):
@@ -79,6 +80,8 @@ def compose_content(page: PageSpec) -> ContentPlan:
     if not page.title.strip() or not page.description.strip():
         raise ContentCompositionError("Page title and description are required")
 
+    voice = select_voice(page)
+    approved_voice = voice.approved
     blocks: list[ContentBlock] = []
     for section in page.sections:
         if not section.title.strip():
@@ -113,6 +116,9 @@ def compose_content(page: PageSpec) -> ContentPlan:
                         "eyebrow": section.eyebrow.strip(),
                         "item_count": str(len(section.items)),
                         "has_cta": str(bool(section.cta_href)).lower(),
+                        "voice_id": approved_voice.id,
+                        "voice_label": approved_voice.label,
+                        "voice_approval_sha256": voice.sha256,
                     }
                 ),
             )
