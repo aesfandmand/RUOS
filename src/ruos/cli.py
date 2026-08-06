@@ -5,10 +5,10 @@ import sys
 from pathlib import Path
 from typing import Mapping
 
-from .build_research_gate import require_verified_live_research
 from .compiler import BuildRejected, compile_page
 from .live_research import LiveResearchAdapter, LiveResearchError
 from .models import BuildContext
+from .production_build import compile_production_page
 from .research_snapshot import build_snapshot, write_snapshot
 from .spec_loader import SpecError, load_page_spec
 
@@ -99,27 +99,25 @@ def main(argv: list[str] | None = None) -> int:
             return _run_research(page, snapshot_path)
 
         snapshot_root = project_root / args.snapshot_root
+        context = BuildContext(
+            project_root=project_root,
+            output_root=project_root / args.output,
+            strict=not args.no_strict,
+            require_live_research=args.require_live_research,
+            research_snapshot_root=snapshot_root,
+        )
         if args.require_live_research:
-            verified = require_verified_live_research(
+            result, verified = compile_production_page(
                 page,
-                snapshot_root / f"{page.slug}.json",
+                context,
                 max_age_days=args.research_max_age_days,
             )
             print(
                 f"RUOS LIVE RESEARCH VERIFIED: {verified.source_count} sources "
                 f"snapshot={verified.snapshot_sha256}"
             )
-
-        result = compile_page(
-            page,
-            BuildContext(
-                project_root=project_root,
-                output_root=project_root / args.output,
-                strict=not args.no_strict,
-                require_live_research=args.require_live_research,
-                research_snapshot_root=snapshot_root,
-            ),
-        )
+        else:
+            result = compile_page(page, context)
     except (SpecError, BuildRejected, LiveResearchError) as exc:
         label = "RESEARCH FAILED" if args.command == "research" else "BUILD REJECTED"
         print(f"RUOS {label}: {exc}", file=sys.stderr)
