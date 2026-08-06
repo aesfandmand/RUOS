@@ -86,3 +86,30 @@ def test_adapter_requires_source_id() -> None:
     adapter = _adapter(b"useful text", content_type="text/plain")
     with pytest.raises(LiveResearchError, match="requires a source id"):
         adapter.fetch_source("  ", "https://example.com/source")
+
+
+def test_adapter_rejects_binary_content_even_with_extractable_bytes() -> None:
+    adapter = _adapter(b"binary payload that looks readable", content_type="application/octet-stream")
+    with pytest.raises(LiveResearchError, match="content type is not allowed"):
+        adapter.fetch_source("binary", "https://example.com/source")
+
+
+def test_adapter_honors_explicit_content_type_policy() -> None:
+    policy = FetchPolicy(allowed_content_types=("application/json",))
+    transport = FakeTransport(
+        TransportResponse(
+            requested_url="https://example.com/source",
+            final_url="https://example.com/source",
+            status=200,
+            headers={"content-type": "text/plain"},
+            body=b"plain text",
+        )
+    )
+    adapter = LiveResearchAdapter(
+        transport=transport,
+        policy=policy,
+        clock=lambda: datetime(2026, 8, 6, 4, 0, tzinfo=timezone.utc),
+    )
+
+    with pytest.raises(LiveResearchError, match="content type is not allowed"):
+        adapter.fetch_source("plain", "https://example.com/source")
