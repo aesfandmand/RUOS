@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 from pathlib import Path
 from typing import Mapping
 
 from .compiler import BuildRejected, compile_page
+from .discovery_snapshot import write_discovery
 from .live_research import LiveResearchAdapter, LiveResearchError
 from .models import BuildContext
 from .production_build import compile_production_page
@@ -94,8 +94,7 @@ def _run_discovery(page, args, project_root: Path) -> int:
         create_provider(args.provider), query, market=args.market, language=args.language, count=args.count
     )
     output = project_root / args.output_root / f"{page.slug}.json"
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps({**discovery.payload(), "sha256": discovery.sha256}, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    write_discovery(discovery, output)
     print(f"RUOS SEARCH DISCOVERY: {output}")
     print(f"RUOS SEARCH SHA256: {discovery.sha256}")
     return 0
