@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
+from typing import Mapping
 
 from .creative_intelligence import CreativeIntelligencePlan
 from .models import PageSpec
@@ -43,9 +44,10 @@ class QueryIntelligence:
     answer_targets: tuple[str, ...]
     evidence_source_ids: tuple[str, ...]
     limitations: tuple[str, ...]
+    discovery_evidence: Mapping[str, object] | None = None
 
     def payload(self) -> dict[str, object]:
-        return {
+        payload: dict[str, object] = {
             "page_slug": self.page_slug,
             "market": self.market,
             "language": self.language,
@@ -57,6 +59,9 @@ class QueryIntelligence:
             "evidence_source_ids": list(self.evidence_source_ids),
             "limitations": list(self.limitations),
         }
+        if self.discovery_evidence is not None:
+            payload["discovery_evidence"] = dict(self.discovery_evidence)
+        return payload
 
     @property
     def sha256(self) -> str:
@@ -88,6 +93,24 @@ def _classify(query: str) -> tuple[str, str, int]:
     return "discovery", "awareness", 70
 
 
+def _verified_discovery(research: ResearchBrief, primary: str) -> Mapping[str, object] | None:
+    provenance = research.provenance
+    if not isinstance(provenance, Mapping):
+        return None
+    discovery = provenance.get("search_discovery")
+    if discovery is None:
+        return None
+    if not isinstance(discovery, Mapping):
+        raise QueryIntelligenceError("Search discovery provenance must be an object")
+    if str(discovery.get("status", "")) != "verified-search-discovery":
+        raise QueryIntelligenceError("Search discovery provenance is not verified")
+    if " ".join(str(discovery.get("query", "")).split()) != primary:
+        raise QueryIntelligenceError("Search discovery query does not match the primary query")
+    if not str(discovery.get("sha256", "")).strip():
+        raise QueryIntelligenceError("Search discovery provenance is missing its checksum")
+    return discovery
+
+
 def build_query_intelligence(
     page: PageSpec,
     research: ResearchBrief,
@@ -95,7 +118,7 @@ def build_query_intelligence(
 ) -> QueryIntelligence:
     if research.page_slug != page.slug or intelligence.page_slug != page.slug:
         raise QueryIntelligenceError("Query inputs do not belong to the same page")
-    if research.evidence_status != "ready":
+    if research.evidence_status not in {"ready", "verified-live", "verified-live-with-search-discovery"}:
         raise QueryIntelligenceError("Query intelligence requires production-ready research")
 
     primary = " ".join(intelligence.query.primary_query.split())
@@ -123,9 +146,12 @@ def build_query_intelligence(
         for name, items in sorted(grouped.items(), key=lambda item: (-max(x[2] for x in item[1]), item[0]))
     )
 
-    evidence_ids = tuple(
+    evidence_ids = [
         source.id for source in research.sources if source.kind in {"search-demand", "competitor", "market-source"}
-    )
+    ]
+    discovery = _verified_discovery(research, primary)
+    if discovery is not None:
+        evidence_ids.append(f"search-discovery:{discovery.get('provider', 'unknown')}")
     if not evidence_ids:
         raise QueryIntelligenceError("No search or market evidence is available")
 
@@ -140,6 +166,7 @@ def build_query_intelligence(
         clusters=clusters,
         entities=entities,
         answer_targets=answer_targets,
-        evidence_source_ids=evidence_ids,
+        evidence_source_ids=tuple(evidence_ids),
         limitations=research.limitations,
+        discovery_evidence=dict(discovery) if discovery is not None else None,
     )
