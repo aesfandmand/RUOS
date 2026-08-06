@@ -50,7 +50,6 @@ def test_studio_artifact_pipeline_is_complete_and_ordered() -> None:
     ]
     assert bundle.by_name("research.json").payload["primary_query"] == "سازه‌های تبلیغاتی"
     assert bundle.by_name("design-brief.json").dependencies == (
-        "research.json",
         "query-intelligence.json",
         "competitive-analysis.json",
         "pattern-selection.json",
