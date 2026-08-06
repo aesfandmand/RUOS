@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 from typing import Mapping
@@ -10,6 +11,7 @@ from .live_research import LiveResearchAdapter, LiveResearchError
 from .models import BuildContext
 from .production_build import compile_production_page
 from .research_snapshot import build_snapshot, write_snapshot
+from .search_discovery import create_provider, discover_search
 from .spec_loader import SpecError, load_page_spec
 
 
@@ -22,31 +24,24 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--spec-root", default="pages", help="Directory containing page JSON specs")
     build.add_argument("--output", default="dist", help="Build output directory")
     build.add_argument("--no-strict", action="store_true", help="Write output even when a gate fails")
-    build.add_argument(
-        "--require-live-research",
-        action="store_true",
-        help="Reject the build unless a complete, fresh, verified live research snapshot exists",
-    )
-    build.add_argument(
-        "--snapshot-root",
-        default=".ruos/research",
-        help="Directory containing verified live research snapshots",
-    )
-    build.add_argument(
-        "--research-max-age-days",
-        type=int,
-        default=14,
-        help="Maximum accepted live research snapshot age in days",
-    )
+    build.add_argument("--require-live-research", action="store_true", help="Require verified live research")
+    build.add_argument("--snapshot-root", default=".ruos/research", help="Verified research snapshots")
+    build.add_argument("--research-max-age-days", type=int, default=14)
 
-    research = sub.add_parser("research", help="Fetch live sources and write a verified evidence snapshot")
-    research.add_argument("page", help="Page slug, for example: structures")
-    research.add_argument("--spec-root", default="pages", help="Directory containing page JSON specs")
-    research.add_argument(
-        "--snapshot-root",
-        default=".ruos/research",
-        help="Directory for deterministic live research snapshots",
-    )
+    research = sub.add_parser("research", help="Fetch configured live sources")
+    research.add_argument("page")
+    research.add_argument("--spec-root", default="pages")
+    research.add_argument("--snapshot-root", default=".ruos/research")
+
+    discover = sub.add_parser("discover", help="Run live search discovery for a page query")
+    discover.add_argument("page")
+    discover.add_argument("--spec-root", default="pages")
+    discover.add_argument("--provider", choices=("brave", "serper"), default="brave")
+    discover.add_argument("--query", default="", help="Override the page primary query")
+    discover.add_argument("--market", default="ir")
+    discover.add_argument("--language", default="fa")
+    discover.add_argument("--count", type=int, default=10)
+    discover.add_argument("--output-root", default=".ruos/discovery")
     return parser
 
 
@@ -65,6 +60,18 @@ def _research_sources(page) -> tuple[Mapping[str, object], ...]:
     return tuple(sources)
 
 
+def _primary_query(page) -> str:
+    query = page.metadata.get("query")
+    if isinstance(query, Mapping):
+        value = str(query.get("primary", "")).strip()
+        if value:
+            return value
+    value = str(page.metadata.get("primary_query", "")).strip()
+    if value:
+        return value
+    raise LiveResearchError("Page metadata must define a primary query or pass --query")
+
+
 def _run_research(page, snapshot_path: Path) -> int:
     adapter = LiveResearchAdapter()
     evidence = []
@@ -73,13 +80,7 @@ def _run_research(page, snapshot_path: Path) -> int:
         url = str(source.get("url", "")).strip()
         notes = str(source.get("notes", "")).strip()
         print(f"RUOS RESEARCH FETCH: {source_id} {url}")
-        evidence.append(
-            adapter.fetch_source(
-                source_id,
-                url,
-                manual_claims=(notes,) if notes else (),
-            )
-        )
+        evidence.append(adapter.fetch_source(source_id, url, manual_claims=(notes,) if notes else ()))
     snapshot = build_snapshot(page.slug, evidence)
     write_snapshot(snapshot, snapshot_path)
     print(f"RUOS RESEARCH SNAPSHOT: {snapshot_path}")
@@ -87,16 +88,29 @@ def _run_research(page, snapshot_path: Path) -> int:
     return 0
 
 
+def _run_discovery(page, args, project_root: Path) -> int:
+    query = args.query.strip() or _primary_query(page)
+    discovery = discover_search(
+        create_provider(args.provider), query, market=args.market, language=args.language, count=args.count
+    )
+    output = project_root / args.output_root / f"{page.slug}.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps({**discovery.payload(), "sha256": discovery.sha256}, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    print(f"RUOS SEARCH DISCOVERY: {output}")
+    print(f"RUOS SEARCH SHA256: {discovery.sha256}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     project_root = Path.cwd()
     spec_path = project_root / args.spec_root / f"{args.page}.json"
-
     try:
         page = load_page_spec(spec_path)
         if args.command == "research":
-            snapshot_path = project_root / args.snapshot_root / f"{page.slug}.json"
-            return _run_research(page, snapshot_path)
+            return _run_research(page, project_root / args.snapshot_root / f"{page.slug}.json")
+        if args.command == "discover":
+            return _run_discovery(page, args, project_root)
 
         snapshot_root = project_root / args.snapshot_root
         context = BuildContext(
@@ -107,19 +121,12 @@ def main(argv: list[str] | None = None) -> int:
             research_snapshot_root=snapshot_root,
         )
         if args.require_live_research:
-            result, verified = compile_production_page(
-                page,
-                context,
-                max_age_days=args.research_max_age_days,
-            )
-            print(
-                f"RUOS LIVE RESEARCH VERIFIED: {verified.source_count} sources "
-                f"snapshot={verified.snapshot_sha256}"
-            )
+            result, verified = compile_production_page(page, context, max_age_days=args.research_max_age_days)
+            print(f"RUOS LIVE RESEARCH VERIFIED: {verified.source_count} sources snapshot={verified.snapshot_sha256}")
         else:
             result = compile_page(page, context)
     except (SpecError, BuildRejected, LiveResearchError) as exc:
-        label = "RESEARCH FAILED" if args.command == "research" else "BUILD REJECTED"
+        label = "RESEARCH FAILED" if args.command in {"research", "discover"} else "BUILD REJECTED"
         print(f"RUOS {label}: {exc}", file=sys.stderr)
         return 2
 
