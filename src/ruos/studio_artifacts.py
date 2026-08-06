@@ -22,6 +22,7 @@ from .quality_score import AgencyQualityScore
 from .query_intelligence import build_query_intelligence
 from .research_studio import conduct_research
 from .studio_knowledge import compose_studio_knowledge
+from .ux_director import direct_ux
 from .virtual_studio import conduct_virtual_studio_review
 from .visual_dna import VisualDNA
 from .voice_studio import select_voice
@@ -84,6 +85,7 @@ _REQUIRED_ORDER = (
     "creative-direction.json",
     "art-decision.json",
     "art-direction.json",
+    "ux-decision.json",
     "ux-plan.json",
     "ui-plan.json",
     "motion-plan.json",
@@ -126,6 +128,7 @@ def build_studio_artifacts(
     component_selection = select_creative_library(page, query_intelligence, components, pattern_intelligence, knowledge_graph)
     design_brief = compile_design_brief(page, research, query_intelligence, competition, pattern_intelligence, voice)
     art_decision = direct_art(page, dna, patterns, component_selection, inspiration)
+    ux_decision = direct_ux(page, components, patterns, art_decision)
     design_critique = critique_design(page, gates, quality, component_selection)
     studio_review = conduct_virtual_studio_review(page, research, gates, quality)
     critique_publishable = design_critique.release_recommendation != "reject"
@@ -174,30 +177,41 @@ def build_studio_artifacts(
             "scroll_model": patterns.scroll_model,
             "section_motifs": [section.motif for section in patterns.sections],
         }),
-        _artifact("ux-plan.json", "UX Lead", ("design-brief.json", "creative-direction.json", "art-decision.json", "component-selection.json"), {
+        _artifact("ux-decision.json", "UX Director", ("design-brief.json", "creative-direction.json", "art-decision.json", "component-selection.json"), ux_decision.payload()),
+        _artifact("ux-plan.json", "UX Lead", ("ux-decision.json", "art-direction.json"), {
+            "ux_decision_sha256": ux_decision.sha256,
+            "journey_model": ux_decision.journey_model,
             "narrative_arc": patterns.narrative_arc,
             "journey": page.metadata.get("journey", ""),
             "audience_hypotheses": list(research.audience_hypotheses),
             "reading_strategy": design_brief.reading_strategy,
             "interaction_strategy": design_brief.interaction_strategy,
-            "art_direction_sha256": art_decision.sha256,
+            "reading_contract": list(ux_decision.reading_contract),
+            "trust_sequence": list(ux_decision.trust_sequence),
+            "conversion_sequence": list(ux_decision.conversion_sequence),
+            "mobile_behavior": list(ux_decision.mobile_behavior),
+            "accessibility_contract": list(ux_decision.accessibility_contract),
+            "stages": [stage.payload() for stage in ux_decision.stages],
             "sections": [{"id": section.section_id, "chapter": section.chapter, "pacing": section.pacing, "transition": section.transition} for section in patterns.sections],
         }),
         _artifact("ui-plan.json", "UI Lead", ("art-direction.json", "ux-plan.json", "component-selection.json"), {
             "selection_sha256": component_selection.sha256,
             "art_decision_sha256": art_decision.sha256,
+            "ux_decision_sha256": ux_decision.sha256,
             "components": [{"id": component.id, "section_id": component.section_id, "family": component.family, "variant": component.variant, "density": component.density, "emphasis": component.emphasis, "capabilities": list(component.capabilities)} for component in components.components],
         }),
-        _artifact("motion-plan.json", "Motion Lead", ("ux-plan.json", "ui-plan.json", "art-decision.json", "component-selection.json"), {
+        _artifact("motion-plan.json", "Motion Lead", ("ux-plan.json", "ui-plan.json", "art-decision.json", "ux-decision.json", "component-selection.json"), {
             "strategy": motion.strategy,
             "reduced_motion_policy": motion.reduced_motion_policy,
             "art_scroll_composition": list(art_decision.scroll_composition),
+            "ux_journey_sha256": ux_decision.sha256,
             "cues": [{"section_id": cue.section_id, "order": cue.order, "trigger": cue.trigger, "target": cue.target, "effect": cue.effect, "duration_ms": cue.duration_ms, "delay_ms": cue.delay_ms, "easing": cue.easing} for cue in motion.cues],
         }),
-        _artifact("content-plan.json", "Content Director", ("design-brief.json", "ux-plan.json"), {
+        _artifact("content-plan.json", "Content Director", ("design-brief.json", "ux-decision.json", "ux-plan.json"), {
             "language": content.language,
             "direction": content.direction,
             "primary_intent": content.primary_intent,
+            "ux_decision_sha256": ux_decision.sha256,
             "voice": {**voice.payload(), "sha256": voice.sha256},
             "blocks": [{"section_id": block.section_id, "role": block.role, "heading_level": block.heading_level, "intent": block.intent, "title": block.title, "body": block.body, "cta_label": block.cta_label, "cta_href": block.cta_href, "entities": list(block.entities), "attributes": dict(block.attributes)} for block in content.blocks],
         }),
@@ -213,17 +227,18 @@ def build_studio_artifacts(
             "evidence_status": research.evidence_status,
             "limitations": list(research.limitations),
         }),
-        _artifact("cro-plan.json", "CRO Lead", ("design-brief.json", "content-plan.json", "ux-plan.json"), {
+        _artifact("cro-plan.json", "CRO Lead", ("design-brief.json", "content-plan.json", "ux-decision.json", "ux-plan.json"), {
             "conversion_goal": sales.conversion_goal,
             "value_proposition": sales.value_proposition,
             "friction_policy": sales.friction_policy,
             "proof_requirements": list(sales.proof_requirements),
             "cta_sequence": list(sales.cta_sequence),
+            "ux_conversion_sequence": list(ux_decision.conversion_sequence),
             "commercial_routes": list(page.metadata.get("commercial_routes", [])),
             "opportunity_gaps": list(competition.opportunity_gaps),
         }),
-        _artifact("design-critique.json", "Design Critic", ("component-selection.json", "creative-direction.json", "art-decision.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json"), design_critique.payload()),
-        _artifact("agency-review.json", "Virtual Studio Review Board", ("knowledge-graph.json", "inspiration-intelligence.json", "component-selection.json", "design-brief.json", "creative-direction.json", "art-decision.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json", "design-critique.json"), {
+        _artifact("design-critique.json", "Design Critic", ("component-selection.json", "creative-direction.json", "art-decision.json", "art-direction.json", "ux-decision.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json"), design_critique.payload()),
+        _artifact("agency-review.json", "Virtual Studio Review Board", ("knowledge-graph.json", "inspiration-intelligence.json", "component-selection.json", "design-brief.json", "creative-direction.json", "art-decision.json", "art-direction.json", "ux-decision.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json", "design-critique.json"), {
             **studio_review.payload(),
             "publishable": final_publishable,
             "blockers": list(final_blockers),
@@ -244,6 +259,7 @@ def build_studio_artifacts(
                 "component_selection_sha256": component_selection.sha256,
                 "design_brief_sha256": design_brief.sha256,
                 "art_decision_sha256": art_decision.sha256,
+                "ux_decision_sha256": ux_decision.sha256,
             },
             "content_voice": {"approved_voice_id": voice.approved_voice_id, "approval_status": voice.approval_status, "sha256": voice.sha256},
         }),
