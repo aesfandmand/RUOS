@@ -19,12 +19,20 @@ def test_intelligence_is_deterministic_and_query_led() -> None:
     second = build_creative_intelligence(page, content)
 
     assert first.fingerprint_payload() == second.fingerprint_payload()
-    assert first.query.primary_query == "advertising structures"
+    assert first.query.primary_query == "سازه‌های تبلیغاتی"
     assert first.query.search_intent == "commercial-investigation"
-    assert "ایندور" in first.semantic.entities
+    assert "خرید سازه تبلیغاتی" in first.query.supporting_queries
+    assert "سازه تبلیغاتی ایندور" in first.semantic.entities
     assert "FAQPage" in first.semantic.schema_types
     assert first.sales.conversion_goal == "qualified-conversation"
     assert first.sales.friction_policy == "phone-first-minimal-form"
+    assert first.sales.commercial_routes == (
+        "خرید ایندور",
+        "خرید اوتدور",
+        "اجاره رسانه",
+        "سرمایه‌گذاری",
+    )
+    assert "خرید ایندور" in first.semantic.ai_summary
     assert first.creative.emotional_curve == (
         "کنجکاوی",
         "درک",
@@ -43,12 +51,24 @@ def test_intelligence_rejects_missing_entities() -> None:
         build_creative_intelligence(empty, compose_content(empty))
 
 
-def test_intelligence_requires_contextual_cta() -> None:
+def test_intelligence_requires_contextual_and_closing_ctas() -> None:
     page = _page()
     sections = tuple(
-        replace(section, cta_label="", cta_href="") for section in page.sections
+        replace(section, cta_label="", cta_href="")
+        if section.kind == "hero"
+        else section
+        for section in page.sections
     )
-    no_cta = replace(page, sections=sections)
+    one_cta = replace(page, sections=sections)
 
-    with pytest.raises(CreativeIntelligenceError, match="contextual CTA"):
-        build_creative_intelligence(no_cta, compose_content(no_cta))
+    with pytest.raises(CreativeIntelligenceError, match="contextual and closing CTAs"):
+        build_creative_intelligence(one_cta, compose_content(one_cta))
+
+
+def test_intelligence_rejects_duplicate_query_configuration() -> None:
+    page = _page()
+    metadata = dict(page.metadata)
+    metadata["supporting_queries"] = ["خرید سازه تبلیغاتی", "خرید سازه تبلیغاتی"]
+
+    with pytest.raises(CreativeIntelligenceError, match="duplicate values"):
+        build_creative_intelligence(replace(page, metadata=metadata), compose_content(page))
