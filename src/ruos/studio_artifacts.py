@@ -15,6 +15,7 @@ from .quality_score import AgencyQualityScore
 from .research_studio import conduct_research
 from .virtual_studio import conduct_virtual_studio_review
 from .visual_dna import VisualDNA
+from .voice_studio import select_voice
 
 
 class StudioArtifactError(ValueError):
@@ -98,6 +99,7 @@ def build_studio_artifacts(
     semantic = intelligence.semantic
     creative = intelligence.creative
     research = conduct_research(page, intelligence)
+    voice = select_voice(page)
     studio_review = conduct_virtual_studio_review(page, research, gates, quality)
 
     artifacts = (
@@ -191,6 +193,10 @@ def build_studio_artifacts(
                 "language": content.language,
                 "direction": content.direction,
                 "primary_intent": content.primary_intent,
+                "voice": {
+                    **voice.payload(),
+                    "sha256": voice.sha256,
+                },
                 "blocks": [
                     {
                         "section_id": block.section_id,
@@ -202,6 +208,7 @@ def build_studio_artifacts(
                         "cta_label": block.cta_label,
                         "cta_href": block.cta_href,
                         "entities": list(block.entities),
+                        "attributes": dict(block.attributes),
                     }
                     for block in content.blocks
                 ],
@@ -252,6 +259,11 @@ def build_studio_artifacts(
                     "evidence_score": research.evidence_score,
                     "evidence_status": research.evidence_status,
                     "sha256": research.sha256,
+                },
+                "content_voice": {
+                    "approved_voice_id": voice.approved_voice_id,
+                    "approval_status": voice.approval_status,
+                    "sha256": voice.sha256,
                 },
             },
         ),
