@@ -6,6 +6,21 @@ from ruos.models import BuildContext
 from ruos.spec_loader import load_page_spec
 
 
+STUDIO_ARTIFACTS = [
+    "studio/manifest.json",
+    "studio/research.json",
+    "studio/creative-direction.json",
+    "studio/art-direction.json",
+    "studio/ux-plan.json",
+    "studio/ui-plan.json",
+    "studio/motion-plan.json",
+    "studio/content-plan.json",
+    "studio/seo-plan.json",
+    "studio/cro-plan.json",
+    "studio/agency-review.json",
+]
+
+
 def _build(tmp_path: Path):
     page = load_page_spec(Path("pages/structures.json"))
     return compile_page(page, BuildContext(project_root=Path.cwd(), output_root=tmp_path, strict=True))
@@ -23,6 +38,8 @@ def test_structures_build_passes(tmp_path: Path) -> None:
     assert (result.output_dir / "build-manifest.json").exists()
     assert (result.output_dir / "qa-report.json").exists()
     assert (result.output_dir / ".ruos-build").exists()
+    for relative_path in STUDIO_ARTIFACTS:
+        assert (result.output_dir / relative_path).exists()
     assert len(result.gates) == 10
 
 
@@ -33,6 +50,10 @@ def test_build_id_and_artifact_hashes_are_reproducible(tmp_path: Path) -> None:
     first_motion = (first.output_dir / "assets/motion-manifest.json").read_bytes()
     first_intelligence = (first.output_dir / "assets/creative-intelligence.json").read_bytes()
     first_quality = (first.output_dir / "agency-quality-report.json").read_bytes()
+    first_studio = {
+        relative_path: (first.output_dir / relative_path).read_bytes()
+        for relative_path in STUDIO_ARTIFACTS
+    }
 
     second = _build(tmp_path)
     second_manifest = json.loads((second.output_dir / "build-manifest.json").read_text(encoding="utf-8"))
@@ -47,11 +68,13 @@ def test_build_id_and_artifact_hashes_are_reproducible(tmp_path: Path) -> None:
     assert (second.output_dir / "assets/motion-manifest.json").read_bytes() == first_motion
     assert (second.output_dir / "assets/creative-intelligence.json").read_bytes() == first_intelligence
     assert (second.output_dir / "agency-quality-report.json").read_bytes() == first_quality
+    for relative_path, first_bytes in first_studio.items():
+        assert (second.output_dir / relative_path).read_bytes() == first_bytes
     assert not list(tmp_path.glob(".ruos-structures-*"))
     assert not (tmp_path / ".structures.previous").exists()
 
 
-def test_manifest_only_lists_public_artifacts(tmp_path: Path) -> None:
+def test_manifest_lists_every_public_and_studio_artifact(tmp_path: Path) -> None:
     result = _build(tmp_path)
     manifest = json.loads((result.output_dir / "build-manifest.json").read_text(encoding="utf-8"))
     quality = json.loads((result.output_dir / "agency-quality-report.json").read_text(encoding="utf-8"))
@@ -63,6 +86,7 @@ def test_manifest_only_lists_public_artifacts(tmp_path: Path) -> None:
         "assets/motion-manifest.json",
         "assets/creative-intelligence.json",
         "agency-quality-report.json",
+        *STUDIO_ARTIFACTS,
     ]
     assert manifest["page"] == "structures"
     assert manifest["passed"] is True
@@ -79,3 +103,4 @@ def test_manifest_only_lists_public_artifacts(tmp_path: Path) -> None:
     assert quality["blockers"] == []
     assert len(manifest["agency_quality_sha256"]) == 64
     assert all(len(value) == 64 for value in manifest["sha256"].values())
+    assert set(manifest["sha256"]) == set(manifest["files"])
