@@ -32,12 +32,19 @@ def test_discovery_is_traceable_and_deterministic() -> None:
     assert first.provider == "fake"
     assert first.fetched_at == "2026-08-06T05:00:00Z"
     assert [item.rank for item in first.results] == [1, 2]
+    assert all(item.url.startswith("https://") for item in first.results)
     assert len(first.sha256) == 64
 
 
 def test_discovery_rejects_empty_query() -> None:
     with pytest.raises(LiveResearchError, match="requires a query"):
         discover_search(FakeProvider(), "   ")
+
+
+@pytest.mark.parametrize("count", [0, 21])
+def test_discovery_rejects_count_outside_provider_contract(count: int) -> None:
+    with pytest.raises(LiveResearchError, match="between 1 and 20"):
+        discover_search(FakeProvider(), "سازه‌های تبلیغاتی", count=count)
 
 
 def test_provider_factory_rejects_unknown_provider() -> None:
