@@ -69,7 +69,6 @@ def _page_with_verified_inputs(page: PageSpec, context: BuildContext, verified_r
         raise ProductionBuildError("Verified research snapshot changed before compilation")
     research_provenance: dict[str, object] = {**verified_research.payload(), "evidence": [item.payload() for item in snapshot.evidence]}
     metadata = dict(page.metadata)
-
     if verified_discovery is not None:
         if context.discovery_snapshot_root is None:
             raise ProductionBuildError("Production build requires a discovery snapshot root")
@@ -80,7 +79,6 @@ def _page_with_verified_inputs(page: PageSpec, context: BuildContext, verified_r
         metadata["verified_search_discovery"] = discovery_provenance
         research_provenance["search_discovery"] = discovery_provenance
         research_provenance["status"] = "verified-live-with-search-discovery"
-
     if verified_competitors is not None:
         if context.competitor_snapshot_root is None:
             raise ProductionBuildError("Production build requires a competitor snapshot root")
@@ -92,12 +90,11 @@ def _page_with_verified_inputs(page: PageSpec, context: BuildContext, verified_r
         research_provenance["competitor_page_evidence"] = competitor_provenance["evidence"]
         research_provenance["competitor_evidence"] = competitor_provenance
         research_provenance["status"] = "verified-live-with-search-and-competitors"
-
     metadata["verified_live_research"] = research_provenance
     return replace(page, metadata=metadata)
 
 
-def compile_production_page(page: PageSpec, context: BuildContext, *, max_age_days: int = 14, discovery_max_age_days: int = 7, discovery_minimum_results: int = 5, competitor_max_age_days: int = 7, competitor_minimum_pages: int = 3) -> tuple[BuildResult, VerifiedResearchEvidence, VerifiedSearchDiscovery | None, VerifiedCompetitorEvidence | None]:
+def compile_production_page(page: PageSpec, context: BuildContext, *, max_age_days: int = 14, discovery_max_age_days: int = 7, discovery_minimum_results: int = 5, competitor_max_age_days: int = 7, competitor_minimum_pages: int = 3) -> tuple[BuildResult, VerifiedResearchEvidence, VerifiedSearchDiscovery | None]:
     if context.require_competitor_evidence and not context.require_search_discovery:
         raise ProductionBuildError("Competitor page evidence requires search discovery")
     verified_research = verify_production_research(page, context, max_age_days=max_age_days)
@@ -105,4 +102,4 @@ def compile_production_page(page: PageSpec, context: BuildContext, *, max_age_da
     verified_competitors = verify_production_competitors(page, context, max_age_days=competitor_max_age_days, minimum_pages=competitor_minimum_pages) if context.require_competitor_evidence else None
     production_page = _page_with_verified_inputs(page, context, verified_research, verified_discovery, verified_competitors)
     result = compile_page(production_page, replace(context, strict=True, require_live_research=True))
-    return result, verified_research, verified_discovery, verified_competitors
+    return result, verified_research, verified_discovery
