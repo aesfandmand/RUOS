@@ -28,8 +28,9 @@ mandatory_techniques:
   - kotler_segmentation
   - thiel_differentiation
   - covey_principles
-  - eymoon_hook_with_ethics
+  - eyal_hook_with_ethics
   - pulizzi_reference_content
+  - kiyosaki_reframe_simplicity
 
 page_rules:
   - id: RU-WR-001

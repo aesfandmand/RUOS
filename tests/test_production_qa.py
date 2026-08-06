@@ -18,7 +18,7 @@ def _production_inputs():
     rendered = render_document(page, resolve_components(page))
     html = enhance_semantics(page, intelligence, rendered).html
     css = render_css(resolve_visual_dna(page.visual_profile))
-    runtime = render_runtime() + "\nconst reduceMotion=true;const target={animate(){}};"
+    runtime = render_runtime() + "\nconst reduceMotion=true;const target=document.body;target.animate([],{duration:0});"
     return page, html, css, runtime
 
 

@@ -1,560 +1,221 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
+  "generated_by": "accurate-repository-scan",
   "files": [
     {
-      "path": "00-governance/decisions/ADR-0001-repository-model.md",
-      "size": 477,
-      "sha256": "16ced4346e4d09edf221b391804f5b796ba7998157a79f46a9199ea21fa313cb"
+      "path": ".github/workflows/engine-ci.yml",
+      "size": 769,
+      "sha256": "056ef94e18a628368ca56a652cef5810d03507451e47bb47a4f4d3234d65a9fe"
     },
     {
-      "path": "00-governance/decisions/ADR-0002-language-policy.md",
-      "size": 378,
-      "sha256": "9464c7bf0aa320f3888dc6a380be07eb74d4ae942c01bc555ff2df1bef4fdcce"
+      "path": ".gitignore",
+      "size": 42,
+      "sha256": "171634e6c50e05dd6d62b62d7b0b71bfb67484de1b4d52efad1742e0bd489965"
     },
     {
-      "path": "00-governance/migrations/MIG-0001-v0.6-to-v2.0.yaml",
-      "size": 408,
-      "sha256": "a84d54cb5efa2d8068709827b1d16d09c9a90f5b70f69250527aad1c04726cba"
+      "path": "02-knowledge/projects/red-umbrella/decisions/writing-standard-promotion.yaml",
+      "size": 1467,
+      "sha256": "f16832320810319ec16c446fadc4d873f0b6de208e922f0ea53182c76eccbd4b"
     },
     {
-      "path": "00-governance/precedence.yaml",
-      "size": 389,
-      "sha256": "e9b586ac35cc957df4c3e119ee53faf58b5c72308ab737cabd8e9f46afee13f5"
+      "path": "02-knowledge/projects/red-umbrella/km1/status.yaml",
+      "size": 1350,
+      "sha256": "36c95e7b71d33ebba122dd8e9d0eaa6e358788d77f8e98b7390ddc5486fd8e8a"
     },
     {
-      "path": "00-governance/source-registry/available-packages.yaml",
-      "size": 528,
-      "sha256": "463aa70cc7379a4ad15d24e76265df26ef33c6b69f34b739547f49b5b8561921"
+      "path": "02-knowledge/projects/red-umbrella/rules/km1-rule-registry-batch-001.yaml",
+      "size": 6411,
+      "sha256": "56c7e2b48553bbe3288759699cc1186474e8b8385daad60bd0dfdcd6035b7b4d"
     },
     {
-      "path": "00-governance/sources/source-registry.yaml",
-      "size": 2207,
-      "sha256": "d5e5f2a6aae707c23a5e55aac208def74411db3fd4979536867e3d9cd9e8c563"
+      "path": "03-engines/enterprise/api-layer.yaml",
+      "size": 952,
+      "sha256": "385afdee637198dc8c8a6767c089fa123bb735bbe8f18834eb46c4fad561bb60"
     },
     {
-      "path": "00-governance/system.yaml",
-      "size": 417,
-      "sha256": "788363fcf33b0da058529a32eef77b38a74663fcdf28a181682092f18e2157cc"
+      "path": "03-engines/enterprise/audit-log-engine.yaml",
+      "size": 925,
+      "sha256": "64864d9f0b6c6743a5944c4553255351f104a31ea2b46efe66456fc0fc47bef8"
     },
     {
-      "path": "00-governance/uid-prefixes.yaml",
-      "size": 617,
-      "sha256": "c1fc99f277d11e4448574af4968bfaa5926da2fa4ffa02fe34d9eb15435902e7"
+      "path": "03-engines/enterprise/migration-engine.yaml",
+      "size": 1499,
+      "sha256": "cda0c163b678b551053c1f56afa80d1bdaaa8c10df0c35374b98c5efe096f6ff"
     },
     {
-      "path": "01-core/actors/actor-contract.yaml",
-      "size": 936,
-      "sha256": "00be8edd794e02dafe345cafbd614ded835460e0dc54230053482d621988d48d"
+      "path": "03-engines/reasoning/reasoning-engine.yaml",
+      "size": 2154,
+      "sha256": "f49625ab3ac6c62ad32fbf54123a5cd5776f5aed82ce7419ca6932bc9268fe94"
     },
     {
-      "path": "01-core/content/content-atom.schema.yaml",
-      "size": 804,
-      "sha256": "b4e8686987910cb396993d4a948808d3d56e4830428e57730a00fe458a84ee55"
-    },
-    {
-      "path": "01-core/graph/edge.schema.yaml",
-      "size": 456,
-      "sha256": "ab48f26737040b549e353f634a268214d4d95928b09e2d820a770f0f531a2e16"
-    },
-    {
-      "path": "01-core/graph/node.schema.yaml",
-      "size": 846,
-      "sha256": "a54b25f2f6305bc1be6b65dfd106fe10baba499ef91a5f2b7d74692528beffc5"
-    },
-    {
-      "path": "01-core/graph/relationship-types.yaml",
-      "size": 1686,
-      "sha256": "2c653990d1f5b5f408c353fa24fc484dc1e8fdeaf569f8c25966b80e340ecc4f"
-    },
-    {
-      "path": "01-core/i18n/languages.yaml",
-      "size": 605,
-      "sha256": "e6e5fca7a44af2d6e2a2c8e2633c3fb06228c38685372f58386272333b28e708"
-    },
-    {
-      "path": "01-core/lifecycle/status-model.yaml",
-      "size": 516,
-      "sha256": "36994c827874e1443d1c1f2eb50f2ddcc382405fdb36715428cce6f234270394"
-    },
-    {
-      "path": "01-core/ontology/entity-model.yaml",
-      "size": 614,
-      "sha256": "ebf87004ca42fe56d4b22345255da4468046a78cb2113350dfc2de4ad168066f"
-    },
-    {
-      "path": "01-core/ontology/master/master-ontology.yaml",
-      "size": 1421,
-      "sha256": "71469aedc0193c0bf9b08ab93cf3b4f01cff20a747c2ed56dd419c68390fde8a"
-    },
-    {
-      "path": "01-core/registry/entity-registry.yaml",
-      "size": 482,
-      "sha256": "f700b1610f6eed4da02ed329c1d28d1274169ee50e0cc584be5a3b067c1be4af"
-    },
-    {
-      "path": "01-core/rules/core-rules.yaml",
-      "size": 869,
-      "sha256": "ce80478426931c79935e7ced8776824526106ecd14c851e655552a61ac4f4712"
-    },
-    {
-      "path": "02-engines/capability/capability-schema.yaml",
-      "size": 257,
-      "sha256": "15d0c7c5759305293e5baddec224152fd5986ab606a63f3c93652a753ea5394e"
-    },
-    {
-      "path": "02-engines/distribution/website-to-instagram.yaml",
-      "size": 557,
-      "sha256": "1de396dfe54ac9cfaf3e62f6f71fcb2d1e4f5c5a309b8400fc56376fd0257917"
-    },
-    {
-      "path": "02-engines/instagram/contracts/instagram-output-contract.yaml",
-      "size": 681,
-      "sha256": "5122927577bee3fac4f9c07eaea61afe61e913d5c11b1e99abbabcf313a4e1a6"
-    },
-    {
-      "path": "02-engines/instagram/workflow.yaml",
-      "size": 321,
-      "sha256": "a4dab11e6312a3b5d4cdb14cf10f63181da36d1af54294aeb1fe9dffc5d84a2c"
-    },
-    {
-      "path": "02-engines/intent/input-contract.yaml",
-      "size": 371,
-      "sha256": "9c03ca388327f7c5a0442e40938cb0d8d8b06bf2c489b5194b83b97bc1f0fc23"
-    },
-    {
-      "path": "02-engines/knowledge-graph/contracts/graph-contract.yaml",
-      "size": 756,
-      "sha256": "28d0d01d084315a63cd97b6f846bfb9b0441411868aae1edb480201132eb7c64"
-    },
-    {
-      "path": "02-engines/knowledge-graph/engine.yaml",
-      "size": 732,
-      "sha256": "dac1c7d369a0c48930e0899dae147f608993b1a6eae43b6a073f5316648dd46a"
-    },
-    {
-      "path": "02-engines/knowledge-graph/examples/example-subgraph.yaml",
-      "size": 1430,
-      "sha256": "5720f4d3ba87e5870a4dbd02699254e0c4056d8bd773287b3c174e2c51fb740b"
-    },
-    {
-      "path": "02-engines/knowledge-graph/inference/inference-rules.yaml",
-      "size": 1403,
-      "sha256": "883dc73daf22ea95d4b82ee0dec45d00f2319ccad279d91ac150c075d5665c95"
-    },
-    {
-      "path": "02-engines/knowledge-graph/queries/query-contract.yaml",
-      "size": 722,
-      "sha256": "e31dfd82cb94bb55e51ec1303b70023d7af3c27157d822aa48397ac0584a37e2"
-    },
-    {
-      "path": "02-engines/knowledge-graph/registries/edge-registry.yaml",
-      "size": 917,
-      "sha256": "fbc9843c2a529b932d4b31d32041cd4ea28bde9578be89570d9d7278ef7759ca"
-    },
-    {
-      "path": "02-engines/knowledge-graph/registries/node-types.yaml",
-      "size": 1187,
-      "sha256": "443c24bc2f04413d626fd8e78fdf7e08c5167d6e9c137ab254d39f6c0e5af1b2"
-    },
-    {
-      "path": "02-engines/search-intelligence/contracts/ai-answer-package.schema.yaml",
-      "size": 623,
-      "sha256": "a1f3f5328dad8e98d71895cd7f6dcd535734f069dbf40a03110bfa27ce7ca9ab"
-    },
-    {
-      "path": "02-engines/search-intelligence/contracts/search-brief.schema.yaml",
-      "size": 1029,
-      "sha256": "b20c401e637189a356264810046aeb9196591e3edc65931d2f9b4ea2b33bf036"
-    },
-    {
-      "path": "02-engines/search-intelligence/engine.yaml",
-      "size": 693,
-      "sha256": "c39097e7f4cc6920a74477e38a541a28ebef09e356951797ebc7b004d6e518aa"
-    },
-    {
-      "path": "02-engines/search-intelligence/examples/service-page.search-brief.yaml",
-      "size": 1123,
-      "sha256": "12e980a8f098238c27084ee32a23b98d4ede7bb521ee0a76af8dde8391dc3f37"
-    },
-    {
-      "path": "02-engines/search-intelligence/pipelines/search-intelligence-pipeline.yaml",
-      "size": 797,
-      "sha256": "163d052456e124782ea6ea849bd6d13a649e6bb636f6270bbe48b54bf57dfc4c"
-    },
-    {
-      "path": "02-engines/search-intelligence/registries/quality-signals.yaml",
-      "size": 495,
-      "sha256": "7b7d492bb9340739d8ff8bd113dd2de917c19807b20308afb142be6f20e18b6e"
-    },
-    {
-      "path": "02-engines/search-intelligence/registries/schema-types.yaml",
-      "size": 414,
-      "sha256": "7049e91939f4ac7b97f0c76fad878f13507353af859a521a05ea2be522a7152d"
-    },
-    {
-      "path": "02-engines/search-intelligence/registries/search-intents.yaml",
-      "size": 638,
-      "sha256": "f8adca74f39c810eecee7fa1ff9f314956578ff4da2ee69f9a70b0b94aa18b3f"
-    },
-    {
-      "path": "02-engines/search-intelligence/rules/ai-visibility.yaml",
-      "size": 434,
-      "sha256": "99d4a5c4de9b7a978b683343e2bb66a7f2812f405f7491419ed0e86f1c9022c5"
-    },
-    {
-      "path": "02-engines/search-intelligence/rules/entity-seo.yaml",
-      "size": 339,
-      "sha256": "cbdfbb21c3e4a716b20fb528ce163ebe77249c77815df821cba1f6d91b066b97"
-    },
-    {
-      "path": "02-engines/search-intelligence/rules/internal-linking.yaml",
-      "size": 344,
-      "sha256": "f721a51d6056a96b0e6b27d656840a79664609eab7a31b65f0fc5a17eba2ae7d"
-    },
-    {
-      "path": "02-engines/search-intelligence/rules/localization-search.yaml",
-      "size": 363,
-      "sha256": "c8a92c0a0b0f4c907c5d8071fe564758ec8329373c4ed7fbb3094a3f250cdb66"
-    },
-    {
-      "path": "02-engines/search-intelligence/rules/semantic-coverage.yaml",
-      "size": 464,
-      "sha256": "92462d0472bfc75fe8bc1f73f8aef1395dda7fa96ceee087c355cd91ab080157"
-    },
-    {
-      "path": "02-engines/validation/qc-gates.yaml",
-      "size": 359,
-      "sha256": "80f6da34b6e3bbc44f6d13d8fb5fb08572f6343dba23bda6386b14dec53950d5"
-    },
-    {
-      "path": "02-engines/website/contracts/page-contracts.yaml",
-      "size": 4029,
-      "sha256": "c82b0785da9f64fbb0767c8b27670caaeb530985e5843a94b3025932533d4cf1"
-    },
-    {
-      "path": "02-engines/website/page-types.yaml",
-      "size": 517,
-      "sha256": "fb2d82642a7427908134391eb3c4435bf6a2e215691e03994636e569aca6c0bb"
-    },
-    {
-      "path": "02-engines/website/workflow.yaml",
-      "size": 1270,
-      "sha256": "b2e36b2e9113d1409fdca2e7015eb90586da3cc4b6d0e668ccdc68e8633f9ca7"
-    },
-    {
-      "path": "02-engines/website-generator/contracts/generator-input.schema.yaml",
-      "size": 587,
-      "sha256": "e4ecb00eb5f14dee0d2bb1cbb7d6593f50fc8def869009cecd9472d3b5ea5a1f"
-    },
-    {
-      "path": "02-engines/website-generator/contracts/generator-output.schema.yaml",
-      "size": 491,
-      "sha256": "c25beaa6e8dae5e846fad86443e8cbbb8bda0257a91e30d4cc01f9c15a47ed56"
-    },
-    {
-      "path": "02-engines/website-generator/engine.yaml",
-      "size": 527,
-      "sha256": "3485ddf9e6f32db998e5a472f9e1c67bcafb11a0c3fdcf26264d582fff8c98f3"
-    },
-    {
-      "path": "02-engines/website-generator/examples/service-page.input.yaml",
-      "size": 407,
-      "sha256": "5d80fa911b261b16ff9917149072a53540554c46201c729bd25af0b2fa4a265b"
-    },
-    {
-      "path": "02-engines/website-generator/pipelines/generation-pipeline.yaml",
-      "size": 1129,
-      "sha256": "075815eefa10fd5c3e29ac17bfb638095180a78510cc062ac55a6e22bbb1d951"
-    },
-    {
-      "path": "02-engines/website-generator/registries/component-types.yaml",
-      "size": 1091,
-      "sha256": "34544c82213987b76cd7292902e6ea51873ed0ae6d2522abda09a30abc7f6f30"
-    },
-    {
-      "path": "02-engines/website-generator/registries/section-types.yaml",
-      "size": 1445,
-      "sha256": "2c6cab9002a33bbb0cf90f62eb62f66b9e4ba8c0b9b05d95b53c96432737da5f"
-    },
-    {
-      "path": "02-engines/website-generator/rules/internal-link-policy.yaml",
-      "size": 414,
-      "sha256": "ff6c8864e17fa53c996f816d870e4a5f6c5d209df985edcc905c973822e591c8"
-    },
-    {
-      "path": "02-engines/website-generator/rules/navigation-policy.yaml",
-      "size": 453,
-      "sha256": "e6f4debdaf0d3c19d39af0d359f5622a5d61df269cad70cce6376fe3780fa2bb"
-    },
-    {
-      "path": "02-engines/website-generator/rules/page-composition.yaml",
-      "size": 740,
-      "sha256": "a04ec8d93e72a0096fabedf04942f74921cb96f848475481ce3c035824a5b2b1"
-    },
-    {
-      "path": "02-engines/website-generator/rules/page-type-section-map.yaml",
-      "size": 1142,
-      "sha256": "16ad0402a5d007d54917746eda66bebb3f680dc2b102eb96011e4b124326a3f8"
-    },
-    {
-      "path": "02-engines/website-generator/rules/responsive-policy.yaml",
-      "size": 394,
-      "sha256": "35c25adc23a1b7fbe5b92c261d009bf3aa044f84b000e977104e8dd6725c2374"
-    },
-    {
-      "path": "02-engines/website-generator/rules/schema-map.yaml",
-      "size": 944,
-      "sha256": "3bc9dc6ab02132af39f9b73335575d333738441a7d87b0e4f563a2c09c742160"
-    },
-    {
-      "path": "03-projects/_template/project.yaml",
-      "size": 289,
-      "sha256": "e112833931be6a40e0453ad0dfed28222ec04fdf140cdb3cd363154c8ddac48c"
-    },
-    {
-      "path": "03-projects/chatreghermez/project.yaml",
-      "size": 121,
-      "sha256": "fc825e251bc5a01a5341c5e7821a1c15fcd751dac1ff20107cf764f3e00af1d5"
-    },
-    {
-      "path": "03-projects/didehsho/project.yaml",
-      "size": 116,
-      "sha256": "1e25a43a44b07aac1b67bec5ab45e468c3acbec16d5f63c85de48a7daad4ab7c"
-    },
-    {
-      "path": "03-projects/iranfair360/project.yaml",
-      "size": 119,
-      "sha256": "4994dc7268ea848667754b27be9a940f6f403471175bfe52a2d383552cc657f4"
-    },
-    {
-      "path": "03-projects/irantablo/project.yaml",
-      "size": 117,
-      "sha256": "2db76819afbc341f68df3e532932eac6bf7200a7fed8b9550aa71a47a164815a"
-    },
-    {
-      "path": "03-projects/projects.yaml",
-      "size": 892,
-      "sha256": "245b2c9f7f9d96f81d5d2d50e9d410418341bfdcdd03096b67f7489dc6568fb7"
-    },
-    {
-      "path": "03-projects/tbar/project.yaml",
-      "size": 112,
-      "sha256": "6418d69e849bc74aa995fb29166cd0d6df377038cf2a0925f6528ec9b7b0622d"
-    },
-    {
-      "path": "04-projects/_template/project.yaml",
-      "size": 173,
-      "sha256": "5d7e7f14237f33111f48a178800b08875ce257cf4e03a04d593ab98ce59192c0"
-    },
-    {
-      "path": "04-projects/chatreghermez/project.yaml",
-      "size": 121,
-      "sha256": "fc825e251bc5a01a5341c5e7821a1c15fcd751dac1ff20107cf764f3e00af1d5"
-    },
-    {
-      "path": "04-projects/didehsho/project.yaml",
-      "size": 116,
-      "sha256": "1e25a43a44b07aac1b67bec5ab45e468c3acbec16d5f63c85de48a7daad4ab7c"
-    },
-    {
-      "path": "04-projects/iranfair360/project.yaml",
-      "size": 119,
-      "sha256": "4994dc7268ea848667754b27be9a940f6f403471175bfe52a2d383552cc657f4"
-    },
-    {
-      "path": "04-projects/irantablo/project.yaml",
-      "size": 117,
-      "sha256": "2db76819afbc341f68df3e532932eac6bf7200a7fed8b9550aa71a47a164815a"
-    },
-    {
-      "path": "04-projects/projects.yaml",
-      "size": 765,
-      "sha256": "66d72c91c5a9453f31cbc6683bc7ca510dc790e33aa3c9734b3d29fa0a99e15b"
-    },
-    {
-      "path": "04-projects/tbar/project.yaml",
-      "size": 112,
-      "sha256": "6418d69e849bc74aa995fb29166cd0d6df377038cf2a0925f6528ec9b7b0622d"
-    },
-    {
-      "path": "04-templates/page-types/page-template.schema.json",
-      "size": 760,
-      "sha256": "1d39ab03c491ffd4e81dae7453b583d568e0d27e87821f825147408976a229e7"
-    },
-    {
-      "path": "04-templates/project/project-intake.schema.yaml",
-      "size": 783,
-      "sha256": "14c8cfd316c6dbf50303b3cdd926dfe04ca613912656d8e01f70ab2004b81ef5"
-    },
-    {
-      "path": "04-templates/website/outputs/website-package.schema.yaml",
-      "size": 538,
-      "sha256": "23f59759354762c9782a3bc894b9d1becd06490b1623d21b0bb88d039ae55026"
-    },
-    {
-      "path": "05-validation/search-intelligence/scorecard.yaml",
-      "size": 485,
-      "sha256": "34b711d77e0ec9326d9cf983f69e0ac93f720fc3b7c25c658e30590bea3fb3c6"
-    },
-    {
-      "path": "05-validation/validation-policy.yaml",
-      "size": 518,
-      "sha256": "7fcc5ae2bbb76c2ba215267bebeeb3e476ea3921d3fdbacdb35b56b9694eced8"
-    },
-    {
-      "path": "06-outputs/examples/search-intelligence/service-page.search-package.yaml",
-      "size": 510,
-      "sha256": "ddc290f0a59f76139066925ee6a190176d24fd3065f85b6d3862d5dded41c148"
-    },
-    {
-      "path": "06-outputs/examples/website/service-page.package.yaml",
-      "size": 3828,
-      "sha256": "43ea78ea4ffb0eeaf907e48be6dad889a993ea0124ba3c3cd3ce985ae854e837"
-    },
-    {
-      "path": "06-templates/page-types/page-template.schema.json",
-      "size": 760,
-      "sha256": "1d39ab03c491ffd4e81dae7453b583d568e0d27e87821f825147408976a229e7"
-    },
-    {
-      "path": "06-templates/project/project-intake.schema.yaml",
-      "size": 783,
-      "sha256": "14c8cfd316c6dbf50303b3cdd926dfe04ca613912656d8e01f70ab2004b81ef5"
-    },
-    {
-      "path": "06-templates/website/outputs/website-package.schema.yaml",
-      "size": 538,
-      "sha256": "23f59759354762c9782a3bc894b9d1becd06490b1623d21b0bb88d039ae55026"
-    },
-    {
-      "path": "06-tools/export_subgraph.py",
-      "size": 1110,
-      "sha256": "0c90ff447d27b9683faabc4c4249403fe0c2c4d2499323256fea28d2b149139e"
-    },
-    {
-      "path": "06-tools/generate_website_package.py",
-      "size": 3552,
-      "sha256": "917245b9a431cdb5a909185314d275ee807f9487c28bb8ffcfb8287dbd429e02"
-    },
-    {
-      "path": "06-tools/new_project.py",
-      "size": 1493,
-      "sha256": "1f43ae43d1d690cc6fbb9d10f042a437d3aa4806692e5047898ac17ff5e483cb"
-    },
-    {
-      "path": "06-tools/validate_graph.py",
-      "size": 1310,
-      "sha256": "3c972972c6551f79f8c1e1fc9174a5ce7972d91e6c7293303a340ed22c141cde"
-    },
-    {
-      "path": "06-tools/validate_knowledge_graph.py",
-      "size": 2158,
-      "sha256": "044cd01231c3d64867d5a3617087dcd55aab8568932b3123e2a6ee64a1c3a679"
-    },
-    {
-      "path": "06-tools/validate_ruos.py",
-      "size": 1928,
-      "sha256": "78d76d2ccf333e45a64f124d8a7eed47e9b7d84700ed18a9b56f51681005beed"
-    },
-    {
-      "path": "06-tools/validate_search_intelligence.py",
-      "size": 1058,
-      "sha256": "b9960873b0ab34760e57b1cf5c9d2c541d5f9e6b385b598bdeb2cd465da54a3b"
-    },
-    {
-      "path": "06-tools/validate_website_generator.py",
-      "size": 1358,
-      "sha256": "a181248c14695b7b39a720b87f8f84d0faf8e85b633553cf62993f138dbb5fe1"
-    },
-    {
-      "path": "07-docs/CHANGELOG.md",
-      "size": 2753,
-      "sha256": "27b4e91b9251fdeec50749e2327d04a101f4f4a883dc0a2c1d2998213c36b4d5"
-    },
-    {
-      "path": "10-tools/build_manifest.py",
+      "path": "04-templates/enterprise/api-command.schema.yaml",
       "size": 507,
-      "sha256": "00cd3666f76c58ced6a2db9bbd8cd773e85e842f7f49f987d11057b995b9d461"
+      "sha256": "081d2a4c5da7bd0bf95a93871efc62ab37730e2527abe716ec99f4dfe1c730c4"
     },
     {
-      "path": "10-tools/export_subgraph.py",
-      "size": 1110,
-      "sha256": "0c90ff447d27b9683faabc4c4249403fe0c2c4d2499323256fea28d2b149139e"
+      "path": "04-templates/migration/source-record.schema.yaml",
+      "size": 621,
+      "sha256": "d9102ef306e6faf1e22e1b8f4bfceef44b5801ade4999ec0a0ba6c56a44c8825"
     },
     {
-      "path": "10-tools/generate_website_package.py",
-      "size": 3552,
-      "sha256": "917245b9a431cdb5a909185314d275ee807f9487c28bb8ffcfb8287dbd429e02"
+      "path": "04-templates/reasoning/decision-record.schema.yaml",
+      "size": 727,
+      "sha256": "583070278c3d734d50b191daf2e0e6f5d1b767734f7a0fc507a5ae089f611758"
     },
     {
-      "path": "10-tools/new_project.py",
-      "size": 1493,
-      "sha256": "1f43ae43d1d690cc6fbb9d10f042a437d3aa4806692e5047898ac17ff5e483cb"
+      "path": "05-rules/global/writing/global-persian-writing-standard.yaml",
+      "size": 2794,
+      "sha256": "8d623f393b01eba3c3a272cf7366f71b8893d6b776b34d672506f5826a30638a"
     },
     {
-      "path": "10-tools/validate_graph.py",
-      "size": 1310,
-      "sha256": "3c972972c6551f79f8c1e1fc9174a5ce7972d91e6c7293303a340ed22c141cde"
+      "path": "05-rules/migration/knowledge-migration-governance.yaml",
+      "size": 930,
+      "sha256": "d335c32f4d22629afdacca8c18ad4a488f135ef82e21ff7f11cd1ab61873f854"
     },
     {
-      "path": "10-tools/validate_knowledge_graph.py",
-      "size": 2158,
-      "sha256": "044cd01231c3d64867d5a3617087dcd55aab8568932b3123e2a6ee64a1c3a679"
+      "path": "06-workflows/migration/km1-red-umbrella.workflow.yaml",
+      "size": 1556,
+      "sha256": "4f74c7b0d939f48da6c37eaa8d2992cdaaa48b9c7a729a2faabdc7b09218db3a"
     },
     {
-      "path": "10-tools/validate_repository.py",
-      "size": 1218,
-      "sha256": "807f671fc4c76e8c6dd8923bfc0c3e1534fc8d532fc50cfeb1b52e1a95ccfcd9"
+      "path": "11-knowledge-migration/red-umbrella/structure/structure-architecture-decisions-v1.md",
+      "size": 11797,
+      "sha256": "e41b2db22f65066624d2645eaed3f3cf0321e45109ce584efc4dfb848024816d"
     },
     {
-      "path": "10-tools/validate_ruos.py",
-      "size": 1928,
-      "sha256": "78d76d2ccf333e45a64f124d8a7eed47e9b7d84700ed18a9b56f51681005beed"
+      "path": "11-projects/red-umbrella/decisions/DEC-RU-000001-global-writing-promotion.yaml",
+      "size": 1533,
+      "sha256": "16d7385e08c2b60327bbe972db3cb7b8b2a13d97c2280f8548a1b9162a274362"
     },
     {
-      "path": "10-tools/validate_search_intelligence.py",
-      "size": 1058,
-      "sha256": "b9960873b0ab34760e57b1cf5c9d2c541d5f9e6b385b598bdeb2cd465da54a3b"
+      "path": "11-projects/red-umbrella/registries/writing-pattern-registry.yaml",
+      "size": 1966,
+      "sha256": "9d3daaab619e858fd9ba66054bd3c21ab4b7b94e5c0fbc9f6d04f4dd1b54c286"
     },
     {
-      "path": "10-tools/validate_website_generator.py",
-      "size": 1358,
-      "sha256": "a181248c14695b7b39a720b87f8f84d0faf8e85b633553cf62993f138dbb5fe1"
+      "path": "11-projects/red-umbrella/rules/writing/red-umbrella-writing-standard.yaml",
+      "size": 2654,
+      "sha256": "83db009a0bdd8a40887241337c4ff1077d632cf9be5410bda4f956c60c0b412f"
     },
     {
-      "path": "11-docs/CHANGELOG.md",
-      "size": 2753,
-      "sha256": "27b4e91b9251fdeec50749e2327d04a101f4f4a883dc0a2c1d2998213c36b4d5"
+      "path": "11-projects/red-umbrella/sources/km-1-source-registry.yaml",
+      "size": 2587,
+      "sha256": "cc8a907ee411de4725575ebaaa42e5b43a4fdc8298076fe027e1329416189cf9"
     },
     {
-      "path": "12-versions/packages/RUOS_v0.1.zip",
-      "size": 13441,
-      "sha256": "c4809496c162c3e34dffc28ca9fb8cf405a60af51551810bdf2cbc7d70d34583"
+      "path": "12-gcera-dsl/README.md",
+      "size": 11307,
+      "sha256": "dbc16b4eaed2fb87af3bb5d5b86b2649b76be81b7c1d6de33f4106cb1de26adb"
     },
     {
-      "path": "12-versions/packages/RUOS_v0.2.zip",
-      "size": 21565,
-      "sha256": "acf65af3e556afd8c176dae1d10d1167fd5e64c797c196f0a36961aef306ff47"
+      "path": "12-gcera-dsl/examples/red-umbrella-structures-hub.yaml",
+      "size": 14876,
+      "sha256": "22d68108c22fa87a863f3e6b4d6f7eefc3106b44587fbd63088fa51f0633e083"
     },
     {
-      "path": "12-versions/packages/RUOS_v0.3.zip",
-      "size": 28793,
-      "sha256": "9ef85c0e6b431766945032ef3a3896c3c7b64ae1a40507f43a3aff21862f9b71"
+      "path": "12-gcera-dsl/examples/red-umbrella-unipole.yaml",
+      "size": 8249,
+      "sha256": "09d0f900fc8fc157557684099ea503202432c5af4395dd88e6c9df385d0e4a95"
     },
     {
-      "path": "12-versions/packages/RUOS_v0.4.zip",
-      "size": 37489,
-      "sha256": "b721e0e3c6f2a4f62368cd3d12da6c32719c95711b410b13913aafbc1ec77ad5"
+      "path": "12-gcera-dsl/schemas/gcera-dsl-v0.1.schema.json",
+      "size": 14984,
+      "sha256": "7be1e515037f1a72931a1cedff70a0d0886ff5236af167d3759a59ba25cb5a7a"
     },
     {
-      "path": "12-versions/packages/RUOS_v0.5.zip",
-      "size": 51936,
-      "sha256": "c1cebc9869cbda5ac08783766568ec68b7e45de4c08d88b7972b29151bc5f6cb"
+      "path": "12-versions/changelogs/v2.1.0.md",
+      "size": 590,
+      "sha256": "6d724fe8c1aeeb312cc37b3ffc652070cbdef1ad03d94c87854283431de4b228"
     },
     {
-      "path": "12-versions/packages/RUOS_v0.6.zip",
-      "size": 63447,
-      "sha256": "1d7a570811f2b497089055a9d22bd1dec8dabde9630aa16cfbb4592ee7b09faa"
+      "path": "12-versions/changelogs/v3.0.0-alpha.3.md",
+      "size": 512,
+      "sha256": "e2ed4148da0d0075ce301490a6ced29227e2758f6db1b99811d43d93fc5b8e3e"
+    },
+    {
+      "path": "12-versions/manifests/v3.0.0-alpha.3.yaml",
+      "size": 365,
+      "sha256": "e304962dfd32118af8a69ebc13fc768868aea08e15dc25902dfbd8b421310fef"
+    },
+    {
+      "path": "13-canonical-repository/README.md",
+      "size": 6592,
+      "sha256": "1ba131b0a70d875afaceb7770fca34533ac3502ee440f1064a81ce700d27a53a"
+    },
+    {
+      "path": "13-canonical-repository/examples/red-umbrella.repository.yaml",
+      "size": 5003,
+      "sha256": "5551252e750adcf41b6f7cc7440f146ed30230b350d3cc1b39e6f8ad3f8dabc0"
+    },
+    {
+      "path": "13-canonical-repository/governance/path-and-namespace-rules.md",
+      "size": 6969,
+      "sha256": "29e64656339fe044aabcf43a096b7510513486fcca1b864be8d80c0a681a8657"
+    },
+    {
+      "path": "13-canonical-repository/migration/current-to-canonical-map-v0.1.yaml",
+      "size": 3526,
+      "sha256": "557442072e117136542e6334285701d54264d20b98186668bd4aa69bce2b03d1"
+    },
+    {
+      "path": "13-canonical-repository/schemas/repository-manifest-v0.1.schema.json",
+      "size": 5764,
+      "sha256": "379e0cf007796f35cb48d2dd745fe8d33792cb4d61320e90bcc8e52cf24f447f"
+    },
+    {
+      "path": "13-canonical-repository/spec/repository-layout-v0.1.yaml",
+      "size": 6344,
+      "sha256": "ecf2f03fd9b72703f3c0e2b480c97d495d417161c6010781dd27a564b93b309f"
+    },
+    {
+      "path": "14-technology-intelligence-registry/README.md",
+      "size": 3395,
+      "sha256": "3efc973ea8a89356c300fd5b282c07870987b028166699f0b0119efa9ba8eca9"
+    },
+    {
+      "path": "14-technology-intelligence-registry/policies/professional-web-experience-policy-v0.1.md",
+      "size": 5580,
+      "sha256": "b2b7bb0c6cc94e74331cd561686f3931511209acae22e01a22a16d0ccd595815"
+    },
+    {
+      "path": "14-technology-intelligence-registry/profiles/red-umbrella-ui-stack-v0.1.yaml",
+      "size": 2551,
+      "sha256": "bd625c2a88a87e243c8d7dfa80498125fec9d7c0559ba03314cb53d722eacfa3"
+    },
+    {
+      "path": "14-technology-intelligence-registry/registries/ui-components-design-systems-v0.1.yaml",
+      "size": 12240,
+      "sha256": "43f57a0b8e3c3ffd6c9119d862928d636bf76badf725b02b6e552a32955e2cb4"
+    },
+    {
+      "path": "14-technology-intelligence-registry/schemas/tool-record-v0.1.schema.json",
+      "size": 2962,
+      "sha256": "e8e72d247091fc2e6ec7d73def091b14e77a6cd6e22e5f48099a1f7d4d52ee33"
+    },
+    {
+      "path": "14-technology-intelligence-registry/sources/ui-components-design-systems-v0.1.md",
+      "size": 2162,
+      "sha256": "91465096ac1b8fd1cfa54bf63b65c1137c2db4532f2510ec14ec2b580eaea531"
+    },
+    {
+      "path": "15-website-studio-engine/CREATIVE-PRODUCTION-CONTRACT.md",
+      "size": 6126,
+      "sha256": "26f50af31dcd4e99ebc96fd37911ab09b26e20041b197de8c94cf0957b9c0f92"
+    },
+    {
+      "path": "15-website-studio-engine/README.md",
+      "size": 3080,
+      "sha256": "925927a993d3d4f930cb51e82fa3da00e8b950876a737613a64b2bb3169b705c"
+    },
+    {
+      "path": "15-website-studio-engine/creative_gates.py",
+      "size": 3345,
+      "sha256": "940929820ad7bc1d10812cf0783f316d5690295749001705917a0b5762870361"
+    },
+    {
+      "path": "APPLY.md",
+      "size": 219,
+      "sha256": "af1381ad4310104dd6c61a667aebd01f1b23dfe950b6ded8e08fe6df0ede01ce"
     },
     {
       "path": "CHANGELOG.md",
@@ -563,8 +224,138 @@
     },
     {
       "path": "README.md",
-      "size": 509,
-      "sha256": "1bd1726769e0c2fadcc9b4f2019a25d600d3c82e6ea513e158c6586279e0d829"
+      "size": 1721,
+      "sha256": "d097e9a4673348393486d224a0693dbe1f3bc16624570ab548c155c660af9230"
+    },
+    {
+      "path": "pages/structures.json",
+      "size": 4819,
+      "sha256": "0033d794390f09f0c5ba099db08d677dd68496b09168981d91a6723d341bd37d"
+    },
+    {
+      "path": "pyproject.toml",
+      "size": 345,
+      "sha256": "0688e0128f604a25d0dbe7f071e96977d7e18648b4b398cd913c96acabc1cc32"
+    },
+    {
+      "path": "src/ruos/__init__.py",
+      "size": 89,
+      "sha256": "f3edee83c8bf98d00e515da197fd332eadf0715ab542cdaea8be88c431e1e2b7"
+    },
+    {
+      "path": "src/ruos/cli.py",
+      "size": 1612,
+      "sha256": "2fd39d7367508bf603e4b4771c6e0ea8a35b550163565c0a886fc8a484de3ffe"
+    },
+    {
+      "path": "src/ruos/compiler.py",
+      "size": 12594,
+      "sha256": "b523a34399d7c7005b8c1540231686ce6b4c39688f3544bcaf5dbc1e1a28ffe0"
+    },
+    {
+      "path": "src/ruos/component_resolver.py",
+      "size": 5869,
+      "sha256": "e264c17fbe0a1f2d2da087e6ec9cd7b5dcb5caf5ef8931a5f50f575876f469d8"
+    },
+    {
+      "path": "src/ruos/content_composer.py",
+      "size": 4665,
+      "sha256": "bc54cd756ae64f74441b2a72ec04f8d32ac98dd41ae10a6cf5780e957ab1aaf6"
+    },
+    {
+      "path": "src/ruos/creative_intelligence.py",
+      "size": 7097,
+      "sha256": "fcb47ecbdea29ffacec65accefb0331102fa97a5233ddfae4006cdacc892e9a7"
+    },
+    {
+      "path": "src/ruos/models.py",
+      "size": 1129,
+      "sha256": "9c6f136bbab6f637f89cca6dd114621a374ade93797a376dfaff01deebde1f95"
+    },
+    {
+      "path": "src/ruos/motion_composer.py",
+      "size": 4450,
+      "sha256": "9e6212d3d11386c72e8e8630c4560b74faf38b4dda93d44953e431b5a1bb0208"
+    },
+    {
+      "path": "src/ruos/pattern_resolver.py",
+      "size": 5525,
+      "sha256": "7cadc065eb68678534ed8661a5a6cc95ac7731ec2c2dd435e0ad6494019f9726"
+    },
+    {
+      "path": "src/ruos/qa.py",
+      "size": 7245,
+      "sha256": "1c15dd12ac15a8234e99c74a0272d1fb69bae737f7a029acaca47ecda365fe3b"
+    },
+    {
+      "path": "src/ruos/quality_score.py",
+      "size": 2487,
+      "sha256": "18ac836a80208d5ae257c987e3fb4d9f6561dae63646a75edb627d4313d33610"
+    },
+    {
+      "path": "src/ruos/render.py",
+      "size": 16321,
+      "sha256": "be3b9d33cf5610b6c5fc068046adab6fc0f7a577b541f7e2b521bfdb59f1c8f3"
+    },
+    {
+      "path": "src/ruos/semantic_enhancer.py",
+      "size": 3602,
+      "sha256": "8e254cba41adf581577cb5960126f2a3a871249855d44715a7bcdb536302958e"
+    },
+    {
+      "path": "src/ruos/spec_loader.py",
+      "size": 1856,
+      "sha256": "606a840ce13563e2f66e65ad911502e70dcbc16875a699563798c918236b09ac"
+    },
+    {
+      "path": "src/ruos/visual_dna.py",
+      "size": 5111,
+      "sha256": "10bb2f58d0da941720d9a8d5781303547169cd296374f50d9f2b617fbb8a8660"
+    },
+    {
+      "path": "tests/test_component_resolver.py",
+      "size": 3325,
+      "sha256": "46904f9632266547fc1311555171e0fbc954225a6bd238a93d269c8891e90707"
+    },
+    {
+      "path": "tests/test_content_composer.py",
+      "size": 1657,
+      "sha256": "6d7ff7b4df540fc758576fea090a42ce6a84c16bd9c9747bd7085a1b65373092"
+    },
+    {
+      "path": "tests/test_creative_intelligence.py",
+      "size": 2784,
+      "sha256": "e76ab74e8c78c9aa6cdcf5d74930e32a18dd22ce55aafae198d1c61e1f9e0aae"
+    },
+    {
+      "path": "tests/test_engine.py",
+      "size": 4277,
+      "sha256": "81dd222a3f710e967c5bbd86049958b02821842f652dd45c25254013164bf010"
+    },
+    {
+      "path": "tests/test_motion_composer.py",
+      "size": 2505,
+      "sha256": "c38d333ce65f8d9278a82ebbe947193affdb1b098ce1e20a652a104c52a121f5"
+    },
+    {
+      "path": "tests/test_pattern_resolver.py",
+      "size": 2025,
+      "sha256": "67cdf98b3d3738c11f407e7205d5db9108025bc5adab3723c99ae78b7a46d239"
+    },
+    {
+      "path": "tests/test_production_qa.py",
+      "size": 3751,
+      "sha256": "9bb03de558e76d2b7060923fc7d5df7b90756f028b94c10faf8015541ea2e346"
+    },
+    {
+      "path": "tests/test_semantic_enhancer.py",
+      "size": 1781,
+      "sha256": "962f625973c68f9beaf7e331093242041e504afad258e7fba1fa123dd2de08f7"
+    },
+    {
+      "path": "tests/test_visual_dna.py",
+      "size": 1646,
+      "sha256": "ef21e4e9773c334142ab8017c7a20c355ae5bdb73ce46bbb03f8f34191642684"
     }
   ]
 }
