@@ -19,7 +19,11 @@ def test_content_plan_is_semantic_and_deterministic() -> None:
     assert sum(block.heading_level == 1 for block in first.blocks) == 1
     assert first.blocks[-1].role == "conversion"
     assert first.primary_intent == "qualified-conversation"
-    assert first.blocks[2].entities == ("ایندور", "اوتدور", "دیجیتال")
+    assert first.blocks[2].entities == (
+        "سازه تبلیغاتی اوتدور",
+        "سازه تبلیغاتی ایندور",
+        "سازه تبلیغاتی دیجیتال",
+    )
 
 
 def test_unpaired_cta_is_rejected() -> None:
