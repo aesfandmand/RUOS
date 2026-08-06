@@ -11,6 +11,9 @@ from .competitor_snapshot import build_competitor_snapshot, write_competitor_sna
 from .discovery_snapshot import load_discovery, write_discovery
 from .live_research import LiveResearchAdapter, LiveResearchError
 from .models import BuildContext
+from .open_source_catalog import DEFAULT_REGISTRY_SEEDS, refresh_open_source_registry
+from .open_source_registry import OpenSourceRegistryError
+from .open_source_registry_snapshot import write_registry
 from .production_build import compile_production_page
 from .research_snapshot import build_snapshot, write_snapshot
 from .search_discovery import create_provider, discover_search
@@ -28,6 +31,11 @@ def _parser() -> argparse.ArgumentParser:
     research = sub.add_parser("research", help="Fetch configured live sources"); research.add_argument("page"); research.add_argument("--spec-root", default="pages"); research.add_argument("--snapshot-root", default=".ruos/research")
     discover = sub.add_parser("discover", help="Run live search discovery for a page query"); discover.add_argument("page"); discover.add_argument("--spec-root", default="pages"); discover.add_argument("--provider", choices=("brave", "serper"), default="brave"); discover.add_argument("--query", default=""); discover.add_argument("--market", default="ir"); discover.add_argument("--language", default="fa"); discover.add_argument("--count", type=int, default=10); discover.add_argument("--output-root", default=".ruos/discovery")
     competitors = sub.add_parser("research-competitors", help="Fetch pages from verified discovery results"); competitors.add_argument("page"); competitors.add_argument("--spec-root", default="pages"); competitors.add_argument("--discovery-root", default=".ruos/discovery"); competitors.add_argument("--output-root", default=".ruos/competitors"); competitors.add_argument("--limit", type=int, default=5); competitors.add_argument("--minimum-success", type=int, default=3)
+    registry = sub.add_parser("registry", help="Manage verified open-source assets")
+    registry_sub = registry.add_subparsers(dest="registry_command", required=True)
+    refresh = registry_sub.add_parser("refresh", help="Fetch and snapshot the curated production registry")
+    refresh.add_argument("--output", default=".ruos/registry/open-source.json")
+    refresh.add_argument("--minimum-success", type=int, default=len(DEFAULT_REGISTRY_SEEDS))
     return parser
 
 
@@ -75,9 +83,25 @@ def _run_competitor_research(page, args, project_root: Path) -> int:
     print(f"RUOS COMPETITOR EVIDENCE: {output}"); print(f"RUOS COMPETITOR SHA256: {snapshot.sha256}"); return 0
 
 
+def _run_registry_refresh(args, project_root: Path) -> int:
+    registry, failures = refresh_open_source_registry(minimum_success=args.minimum_success)
+    output = project_root / args.output
+    write_registry(registry, output)
+    print(f"RUOS OPEN SOURCE REGISTRY: {output}")
+    print(f"RUOS REGISTRY ASSETS: {len(registry.assets)}")
+    print(f"RUOS REGISTRY SHA256: {registry.sha256}")
+    for failure in failures:
+        print(f"RUOS REGISTRY SKIPPED: {failure}", file=sys.stderr)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
-    args = _parser().parse_args(argv); project_root = Path.cwd(); spec_path = project_root / args.spec_root / f"{args.page}.json"
+    args = _parser().parse_args(argv); project_root = Path.cwd()
     try:
+        if args.command == "registry":
+            return _run_registry_refresh(args, project_root)
+
+        spec_path = project_root / args.spec_root / f"{args.page}.json"
         page = load_page_spec(spec_path)
         if args.command == "research": return _run_research(page, project_root / args.snapshot_root / f"{page.slug}.json")
         if args.command == "discover": return _run_discovery(page, args, project_root)
@@ -92,8 +116,11 @@ def main(argv: list[str] | None = None) -> int:
             competitor = result.page.metadata.get("verified_competitor_evidence")
             if isinstance(competitor, dict): print(f"RUOS COMPETITOR EVIDENCE VERIFIED: {competitor.get('evidence_count')} pages snapshot={competitor.get('snapshot_sha256')}")
         else: result = compile_page(page, context)
-    except (SpecError, BuildRejected, LiveResearchError) as exc:
-        label = "RESEARCH FAILED" if args.command in {"research", "discover", "research-competitors"} else "BUILD REJECTED"; print(f"RUOS {label}: {exc}", file=sys.stderr); return 2
+    except (SpecError, BuildRejected, LiveResearchError, OpenSourceRegistryError) as exc:
+        if args.command == "registry": label = "REGISTRY FAILED"
+        elif args.command in {"research", "discover", "research-competitors"}: label = "RESEARCH FAILED"
+        else: label = "BUILD REJECTED"
+        print(f"RUOS {label}: {exc}", file=sys.stderr); return 2
     print(f"RUOS BUILD PASSED: {result.output_dir}")
     for path in result.files: print(path)
     return 0
