@@ -8,6 +8,7 @@
   "visual_profile": "red-umbrella-v16",
   "metadata": {
     "pillar": "advertising-structures",
+    "market": "iran",
     "primary_query": "سازه‌های تبلیغاتی",
     "supporting_queries": [
       "انواع سازه‌های تبلیغاتی",
@@ -19,7 +20,108 @@
     ],
     "journey": "discover-compare-route",
     "primary_conversion": "qualified-conversation",
-    "commercial_routes": ["خرید ایندور", "خرید اوتدور", "اجاره رسانه", "سرمایه‌گذاری"]
+    "commercial_routes": ["خرید ایندور", "خرید اوتدور", "اجاره رسانه", "سرمایه‌گذاری"],
+    "research": {
+      "audience_hypotheses": [
+        "مدیر بازاریابی برای مقایسه گزینه‌ها و کاهش ریسک انتخاب وارد صفحه می‌شود.",
+        "مدیر شهری یا سازمانی پیش از تماس به شواهد فنی، مسیر اجرا و مدل بهره‌برداری نیاز دارد.",
+        "مالک فضای تجاری میان خرید، اجاره و سرمایه‌گذاری به یک مسیر تصمیم روشن نیاز دارد."
+      ],
+      "limitations": [
+        "داده حجم جست‌وجوی عددی در این نسخه ثبت نشده و نباید از ترتیب کوئری‌ها به‌عنوان رتبه تقاضا استفاده شود.",
+        "الگوهای منتخب باید پیش از تولید نهایی با هویت برند و محدودیت‌های RTL بازبینی شوند."
+      ],
+      "sources": [
+        {
+          "id": "google-trends-structures-ir",
+          "kind": "search-demand",
+          "title": "Google Trends exploration for advertising-structure queries in Iran",
+          "url": "https://trends.google.com/trends/explore?geo=IR&q=%D8%B3%D8%A7%D8%B2%D9%87%20%D8%AA%D8%A8%D9%84%DB%8C%D8%BA%D8%A7%D8%AA%DB%8C",
+          "market": "iran",
+          "language": "fa",
+          "notes": "سطح مرجع برای بررسی جهت و تغییرات نسبی تقاضا؛ بدون ادعای حجم قطعی در Artifact."
+        },
+        {
+          "id": "google-serp-structures-fa",
+          "kind": "competitor",
+          "title": "Persian SERP for advertising structures",
+          "url": "https://www.google.com/search?q=%D8%B3%D8%A7%D8%B2%D9%87+%D9%87%D8%A7%DB%8C+%D8%AA%D8%A8%D9%84%DB%8C%D8%BA%D8%A7%D8%AA%DB%8C",
+          "market": "iran",
+          "language": "fa",
+          "notes": "سطح مشاهده رقبا، نوع صفحات رتبه‌گرفته، عنوان‌ها و الگوی پاسخ‌گویی به نیت کاربر."
+        },
+        {
+          "id": "awwwards-storytelling",
+          "kind": "design-reference",
+          "title": "Awwwards storytelling website references",
+          "url": "https://www.awwwards.com/websites/storytelling/",
+          "market": "global",
+          "language": "en",
+          "notes": "مرجع انتخاب روایت بصری، فصل‌بندی صفحه و ریتم حرکت؛ نه منبع کپی مستقیم."
+        },
+        {
+          "id": "awwwards-animation",
+          "kind": "design-reference",
+          "title": "Awwwards animation website references",
+          "url": "https://www.awwwards.com/websites/animation/",
+          "market": "global",
+          "language": "en",
+          "notes": "مرجع ارزیابی نقش موشن در روایت و تعامل، با الزام reduced-motion و عملکرد مناسب."
+        },
+        {
+          "id": "nngroup-scrolling",
+          "kind": "ux-research",
+          "title": "Nielsen Norman Group guidance on scrolling and page behavior",
+          "url": "https://www.nngroup.com/articles/scrolling-and-attention/",
+          "market": "global",
+          "language": "en",
+          "notes": "مرجع کنترل توجه، نشانه‌های ادامه صفحه و جلوگیری از وابستگی تجربه به جلوه بصری صرف."
+        },
+        {
+          "id": "web-content-accessibility",
+          "kind": "ux-research",
+          "title": "Web Content Accessibility Guidelines",
+          "url": "https://www.w3.org/WAI/standards-guidelines/wcag/",
+          "market": "global",
+          "language": "en",
+          "notes": "مرجع الزامات دسترس‌پذیری تعامل، کنتراست، ناوبری و جایگزین reduced-motion."
+        }
+      ],
+      "patterns": [
+        {
+          "id": "chaptered-visual-story",
+          "kind": "storytelling",
+          "name": "Chaptered visual story",
+          "source_id": "awwwards-storytelling",
+          "rationale": "مسیر شناخت، مقایسه و انتخاب را به فصل‌های متمایز تبدیل می‌کند و از ردیف کارت‌های تکراری دور می‌شود.",
+          "constraints": ["هر فصل باید نقش تصمیمی روشن داشته باشد", "روایت نباید مانع دسترسی مستقیم به اطلاعات شود"]
+        },
+        {
+          "id": "progressive-structural-reveal",
+          "kind": "scroll",
+          "name": "Progressive structural reveal",
+          "source_id": "nngroup-scrolling",
+          "rationale": "اطلاعات فنی را در لحظه مناسب آشکار می‌کند و با نشانه‌های واضح، دلیل ادامه اسکرول را حفظ می‌کند.",
+          "constraints": ["اطلاعات حیاتی بدون اسکرول اجباری قابل دسترسی باشد", "در موبایل به توالی خطی و سریع تبدیل شود"]
+        },
+        {
+          "id": "narrative-motion-cues",
+          "kind": "motion",
+          "name": "Narrative motion cues",
+          "source_id": "awwwards-animation",
+          "rationale": "موشن را از تزئین جدا کرده و برای ورود فصل، تغییر تمرکز و توضیح رابطه سازه با محیط به کار می‌گیرد.",
+          "constraints": ["موشن باید reduced-motion fallback داشته باشد", "حرکت نباید مانع خواندن یا تعامل شود"]
+        },
+        {
+          "id": "decision-path-interaction",
+          "kind": "interaction",
+          "name": "Decision path interaction",
+          "source_id": "web-content-accessibility",
+          "rationale": "به‌جای گرید ثابت، کاربر با انتخاب فضا و هدف به مسیر خرید، اجاره یا سرمایه‌گذاری هدایت می‌شود.",
+          "constraints": ["تمام کنترل‌ها با کیبورد قابل استفاده باشند", "وضعیت انتخاب برای فناوری کمکی اعلام شود"]
+        }
+      ]
+    }
   },
   "sections": [
     {
