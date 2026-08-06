@@ -13,6 +13,7 @@ STUDIO_ARTIFACTS = [
     "studio/competitive-analysis.json",
     "studio/pattern-selection.json",
     "studio/knowledge-graph.json",
+    "studio/component-selection.json",
     "studio/design-brief.json",
     "studio/creative-direction.json",
     "studio/art-direction.json",
