@@ -12,6 +12,7 @@ from .models import GateResult, PageSpec
 from .motion_composer import MotionPlan
 from .pattern_resolver import PatternPlan
 from .quality_score import AgencyQualityScore
+from .research_studio import conduct_research
 from .visual_dna import VisualDNA
 
 
@@ -95,23 +96,14 @@ def build_studio_artifacts(
     sales = intelligence.sales
     semantic = intelligence.semantic
     creative = intelligence.creative
+    research = conduct_research(page, intelligence)
 
     artifacts = (
         _artifact(
             "research.json",
             "Research Studio",
             (),
-            {
-                "primary_query": query.primary_query,
-                "supporting_queries": list(query.supporting_queries),
-                "search_intent": query.search_intent,
-                "journey_stage": query.journey_stage,
-                "primary_entity": semantic.primary_entity,
-                "entities": list(semantic.entities),
-                "evidence_policy": "source-backed-before-production",
-                "market": page.metadata.get("market", "iran"),
-                "language": page.lang,
-            },
+            research.payload(),
         ),
         _artifact(
             "creative-direction.json",
@@ -123,6 +115,10 @@ def build_studio_artifacts(
                 "persuasion_principles": list(creative.persuasion_principles),
                 "visual_direction": creative.visual_direction,
                 "page_identity": page.visual_profile,
+                "research_sha256": research.sha256,
+                "selected_pattern_candidates": [
+                    candidate.id for candidate in research.pattern_candidates
+                ],
             },
         ),
         _artifact(
@@ -134,6 +130,13 @@ def build_studio_artifacts(
                 "global_motif": patterns.global_motif,
                 "scroll_model": patterns.scroll_model,
                 "section_motifs": [section.motif for section in patterns.sections],
+                "research_constraints": sorted(
+                    {
+                        constraint
+                        for candidate in research.pattern_candidates
+                        for constraint in candidate.constraints
+                    }
+                ),
             },
         ),
         _artifact(
@@ -143,6 +146,7 @@ def build_studio_artifacts(
             {
                 "narrative_arc": patterns.narrative_arc,
                 "journey": page.metadata.get("journey", ""),
+                "audience_hypotheses": list(research.audience_hypotheses),
                 "sections": [
                     {"id": section.section_id, "chapter": section.chapter, "pacing": section.pacing, "transition": section.transition}
                     for section in patterns.sections
@@ -226,6 +230,8 @@ def build_studio_artifacts(
                 "schema_types": list(semantic.schema_types),
                 "answer_targets": list(semantic.answer_targets),
                 "ai_summary": semantic.ai_summary,
+                "evidence_status": research.evidence_status,
+                "limitations": list(research.limitations),
             },
         ),
         _artifact(
@@ -258,6 +264,8 @@ def build_studio_artifacts(
                     for gate in gates
                 ],
                 "blockers": list(quality.blockers),
+                "research_evidence_score": research.evidence_score,
+                "research_evidence_status": research.evidence_status,
             },
         ),
     )
