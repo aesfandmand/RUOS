@@ -9,6 +9,10 @@ from ruos.spec_loader import load_page_spec
 STUDIO_ARTIFACTS = [
     "studio/manifest.json",
     "studio/research.json",
+    "studio/query-intelligence.json",
+    "studio/competitive-analysis.json",
+    "studio/pattern-selection.json",
+    "studio/design-brief.json",
     "studio/creative-direction.json",
     "studio/art-direction.json",
     "studio/ux-plan.json",
