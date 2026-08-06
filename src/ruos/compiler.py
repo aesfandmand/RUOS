@@ -18,6 +18,7 @@ from .pattern_resolver import PatternPlan, resolve_patterns
 from .qa import evaluate
 from .quality_score import AgencyQualityScore, calculate_agency_quality
 from .render import render_css, render_document, render_runtime
+from .semantic_enhancer import enhance_semantics
 from .visual_dna import VisualDNA, resolve_visual_dna
 
 ENGINE_NAME = "ruos-engine"
@@ -163,7 +164,7 @@ def compile_page(page: PageSpec, context: BuildContext) -> BuildResult:
     components = resolve_components(page)
     patterns = resolve_patterns(page, components)
     motion = compose_motion(patterns, components)
-    html = render_document(page, components)
+    html = enhance_semantics(page, intelligence, render_document(page, components)).html
     css = render_css(dna)
     runtime = render_runtime() + "\n" + _motion_runtime(motion)
     gates = evaluate(page, html, css, runtime)
