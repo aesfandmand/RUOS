@@ -30,14 +30,18 @@ def evaluate(page: PageSpec, html: str, css: str, runtime: str) -> tuple[GateRes
     gate("creative-direction", _score(100, creative_failures), [f"visual_profile={page.visual_profile}", f"section_kinds={','.join(kinds)}"], creative_failures)
 
     reading_failures: list[str] = []
-    heading_count = html.count("<h1") + html.count("<h2")
+    h1_count = html.count("<h1")
+    h2_count = html.count("<h2")
+    heading_count = h1_count + h2_count
     if text_length < 240:
         reading_failures.append("content is too thin for a deliberate reading journey")
     if heading_count != len(page.sections):
         reading_failures.append("document heading structure does not map one-to-one to sections")
-    if html.count("<h2") < 5:
-        reading_failures.append("document lacks a complete primary heading sequence")
-    gate("reading-experience", _score(min(100, 70 + text_length // 20), reading_failures), [f"content_chars={text_length}", f"heading_count={heading_count}"], reading_failures)
+    if h1_count != 1:
+        reading_failures.append("document must contain exactly one primary H1")
+    if h2_count != max(0, len(page.sections) - 1):
+        reading_failures.append("supporting sections must each contain one H2")
+    gate("reading-experience", _score(min(100, 70 + text_length // 20), reading_failures), [f"content_chars={text_length}", f"h1_count={h1_count}", f"h2_count={h2_count}"], reading_failures)
 
     rhythm_failures: list[str] = []
     if kinds != list(REQUIRED_SEQUENCE):
@@ -86,13 +90,17 @@ def evaluate(page: PageSpec, html: str, css: str, runtime: str) -> tuple[GateRes
         seo_failures.append("meta description must be between 70 and 180 characters")
     if not page.metadata.get("pillar"):
         seo_failures.append("primary query pillar is missing")
+    if not page.metadata.get("primary_query"):
+        seo_failures.append("localized primary query is missing")
     if '<meta name="description"' not in html or "<title>" not in html:
         seo_failures.append("search title or description is not rendered")
-    gate("seo-query-alignment", _score(98, seo_failures), [f"pillar={page.metadata.get('pillar', '')}", "metadata and structured data compiled"], seo_failures)
+    gate("seo-query-alignment", _score(98, seo_failures), [f"pillar={page.metadata.get('pillar', '')}", f"primary_query={page.metadata.get('primary_query', '')}", "metadata and structured data compiled"], seo_failures)
 
     ai_failures: list[str] = []
     if "application/ld+json" not in html:
         ai_failures.append("machine-readable schema is missing")
+    if not all(marker in html for marker in ('"@type": "WebPage"', '"@type": "ItemList"', '"@type": "FAQPage"')):
+        ai_failures.append("schema graph lacks required answer and entity types")
     if not all(section.id for section in page.sections):
         ai_failures.append("stable semantic section identifiers are missing")
     item_titles = [str(item.get("title", "")).strip() for section in page.sections for item in section.items]
@@ -100,7 +108,7 @@ def evaluate(page: PageSpec, html: str, css: str, runtime: str) -> tuple[GateRes
         ai_failures.append("entity coverage is insufficient for extraction")
     if not re.search(r'<html[^>]+lang="[^"]+"[^>]+dir="[^"]+"', html):
         ai_failures.append("language and direction metadata are incomplete")
-    gate("ai-readiness", _score(96, ai_failures), [f"extractable_entities={len([v for v in item_titles if v])}", "semantic sections and language metadata checked"], ai_failures)
+    gate("ai-readiness", _score(96, ai_failures), [f"extractable_entities={len([v for v in item_titles if v])}", "semantic sections and schema graph checked"], ai_failures)
 
     perf_failures: list[str] = []
     html_size = len(html.encode("utf-8"))
