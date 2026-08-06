@@ -21,6 +21,7 @@ STUDIO_ARTIFACTS = [
     "studio/art-direction.json",
     "studio/ux-decision.json",
     "studio/ux-plan.json",
+    "studio/ui-decision.json",
     "studio/ui-plan.json",
     "studio/motion-plan.json",
     "studio/content-plan.json",
