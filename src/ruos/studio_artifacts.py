@@ -5,13 +5,17 @@ import json
 from dataclasses import dataclass
 from typing import Mapping
 
+from .competitive_intelligence import build_competitive_intelligence
 from .component_resolver import ComponentPlan
 from .content_composer import ContentPlan
 from .creative_intelligence import CreativeIntelligencePlan
+from .design_brief import compile_design_brief
 from .models import GateResult, PageSpec
 from .motion_composer import MotionPlan
+from .pattern_intelligence import select_patterns
 from .pattern_resolver import PatternPlan
 from .quality_score import AgencyQualityScore
+from .query_intelligence import build_query_intelligence
 from .research_studio import conduct_research
 from .virtual_studio import conduct_virtual_studio_review
 from .visual_dna import VisualDNA
@@ -65,6 +69,10 @@ class StudioArtifactBundle:
 
 _REQUIRED_ORDER = (
     "research.json",
+    "query-intelligence.json",
+    "competitive-analysis.json",
+    "pattern-selection.json",
+    "design-brief.json",
     "creative-direction.json",
     "art-direction.json",
     "ux-plan.json",
@@ -100,14 +108,49 @@ def build_studio_artifacts(
     creative = intelligence.creative
     research = conduct_research(page, intelligence)
     voice = select_voice(page)
+    query_intelligence = build_query_intelligence(page, research, intelligence)
+    competition = build_competitive_intelligence(page, research)
+    pattern_intelligence = select_patterns(page, research, query_intelligence, competition)
+    design_brief = compile_design_brief(
+        page,
+        research,
+        query_intelligence,
+        competition,
+        pattern_intelligence,
+        voice,
+    )
     studio_review = conduct_virtual_studio_review(page, research, gates, quality)
 
     artifacts = (
         _artifact("research.json", "Research Studio", (), research.payload()),
         _artifact(
+            "query-intelligence.json",
+            "SEO Strategist",
+            ("research.json",),
+            query_intelligence.payload(),
+        ),
+        _artifact(
+            "competitive-analysis.json",
+            "Competitive Intelligence Lead",
+            ("research.json", "query-intelligence.json"),
+            competition.payload(),
+        ),
+        _artifact(
+            "pattern-selection.json",
+            "Creative Research Lead",
+            ("research.json", "query-intelligence.json", "competitive-analysis.json"),
+            pattern_intelligence.payload(),
+        ),
+        _artifact(
+            "design-brief.json",
+            "Creative Director",
+            ("query-intelligence.json", "competitive-analysis.json", "pattern-selection.json"),
+            design_brief.payload(),
+        ),
+        _artifact(
             "creative-direction.json",
             "Creative Director",
-            ("research.json",),
+            ("design-brief.json",),
             {
                 "narrative_model": creative.narrative_model,
                 "emotional_curve": list(creative.emotional_curve),
@@ -115,29 +158,32 @@ def build_studio_artifacts(
                 "visual_direction": creative.visual_direction,
                 "page_identity": page.visual_profile,
                 "research_sha256": research.sha256,
-                "selected_pattern_candidates": [candidate.id for candidate in research.pattern_candidates],
+                "design_brief_sha256": design_brief.sha256,
+                "selected_pattern_candidates": [item.id for item in pattern_intelligence.selected],
             },
         ),
         _artifact(
             "art-direction.json",
             "Art Director",
-            ("creative-direction.json",),
+            ("creative-direction.json", "pattern-selection.json"),
             {
                 "visual_dna": dict(dna.fingerprint_payload()),
                 "global_motif": patterns.global_motif,
                 "scroll_model": patterns.scroll_model,
                 "section_motifs": [section.motif for section in patterns.sections],
-                "research_constraints": sorted({constraint for candidate in research.pattern_candidates for constraint in candidate.constraints}),
+                "research_constraints": list(design_brief.constraints),
             },
         ),
         _artifact(
             "ux-plan.json",
             "UX Lead",
-            ("research.json", "creative-direction.json"),
+            ("design-brief.json", "creative-direction.json"),
             {
                 "narrative_arc": patterns.narrative_arc,
                 "journey": page.metadata.get("journey", ""),
                 "audience_hypotheses": list(research.audience_hypotheses),
+                "reading_strategy": design_brief.reading_strategy,
+                "interaction_strategy": design_brief.interaction_strategy,
                 "sections": [
                     {"id": section.section_id, "chapter": section.chapter, "pacing": section.pacing, "transition": section.transition}
                     for section in patterns.sections
@@ -188,15 +234,12 @@ def build_studio_artifacts(
         _artifact(
             "content-plan.json",
             "Content Director",
-            ("research.json", "ux-plan.json"),
+            ("design-brief.json", "ux-plan.json"),
             {
                 "language": content.language,
                 "direction": content.direction,
                 "primary_intent": content.primary_intent,
-                "voice": {
-                    **voice.payload(),
-                    "sha256": voice.sha256,
-                },
+                "voice": {**voice.payload(), "sha256": voice.sha256},
                 "blocks": [
                     {
                         "section_id": block.section_id,
@@ -217,12 +260,13 @@ def build_studio_artifacts(
         _artifact(
             "seo-plan.json",
             "SEO Lead",
-            ("research.json", "content-plan.json"),
+            ("query-intelligence.json", "content-plan.json"),
             {
                 "title": page.title,
                 "description": page.description,
                 "primary_query": query.primary_query,
                 "supporting_queries": list(query.supporting_queries),
+                "clusters": [cluster.payload() for cluster in query_intelligence.clusters],
                 "schema_types": list(semantic.schema_types),
                 "answer_targets": list(semantic.answer_targets),
                 "ai_summary": semantic.ai_summary,
@@ -233,7 +277,7 @@ def build_studio_artifacts(
         _artifact(
             "cro-plan.json",
             "CRO Lead",
-            ("research.json", "content-plan.json", "ux-plan.json"),
+            ("design-brief.json", "content-plan.json", "ux-plan.json"),
             {
                 "conversion_goal": sales.conversion_goal,
                 "value_proposition": sales.value_proposition,
@@ -241,12 +285,23 @@ def build_studio_artifacts(
                 "proof_requirements": list(sales.proof_requirements),
                 "cta_sequence": list(sales.cta_sequence),
                 "commercial_routes": list(page.metadata.get("commercial_routes", [])),
+                "opportunity_gaps": list(competition.opportunity_gaps),
             },
         ),
         _artifact(
             "agency-review.json",
             "Virtual Studio Review Board",
-            ("creative-direction.json", "art-direction.json", "ux-plan.json", "ui-plan.json", "motion-plan.json", "content-plan.json", "seo-plan.json", "cro-plan.json"),
+            (
+                "design-brief.json",
+                "creative-direction.json",
+                "art-direction.json",
+                "ux-plan.json",
+                "ui-plan.json",
+                "motion-plan.json",
+                "content-plan.json",
+                "seo-plan.json",
+                "cro-plan.json",
+            ),
             {
                 **studio_review.payload(),
                 "studio_review_sha256": studio_review.sha256,
@@ -259,6 +314,10 @@ def build_studio_artifacts(
                     "evidence_score": research.evidence_score,
                     "evidence_status": research.evidence_status,
                     "sha256": research.sha256,
+                    "query_intelligence_sha256": query_intelligence.sha256,
+                    "competitive_intelligence_sha256": competition.sha256,
+                    "pattern_intelligence_sha256": pattern_intelligence.sha256,
+                    "design_brief_sha256": design_brief.sha256,
                 },
                 "content_voice": {
                     "approved_voice_id": voice.approved_voice_id,
