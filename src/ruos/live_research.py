@@ -10,7 +10,7 @@ from html.parser import HTMLParser
 from typing import Callable, Mapping, Protocol
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse
-from urllib.request import Request, build_opener
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 
 class LiveResearchError(RuntimeError):
@@ -25,6 +25,12 @@ class FetchPolicy:
     user_agent: str = "RUOS-LiveResearch/1.0 (+https://github.com/aesfandmand/RUOS)"
     allowed_schemes: tuple[str, ...] = ("https",)
     blocked_hosts: tuple[str, ...] = ("localhost",)
+    allowed_content_types: tuple[str, ...] = (
+        "text/html",
+        "application/xhtml+xml",
+        "application/json",
+        "text/plain",
+    )
 
 
 @dataclass(frozen=True)
@@ -144,6 +150,23 @@ def _validate_public_url(url: str, policy: FetchPolicy) -> None:
         raise LiveResearchError(f"Research host resolves to a non-public address: {host}")
 
 
+class _SafeRedirectHandler(HTTPRedirectHandler):
+    def __init__(self, policy: FetchPolicy) -> None:
+        super().__init__()
+        self.policy = policy
+        self.redirect_count = 0
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):  # type: ignore[no-untyped-def]
+        self.redirect_count += 1
+        if self.redirect_count > self.policy.max_redirects:
+            raise LiveResearchError(
+                f"Research request exceeded {self.policy.max_redirects} redirects"
+            )
+        resolved = urljoin(req.full_url, newurl)
+        _validate_public_url(resolved, self.policy)
+        return super().redirect_request(req, fp, code, msg, headers, resolved)
+
+
 class UrllibResearchTransport:
     def fetch(self, url: str, policy: FetchPolicy) -> TransportResponse:
         _validate_public_url(url, policy)
@@ -151,22 +174,29 @@ class UrllibResearchTransport:
             url,
             headers={
                 "User-Agent": policy.user_agent,
-                "Accept": "text/html,application/xhtml+xml,application/json,text/plain;q=0.9,*/*;q=0.5",
+                "Accept": "text/html,application/xhtml+xml,application/json,text/plain;q=0.9",
                 "Accept-Encoding": "identity",
             },
             method="GET",
         )
-        opener = build_opener()
+        opener = build_opener(_SafeRedirectHandler(policy))
         try:
             with opener.open(request, timeout=policy.timeout_seconds) as response:
                 final_url = response.geturl()
                 _validate_public_url(final_url, policy)
                 status = int(getattr(response, "status", 200))
+                headers = {key.lower(): value for key, value in response.headers.items()}
+                content_type = headers.get("content-type", "").split(";", 1)[0].strip().lower()
+                if content_type not in policy.allowed_content_types:
+                    raise LiveResearchError(
+                        f"Research response content type is not allowed: {content_type or '<missing>'}"
+                    )
                 body = response.read(policy.max_bytes + 1)
                 if len(body) > policy.max_bytes:
                     raise LiveResearchError(f"Research response exceeds {policy.max_bytes} bytes")
-                headers = {key.lower(): value for key, value in response.headers.items()}
                 return TransportResponse(url, final_url, status, headers, body)
+        except LiveResearchError:
+            raise
         except HTTPError as exc:
             raise LiveResearchError(f"Research request failed with HTTP {exc.code}: {url}") from exc
         except URLError as exc:
@@ -225,6 +255,11 @@ class LiveResearchAdapter:
         if response.status < 200 or response.status >= 300:
             raise LiveResearchError(f"Research source returned non-success status {response.status}")
         content_type = response.headers.get("content-type", "application/octet-stream")
+        media_type = content_type.split(";", 1)[0].strip().lower()
+        if media_type not in self.policy.allowed_content_types:
+            raise LiveResearchError(
+                f"Research response content type is not allowed: {media_type or '<missing>'}"
+            )
         title, excerpt = _extract_text(response.body, content_type)
         if not excerpt:
             raise LiveResearchError("Research source did not yield extractable evidence")
