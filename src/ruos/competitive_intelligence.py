@@ -3,7 +3,6 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
-from typing import Mapping, Sequence
 from urllib.parse import urlparse
 
 from .models import PageSpec
@@ -51,29 +50,60 @@ class DiscoveredCompetitor:
 
 
 @dataclass(frozen=True)
+class CompetitorPageEvidence:
+    rank: int
+    requested_url: str
+    final_url: str
+    domain: str
+    fetched_at: str
+    content_sha256: str
+    title: str
+    excerpt: str
+    byte_length: int
+
+    def payload(self) -> dict[str, object]:
+        return {
+            "rank": self.rank,
+            "requested_url": self.requested_url,
+            "final_url": self.final_url,
+            "domain": self.domain,
+            "fetched_at": self.fetched_at,
+            "content_sha256": self.content_sha256,
+            "title": self.title,
+            "excerpt": self.excerpt,
+            "byte_length": self.byte_length,
+        }
+
+
+@dataclass(frozen=True)
 class CompetitiveIntelligence:
     page_slug: str
     local_sources: tuple[str, ...]
     global_sources: tuple[str, ...]
     signals: tuple[CompetitiveSignal, ...]
-    discovered_competitors: tuple[DiscoveredCompetitor, ...]
-    discovery_provider: str | None
-    discovery_sha256: str | None
     opportunity_gaps: tuple[str, ...]
     non_copying_policy: str
+    discovery_provider: str = ""
+    discovery_sha256: str = ""
+    discovered_competitors: tuple[DiscoveredCompetitor, ...] = ()
+    competitor_page_evidence: tuple[CompetitorPageEvidence, ...] = ()
 
     def payload(self) -> dict[str, object]:
-        return {
+        payload: dict[str, object] = {
             "page_slug": self.page_slug,
             "local_sources": list(self.local_sources),
             "global_sources": list(self.global_sources),
             "signals": [signal.payload() for signal in self.signals],
-            "discovered_competitors": [item.payload() for item in self.discovered_competitors],
-            "discovery_provider": self.discovery_provider,
-            "discovery_sha256": self.discovery_sha256,
             "opportunity_gaps": list(self.opportunity_gaps),
             "non_copying_policy": self.non_copying_policy,
         }
+        if self.discovery_provider:
+            payload["discovery_provider"] = self.discovery_provider
+            payload["discovery_sha256"] = self.discovery_sha256
+            payload["discovered_competitors"] = [item.payload() for item in self.discovered_competitors]
+        if self.competitor_page_evidence:
+            payload["competitor_page_evidence"] = [item.payload() for item in self.competitor_page_evidence]
+        return payload
 
     @property
     def sha256(self) -> str:
@@ -81,41 +111,72 @@ class CompetitiveIntelligence:
         return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
-def _discovery_payload(research: ResearchBrief) -> Mapping[str, object] | None:
-    provenance = research.provenance
-    if not isinstance(provenance, Mapping):
-        return None
-    discovery = provenance.get("search_discovery")
-    return discovery if isinstance(discovery, Mapping) else None
-
-
-def _parse_discovered_competitors(raw: object) -> tuple[DiscoveredCompetitor, ...]:
-    if raw is None:
-        return ()
-    if not isinstance(raw, Sequence) or isinstance(raw, (str, bytes)):
-        raise CompetitiveIntelligenceError("Verified discovery results must be a list")
-    competitors: list[DiscoveredCompetitor] = []
-    seen_urls: set[str] = set()
-    for index, item in enumerate(raw, start=1):
-        if not isinstance(item, Mapping):
+def _parse_discovery(research: ResearchBrief) -> tuple[str, str, tuple[DiscoveredCompetitor, ...]]:
+    provenance = research.provenance or {}
+    raw = provenance.get("search_discovery")
+    if not isinstance(raw, dict):
+        return "", "", ()
+    provider = str(raw.get("provider", "")).strip()
+    sha256 = str(raw.get("sha256", "")).strip()
+    rows = raw.get("results", [])
+    if not provider or len(sha256) != 64 or not isinstance(rows, list):
+        raise CompetitiveIntelligenceError("Verified search discovery provenance is incomplete")
+    results: list[DiscoveredCompetitor] = []
+    seen: set[str] = set()
+    for index, item in enumerate(rows, start=1):
+        if not isinstance(item, dict):
             raise CompetitiveIntelligenceError(f"Discovery result #{index} must be an object")
-        try:
-            rank = int(item.get("rank", index))
-        except (TypeError, ValueError) as exc:
-            raise CompetitiveIntelligenceError(f"Discovery result #{index} has an invalid rank") from exc
+        rank = int(item.get("rank", 0))
         title = str(item.get("title", "")).strip()
         url = str(item.get("url", "")).strip()
         snippet = str(item.get("snippet", "")).strip()
         domain = (urlparse(url).hostname or "").lower()
-        if rank != index:
-            raise CompetitiveIntelligenceError("Discovery result ranks must be contiguous")
-        if not title or not url.startswith("https://") or not domain:
-            raise CompetitiveIntelligenceError(f"Discovery result #{index} is incomplete")
-        if url in seen_urls:
+        if rank != index or not title or not url.startswith("https://") or not domain:
+            raise CompetitiveIntelligenceError(f"Discovery result #{index} is invalid")
+        if url in seen:
             raise CompetitiveIntelligenceError("Discovery results contain duplicate URLs")
-        seen_urls.add(url)
-        competitors.append(DiscoveredCompetitor(rank, title, url, domain, snippet))
-    return tuple(competitors)
+        seen.add(url)
+        results.append(DiscoveredCompetitor(rank, title, url, domain, snippet))
+    return provider, sha256, tuple(results)
+
+
+def _parse_page_evidence(research: ResearchBrief) -> tuple[CompetitorPageEvidence, ...]:
+    provenance = research.provenance or {}
+    raw = provenance.get("competitor_page_evidence")
+    if raw is None:
+        return ()
+    if not isinstance(raw, list):
+        raise CompetitiveIntelligenceError("Competitor page evidence must be a list")
+    evidence: list[CompetitorPageEvidence] = []
+    seen: set[str] = set()
+    for index, item in enumerate(raw, start=1):
+        if not isinstance(item, dict):
+            raise CompetitiveIntelligenceError(f"Competitor page evidence #{index} must be an object")
+        requested_url = str(item.get("requested_url", "")).strip()
+        final_url = str(item.get("final_url", "")).strip()
+        domain = (urlparse(final_url).hostname or "").lower()
+        content_sha256 = str(item.get("content_sha256", "")).strip()
+        if not requested_url.startswith("https://") or not final_url.startswith("https://"):
+            raise CompetitiveIntelligenceError("Competitor page evidence URLs must use HTTPS")
+        if len(content_sha256) != 64 or not domain:
+            raise CompetitiveIntelligenceError("Competitor page evidence is incomplete")
+        if requested_url in seen:
+            raise CompetitiveIntelligenceError("Competitor page evidence contains duplicate URLs")
+        seen.add(requested_url)
+        evidence.append(
+            CompetitorPageEvidence(
+                rank=int(item.get("rank", index)),
+                requested_url=requested_url,
+                final_url=final_url,
+                domain=domain,
+                fetched_at=str(item.get("fetched_at", "")).strip(),
+                content_sha256=content_sha256,
+                title=str(item.get("title", "")).strip(),
+                excerpt=str(item.get("excerpt", "")).strip(),
+                byte_length=int(item.get("byte_length", 0)),
+            )
+        )
+    return tuple(evidence)
 
 
 def build_competitive_intelligence(page: PageSpec, research: ResearchBrief) -> CompetitiveIntelligence:
@@ -134,45 +195,22 @@ def build_competitive_intelligence(page: PageSpec, research: ResearchBrief) -> C
     if not local:
         raise CompetitiveIntelligenceError("Competitive intelligence requires an Iran-market source")
 
+    provider, discovery_sha256, discovered = _parse_discovery(research)
+    page_evidence = _parse_page_evidence(research)
+    if page_evidence and discovered:
+        discovered_urls = {item.url for item in discovered}
+        if any(item.requested_url not in discovered_urls for item in page_evidence):
+            raise CompetitiveIntelligenceError("Competitor page evidence is not traceable to verified discovery")
+
     signals: list[CompetitiveSignal] = []
     for source in competitor_sources:
-        signals.append(
-            CompetitiveSignal(
-                source_id=source.id,
-                market=source.market,
-                signal_type="declared-market-source",
-                observation=source.notes,
-                implication="Treat this as a declared research hypothesis until corroborated by fetched evidence.",
-            )
-        )
+        signals.append(CompetitiveSignal(source.id, source.market, "declared-market-source", source.notes, "Treat this as a declared research hypothesis until directly observed."))
     for source in design_sources:
-        signals.append(
-            CompetitiveSignal(
-                source_id=source.id,
-                market=source.market,
-                signal_type="creative-reference",
-                observation=source.notes,
-                implication="Extract the design principle, then reinterpret it through brand, RTL and performance constraints.",
-            )
-        )
-
-    discovery = _discovery_payload(research)
-    discovered = _parse_discovered_competitors(discovery.get("results") if discovery else None)
-    provider = str(discovery.get("provider", "")).strip() if discovery else ""
-    discovery_sha = str(discovery.get("sha256", "")).strip() if discovery else ""
-    if discovery is not None:
-        if not provider or len(discovery_sha) != 64:
-            raise CompetitiveIntelligenceError("Verified discovery provenance is incomplete")
-        for item in discovered:
-            signals.append(
-                CompetitiveSignal(
-                    source_id=f"search-discovery:{provider}:{item.rank}",
-                    market=research.market,
-                    signal_type="observed-search-result",
-                    observation=f"Rank {item.rank}: {item.title} — {item.snippet}".strip(" —"),
-                    implication="Use this observed result to map visible SERP framing; fetch the page before making content or UX claims about it.",
-                )
-            )
+        signals.append(CompetitiveSignal(source.id, source.market, "creative-reference", source.notes, "Extract principles only; reinterpret through brand, RTL and performance constraints."))
+    for item in discovered:
+        signals.append(CompetitiveSignal(f"search-result:{item.rank}", "iran", "observed-search-result", f"Rank {item.rank}: {item.title} — {item.domain}. Snippet: {item.snippet}", "Fetch and inspect the page before making claims about its content, UX or visual quality."))
+    for item in page_evidence:
+        signals.append(CompetitiveSignal(f"competitor-page:{item.rank}", "iran", "observed-page-content", f"Fetched {item.domain}; title: {item.title}; excerpt: {item.excerpt}", "Use only directly observed text and metadata; do not infer visual quality without rendered evidence."))
 
     gaps = (
         "ترکیب راهنمای تصمیم، مقایسه فنی و مسیر تجاری در یک روایت واحد",
@@ -180,13 +218,14 @@ def build_competitive_intelligence(page: PageSpec, research: ResearchBrief) -> C
         "تجربه RTL خلاق با حفظ دسترسی مستقیم به اطلاعات و عملکرد موبایل",
     )
     return CompetitiveIntelligence(
-        page_slug=page.slug,
-        local_sources=local,
-        global_sources=global_refs,
-        signals=tuple(signals),
-        discovered_competitors=discovered,
-        discovery_provider=provider or None,
-        discovery_sha256=discovery_sha or None,
-        opportunity_gaps=gaps,
-        non_copying_policy="Use sources to derive principles and gaps; never copy layout, copywriting, code or branded assets.",
+        page.slug,
+        local,
+        global_refs,
+        tuple(signals),
+        gaps,
+        "Use sources to derive principles and gaps; never copy layout, copywriting, code or branded assets.",
+        provider,
+        discovery_sha256,
+        discovered,
+        page_evidence,
     )
