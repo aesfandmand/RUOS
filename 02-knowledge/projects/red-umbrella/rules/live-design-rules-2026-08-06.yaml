@@ -1,4 +1,4 @@
-version: 1
+version: 2
 status: locked-live
 project: red-umbrella
 updated_at: 2026-08-06
@@ -100,3 +100,60 @@ rules:
       - reject_unapproved_font
       - reject_disconnected_sections
       - reject_generic_hero
+
+  - id: RU-LIVE-2026-08-06-07
+    priority: critical
+    title: digikala-product-page-is-approved-layout-and-reading-reference
+    source:
+      url: https://www.digikala.com/product/dkp-16497186/%D8%AA%D8%A7%D8%A8%D9%84%D9%88-%D8%A2%D8%AA%D8%B1%DB%8C%D8%B3%D8%A7-%D8%B7%D8%B1%D8%AD-%D9%86%D8%A6%D9%88%D9%86-%D9%85%D8%AF%D9%84-atne062/
+      title: تابلو آتریسا طرح نئون مدل ATNE062
+      role: approved-product-layout-reading-and-hierarchy-reference
+    statement: >-
+      این صفحه محصول دیجی‌کالا مرجع تأییدشده کاربر برای یادگیری معماری صفحه محصول، ریتم خواندن،
+      سلسله‌مراتب اطلاعات، نسبت گالری و اطلاعات محصول، جایگاه خرید یا اقدام، ترتیب مشخصات، نقد و بررسی،
+      پرسش‌ها، نظرات، محصولات مرتبط و چگونگی شکستن محتوای طولانی به بلوک‌های قابل اسکن است.
+      از این مرجع باید منطق ارائه و خوانایی استخراج شود، نه رنگ سازمانی، هدر، فوتر یا هویت بصری دیجی‌کالا.
+    required_extraction_map:
+      - product_breadcrumb_and_category_context
+      - product_media_gallery_and_thumbnail_behavior
+      - product_title_brand_and_identity_hierarchy
+      - short_feature_summary_near_primary_information
+      - primary_action_or_commercial_panel_position
+      - trust_delivery_and_service_signals
+      - anchored_or_sticky_section_navigation
+      - introduction_and_expert_review
+      - structured_specification_groups
+      - user_questions_and_answers
+      - user_reviews_and_rating_summary
+      - related_and_similar_products
+      - mobile_reordering_and_sticky_primary_action
+      - dense_but_scannable_typography
+    layout_principles_to_adapt:
+      - product_media_and_product_information_must_share_the_first_decision_view
+      - essential_information_precedes_long_form_explanation
+      - commercial_action_stays_visible_without_dominating_reading
+      - specifications_use_grouped_rows_not_long_unstructured_paragraphs
+      - long_page_has_clear_section_landmarks_and_local_navigation
+      - user_generated_proof_is_separated_from_brand_claims
+      - related_items_appear_after_primary_decision_information
+      - mobile_order_prioritizes_identity_media_key_facts_action_then_depth
+    typography_principles_to_adapt:
+      - use_one_consistent_persian_ui_family
+      - favor_medium_and_bold_weights_for_labels_and_titles
+      - keep_body_text_compact_readable_and_high_contrast
+      - use restrained_size_steps_instead_of_exaggerated_display_headlines
+      - use whitespace_and_dividers_to_express_hierarchy
+      - avoid decorative_font_switching_inside_product_information
+    forbidden_copying:
+      - do_not_copy_digikala_header
+      - do_not_copy_digikala_footer
+      - do_not_copy_digikala_brand_colors
+      - do_not_copy_marketplace_seller_logic_when_not_relevant
+      - do_not_copy_text_or_product_claims
+    enforcement:
+      - require_digikala_reference_map_in_product_page_artifact
+      - require_first_view_product_decision_composition
+      - require_grouped_specifications
+      - require_mobile_section_order_review
+      - reject_unstructured_long_form_product_page
+      - reject_oversized_marketing_hero_on_product_pages
