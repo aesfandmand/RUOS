@@ -95,8 +95,11 @@ def test_production_compile_injects_verified_discovery(tmp_path: Path, monkeypat
 
     def fake_compile(page_arg, context_arg):
         payload = page_arg.metadata["verified_search_discovery"]
+        provenance = page_arg.metadata["verified_live_research"]
         assert payload["status"] == "verified-search-discovery"
         assert payload["results"][0]["rank"] == 1
+        assert provenance["status"] == "verified-live-with-search-discovery"
+        assert provenance["search_discovery"] == payload
         return BuildResult(page_arg, context_arg.output_root / page_arg.slug, (), ())
 
     monkeypatch.setattr("ruos.production_build.compile_page", fake_compile)
