@@ -23,6 +23,7 @@ EXPECTED_STUDIO_FILES = (
     "content-plan.json",
     "seo-plan.json",
     "cro-plan.json",
+    "design-critique.json",
     "agency-review.json",
 )
 
@@ -49,12 +50,16 @@ def test_compiler_publishes_complete_studio_bundle(tmp_path: Path) -> None:
 
     graph = json.loads((studio / "knowledge-graph.json").read_text(encoding="utf-8"))
     selection = json.loads((studio / "component-selection.json").read_text(encoding="utf-8"))
+    critique = json.loads((studio / "design-critique.json").read_text(encoding="utf-8"))
     assert graph["page_slug"] == "structures"
     assert graph["entities"]
     assert graph["relations"]
     assert selection["page_slug"] == "structures"
     assert len(selection["decisions"]) == 6
     assert all(decision["score"] >= 88 for decision in selection["decisions"])
+    assert critique["page_slug"] == "structures"
+    assert len(critique["findings"]) == 10
+    assert critique["release_recommendation"] != "reject"
 
 
 def test_agency_review_requires_unanimous_specialist_approval(tmp_path: Path) -> None:
@@ -69,6 +74,8 @@ def test_agency_review_requires_unanimous_specialist_approval(tmp_path: Path) ->
     assert all(verdict["passed"] for verdict in review["verdicts"])
     assert len(review["research"]["knowledge_graph_sha256"]) == 64
     assert len(review["research"]["component_selection_sha256"]) == 64
+    assert len(review["design_critique_sha256"]) == 64
+    assert review["design_critique_recommendation"] != "reject"
     assert build_manifest["passed"] is True
     assert len(build_manifest["studio_sha256"]) == 64
     assert build_manifest["studio"]["artifacts"]["agency-review.json"]["payload"]["publishable"] is True
