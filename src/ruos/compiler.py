@@ -19,10 +19,11 @@ from .qa import evaluate
 from .quality_score import AgencyQualityScore, calculate_agency_quality
 from .render import render_css, render_document, render_runtime
 from .semantic_enhancer import enhance_semantics
+from .studio_artifacts import StudioArtifactBundle, build_studio_artifacts
 from .visual_dna import VisualDNA, resolve_visual_dna
 
 ENGINE_NAME = "ruos-engine"
-ENGINE_VERSION = "0.9.0"
+ENGINE_VERSION = "1.0.0"
 
 
 class BuildRejected(RuntimeError):
@@ -85,6 +86,21 @@ def _quality_payload(score: AgencyQualityScore) -> dict[str, object]:
     }
 
 
+def _studio_payload(bundle: StudioArtifactBundle) -> dict[str, object]:
+    return {
+        "manifest": bundle.manifest(),
+        "artifacts": {
+            artifact.name: {
+                "owner": artifact.owner,
+                "dependencies": list(artifact.dependencies),
+                "payload": dict(artifact.payload),
+                "sha256": artifact.sha256,
+            }
+            for artifact in bundle.artifacts
+        },
+    }
+
+
 def _motion_runtime(plan: MotionPlan) -> str:
     payload = json.dumps(_motion_payload(plan), ensure_ascii=False, separators=(",", ":"))
     return f'''\nconst RUOS_MOTION={payload};
@@ -94,7 +110,7 @@ for(const cue of RUOS_MOTION.cues){{const section=document.getElementById(cue.se
 '''.strip()
 
 
-def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan, patterns: PatternPlan, motion: MotionPlan, content: ContentPlan, intelligence: CreativeIntelligencePlan, quality: AgencyQualityScore, html: str, css: str, runtime: str) -> dict[str, object]:
+def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan, patterns: PatternPlan, motion: MotionPlan, content: ContentPlan, intelligence: CreativeIntelligencePlan, quality: AgencyQualityScore, studio: StudioArtifactBundle, html: str, css: str, runtime: str) -> dict[str, object]:
     visual_payload = dict(dna.fingerprint_payload())
     component_payload = _component_payload(components)
     pattern_payload = _pattern_payload(patterns)
@@ -102,9 +118,22 @@ def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan
     content_payload = _content_payload(content)
     intelligence_payload = _intelligence_payload(intelligence)
     quality_payload = _quality_payload(quality)
+    studio_payload = _studio_payload(studio)
     motion_json = json.dumps(motion_payload, ensure_ascii=False, indent=2, sort_keys=True)
     intelligence_json = json.dumps(intelligence_payload, ensure_ascii=False, indent=2, sort_keys=True)
     quality_json = json.dumps(quality_payload, ensure_ascii=False, indent=2, sort_keys=True)
+    studio_manifest_json = json.dumps(studio.manifest(), ensure_ascii=False, indent=2, sort_keys=True)
+    artifacts = {
+        "index.html": _digest(html),
+        "assets/styles.css": _digest(css),
+        "assets/runtime.js": _digest(runtime),
+        "assets/motion-manifest.json": _digest(motion_json),
+        "assets/creative-intelligence.json": _digest(intelligence_json),
+        "agency-quality-report.json": _digest(quality_json),
+        "studio/manifest.json": _digest(studio_manifest_json),
+    }
+    for artifact in studio.artifacts:
+        artifacts[f"studio/{artifact.name}"] = _digest(json.dumps(dict(artifact.payload), ensure_ascii=False, indent=2, sort_keys=True))
     return {
         "engine": ENGINE_NAME,
         "engine_version": ENGINE_VERSION,
@@ -124,15 +153,10 @@ def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan
         "creative_intelligence_sha256": _hash_payload(intelligence_payload),
         "agency_quality": quality_payload,
         "agency_quality_sha256": _hash_payload(quality_payload),
+        "studio": studio_payload,
+        "studio_sha256": _hash_payload(studio_payload),
         "spec": asdict(page),
-        "artifacts": {
-            "index.html": _digest(html),
-            "assets/styles.css": _digest(css),
-            "assets/runtime.js": _digest(runtime),
-            "assets/motion-manifest.json": _digest(motion_json),
-            "assets/creative-intelligence.json": _digest(intelligence_json),
-            "agency-quality-report.json": _digest(quality_json),
-        },
+        "artifacts": artifacts,
     }
 
 
@@ -169,31 +193,41 @@ def compile_page(page: PageSpec, context: BuildContext) -> BuildResult:
     runtime = render_runtime() + "\n" + _motion_runtime(motion)
     gates = evaluate(page, html, css, runtime)
     quality = calculate_agency_quality(gates)
+    studio = build_studio_artifacts(page, dna, components, patterns, motion, content, intelligence, gates, quality)
+    studio_review = studio.by_name("agency-review.json").payload
 
     rejected = [gate for gate in gates if not gate.passed]
-    if context.strict and (rejected or not quality.publishable):
+    studio_publishable = bool(studio_review.get("publishable"))
+    if context.strict and (rejected or not quality.publishable or not studio_publishable):
         details = [f"{gate.gate}: {', '.join(gate.failures)}" for gate in rejected]
+        details.extend(str(blocker) for blocker in studio_review.get("blockers", []))
         if not quality.publishable and not quality.blockers:
             details.append(f"agency-quality: score {quality.total} is below publish threshold 88")
-        raise BuildRejected("; ".join(details))
+        if not studio_publishable and not studio_review.get("blockers"):
+            details.append("virtual-studio: specialist consensus was not reached")
+        raise BuildRejected("; ".join(dict.fromkeys(details)))
 
-    payload = _canonical_payload(page, dna, components, patterns, motion, content, intelligence, quality, html, css, runtime)
+    payload = _canonical_payload(page, dna, components, patterns, motion, content, intelligence, quality, studio, html, css, runtime)
     build_id = _hash_payload(payload)[:16]
     staging_root = Path(tempfile.mkdtemp(prefix=f".ruos-{page.slug}-", dir=str(context.output_root)))
     try:
         assets_dir = staging_root / "assets"
+        studio_dir = staging_root / "studio"
         motion_json = json.dumps(_motion_payload(motion), ensure_ascii=False, indent=2, sort_keys=True)
         intelligence_json = json.dumps(_intelligence_payload(intelligence), ensure_ascii=False, indent=2, sort_keys=True)
         quality_json = json.dumps(_quality_payload(quality), ensure_ascii=False, indent=2, sort_keys=True)
-        files = (
+        files = [
             _write(staging_root / "index.html", html),
             _write(assets_dir / "styles.css", css),
             _write(assets_dir / "runtime.js", runtime),
             _write(assets_dir / "motion-manifest.json", motion_json),
             _write(assets_dir / "creative-intelligence.json", intelligence_json),
             _write(staging_root / "agency-quality-report.json", quality_json),
-        )
-        manifest = {**payload, "build_id": build_id, "built_at": datetime.now(timezone.utc).isoformat(), "strict": context.strict, "passed": quality.publishable, "files": [str(path.relative_to(staging_root)) for path in files], "sha256": {str(path.relative_to(staging_root)): hashlib.sha256(path.read_bytes()).hexdigest() for path in files}, "gates": [asdict(gate) for gate in gates]}
+            _write(studio_dir / "manifest.json", json.dumps(studio.manifest(), ensure_ascii=False, indent=2, sort_keys=True)),
+        ]
+        for artifact in studio.artifacts:
+            files.append(_write(studio_dir / artifact.name, json.dumps(dict(artifact.payload), ensure_ascii=False, indent=2, sort_keys=True)))
+        manifest = {**payload, "build_id": build_id, "built_at": datetime.now(timezone.utc).isoformat(), "strict": context.strict, "passed": quality.publishable and studio_publishable, "files": [str(path.relative_to(staging_root)) for path in files], "sha256": {str(path.relative_to(staging_root)): hashlib.sha256(path.read_bytes()).hexdigest() for path in files}, "gates": [asdict(gate) for gate in gates]}
         manifest_path = _write(staging_root / "build-manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True))
         qa_path = _write(staging_root / "qa-report.json", json.dumps([asdict(gate) for gate in gates], ensure_ascii=False, indent=2))
         _write(staging_root / ".ruos-build", f"{build_id}\n")
