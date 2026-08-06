@@ -1,0 +1,65 @@
+contract_id: digital-creative-studio-build
+version: 1.0.0
+status: locked
+scope: core
+purpose: >-
+  Build distinctive, research-backed, conversion-oriented digital experiences;
+  not isolated raw HTML pages.
+inputs:
+  - project_manifest
+  - approved_architecture
+  - page_intent
+  - persona
+  - conversion_goal
+  - knowledge_graph_context
+  - capability_and_evidence
+  - approved_baseline
+  - inspiration_translation
+  - live_library_research
+  - technology_decision_record
+stages:
+  - discovery_and_live_research
+  - architecture_and_content_strategy
+  - art_direction
+  - technology_selection
+  - interaction_and_motion_design
+  - conversion_design
+  - implementation
+  - accessibility_performance_and_mobile_qa
+  - visual_and_creative_review
+  - owner_review
+  - learning_capture
+blocking_gates:
+  architecture_locked: true
+  baseline_verified: true
+  live_research_verified: true
+  library_selection_verified: true
+  selected_libraries_implemented: true
+  art_direction_declared: true
+  conversion_hypothesis_declared: true
+  analytics_and_event_plan_declared: true
+  content_and_voice_verified: true
+  mobile_iphone_verified: true
+  accessibility_verified: true
+  performance_budget_passed: true
+  visual_non_regression_passed: true
+  creative_review_passed: true
+  learning_written_back_to_engine: true
+forbidden:
+  - raw_html_as_default_delivery
+  - technology_registry_without_actual_usage
+  - generic_template_without_art_direction
+  - visual_effects_without_user_or_conversion_purpose
+  - conversion_dark_patterns
+  - unmeasured_conversion_claims
+  - skipping_live_research
+outputs:
+  - build_artifact
+  - dependency_manifest
+  - implementation_map
+  - conversion_event_map
+  - visual_diff
+  - non_regression_report
+  - page_postmortem
+  - engine_improvement_patch
+failure_policy: reject_delivery
