@@ -16,11 +16,12 @@ from .models import BuildContext, BuildResult, PageSpec
 from .motion_composer import MotionPlan, compose_motion
 from .pattern_resolver import PatternPlan, resolve_patterns
 from .qa import evaluate
+from .quality_score import AgencyQualityScore, calculate_agency_quality
 from .render import render_css, render_document, render_runtime
 from .visual_dna import VisualDNA, resolve_visual_dna
 
 ENGINE_NAME = "ruos-engine"
-ENGINE_VERSION = "0.8.0"
+ENGINE_VERSION = "0.9.0"
 
 
 class BuildRejected(RuntimeError):
@@ -65,33 +66,21 @@ def _content_payload(plan: ContentPlan) -> dict[str, object]:
 def _intelligence_payload(plan: CreativeIntelligencePlan) -> dict[str, object]:
     return {
         "page_slug": plan.page_slug,
-        "query": {
-            "primary_query": plan.query.primary_query,
-            "supporting_queries": list(plan.query.supporting_queries),
-            "search_intent": plan.query.search_intent,
-            "journey_stage": plan.query.journey_stage,
-        },
-        "sales": {
-            "conversion_goal": plan.sales.conversion_goal,
-            "value_proposition": plan.sales.value_proposition,
-            "friction_policy": plan.sales.friction_policy,
-            "proof_requirements": list(plan.sales.proof_requirements),
-            "cta_sequence": list(plan.sales.cta_sequence),
-        },
-        "semantic": {
-            "primary_entity": plan.semantic.primary_entity,
-            "entities": list(plan.semantic.entities),
-            "schema_types": list(plan.semantic.schema_types),
-            "answer_targets": list(plan.semantic.answer_targets),
-            "ai_summary": plan.semantic.ai_summary,
-        },
-        "creative": {
-            "emotional_curve": list(plan.creative.emotional_curve),
-            "narrative_model": plan.creative.narrative_model,
-            "persuasion_principles": list(plan.creative.persuasion_principles),
-            "visual_direction": plan.creative.visual_direction,
-            "attributes": dict(plan.creative.attributes),
-        },
+        "query": {"primary_query": plan.query.primary_query, "supporting_queries": list(plan.query.supporting_queries), "search_intent": plan.query.search_intent, "journey_stage": plan.query.journey_stage},
+        "sales": {"conversion_goal": plan.sales.conversion_goal, "value_proposition": plan.sales.value_proposition, "friction_policy": plan.sales.friction_policy, "proof_requirements": list(plan.sales.proof_requirements), "cta_sequence": list(plan.sales.cta_sequence)},
+        "semantic": {"primary_entity": plan.semantic.primary_entity, "entities": list(plan.semantic.entities), "schema_types": list(plan.semantic.schema_types), "answer_targets": list(plan.semantic.answer_targets), "ai_summary": plan.semantic.ai_summary},
+        "creative": {"emotional_curve": list(plan.creative.emotional_curve), "narrative_model": plan.creative.narrative_model, "persuasion_principles": list(plan.creative.persuasion_principles), "visual_direction": plan.creative.visual_direction, "attributes": dict(plan.creative.attributes)},
+    }
+
+
+def _quality_payload(score: AgencyQualityScore) -> dict[str, object]:
+    return {
+        "total": score.total,
+        "grade": score.grade,
+        "publishable": score.publishable,
+        "threshold": 88,
+        "dimensions": [{"name": item.name, "score": item.score, "weight": item.weight} for item in score.dimensions],
+        "blockers": list(score.blockers),
     }
 
 
@@ -104,15 +93,17 @@ for(const cue of RUOS_MOTION.cues){{const section=document.getElementById(cue.se
 '''.strip()
 
 
-def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan, patterns: PatternPlan, motion: MotionPlan, content: ContentPlan, intelligence: CreativeIntelligencePlan, html: str, css: str, runtime: str) -> dict[str, object]:
+def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan, patterns: PatternPlan, motion: MotionPlan, content: ContentPlan, intelligence: CreativeIntelligencePlan, quality: AgencyQualityScore, html: str, css: str, runtime: str) -> dict[str, object]:
     visual_payload = dict(dna.fingerprint_payload())
     component_payload = _component_payload(components)
     pattern_payload = _pattern_payload(patterns)
     motion_payload = _motion_payload(motion)
     content_payload = _content_payload(content)
     intelligence_payload = _intelligence_payload(intelligence)
+    quality_payload = _quality_payload(quality)
     motion_json = json.dumps(motion_payload, ensure_ascii=False, indent=2, sort_keys=True)
     intelligence_json = json.dumps(intelligence_payload, ensure_ascii=False, indent=2, sort_keys=True)
+    quality_json = json.dumps(quality_payload, ensure_ascii=False, indent=2, sort_keys=True)
     return {
         "engine": ENGINE_NAME,
         "engine_version": ENGINE_VERSION,
@@ -130,6 +121,8 @@ def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan
         "content_plan_sha256": _hash_payload(content_payload),
         "creative_intelligence": intelligence_payload,
         "creative_intelligence_sha256": _hash_payload(intelligence_payload),
+        "agency_quality": quality_payload,
+        "agency_quality_sha256": _hash_payload(quality_payload),
         "spec": asdict(page),
         "artifacts": {
             "index.html": _digest(html),
@@ -137,6 +130,7 @@ def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan
             "assets/runtime.js": _digest(runtime),
             "assets/motion-manifest.json": _digest(motion_json),
             "assets/creative-intelligence.json": _digest(intelligence_json),
+            "agency-quality-report.json": _digest(quality_json),
         },
     }
 
@@ -173,27 +167,32 @@ def compile_page(page: PageSpec, context: BuildContext) -> BuildResult:
     css = render_css(dna)
     runtime = render_runtime() + "\n" + _motion_runtime(motion)
     gates = evaluate(page, html, css, runtime)
+    quality = calculate_agency_quality(gates)
 
     rejected = [gate for gate in gates if not gate.passed]
-    if context.strict and rejected:
-        summary = "; ".join(f"{gate.gate}: {', '.join(gate.failures)}" for gate in rejected)
-        raise BuildRejected(summary)
+    if context.strict and (rejected or not quality.publishable):
+        details = [f"{gate.gate}: {', '.join(gate.failures)}" for gate in rejected]
+        if not quality.publishable and not quality.blockers:
+            details.append(f"agency-quality: score {quality.total} is below publish threshold 88")
+        raise BuildRejected("; ".join(details))
 
-    payload = _canonical_payload(page, dna, components, patterns, motion, content, intelligence, html, css, runtime)
+    payload = _canonical_payload(page, dna, components, patterns, motion, content, intelligence, quality, html, css, runtime)
     build_id = _hash_payload(payload)[:16]
     staging_root = Path(tempfile.mkdtemp(prefix=f".ruos-{page.slug}-", dir=str(context.output_root)))
     try:
         assets_dir = staging_root / "assets"
         motion_json = json.dumps(_motion_payload(motion), ensure_ascii=False, indent=2, sort_keys=True)
         intelligence_json = json.dumps(_intelligence_payload(intelligence), ensure_ascii=False, indent=2, sort_keys=True)
+        quality_json = json.dumps(_quality_payload(quality), ensure_ascii=False, indent=2, sort_keys=True)
         files = (
             _write(staging_root / "index.html", html),
             _write(assets_dir / "styles.css", css),
             _write(assets_dir / "runtime.js", runtime),
             _write(assets_dir / "motion-manifest.json", motion_json),
             _write(assets_dir / "creative-intelligence.json", intelligence_json),
+            _write(staging_root / "agency-quality-report.json", quality_json),
         )
-        manifest = {**payload, "build_id": build_id, "built_at": datetime.now(timezone.utc).isoformat(), "strict": context.strict, "passed": all(gate.passed for gate in gates), "files": [str(path.relative_to(staging_root)) for path in files], "sha256": {str(path.relative_to(staging_root)): hashlib.sha256(path.read_bytes()).hexdigest() for path in files}, "gates": [asdict(gate) for gate in gates]}
+        manifest = {**payload, "build_id": build_id, "built_at": datetime.now(timezone.utc).isoformat(), "strict": context.strict, "passed": quality.publishable, "files": [str(path.relative_to(staging_root)) for path in files], "sha256": {str(path.relative_to(staging_root)): hashlib.sha256(path.read_bytes()).hexdigest() for path in files}, "gates": [asdict(gate) for gate in gates]}
         manifest_path = _write(staging_root / "build-manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True))
         qa_path = _write(staging_root / "qa-report.json", json.dumps([asdict(gate) for gate in gates], ensure_ascii=False, indent=2))
         _write(staging_root / ".ruos-build", f"{build_id}\n")
