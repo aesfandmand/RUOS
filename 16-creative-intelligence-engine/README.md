@@ -37,6 +37,45 @@ The engine must produce:
     └── pre-build-blocking-gate.yaml
 ```
 
+Runtime implementation lives in:
+
+```text
+src/ruos/cie_gate.py
+src/ruos/cie_build.py
+src/ruos/cie_cli.py
+tests/test_cie_gate.py
+```
+
+## Executable flow
+
+After installing the repository package, CIE is available as `ruos-cie`.
+
+Generate a blueprint without building:
+
+```bash
+ruos-cie blueprint structures
+```
+
+Run the blocking gate and build only if the gate allows it:
+
+```bash
+ruos-cie build structures
+```
+
+The executable flow is:
+
+```text
+PageSpec
+  -> content + existing RUOS creative intelligence
+  -> component/pattern/motion plans
+  -> Creative Blueprint
+  -> CIE blocking gate
+  -> pass / pass_with_conditions / blocked
+  -> RUOS compiler only when allowed
+```
+
+A successful gated build writes `creative-blueprint.json` into the page output directory. Unsupported claims, missing mobile/touch behavior, missing reduced-motion fallbacks, missing provenance, invalid blueprint shape, non-semantic motion and unresolved anti-copy constraints are hard blockers.
+
 ## Red Umbrella reference direction
 
 The following approved references define the quality bar and interaction direction for Red Umbrella website work. They are references, not templates to copy:
@@ -67,4 +106,4 @@ The following approved references define the quality bar and interaction directi
 
 ## Version
 
-Initial architecture: CIE v1.
+Architecture: CIE v1. Runtime gate: CIE runtime v1.
