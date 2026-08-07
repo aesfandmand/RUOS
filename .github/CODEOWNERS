@@ -1,0 +1,22 @@
+# Default ownership for RUOS canonical repository
+* @aesfandmand
+
+# Engine and executable build pipeline
+/src/ruos/ @aesfandmand
+/pages/ @aesfandmand
+/tests/ @aesfandmand
+/.github/workflows/ @aesfandmand
+
+# Canonical knowledge, rules, schemas and project workspaces
+/02-knowledge/ @aesfandmand
+/03-engines/ @aesfandmand
+/04-templates/ @aesfandmand
+/05-rules/ @aesfandmand
+/06-workflows/ @aesfandmand
+/11-knowledge-migration/ @aesfandmand
+/11-projects/ @aesfandmand
+/12-gcera-dsl/ @aesfandmand
+/12-versions/ @aesfandmand
+/13-canonical-repository/ @aesfandmand
+/14-technology-intelligence-registry/ @aesfandmand
+/15-website-studio-engine/ @aesfandmand

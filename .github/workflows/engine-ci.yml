@@ -6,8 +6,20 @@ on:
       - "src/ruos/**"
       - "pages/**"
       - "tests/**"
+      - "02-knowledge/**"
+      - "03-engines/**"
+      - "04-templates/**"
+      - "05-rules/**"
+      - "06-workflows/**"
+      - "11-knowledge-migration/**"
+      - "11-projects/**"
+      - "12-gcera-dsl/**"
+      - "12-versions/**"
+      - "13-canonical-repository/**"
+      - "14-technology-intelligence-registry/**"
+      - "15-website-studio-engine/**"
       - "pyproject.toml"
-      - ".github/workflows/engine-ci.yml"
+      - ".github/**"
   pull_request:
 
 permissions:
