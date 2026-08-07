@@ -1,3 +1,4 @@
+from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -27,6 +28,38 @@ def _context(tmp_path: Path, *, required: bool = True, discovery: bool = False) 
     )
 
 
+def _with_prebuild(page):
+    metadata = dict(page.metadata)
+    metadata["prebuild_intelligence"] = {
+        "iranian_query_set": ["سازه‌های تبلیغاتی"],
+        "serp_landscape": ["verified landscape"],
+        "search_intent_map": ["commercial investigation"],
+        "funnel_role": "discover-compare-route",
+        "conversion_goal": "qualified conversation",
+        "pillar": "advertising structures",
+        "cluster": "structure catalog",
+        "title_strategy": "query-led",
+        "h1": "سازه‌های تبلیغاتی",
+        "heading_architecture": ["discover", "compare", "decide"],
+        "discover_hook": "choose the right structure",
+        "faq_and_paa_plan": ["types", "selection", "buying"],
+        "entity_graph": ["structure", "indoor", "outdoor"],
+        "schema_plan": ["WebPage", "ItemList", "FAQPage"],
+        "capability_evidence_plan": ["real projects", "technical evidence"],
+        "internal_linking_plan": ["indoor", "outdoor", "investment"],
+        "related_blog_and_video_plan": ["structure guides"],
+        "writer_profile": "specialist Persian B2B writer",
+        "iranian_editor_profile": "senior Iranian editor",
+        "voice_constraints": ["clear", "specific", "non-translated"],
+        "live_library_research_report": ["verified sources"],
+        "selected_technology_stack": ["semantic HTML", "CSS", "JavaScript"],
+        "aspirational_reference_translation": ["reference-led, not copied"],
+        "motion_direction": ["semantic progressive reveal"],
+        "conversion_instrumentation_plan": ["primary CTA", "qualified conversation"],
+    }
+    return replace(page, metadata=metadata)
+
+
 def test_production_api_requires_live_research_flag(tmp_path: Path) -> None:
     page = load_page_spec(Path("pages/structures.json"))
     with pytest.raises(ProductionBuildError, match="requires live research"):
@@ -47,7 +80,7 @@ def test_production_discovery_requires_flag(tmp_path: Path) -> None:
 
 
 def test_production_compile_verifies_before_compiling_and_injects_provenance(tmp_path: Path, monkeypatch) -> None:
-    page = load_page_spec(Path("pages/structures.json"))
+    page = _with_prebuild(load_page_spec(Path("pages/structures.json")))
     context = _context(tmp_path)
     calls: list[str] = []
     verified = VerifiedResearchEvidence(page.slug, "a" * 64, "2026-08-06T04:00:00Z", 7, ("one",), 1)
@@ -80,7 +113,7 @@ def test_production_compile_verifies_before_compiling_and_injects_provenance(tmp
 
 
 def test_production_compile_injects_verified_discovery(tmp_path: Path, monkeypatch) -> None:
-    page = load_page_spec(Path("pages/structures.json"))
+    page = _with_prebuild(load_page_spec(Path("pages/structures.json")))
     context = _context(tmp_path, discovery=True)
     research = VerifiedResearchEvidence(page.slug, "a" * 64, "2026-08-06T04:00:00Z", 7, ("one",), 1)
     discovery = VerifiedSearchDiscovery("brave", "سازه‌های تبلیغاتی", "ir", "fa", "2026-08-06T04:00:00Z", 5, 1, "b" * 64)
@@ -108,7 +141,7 @@ def test_production_compile_injects_verified_discovery(tmp_path: Path, monkeypat
 
 
 def test_production_compile_rejects_snapshot_changed_after_verification(tmp_path: Path, monkeypatch) -> None:
-    page = load_page_spec(Path("pages/structures.json"))
+    page = _with_prebuild(load_page_spec(Path("pages/structures.json")))
     context = _context(tmp_path)
     verified = VerifiedResearchEvidence(page.slug, "a" * 64, "2026-08-06T04:00:00Z", 7, ("one",), 1)
     monkeypatch.setattr("ruos.production_build.require_verified_live_research", lambda *args, **kwargs: verified)
