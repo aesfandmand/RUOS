@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ruos.local/schemas/creative-blueprint.schema.json",
+  "title": "Creative Blueprint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "project_id",
+    "page_id",
+    "creative_thesis",
+    "user_journey",
+    "narrative_architecture",
+    "visual_system",
+    "motion_grammar",
+    "interaction_model",
+    "responsive_strategy",
+    "reference_translation",
+    "implementation",
+    "risks",
+    "gate"
+  ],
+  "properties": {
+    "version": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "page_id": {"type": "string", "minLength": 1},
+    "page_type": {"type": "string"},
+    "creative_thesis": {"type": "string", "minLength": 20},
+    "primary_intent": {"type": "string"},
+    "conversion_goal": {"type": "string"},
+    "user_journey": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["stage", "user_question", "desired_state"],
+        "properties": {
+          "stage": {"type": "string"},
+          "user_question": {"type": "string"},
+          "desired_state": {"type": "string"},
+          "cta": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "narrative_architecture": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "purpose", "content_role", "visual_role"],
+        "properties": {
+          "id": {"type": "string"},
+          "purpose": {"type": "string"},
+          "content_role": {"type": "string"},
+          "visual_role": {"type": "string"},
+          "interaction_role": {"type": "string"}
+        }
+      }
+    },
+    "visual_system": {
+      "type": "object",
+      "required": ["composition", "typography", "imagery", "depth", "materiality"],
+      "properties": {
+        "composition": {"type": "string"},
+        "typography": {"type": "string"},
+        "imagery": {"type": "string"},
+        "depth": {"type": "string"},
+        "materiality": {"type": "string"},
+        "color_logic": {"type": "string"}
+      }
+    },
+    "motion_grammar": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["purpose", "trigger", "behavior", "fallback"],
+        "properties": {
+          "purpose": {
+            "enum": [
+              "reveal_information",
+              "show_progress",
+              "show_relationship",
+              "show_state_change",
+              "show_scale_or_depth",
+              "focus_attention",
+              "transition_context",
+              "simulate_configuration"
+            ]
+          },
+          "trigger": {"type": "string"},
+          "behavior": {"type": "string"},
+          "fallback": {"type": "string"}
+        }
+      }
+    },
+    "interaction_model": {
+      "type": "object",
+      "required": ["desktop", "mobile", "reduced_motion"],
+      "properties": {
+        "desktop": {"type": "string"},
+        "mobile": {"type": "string"},
+        "reduced_motion": {"type": "string"},
+        "keyboard": {"type": "string"},
+        "touch": {"type": "string"}
+      }
+    },
+    "responsive_strategy": {
+      "type": "object",
+      "required": ["single_codebase", "desktop_to_mobile_translation"],
+      "properties": {
+        "single_codebase": {"const": true},
+        "desktop_to_mobile_translation": {"type": "array", "items": {"type": "string"}},
+        "breakpoint_notes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "reference_translation": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["reference", "observed_principle", "page_translation", "anti_copy_constraint"],
+        "properties": {
+          "reference": {"type": "string"},
+          "observed_principle": {"type": "string"},
+          "page_translation": {"type": "string"},
+          "anti_copy_constraint": {"type": "string"},
+          "source_url": {"type": "string", "format": "uri"}
+        }
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "required": ["recommended_stack", "progressive_enhancement", "performance_budget"],
+      "properties": {
+        "recommended_stack": {"type": "array", "items": {"type": "string"}},
+        "progressive_enhancement": {"type": "string"},
+        "performance_budget": {"type": "string"},
+        "fallbacks": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim", "source"],
+        "properties": {
+          "claim": {"type": "string"},
+          "source": {"type": "string"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "risks": {"type": "array", "items": {"type": "string"}},
+    "gate": {
+      "type": "object",
+      "required": ["status", "failed_rules"],
+      "properties": {
+        "status": {"enum": ["pass", "pass_with_conditions", "blocked"]},
+        "failed_rules": {"type": "array", "items": {"type": "string"}},
+        "conditions": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

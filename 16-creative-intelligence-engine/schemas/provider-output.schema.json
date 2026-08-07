@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ruos.local/schemas/provider-output.schema.json",
+  "title": "Creative Intelligence Provider Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "provider_id",
+    "status",
+    "findings",
+    "page_specific_recommendations",
+    "provenance",
+    "risks",
+    "confidence"
+  ],
+  "properties": {
+    "provider_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["success", "partial", "failed"]},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["observation", "principle"],
+        "properties": {
+          "observation": {"type": "string", "minLength": 1},
+          "principle": {"type": "string", "minLength": 1},
+          "evidence_id": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "page_specific_recommendations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["recommendation", "reason", "priority"],
+        "properties": {
+          "recommendation": {"type": "string"},
+          "reason": {"type": "string"},
+          "priority": {"enum": ["critical", "high", "medium", "low"]},
+          "desktop": {"type": ["string", "null"]},
+          "mobile": {"type": ["string", "null"]},
+          "fallback": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "anti_copy_constraints": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "source_type"],
+        "properties": {
+          "id": {"type": "string"},
+          "source": {"type": "string"},
+          "source_type": {"enum": ["approved-reference", "project-file", "web-research", "repo-artifact", "user-input", "other"]},
+          "retrieved_at": {"type": ["string", "null"], "format": "date-time"},
+          "notes": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["risk", "severity"],
+        "properties": {
+          "risk": {"type": "string"},
+          "severity": {"enum": ["critical", "high", "medium", "low"]},
+          "mitigation": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "unknowns": {"type": "array", "items": {"type": "string"}},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+  }
+}

@@ -1,0 +1,130 @@
+version: 1
+policy: cie-pre-build-blocking-gate
+default_result: blocked
+
+statuses:
+  pass:
+    build_allowed: true
+  pass_with_conditions:
+    build_allowed: true
+    conditions_required: true
+  blocked:
+    build_allowed: false
+
+critical_rules:
+  - id: CIE-001
+    name: clear-page-intent
+    assert: primary_intent_present AND conversion_goal_present
+    on_fail: blocked
+    remediation: define page intent and conversion goal
+
+  - id: CIE-002
+    name: page-specific-creative-thesis
+    assert: creative_thesis_is_page_specific AND creative_thesis_not_generic
+    on_fail: blocked
+    remediation: produce a page-specific creative thesis tied to user journey and business goal
+
+  - id: CIE-003
+    name: approved-reference-analysis
+    assert: approved_references_analyzed AND each_major_reference_has_translation
+    on_fail: blocked
+    remediation: analyze references and map principles to this page
+
+  - id: CIE-004
+    name: anti-copy-safety
+    assert: each_major_reference_has_anti_copy_constraint AND no_direct_copy_instruction
+    on_fail: blocked
+    remediation: replace copied composition/component instructions with extracted principles and original translation
+
+  - id: CIE-005
+    name: provider-provenance
+    assert: all_required_provider_outputs_have_provenance
+    on_fail: blocked
+    remediation: attach source provenance to every required provider output
+
+  - id: CIE-006
+    name: factual-integrity
+    assert: no_unsupported_claims AND no_invented_technical_data
+    on_fail: blocked
+    remediation: remove or source unsupported claims and mark unresolved technical values as unknown
+
+  - id: CIE-007
+    name: mobile-translation
+    assert: core_interactions_have_mobile_behavior AND touch_first_controls_defined
+    on_fail: blocked
+    remediation: define mobile behavior for every core interaction
+
+  - id: CIE-008
+    name: reduced-motion-and-fallback
+    assert: essential_motion_has_reduced_motion_variant AND high_cost_interactions_have_fallback
+    on_fail: blocked
+    remediation: define reduced-motion and progressive-enhancement fallbacks
+
+  - id: CIE-009
+    name: responsive-single-system
+    assert: responsive_strategy.single_codebase == true
+    on_fail: blocked
+    remediation: redesign desktop and mobile as one responsive implementation contract
+
+  - id: CIE-010
+    name: schema-valid-blueprint
+    assert: creative_blueprint_schema_valid
+    on_fail: blocked
+    remediation: repair blueprint until schema validation passes
+
+  - id: CIE-011
+    name: semantic-motion
+    assert: all_core_motion_has_semantic_purpose
+    on_fail: blocked
+    remediation: remove decorative-only core motion or give it an information/state/progress function
+
+  - id: CIE-012
+    name: non-generic-experience
+    assert: not_generic_card_grid_only_when_richer_model_required
+    on_fail: blocked
+    remediation: use a page-specific narrative/interaction system rather than a static card stack
+
+red_umbrella_rules:
+  - id: RU-CIE-001
+    name: approved-quality-direction
+    assert: reference_led_design_direction_preserved
+    on_fail: blocked
+
+  - id: RU-CIE-002
+    name: structures-primary-reference
+    applies_when: page_type in [structure, catalog, investment-asset, outdoor-structure, indoor-structure]
+    assert: nrg_principles_considered_for_progressive_system_reveal
+    on_fail: pass_with_conditions
+    condition: document why another interaction model better serves the page
+
+  - id: RU-CIE-003
+    name: presentation-quality
+    assert: transition_and_reveal_strategy_defined
+    on_fail: pass_with_conditions
+    condition: define a coherent presentation transition system before implementation
+
+scoring:
+  dimensions:
+    intent_alignment: 20
+    originality_and_brand_fit: 15
+    reference_translation_quality: 15
+    journey_and_conversion: 15
+    motion_and_interaction_semantics: 10
+    mobile_and_accessibility: 10
+    performance_and_fallbacks: 5
+    evidence_and_truth: 10
+  thresholds:
+    pass: 85
+    pass_with_conditions: 75
+    blocked_below: 75
+  override:
+    any_critical_rule_failure: blocked
+
+output:
+  required:
+    - status
+    - score
+    - failed_rules
+    - conditions
+    - remediation_actions
+    - evidence_needed

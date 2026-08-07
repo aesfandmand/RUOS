@@ -1,0 +1,111 @@
+version: 1
+engine: creative-intelligence-engine
+mode: blocking-prebuild
+
+input_contract:
+  required:
+    - project_id
+    - page_id
+    - page_type
+    - primary_intent
+    - conversion_goal
+    - target_devices
+    - approved_references
+  optional:
+    - personas
+    - secondary_intents
+    - locked_rules
+    - knowledge_sources
+    - technical_constraints
+    - seo_requirements
+    - capability_evidence
+    - existing_page_artifacts
+
+stages:
+  - id: normalize_request
+    action: normalize
+    output: normalized_request
+    blocking_on_error: true
+
+  - id: classify_page
+    action: classify
+    depends_on: [normalize_request]
+    output:
+      - creative_problem
+      - narrative_complexity
+      - interaction_complexity
+      - evidence_requirements
+
+  - id: dispatch_providers
+    action: run_provider_pipeline
+    depends_on: [classify_page]
+    pipeline: provider-pipeline.yaml
+    parallel: true
+    output: provider_outputs
+
+  - id: validate_provider_outputs
+    action: schema_validate
+    depends_on: [dispatch_providers]
+    schema: ../schemas/provider-output.schema.json
+    for_each: provider_outputs
+    on_failure: blocked
+
+  - id: synthesize_blueprint
+    action: synthesize
+    depends_on: [validate_provider_outputs]
+    precedence:
+      - locked_governance
+      - user_intent_and_conversion
+      - factual_evidence
+      - accessibility_and_mobile
+      - brand_distinctiveness
+      - approved_reference_direction
+      - novelty
+    output: creative_blueprint
+
+  - id: validate_blueprint
+    action: schema_validate
+    depends_on: [synthesize_blueprint]
+    schema: ../schemas/creative-blueprint.schema.json
+    on_failure: blocked
+
+  - id: run_prebuild_gate
+    action: evaluate_policy
+    depends_on: [validate_blueprint]
+    policy: ../policies/pre-build-blocking-gate.yaml
+    output: gate_result
+
+  - id: emit_handoff
+    action: emit
+    depends_on: [run_prebuild_gate]
+    condition: "gate_result.status in ['pass', 'pass_with_conditions']"
+    output:
+      - creative_blueprint
+      - implementation_brief
+      - gate_result
+
+  - id: stop_build
+    action: block
+    depends_on: [run_prebuild_gate]
+    condition: "gate_result.status == 'blocked'"
+    output:
+      - failed_rules
+      - remediation_actions
+      - evidence_needed
+
+red_umbrella_defaults:
+  quality_bar: awwwards-level-ambition
+  design_mode: reference-led-not-reference-copied
+  responsive: single-system-desktop-mobile
+  mobile_input: touch-first
+  reduced_motion_required: true
+  generic_card_grid_only: forbidden
+  unsupported_claims: forbidden
+  approved_reference_roles:
+    fort_vega: scroll-3d-interactive-choreography
+    sky_clinics: cinematic-spatial-scroll
+    bucks_sauce: bold-product-presentation-and-animated-grids
+    nrg_build_your_data_center: primary-structures-interaction-reference
+    oryzo_ai: primary-presentation-and-transition-reference
+    xurya_manufacture: industrial-manufacturing-language
+    construction_insurtech_b2b: architectural-grid-and-modular-b2b-language
