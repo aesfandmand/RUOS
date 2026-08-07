@@ -1,0 +1,45 @@
+policy_id: fa-writer-editor-selection
+version: 1.0.0
+status: locked
+scope: core
+mission: >-
+  Make Persian writing and editing source-backed and reproducible for every production page.
+required_source:
+  corpus: 12-editorial-intelligence/sources/fa-specialized-prose-corpus-13-authors.yaml
+required_prebuild_fields:
+  - editorial.writer_profile_ids
+  - editorial.writer_selection_rationale
+  - editorial.iranian_editor_profile
+  - editorial.voice_rules
+  - editorial.prohibited_patterns
+  - editorial.source_corpus_id
+selection_logic:
+  primary_inputs:
+    - page_intent
+    - funnel_stage
+    - audience
+    - content_role
+    - conversion_goal
+  constraints:
+    - choose_only_relevant_profiles
+    - do_not_blend_all_profiles
+    - preserve_brand_voice_over_author_style
+    - original_persian_output_only
+    - no_source_sentence_reproduction
+editor_pass:
+  required: true
+  checks:
+    - natural_persian_word_order
+    - punctuation_and_half_space
+    - remove_translationese
+    - remove_generic_ai_cliches
+    - remove_unearned_superlatives
+    - maintain_evidence_bound_claims
+    - maintain_cta_without_fake_urgency
+blocking_gates:
+  corpus_loaded: true
+  writer_profiles_selected: true
+  selection_rationale_present: true
+  iranian_editor_pass_declared: true
+  source_corpus_recorded: true
+failure_policy: reject_build
