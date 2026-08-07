@@ -1,0 +1,5 @@
+.sp-answer-grid{display:grid;grid-template-columns:1fr .85fr;gap:clamp(40px,8vw,120px);align-items:start}
+.sp-answer-grid h2{font-size:clamp(2.2rem,4vw,4rem);line-height:1.2;letter-spacing:-.055em;margin:0;max-width:13ch}
+.sp-answer-copy p{font-size:1.05rem;color:var(--muted)}
+.sp-rule{margin-top:22px;padding:20px 22px;border-inline-start:4px solid var(--sp-red);border-radius:16px;background:#fff0f3}
+@media(max-width:1000px){.sp-answer-grid{grid-template-columns:1fr}}

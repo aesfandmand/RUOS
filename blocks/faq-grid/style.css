@@ -1,0 +1,5 @@
+.sp-faq{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sp-faq details{border:1px solid var(--sp-line);border-radius:18px;background:#fff;padding:20px}
+.sp-faq summary{cursor:pointer;font-weight:900}
+.sp-faq p{color:var(--muted)}
+@media(max-width:720px){.sp-faq{grid-template-columns:1fr}}

@@ -1,0 +1,9 @@
+.sp-contact{padding:110px 0;background:var(--sp-red);color:#fff}
+.sp-contact-grid{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:end}
+.sp-contact h2{font-size:clamp(3rem,6vw,6rem);line-height:1.05;max-width:10ch}
+/* This block is the only accent-surface section, so it has to restate the
+   colours that are tuned for light surfaces. Without the first rule the eyebrow
+   inherits the brand red and renders at 1.08:1 on the red band — invisible. */
+.sp-contact .eyebrow{color:#fff}
+.sp-contact p{color:#fff4f6}
+@media(max-width:1000px){.sp-contact-grid{grid-template-columns:1fr}}

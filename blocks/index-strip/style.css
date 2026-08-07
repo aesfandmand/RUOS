@@ -1,0 +1,11 @@
+.sp-index{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin-top:58px;background:var(--sp-line);border:1px solid var(--sp-line);border-radius:20px;overflow:hidden}
+.sp-index a{min-height:116px;background:#fff;padding:20px;display:flex;flex-direction:column;justify-content:space-between;font-weight:850}
+.sp-index a:hover{background:#17161b;color:#fff}
+.sp-index span{color:var(--sp-red);font-size:.72rem}
+/* Added for library use. In the source page this strip sat inside a neighbouring
+   section and carried a top margin. As an independent block it owns a slim section
+   of its own, where that inherited margin would double the gap. */
+.sp-index-section{padding:0 0 clamp(56px,6vw,88px);background:var(--white)}
+.sp-index-section .sp-index{margin-top:0}
+@media(max-width:1000px){.sp-index{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.sp-index{grid-template-columns:1fr}}

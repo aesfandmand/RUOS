@@ -1,0 +1,63 @@
+{
+  "id": "decision-finder",
+  "name": {
+    "fa": "کنسول انتخاب",
+    "en": "Decision finder console"
+  },
+  "role": "content",
+  "family": "interactive",
+  "surface": "light",
+  "composition": "grouped choice controls with a live recommendation panel",
+  "serves_intent": [
+    "qualify",
+    "route",
+    "reduce-friction"
+  ],
+  "position": "any",
+  "behavior": true,
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "note": {
+      "type": "text",
+      "required": false
+    },
+    "questions": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 4,
+      "item": {
+        "legend": "text",
+        "group": "text",
+        "options": "list"
+      }
+    },
+    "outcomes": {
+      "type": "map",
+      "required": true,
+      "item": {
+        "title": "text",
+        "body": "text",
+        "points": "list"
+      }
+    },
+    "result_label": {
+      "type": "text",
+      "required": false
+    }
+  },
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "builds/structures-final/index.html",
+    "selector": ".sp-finder"
+  }
+}

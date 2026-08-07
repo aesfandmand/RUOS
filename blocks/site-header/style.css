@@ -1,0 +1,24 @@
+.site-header{height:var(--header-height);position:sticky;top:0;z-index:1000;display:flex;align-items:center;background:rgba(245,243,239,.88);border-bottom:1px solid transparent;backdrop-filter:blur(18px)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:inline-flex;align-items:center;gap:12px}
+.brand-mark{width:44px;height:44px}
+.brand-copy strong{display:block;font-size:1.04rem;line-height:1.2}
+.brand-copy small{display:block;color:var(--muted);font-size:.66rem;letter-spacing:.1em;direction:ltr;text-align:right;margin-top:3px}
+.main-nav{display:flex;align-items:center;gap:26px}
+.nav-item{position:relative}
+.nav-link{min-height:42px;display:inline-flex;align-items:center;gap:5px;color:var(--ink-2);font-weight:750;font-size:.93rem}
+.mega{position:absolute;top:calc(100% + 13px);right:-22px;width:630px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow-lg);opacity:0;visibility:hidden;transform:translateY(9px);transition:.2s}
+.nav-item:hover .mega,.nav-item:focus-within .mega{opacity:1;visibility:visible;transform:translateY(0)}
+.mega-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.mega-link{padding:14px;border-radius:14px;border:1px solid transparent}
+.mega-link:hover{background:var(--paper);border-color:var(--line)}
+.mega-link strong{display:block}
+.mega-link small{display:block;color:var(--muted);font-size:.75rem}
+.header-actions{display:flex;align-items:center;gap:10px}
+.menu-button{display:none;width:46px;height:46px;border:1px solid var(--line);border-radius:50%;background:#fff}
+.mobile-panel{position:fixed;inset:var(--header-height) 0 0 0;z-index:990;background:var(--paper);padding:26px 20px 50px;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-12px);transition:.25s}
+.mobile-panel.open{opacity:1;visibility:visible;transform:none}
+.mobile-nav{display:grid;gap:6px}
+.mobile-nav>a{padding:15px 2px;border-bottom:1px solid var(--line);font-weight:850}
+@media(max-width:1000px){.main-nav{display:none}}
+@media(max-width:1000px){.menu-button{display:inline-flex}}

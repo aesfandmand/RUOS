@@ -1,0 +1,4 @@
+.sp-mobile-nav{display:none}
+@media(max-width:720px){.sp-mobile-nav{display:grid;position:fixed;z-index:1200;inset:auto 10px 10px;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:18px;background:rgba(21,18,23,.94)}}
+@media(max-width:720px){.sp-mobile-nav a{text-align:center;color:#d3cbd0;padding:9px 4px;border-radius:12px;font-size:.7rem}}
+@media(max-width:720px){.sp-mobile-nav a.is-active{background:var(--sp-red);color:#fff}}

@@ -1,0 +1,14 @@
+.sp-story{background:#ede7df}
+.sp-story-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:clamp(44px,8vw,110px)}
+.sp-story-copy{position:sticky;top:calc(var(--header-height) + 38px);align-self:start}
+.sp-story-copy h2{font-size:clamp(2.4rem,4vw,4.2rem);line-height:1.18;letter-spacing:-.055em;max-width:10ch;margin:0}
+.sp-story-copy p{color:var(--muted);margin-top:22px;max-width:44ch}
+.sp-story-track article{min-height:250px;padding:34px 0;border-top:1px solid var(--sp-line);display:grid;grid-template-columns:80px 1fr;gap:18px;align-content:center}
+.sp-story-track span{font-size:3.2rem;font-weight:950;color:rgba(23,22,27,.12)}
+.sp-story-track h3{font-size:2rem;margin:0 0 8px}
+.sp-story-track p{grid-column:2;color:var(--muted);margin:0}
+@media(max-width:1000px){.sp-story-grid{grid-template-columns:1fr}}
+@media(max-width:1000px){.sp-story-copy{position:static}}
+/* Surface adaptation: this block sits on the darker paper tone, where the
+   standard brand red drops to 4.32:1 for the small eyebrow. */
+.sp-story .eyebrow{color:var(--red-deep)}

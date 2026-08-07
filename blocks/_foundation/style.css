@@ -1,0 +1,34 @@
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+/* Added for library use: every composed document emits a skip link, so the
+   foundation has to style it. The source page carried no such control. */
+.skip-link{position:fixed;inset-inline-start:16px;top:-6rem;z-index:1300;padding:12px 18px;border-radius:12px;background:var(--white);color:var(--ink);font-weight:850;box-shadow:var(--shadow-lg)}
+.skip-link:focus{top:16px}
+body{margin:0;color:var(--ink);background:var(--paper);font-family:Vazirmatn,IRANSansX,"Segoe UI",Tahoma,Arial,sans-serif;font-size:16px;line-height:1.85;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+body.menu-open{overflow:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button,input,select,textarea{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid rgba(210,30,43,.32);outline-offset:3px}
+::selection{background:var(--red);color:#fff}
+.container{width:min(calc(100% - 40px),var(--container));margin-inline:auto}
+.section{padding:112px 0;position:relative}
+.section--dark{background:var(--ink);color:var(--white)}
+.section--white{background:var(--white)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--red);font-size:.82rem;font-weight:900;letter-spacing:.02em;margin-bottom:14px}
+.eyebrow::before{content:"";width:34px;height:2px;background:currentColor}
+.section--dark .eyebrow{color:#ff6872}
+.section-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.7fr);gap:48px;align-items:end;margin-bottom:48px}
+.section-head h2{margin:0;font-size:clamp(2rem,4vw,4rem);line-height:1.18;letter-spacing:-.055em}
+.section-head p{margin:0;color:var(--muted);font-size:1.03rem}
+.section--dark .section-head p{color:#bbb8c1}
+.btn{min-height:50px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:11px 20px;border-radius:999px;border:1px solid transparent;cursor:pointer;font-weight:850;transition:transform .25s var(--ease),background .25s,color .25s,border-color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn--primary{background:var(--red);color:#fff;box-shadow:0 14px 34px rgba(210,30,43,.25)}
+.btn--light{background:#fff;color:var(--ink)}
+.btn--darkghost{border-color:var(--line-light);color:#fff;background:rgba(255,255,255,.04)}
+.ruos-page{--sp-red:#da1e49;--sp-dark:#151217;--sp-paper:#f5f1ea;--sp-line:rgba(23,22,27,.14);overflow:hidden;background:var(--sp-paper)}
+.ruos-page .section{padding:clamp(76px,8vw,116px) 0}
+.ruos-page .section-head{margin-bottom:48px}
+.ruos-page .section-head h2{max-width:13ch}

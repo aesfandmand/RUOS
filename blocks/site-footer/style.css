@@ -1,0 +1,15 @@
+.footer-paya{background:#17161b;color:#fff;padding:74px 0 28px}
+.footer-paya-main{display:grid;grid-template-columns:1.4fr repeat(3,.65fr);gap:34px}
+.footer-identity{display:flex;gap:16px}
+.footer-identity img{width:58px;height:58px;object-fit:contain}
+.footer-identity p,.footer-links-col a{color:#b9b5bd;font-size:.82rem}
+.footer-links-col{display:grid;align-content:start;gap:7px}
+.footer-links-col b{color:#ff6872;margin-bottom:8px}
+.footer-paya-bottom{margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;color:#8e8991;font-size:.76rem}
+.footer-paya-bottom div{display:flex;gap:18px}
+@media(max-width:1000px){.footer-paya-main{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.footer-paya{padding-bottom:90px}}
+@media(max-width:720px){.footer-paya-main{grid-template-columns:1fr}}
+@media(max-width:720px){.footer-paya-bottom{flex-direction:column}}
+/* Same reason as the breadcrumb: legal links need a 24px hit area. */
+.footer-paya-bottom a{display:inline-flex;align-items:center;min-height:24px}

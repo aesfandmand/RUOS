@@ -1,0 +1,4 @@
+.sp-table-wrap{overflow:auto;border:1px solid var(--sp-line);border-radius:22px;background:#fff}
+.sp-table-wrap table{border-collapse:collapse;width:100%;min-width:980px}
+.sp-table-wrap th,.sp-table-wrap td{padding:20px;border-bottom:1px solid var(--sp-line);text-align:right}
+.sp-table-wrap thead th{background:#17161b;color:#fff}

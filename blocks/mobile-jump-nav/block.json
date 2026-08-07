@@ -1,0 +1,22 @@
+{
+  "id": "mobile-jump-nav",
+  "name": {
+    "fa": "ناوبری پایین موبایل",
+    "en": "Mobile jump navigation"
+  },
+  "role": "shell",
+  "family": "shell",
+  "surface": "dark",
+  "composition": "fixed bottom in-page navigation, mobile only",
+  "serves_intent": [],
+  "position": "any",
+  "behavior": true,
+  "slots": {},
+  "adjacency": {
+    "not_after_same_family": false
+  },
+  "source": {
+    "page": "builds/structures-final/index.html",
+    "selector": ".sp-mobile-nav"
+  }
+}

@@ -1,0 +1,30 @@
+.sp-hero{position:relative;min-height:calc(100svh - var(--header-height));background:#151217;color:#fff;display:grid;align-items:center;overflow:hidden}
+.sp-hero-grid{display:grid;grid-template-columns:1fr .95fr;gap:clamp(40px,7vw,100px);align-items:center;padding:clamp(72px,8vw,118px) 0 96px}
+.sp-breadcrumb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;color:#8f878c;font-size:.72rem}
+.sp-hero .eyebrow{color:#ff6c8d}
+.sp-hero h1{font-size:clamp(3rem,6vw,6.4rem);line-height:1.05;letter-spacing:-.065em;margin:0;max-width:9ch}
+.sp-lead{max-width:61ch;color:#c9c1c6;font-size:clamp(1rem,1.25vw,1.18rem);margin:24px 0 0}
+.sp-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.sp-hero-proof{display:flex;gap:18px;flex-wrap:wrap;margin-top:30px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);color:#aaa1a7;font-size:.78rem}
+.sp-hero-proof li::before{content:'•';color:#ff6c8d;margin-left:7px}
+.sp-hero-visual{position:relative;aspect-ratio:1;border-radius:42px;background:radial-gradient(circle at 75% 18%,rgba(218,30,73,.38),transparent 34%),linear-gradient(145deg,#2e2930,#0d0b0e 70%);box-shadow:0 40px 100px rgba(0,0,0,.35);overflow:hidden}
+.sp-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(to bottom,#000,transparent)}
+.sp-structure{position:absolute;filter:drop-shadow(0 32px 28px rgba(0,0,0,.55))}
+.sp-structure i{position:absolute;inset:0;border:7px solid #121012;border-radius:7px;background:#f8f2eb;overflow:hidden}
+.sp-structure i::before{content:'';position:absolute;inset:13%;background:linear-gradient(90deg,var(--sp-red) 0 32%,transparent 32%),linear-gradient(#272329 0 15%,transparent 15% 45%,#d8d0c8 45% 50%,transparent 50%)}
+.sp-structure b{position:absolute;top:100%;left:46%;width:8%;height:125%;background:#121012;box-shadow:0 44px 0 11px #121012}
+.sp-structure--wide{right:8%;top:18%;width:44%;aspect-ratio:1.85}
+.sp-structure--vertical{left:7%;top:31%;width:24%;aspect-ratio:1.05}
+.sp-structure--light{left:37%;bottom:13%;width:29%;aspect-ratio:1.5}
+.sp-orbit{position:absolute;padding:10px 14px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(21,17,20,.55);font-size:.72rem;font-weight:900}
+.sp-orbit--1{top:6%;right:7%}
+.sp-orbit--2{bottom:7%;left:6%}
+.sp-orbit--3{top:48%;left:39%}
+.sp-scroll{position:absolute;bottom:22px;right:50%;transform:translateX(50%);font-size:.7rem;color:#a69ea3}
+@media(max-width:1000px){.sp-hero-grid{grid-template-columns:1fr}}
+@media(max-width:1000px){.sp-hero-visual{order:-1}}
+@media(max-width:720px){.sp-hero h1{font-size:3rem}}
+/* Touch targets: breadcrumb and scroll cue are inline links whose natural line
+   box falls below the 24px minimum, so they get their own padded hit area. */
+.sp-breadcrumb a{display:inline-flex;align-items:center;min-height:24px}
+.sp-scroll{display:inline-flex;align-items:center;min-height:24px}

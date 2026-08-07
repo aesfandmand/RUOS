@@ -1,10 +1,15 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 from typing import Mapping
 
+from .block_composer import BlockCompositionError
+from .block_library import BlockRenderError
+from .block_page import BlockPageError, load_page_spec as load_block_spec, render_page
+from .block_registry import BlockRegistryError, load_library
 from .compiler import BuildRejected, compile_page
 from .competitor_page_research import fetch_competitor_pages
 from .competitor_snapshot import build_competitor_snapshot, write_competitor_snapshot
@@ -31,6 +36,8 @@ def _parser() -> argparse.ArgumentParser:
     research = sub.add_parser("research", help="Fetch configured live sources"); research.add_argument("page"); research.add_argument("--spec-root", default="pages"); research.add_argument("--snapshot-root", default=".ruos/research")
     discover = sub.add_parser("discover", help="Run live search discovery for a page query"); discover.add_argument("page"); discover.add_argument("--spec-root", default="pages"); discover.add_argument("--provider", choices=("brave", "serper"), default="brave"); discover.add_argument("--query", default=""); discover.add_argument("--market", default="ir"); discover.add_argument("--language", default="fa"); discover.add_argument("--count", type=int, default=10); discover.add_argument("--output-root", default=".ruos/discovery")
     competitors = sub.add_parser("research-competitors", help="Fetch pages from verified discovery results"); competitors.add_argument("page"); competitors.add_argument("--spec-root", default="pages"); competitors.add_argument("--discovery-root", default=".ruos/discovery"); competitors.add_argument("--output-root", default=".ruos/competitors"); competitors.add_argument("--limit", type=int, default=5); competitors.add_argument("--minimum-success", type=int, default=3)
+    compose = sub.add_parser("compose", help="Build one page from the block library")
+    compose.add_argument("page"); compose.add_argument("--spec-root", default="pages/blocks"); compose.add_argument("--output", default="dist"); compose.add_argument("--library", default="blocks")
     registry = sub.add_parser("registry", help="Manage verified open-source assets")
     registry_sub = registry.add_subparsers(dest="registry_command", required=True)
     refresh = registry_sub.add_parser("refresh", help="Fetch and snapshot the curated production registry")
@@ -95,11 +102,43 @@ def _run_registry_refresh(args, project_root: Path) -> int:
     return 0
 
 
+def _run_compose(args, project_root: Path) -> int:
+    """Assemble one page out of the block library and write it to disk."""
+    library = load_library(project_root / args.library)
+    spec = load_block_spec(project_root / args.spec_root / f"{args.page}.json")
+    page = render_page(spec, library)
+
+    output_dir = project_root / args.output / page.slug
+    assets = output_dir / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    (output_dir / "index.html").write_text(page.html, encoding="utf-8", newline="\n")
+    (assets / "styles.css").write_text(page.css, encoding="utf-8", newline="\n")
+    (assets / "behavior.js").write_text(page.script, encoding="utf-8", newline="\n")
+    manifest = {
+        **page.composed.manifest(),
+        "library_sha256": library.sha256,
+        "composition_sha256": page.composed.sha256,
+    }
+    (output_dir / "compose-manifest.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8", newline="\n",
+    )
+
+    print(f"RUOS COMPOSE PASSED: {output_dir}")
+    print(f"RUOS BLOCKS: {' -> '.join(block.block_id for block in page.composed.blocks)}")
+    print(f"RUOS SURFACES: {' '.join(block.surface for block in page.composed.blocks)}")
+    for name in ("index.html", "assets/styles.css", "assets/behavior.js", "compose-manifest.json"):
+        print(output_dir / name)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv); project_root = Path.cwd()
     try:
         if args.command == "registry":
             return _run_registry_refresh(args, project_root)
+        if args.command == "compose":
+            return _run_compose(args, project_root)
 
         spec_path = project_root / args.spec_root / f"{args.page}.json"
         page = load_page_spec(spec_path)
@@ -116,8 +155,10 @@ def main(argv: list[str] | None = None) -> int:
             competitor = result.page.metadata.get("verified_competitor_evidence")
             if isinstance(competitor, dict): print(f"RUOS COMPETITOR EVIDENCE VERIFIED: {competitor.get('evidence_count')} pages snapshot={competitor.get('snapshot_sha256')}")
         else: result = compile_page(page, context)
-    except (SpecError, BuildRejected, LiveResearchError, OpenSourceRegistryError) as exc:
-        if args.command == "registry": label = "REGISTRY FAILED"
+    except (SpecError, BuildRejected, LiveResearchError, OpenSourceRegistryError,
+            BlockRegistryError, BlockPageError, BlockCompositionError, BlockRenderError) as exc:
+        if args.command == "compose": label = "COMPOSE REJECTED"
+        elif args.command == "registry": label = "REGISTRY FAILED"
         elif args.command in {"research", "discover", "research-competitors"}: label = "RESEARCH FAILED"
         else: label = "BUILD REJECTED"
         print(f"RUOS {label}: {exc}", file=sys.stderr); return 2
