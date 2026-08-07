@@ -11,6 +11,7 @@ dependencies = []
 
 [project.scripts]
 ruos = "ruos.cli:main"
+ruos-cie = "ruos.cie_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
