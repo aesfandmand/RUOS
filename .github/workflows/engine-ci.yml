@@ -6,6 +6,7 @@ on:
       - "src/ruos/**"
       - "pages/**"
       - "tests/**"
+      - "16-creative-intelligence-engine/**"
       - "pyproject.toml"
       - ".github/workflows/engine-ci.yml"
   pull_request:
@@ -40,7 +41,7 @@ jobs:
         run: pytest -q
 
   production-build:
-    name: Clean production build
+    name: CIE-gated production build
     needs: test
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -54,9 +55,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install .
-      - name: Compile structures from clean checkout
-        run: ruos build structures
-      - name: Validate production artifacts
+      - name: Generate CIE blueprint
+        run: ruos-cie blueprint structures
+      - name: Compile structures through CIE blocking gate
+        run: ruos-cie build structures
+      - name: Validate production artifacts and CIE gate
         run: |
           python - <<'PY'
           import hashlib
@@ -70,6 +73,7 @@ jobs:
               "assets/runtime.js",
               "assets/motion-manifest.json",
               "assets/creative-intelligence.json",
+              "creative-blueprint.json",
               "agency-quality-report.json",
               "build-manifest.json",
               "qa-report.json",
@@ -82,6 +86,16 @@ jobs:
           manifest = json.loads((root / "build-manifest.json").read_text(encoding="utf-8"))
           quality = json.loads((root / "agency-quality-report.json").read_text(encoding="utf-8"))
           qa = json.loads((root / "qa-report.json").read_text(encoding="utf-8"))
+          blueprint = json.loads((root / "creative-blueprint.json").read_text(encoding="utf-8"))
+
+          cie_status = blueprint.get("gate", {}).get("status")
+          if cie_status not in {"pass", "pass_with_conditions"}:
+              raise SystemExit(f"CIE gate is not buildable: {cie_status}")
+          if blueprint.get("responsive_strategy", {}).get("single_codebase") is not True:
+              raise SystemExit("CIE blueprint does not enforce a single responsive codebase")
+          references = {item.get("reference") for item in blueprint.get("reference_translation", [])}
+          if "NRG Build Your Data Center" not in references:
+              raise SystemExit("Approved NRG structure reference is missing from the Creative Blueprint")
 
           if not manifest.get("passed"):
               raise SystemExit("Build manifest is not publishable")
