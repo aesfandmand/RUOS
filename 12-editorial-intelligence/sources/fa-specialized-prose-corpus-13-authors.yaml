@@ -1,0 +1,98 @@
+corpus_id: fa-specialized-prose-13-authors
+version: 1.0.0
+status: owner-approved-source
+language: fa
+purpose: >-
+  Source-backed editorial corpus for Persian copywriting and editing. Use it to select
+  sentence rhythm, contrast patterns, action verbs, explanatory mechanisms and editor
+  profiles for RUOS pages. Do not imitate any author verbatim or reproduce copyrighted
+  passages in generated output.
+source_document:
+  title: "پیکرهٔ زبانی نثر تخصصی فارسی | نسخهٔ نهایی متن‌محور"
+  uploaded_by_owner: true
+  declared_scope:
+    authors: 13
+    direct_short_evidence: 52
+    persian_editions_and_translations: 31
+  provenance_note: >-
+    The original owner-supplied document contains short direct examples, translation
+    metadata and legal-source links. This registry stores normalized style rules only.
+profiles:
+  - id: FA-STYLE-01
+    author: "ست گادین"
+    anchor_work: "مهره‌ی حیاتی"
+    rule: "یک ارزش انسانی را به یک رفتار مشخص و سپس به پیامد کسب‌وکاری وصل کن؛ جمله را با نتیجه‌ای ملموس ببند."
+    traits: ["گزاره‌ای", "مستقیم", "علت‌ومعلولی", "مسئولیت‌محور"]
+  - id: FA-STYLE-02
+    author: "جو پولیزی"
+    anchor_work: "بازاریابی پرمحتوا"
+    rule: "مفهوم را با یک تقابل روشن بازتعریف کن و بلافاصله معیارهای قابل سنجش را در یک فهرست کوتاه بیاور."
+    traits: ["تعریف‌محور", "معیارمحور", "تقابل روشن", "اجرایی"]
+  - id: FA-STYLE-03
+    author: "جیم کالینز"
+    anchor_work: "ساختن برای ماندن"
+    rule: "پس از ارائهٔ شاهد یا بحث، نتیجه را در یک اصل کوتاه و به‌یادماندنی جمع‌بندی کن."
+    traits: ["اصل‌محور", "موجز", "اقتدارگرا", "جمع‌بندی‌پذیر"]
+  - id: FA-STYLE-04
+    author: "دن نوریس"
+    anchor_work: "استارت‌آپ نوپای هفت‌روزه"
+    rule: "هر توصیه را به یک اقدام فوری و یک شاخص تجاری قابل مشاهده پیوند بده."
+    traits: ["عمل‌گرا", "ضد تعلل", "کنشی", "نتیجه‌محور"]
+  - id: FA-STYLE-05
+    author: "دیل کارنگی"
+    anchor_work: "آیین دوست‌یابی"
+    rule: "اصل رفتاری را با یک نیاز انسانی توضیح بده و برای هشدار، از استعاره‌ای روشن و کوتاه استفاده کن."
+    traits: ["انسان‌محور", "اخلاقی", "آموزگارانه", "استعاره‌محور"]
+  - id: FA-STYLE-06
+    author: "چیپ هیث و دن هیث"
+    anchor_work: "ایدهٔ عالی مستدام"
+    rule: "مغز ایده را در یک جملهٔ کوتاه بگو؛ جزئیات را پس از آن و فقط در صورت نیاز اضافه کن."
+    traits: ["سادگی", "کنجکاوی", "مثال‌پذیر", "ماندگار"]
+  - id: FA-STYLE-07
+    author: "رابرت کیوساکی"
+    anchor_work: "۱۱۰ راز رابرت کیوساکی برای موفقیت"
+    rule: "اصطلاح مالی را با تعریف ساده و سپس یک تشبیه روزمره توضیح بده؛ منبع نسخه را حتماً کنترل کن."
+    traits: ["ساده‌ساز", "هشداردهنده", "استعاره‌محور", "عامه‌فهم"]
+  - id: FA-STYLE-08
+    author: "فیلیپ کاتلر"
+    anchor_work: "نسل چهارم بازاریابی"
+    rule: "ابتدا الگوی قدیمی و جدید را در تقابل قرار بده؛ سپس پیامد اجتناب‌ناپذیر محیط را صریح بیان کن."
+    traits: ["تحلیلی", "کلان‌نگر", "پارادایم‌محور", "مدیریتی"]
+  - id: FA-STYLE-09
+    author: "دیوید اگیلوی"
+    anchor_work: "اعترافات یک تبلیغاتچی"
+    rule: "توصیه را به شکل فرمان روشن و قابل اجرا بنویس؛ هر جمله فقط یک اقدام داشته باشد."
+    traits: ["صریح", "بی‌تعارف", "اجرایی", "تبلیغاتی"]
+  - id: FA-STYLE-10
+    author: "استفان کاوی"
+    anchor_work: "۷ عادت مردمان مؤثر"
+    rule: "مفهوم را از رفتار روزمره به اصل هویتی ارتقا بده و با ضمیر جمع، خواننده را همراه کن."
+    traits: ["آرام", "مربی‌گرانه", "اصولی", "همراه‌کننده"]
+  - id: FA-STYLE-11
+    author: "پیتر تیل"
+    anchor_work: "از صفر به یک"
+    rule: "فرض رایج را زیر سؤال ببر و سپس یک نهی راهبردی روشن ارائه کن."
+    traits: ["خلاف‌آمد", "چالش‌گر", "قاطع", "استراتژیک"]
+  - id: FA-STYLE-12
+    author: "نیر ایال"
+    anchor_work: "قلاب"
+    rule: "رفتار کاربر را با محرک، تکرار و پیامد توضیح بده؛ از اصطلاحات پیچیده فقط پس از تعریف ساده استفاده کن."
+    traits: ["رفتارمحور", "کاربردی", "علمیِ ساده‌شده", "علّی"]
+  - id: FA-STYLE-13
+    author: "دانلد میلر"
+    anchor_work: "هر برند یک قصه است"
+    rule: "خواننده یا مشتری را قهرمان قرار بده؛ پیام را با یک تقابل ساده و قابل فهم بساز."
+    traits: ["داستان‌محور", "شفاف", "تجاری", "مخاطب‌محور"]
+pattern_index:
+  short_definitive_statement: [FA-STYLE-03, FA-STYLE-05, FA-STYLE-10]
+  clear_contrast: [FA-STYLE-08, FA-STYLE-13, FA-STYLE-01]
+  action_verbs: [FA-STYLE-04, FA-STYLE-09, FA-STYLE-07]
+  mechanism_definition: [FA-STYLE-12, FA-STYLE-02, FA-STYLE-06]
+  contrarian_question: [FA-STYLE-11, FA-STYLE-04]
+usage_rules:
+  - "Select profiles by page intent, funnel stage and content role; never blend all profiles indiscriminately."
+  - "Use the corpus as a style-control system, not as a quote bank."
+  - "Generated copy must remain original Persian prose and must not reproduce source sentences."
+  - "For claims, evidence and market facts, live research and project sources outrank stylistic inspiration."
+  - "An Iranian editor pass is required after writer-profile drafting."
+  - "Every production page must record selected profile ids and the reason for selection in prebuild_intelligence.editorial."
