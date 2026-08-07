@@ -1,0 +1,43 @@
+{
+  "id": "knowledge-section-final",
+  "name": {
+    "fa": "knowledge-section-final",
+    "en": "knowledge-section-final"
+  },
+  "role": "content",
+  "family": "knowledge",
+  "surface": "paper",
+  "composition": "V16 knowledge composition",
+  "serves_intent": [
+    "educate"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".knowledge-section-final"
+  },
+  "slots": {
+    "aside": {
+      "type": "text",
+      "required": false
+    },
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true,
+      "min": 3,
+      "max": 6
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

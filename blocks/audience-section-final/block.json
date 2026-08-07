@@ -1,0 +1,43 @@
+{
+  "id": "audience-section-final",
+  "name": {
+    "fa": "audience-section-final",
+    "en": "audience-section-final"
+  },
+  "role": "content",
+  "family": "statement",
+  "surface": "light",
+  "composition": "V16 statement composition",
+  "serves_intent": [
+    "qualify"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".audience-section-final"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true,
+      "min": 3,
+      "max": 6
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

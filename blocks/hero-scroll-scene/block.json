@@ -1,0 +1,68 @@
+{
+  "id": "hero-scroll-scene",
+  "name": {
+    "fa": "hero-scroll-scene",
+    "en": "hero-scroll-scene"
+  },
+  "role": "content",
+  "family": "hero",
+  "surface": "dark",
+  "composition": "V16 hero composition",
+  "serves_intent": [
+    "orient",
+    "promise"
+  ],
+  "position": "first",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".hero-scroll-scene"
+  },
+  "slots": {
+    "badges": {
+      "type": "object",
+      "required": false
+    },
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "image_alt": {
+      "type": "text",
+      "required": false
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "meter_label": {
+      "type": "text",
+      "required": false
+    },
+    "primary": {
+      "type": "object",
+      "required": false
+    },
+    "proof": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 4
+    },
+    "scroll_hint": {
+      "type": "object",
+      "required": false
+    },
+    "secondary": {
+      "type": "object",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

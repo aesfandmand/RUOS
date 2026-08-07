@@ -1,0 +1,54 @@
+{
+  "id": "contract-section",
+  "name": {
+    "fa": "contract-section",
+    "en": "contract-section"
+  },
+  "role": "content",
+  "family": "process",
+  "surface": "paper",
+  "composition": "V16 process composition",
+  "serves_intent": [
+    "de-risk",
+    "explain"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".contract-section"
+  },
+  "slots": {
+    "aside": {
+      "type": "text",
+      "required": false
+    },
+    "checks": {
+      "type": "list",
+      "required": true,
+      "min": 3,
+      "max": 6
+    },
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "flow": {
+      "type": "list",
+      "required": true,
+      "min": 3,
+      "max": 5
+    },
+    "flow_label": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,9 @@
+.audience-section-final{background:var(--paper-2);padding:130px 0}
+.audience-grid{grid-template-columns:repeat(4,1fr);gap:12px;display:grid}
+.audience-grid article{border:1px solid var(--line);background:#fff;border-radius:17px;min-height:260px;padding:24px}
+.audience-grid span{color:var(--red);font:900 .68rem Arial}
+.audience-grid h3{margin:55px 0 12px;font-size:1.2rem;line-height:1.5}
+.audience-grid p{color:var(--muted);margin:0;font-size:.7rem}
+@media (width<=1180px){.audience-grid{grid-template-columns:repeat(2,1fr)}}
+@media (width<=980px){.audience-section-final{padding:88px 0}}
+@media (width<=640px){.audience-grid{grid-template-columns:1fr}}

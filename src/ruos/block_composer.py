@@ -189,20 +189,21 @@ def compose_page(
                 section_id=section_id,
                 family=contract.family,
                 surface=contract.surface,
-                html=render_block(contract.id, section_id, entry.get("data", {})),
+                html=render_block(contract, section_id, entry.get("data", {})),
             )
         )
 
     shell = shell or {}
     header = shell.get("site-header")
     footer = shell.get("site-footer")
-    jump_nav = shell.get("mobile-jump-nav")
+    jump_nav = shell.get("bottom-nav")
+    sheet = shell.get("contact-sheet")
 
     # Foundation first, then shell, then content blocks in the order they appear:
     # the cascade must follow the document.
     used: list[str] = ["_tokens", "_foundation"]
-    for shell_id, shell_data in (("site-header", header), ("mobile-jump-nav", jump_nav),
-                                 ("site-footer", footer)):
+    for shell_id, shell_data in (("site-header", header), ("bottom-nav", jump_nav),
+                                 ("contact-sheet", sheet), ("site-footer", footer)):
         if shell_data is not None:
             used.append(shell_id)
     for block in placed:
@@ -214,18 +215,18 @@ def compose_page(
                if library.get(block_id).behavior]
     script = "\n".join(part for part in scripts if part)
 
+    # Document order: header, the page's own sections, then the shell furniture
+    # that closes the page or overlays it.
     body_parts: list[str] = []
     if header is not None:
-        body_parts.append(render_block("site-header", "", header))
-    body_parts.append(
-        '<main id="main"><div class="ruos-page">'
-        + "".join(block.html for block in placed)
-        + "</div></main>"
-    )
-    if jump_nav is not None:
-        body_parts.append(render_block("mobile-jump-nav", "", jump_nav))
+        body_parts.append(render_block(library.get("site-header"), "", header))
+    body_parts.append('<main id="main">' + "".join(block.html for block in placed) + "</main>")
     if footer is not None:
-        body_parts.append(render_block("site-footer", "", footer))
+        body_parts.append(render_block(library.get("site-footer"), "", footer))
+    if jump_nav is not None:
+        body_parts.append(render_block(library.get("bottom-nav"), "", jump_nav))
+    if sheet is not None:
+        body_parts.append(render_block(library.get("contact-sheet"), "", sheet))
 
     return ComposedPage(
         slug=slug,

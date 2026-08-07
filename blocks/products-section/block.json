@@ -1,0 +1,54 @@
+{
+  "id": "products-section",
+  "name": {
+    "fa": "products-section",
+    "en": "products-section"
+  },
+  "role": "content",
+  "family": "catalog",
+  "surface": "light",
+  "composition": "V16 catalog composition",
+  "serves_intent": [
+    "browse",
+    "compare"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".products-section"
+  },
+  "slots": {
+    "aside": {
+      "type": "text",
+      "required": false
+    },
+    "cta": {
+      "type": "object",
+      "required": false
+    },
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "filters": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 6
+    },
+    "products": {
+      "type": "list",
+      "required": true,
+      "min": 3,
+      "max": 24
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

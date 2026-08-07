@@ -1,0 +1,27 @@
+{
+  "id": "bottom-nav",
+  "name": {
+    "fa": "bottom-nav",
+    "en": "bottom-nav"
+  },
+  "role": "shell",
+  "family": "shell",
+  "surface": "dark",
+  "composition": "V16 shell: bottom-nav",
+  "serves_intent": [],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": false
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".bottom-nav"
+  },
+  "slots": {
+    "entries": {
+      "type": "list",
+      "required": false
+    }
+  }
+}

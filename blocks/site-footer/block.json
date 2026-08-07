@@ -1,22 +1,43 @@
 {
   "id": "site-footer",
   "name": {
-    "fa": "فوتر سایت",
-    "en": "Site footer"
+    "fa": "site-footer",
+    "en": "site-footer"
   },
   "role": "shell",
   "family": "shell",
   "surface": "dark",
-  "composition": "identity column with grouped link columns",
+  "composition": "V16 shell: site-footer",
   "serves_intent": [],
   "position": "any",
   "behavior": false,
-  "slots": {},
   "adjacency": {
     "not_after_same_family": false
   },
   "source": {
-    "page": "builds/structures-final/index.html",
-    "selector": ".footer-paya"
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".site-footer"
+  },
+  "slots": {
+    "brand": {
+      "type": "object",
+      "required": false
+    },
+    "columns": {
+      "type": "list",
+      "required": false
+    },
+    "contact": {
+      "type": "object",
+      "required": false
+    },
+    "copyright": {
+      "type": "text",
+      "required": false
+    },
+    "summary": {
+      "type": "text",
+      "required": false
+    }
   }
 }

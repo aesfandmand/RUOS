@@ -50,6 +50,8 @@ class BlockContract:
     source: Mapping[str, str]
     style: str
     script: str
+    markup: str
+    assets: tuple[Path, ...]
 
     def slot(self, name: str) -> Slot | None:
         for slot in self.slots:
@@ -67,6 +69,8 @@ class BlockContract:
             "slots": [(s.name, s.type, s.required, s.minimum, s.maximum) for s in self.slots],
             "style": hashlib.sha256(self.style.encode("utf-8")).hexdigest(),
             "script": hashlib.sha256(self.script.encode("utf-8")).hexdigest(),
+            "markup": hashlib.sha256(self.markup.encode("utf-8")).hexdigest(),
+            "assets": sorted(path.name for path in self.assets),
         }
         canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
@@ -174,6 +178,22 @@ def _load_contract(directory: Path) -> BlockContract:
         raise BlockRegistryError(f"Block '{block_id}' ships behavior.js without declaring behavior")
     script = script_path.read_text(encoding="utf-8").strip() if behavior else ""
 
+    markup_path = directory / "markup.html"
+    if role == "foundation":
+        if markup_path.is_file():
+            raise BlockRegistryError(f"Foundation block '{block_id}' must not ship markup")
+        markup = ""
+    else:
+        if not markup_path.is_file():
+            raise BlockRegistryError(f"Block '{block_id}' has no markup.html")
+        markup = markup_path.read_text(encoding="utf-8").strip()
+        if not markup:
+            raise BlockRegistryError(f"Block '{block_id}' has an empty markup template")
+
+    asset_dir = directory / "assets"
+    assets = tuple(sorted(p for p in asset_dir.iterdir() if p.is_file())) \
+        if asset_dir.is_dir() else ()
+
     adjacency = raw.get("adjacency", {})
     if not isinstance(adjacency, Mapping):
         raise BlockRegistryError(f"Block '{block_id}' adjacency must be an object")
@@ -193,6 +213,8 @@ def _load_contract(directory: Path) -> BlockContract:
         source=MappingProxyType(dict(raw.get("source", {}))),
         style=style,
         script=script,
+        markup=markup,
+        assets=assets,
     )
 
 

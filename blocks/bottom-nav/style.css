@@ -1,0 +1,10 @@
+.bottom-nav{display:none}
+@media (width<=980px){.bottom-nav{z-index:150;left:10px;right:10px;bottom:max(9px, env(safe-area-inset-bottom));-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);background:#141013f0;border:1px solid #ffffff21;border-radius:21px;grid-template-columns:repeat(4,1fr);height:68px;padding:6px;display:grid;position:fixed;box-shadow:0 22px 55px #00000054}}
+@media (width<=980px){.bottom-nav a,.bottom-nav button{color:#8d858a;background:0 0;border:0;border-radius:15px;flex-direction:column;justify-content:center;align-items:center;gap:4px;font-size:.56rem;display:flex;position:relative}}
+@media (width<=980px){.bottom-nav .is-active{color:#fff;background:#30292e}}
+@media (width<=980px){.bottom-nav button{color:#fff;background:var(--red)}}
+@media (width<=980px){.bottom-nav i{width:19px;height:19px;font-style:normal;display:block;position:relative}}
+@media (width<=980px){.bottom-nav{background:#111113f0;border-color:#ffffff1f;box-shadow:0 18px 46px #00000045}}
+@media (width<=980px){.bottom-nav a,.bottom-nav button{color:#aaa4a9}}
+@media (width<=980px){.bottom-nav .is-active{color:#fff;background:#2c292d}}
+@media (width<=980px){.bottom-nav button{color:#fff;background:var(--red)}}

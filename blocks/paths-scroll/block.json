@@ -1,0 +1,44 @@
+{
+  "id": "paths-scroll",
+  "name": {
+    "fa": "paths-scroll",
+    "en": "paths-scroll"
+  },
+  "role": "content",
+  "family": "interactive",
+  "surface": "dark",
+  "composition": "V16 interactive composition",
+  "serves_intent": [
+    "compare",
+    "route"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".paths-scroll"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "instruction": {
+      "type": "object",
+      "required": false
+    },
+    "paths": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 4
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

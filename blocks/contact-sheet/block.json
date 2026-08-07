@@ -1,0 +1,39 @@
+{
+  "id": "contact-sheet",
+  "name": {
+    "fa": "contact-sheet",
+    "en": "contact-sheet"
+  },
+  "role": "shell",
+  "family": "shell",
+  "surface": "light",
+  "composition": "V16 shell: contact-sheet",
+  "serves_intent": [],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": false
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".contact-sheet"
+  },
+  "slots": {
+    "body": {
+      "type": "text",
+      "required": false
+    },
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "links": {
+      "type": "list",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

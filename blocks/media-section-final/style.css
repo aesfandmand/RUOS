@@ -1,0 +1,15 @@
+.media-section-final{background:#fff;padding:130px 0}
+.media-grid{grid-template-columns:repeat(3,1fr);gap:14px;display:grid}
+.media-grid figure{border:1px solid var(--line);background:var(--paper);border-radius:17px;margin:0;overflow:hidden}
+.media-grid figure.is-wide{grid-column:span 2}
+.media-grid figure>div{color:#fff;background:linear-gradient(140deg,#d8d0ca,#9d9490);place-items:center;min-height:245px;display:grid;position:relative;overflow:hidden}
+.media-grid figure>div:before{content:"";background:#333036;height:58%;position:absolute;bottom:-23%;left:-15%;right:-15%;transform:rotate(-7deg);box-shadow:inset 0 12px #ffffff1a}
+.media-grid figure>div:after{content:"";background:var(--red);border:8px solid #1e1b1e;width:43%;height:32%;position:absolute;box-shadow:0 45px 0 -4px #1e1b1e}
+.media-grid figure>div span{z-index:2;background:#131012b8;border-radius:999px;padding:8px 10px;font-size:.62rem;font-weight:900;position:relative}
+.media-grid figure>div b{z-index:2;font:900 .65rem Arial;position:absolute;top:13px;left:13px}
+.media-grid figcaption{min-height:82px;color:var(--muted);padding:13px 15px;font-size:.61rem;line-height:1.7}
+.media-grid figcaption strong{color:var(--ink)}
+@media (width<=980px){.media-section-final{padding:88px 0}}
+@media (width<=980px){.media-grid{grid-template-columns:repeat(2,1fr)}}
+@media (width<=980px){.media-grid figure.is-wide{grid-column:span 1}}
+@media (width<=640px){.media-grid{grid-template-columns:1fr}}

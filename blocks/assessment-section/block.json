@@ -1,0 +1,52 @@
+{
+  "id": "assessment-section",
+  "name": {
+    "fa": "assessment-section",
+    "en": "assessment-section"
+  },
+  "role": "content",
+  "family": "interactive",
+  "surface": "light",
+  "composition": "V16 interactive composition",
+  "serves_intent": [
+    "qualify",
+    "route"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".assessment-section"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "progress_label": {
+      "type": "text",
+      "required": false
+    },
+    "questions": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 5
+    },
+    "result": {
+      "type": "object",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

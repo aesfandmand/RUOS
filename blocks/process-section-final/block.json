@@ -1,0 +1,47 @@
+{
+  "id": "process-section-final",
+  "name": {
+    "fa": "process-section-final",
+    "en": "process-section-final"
+  },
+  "role": "content",
+  "family": "process",
+  "surface": "light",
+  "composition": "V16 process composition",
+  "serves_intent": [
+    "de-risk"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".process-section-final"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "honest_no": {
+      "type": "object",
+      "required": false
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "steps": {
+      "type": "list",
+      "required": true,
+      "min": 3,
+      "max": 8
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

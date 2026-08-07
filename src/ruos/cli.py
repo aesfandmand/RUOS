@@ -114,6 +114,9 @@ def _run_compose(args, project_root: Path) -> int:
     (output_dir / "index.html").write_text(page.html, encoding="utf-8", newline="\n")
     (assets / "styles.css").write_text(page.css, encoding="utf-8", newline="\n")
     (assets / "behavior.js").write_text(page.script, encoding="utf-8", newline="\n")
+    for block_id in page.composed.used_blocks:
+        for source in library.get(block_id).assets:
+            (assets / source.name).write_bytes(source.read_bytes())
     manifest = {
         **page.composed.manifest(),
         "library_sha256": library.sha256,

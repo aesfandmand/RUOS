@@ -1,0 +1,44 @@
+{
+  "id": "opportunity-section",
+  "name": {
+    "fa": "opportunity-section",
+    "en": "opportunity-section"
+  },
+  "role": "content",
+  "family": "narrative",
+  "surface": "paper",
+  "composition": "V16 narrative composition",
+  "serves_intent": [
+    "explain",
+    "reframe"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".opportunity-section"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "stories": {
+      "type": "list",
+      "required": true,
+      "min": 3,
+      "max": 5
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

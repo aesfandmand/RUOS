@@ -1,22 +1,35 @@
 {
   "id": "site-header",
   "name": {
-    "fa": "هدر سایت",
-    "en": "Site header"
+    "fa": "site-header",
+    "en": "site-header"
   },
   "role": "shell",
   "family": "shell",
   "surface": "paper",
-  "composition": "sticky header with brand, mega menu and mobile panel",
+  "composition": "V16 shell: site-header",
   "serves_intent": [],
   "position": "any",
-  "behavior": true,
-  "slots": {},
+  "behavior": false,
   "adjacency": {
     "not_after_same_family": false
   },
   "source": {
-    "page": "builds/structures-final/index.html",
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
     "selector": ".site-header"
+  },
+  "slots": {
+    "brand": {
+      "type": "object",
+      "required": false
+    },
+    "cta": {
+      "type": "object",
+      "required": false
+    },
+    "nav": {
+      "type": "list",
+      "required": false
+    }
   }
 }

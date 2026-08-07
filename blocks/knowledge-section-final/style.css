@@ -1,0 +1,11 @@
+.knowledge-section-final{color:#fff;background:#111012;padding:130px 0}
+.knowledge-section-final .split-heading h2{color:#fff}
+.knowledge-grid{grid-template-columns:repeat(4,1fr);gap:12px;display:grid}
+.knowledge-grid article{background:#1b181b;border:1px solid #322e33;border-radius:17px;flex-direction:column;min-height:310px;padding:24px;display:flex}
+.knowledge-grid small{color:var(--red);font-weight:900}
+.knowledge-grid h3{margin:48px 0 12px;font-size:1.2rem;line-height:1.55}
+.knowledge-grid p{color:#999196;margin:0;font-size:.68rem}
+.knowledge-grid span{color:#d7cfd4;border-top:1px solid #322e33;margin-top:auto;padding-top:18px;font-size:.62rem}
+@media (width<=1180px){.knowledge-grid{grid-template-columns:repeat(2,1fr)}}
+@media (width<=980px){.knowledge-section-final{padding:88px 0}}
+@media (width<=640px){.knowledge-grid{grid-template-columns:1fr}}

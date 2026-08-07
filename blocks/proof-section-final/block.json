@@ -1,0 +1,43 @@
+{
+  "id": "proof-section-final",
+  "name": {
+    "fa": "proof-section-final",
+    "en": "proof-section-final"
+  },
+  "role": "content",
+  "family": "evidence",
+  "surface": "paper",
+  "composition": "V16 evidence composition",
+  "serves_intent": [
+    "build-trust"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
+    "selector": ".proof-section-final"
+  },
+  "slots": {
+    "aside": {
+      "type": "text",
+      "required": false
+    },
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 6
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

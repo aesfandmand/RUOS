@@ -58,9 +58,9 @@ def _schema_graph(spec: Mapping[str, Any], composed: ComposedPage) -> dict[str, 
 
     by_block = {entry["block"]: entry for entry in spec["blocks"]}
 
-    catalog = by_block.get("family-stack")
+    catalog = by_block.get("products-section")
     if catalog:
-        families = catalog.get("data", {}).get("families", [])
+        families = catalog.get("data", {}).get("products", [])
         graph.append({
             "@type": "ItemList",
             "name": catalog.get("data", {}).get("title", ""),
@@ -69,13 +69,13 @@ def _schema_graph(spec: Mapping[str, Any], composed: ComposedPage) -> dict[str, 
                     "@type": "ListItem",
                     "position": index,
                     "name": family.get("title", ""),
-                    "description": family.get("body", ""),
+                    "description": family.get("meta", {}).get("use", ""),
                 }
                 for index, family in enumerate(families, start=1)
             ],
         })
 
-    faq = by_block.get("faq-grid")
+    faq = by_block.get("faq-section-final")
     if faq:
         questions = faq.get("data", {}).get("questions", [])
         graph.append({

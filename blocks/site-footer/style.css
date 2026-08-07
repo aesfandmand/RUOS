@@ -1,15 +1,19 @@
-.footer-paya{background:#17161b;color:#fff;padding:74px 0 28px}
-.footer-paya-main{display:grid;grid-template-columns:1.4fr repeat(3,.65fr);gap:34px}
-.footer-identity{display:flex;gap:16px}
-.footer-identity img{width:58px;height:58px;object-fit:contain}
-.footer-identity p,.footer-links-col a{color:#b9b5bd;font-size:.82rem}
-.footer-links-col{display:grid;align-content:start;gap:7px}
-.footer-links-col b{color:#ff6872;margin-bottom:8px}
-.footer-paya-bottom{margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;color:#8e8991;font-size:.76rem}
-.footer-paya-bottom div{display:flex;gap:18px}
-@media(max-width:1000px){.footer-paya-main{grid-template-columns:1fr 1fr}}
-@media(max-width:720px){.footer-paya{padding-bottom:90px}}
-@media(max-width:720px){.footer-paya-main{grid-template-columns:1fr}}
-@media(max-width:720px){.footer-paya-bottom{flex-direction:column}}
-/* Same reason as the breadcrumb: legal links need a 24px hit area. */
-.footer-paya-bottom a{display:inline-flex;align-items:center;min-height:24px}
+.site-footer{color:#fff;background:#0f0c0e;justify-content:space-between;gap:30px;padding:35px max(24px,50vw - 580px);display:flex}
+.site-footer span{font-weight:900}
+.site-footer small{color:#777075}
+@media (width<=980px){.site-footer{padding:30px 18px 110px}}
+.site-footer{background:#0d0d0f}
+.site-footer{grid-template-columns:1.2fr repeat(3,minmax(150px,.7fr));gap:45px;padding-top:58px;padding-bottom:58px;display:grid}
+.footer-brand{flex-direction:column;display:flex}
+.footer-brand span{color:var(--red);font-size:1.25rem}
+.footer-brand small{margin-top:3px}
+.footer-brand p{color:#777075;max-width:320px;margin:18px 0 0;font-size:.68rem}
+.footer-links,.footer-contact{flex-direction:column;gap:9px;display:flex}
+.footer-links strong,.footer-contact strong{margin-bottom:8px;font-size:.74rem}
+.footer-links a{color:#91898e;font-size:.65rem}
+.footer-links a:hover{color:#fff}
+.footer-contact button{color:var(--red);text-align:right;background:0 0;border:0;padding:0;font-size:.68rem;font-weight:900}
+.footer-contact small{color:#5f595d;margin-top:auto;font-size:.56rem}
+@media (width<=980px){.site-footer{grid-template-columns:repeat(2,1fr);padding-bottom:110px}}
+@media (width<=640px){.site-footer{grid-template-columns:1fr 1fr;gap:30px 20px}}
+@media (width<=640px){.footer-brand,.footer-contact{grid-column:span 2}}
