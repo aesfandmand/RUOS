@@ -31,6 +31,8 @@ def _context(tmp_path: Path, *, required: bool = True, discovery: bool = False) 
 def _with_prebuild(page):
     metadata = dict(page.metadata)
     metadata["prebuild_intelligence"] = {
+        "target_market": "ir",
+        "target_language": "fa",
         "iranian_query_set": ["سازه‌های تبلیغاتی"],
         "serp_landscape": ["verified landscape"],
         "search_intent_map": ["commercial investigation"],
