@@ -1,0 +1,63 @@
+{
+  "page": "structures/straboard",
+  "version": "1",
+  "status": "production-candidate",
+  "market": "ir",
+  "language": "fa",
+  "parent": "structures",
+  "intent": {
+    "primary": "commercial-investigation",
+    "secondary": ["informational", "technical-evaluation"],
+    "funnel_stage": "consideration",
+    "conversion_goal": "project-evaluation-request"
+  },
+  "queries": {
+    "primary": "استرابورد",
+    "supporting": ["استرابرد", "استرابورد تبلیغاتی", "سازه استرابورد", "تفاوت استرابورد و بیلبورد", "خرید استرابورد", "نصب استرابورد"]
+  },
+  "title_strategy": "استرابورد | راهنمای سازه، کاربرد، جانمایی و انتخاب | چتر قرمز",
+  "h1": "کوچک‌تر از بیلبورد. نزدیک‌تر به چشم.",
+  "heading_architecture": ["آناتومی سازه", "کارکرد و موقعیت مناسب", "جانمایی", "پیکربندی اولیه", "مقایسه با رسانه‌های نزدیک", "مسیر اجرا", "محتوای مرتبط", "پرسش‌های متداول"],
+  "discover": {
+    "hook": "کوچک‌تر از بیلبورد؛ نزدیک‌تر به تصمیم مخاطب",
+    "policy": "no-clickbait-no-fabricated-numbers",
+    "visual_requirement": "large-original-hero-visual"
+  },
+  "knowledge_graph": {
+    "entity": "Straboard",
+    "parent": "Structures",
+    "relations": ["outdoor-advertising", "billboard", "lightbox", "organizational-purchase", "investment", "media-rental", "installation", "foundation"]
+  },
+  "capability": {
+    "role": "explain-select-engineer-route",
+    "evidence_policy": "no universal technical dimensions without model datasheet",
+    "next_actions": ["organizational-purchase", "investment-evaluation", "return-to-structures-catalog"]
+  },
+  "editorial": {
+    "corpus": "fa-specialized-prose-13-authors-owner-approved",
+    "profiles": ["FA-STYLE-09", "FA-STYLE-13", "FA-STYLE-01"],
+    "rationale": "direct executable copy + customer-as-hero clarity + human-value-to-business-outcome",
+    "iranian_editor_pass": true,
+    "source-copying_forbidden": true
+  },
+  "technology": {
+    "motion": "GSAP 3.13 + ScrollTrigger when available; native IntersectionObserver fallback on restricted/mobile preview contexts",
+    "smooth_scroll": "native only on mobile to avoid unnecessary runtime weight",
+    "icons": "inline SVG / native symbols to keep single-file preview robust",
+    "typography": "embedded Vazirmatn variable font",
+    "interaction": "native DOM for hotspots, configurator, FAQ and mobile navigation",
+    "mobile_policy": "touch-first, 44px controls, reduced-motion support, no horizontal dependency"
+  },
+  "live_research_sources": [
+    "https://higraphics.ir/articles/what-is-straboard/",
+    "https://korosheh.com/advertising-media/straboard",
+    "https://irbillboard.com/what-is-out-of-home-advertising/",
+    "https://cdnjs.com/libraries/gsap/3.13.0",
+    "https://motion.dev/docs/gsap-vs-motion"
+  ],
+  "baseline": {
+    "quality_floor": "Red Umbrella urban investment V16 Gold Master",
+    "creative_target": "above-baseline, reference-led, Awwwards-level ambition",
+    "forbidden": ["red-black hero gradient", "raw-card-grid-only-page", "desktop-only interaction", "unsupported technical claims"]
+  }
+}
