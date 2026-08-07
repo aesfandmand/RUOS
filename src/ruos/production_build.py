@@ -5,7 +5,8 @@ from datetime import timedelta
 from pathlib import Path
 
 from .build_research_gate import require_verified_live_research
-from .compiler import BuildRejected, compile_page
+from .cie_build import compile_page_with_cie as compile_page
+from .compiler import BuildRejected
 from .competitor_snapshot import load_competitor_snapshot
 from .competitor_verifier import VerifiedCompetitorEvidence, verify_competitor_evidence
 from .discovery_snapshot import load_discovery

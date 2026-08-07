@@ -5,7 +5,8 @@ import sys
 from pathlib import Path
 from typing import Mapping
 
-from .compiler import BuildRejected, compile_page
+from .cie_build import compile_page_with_cie
+from .compiler import BuildRejected
 from .competitor_page_research import fetch_competitor_pages
 from .competitor_snapshot import build_competitor_snapshot, write_competitor_snapshot
 from .discovery_snapshot import load_discovery, write_discovery
@@ -23,7 +24,7 @@ from .spec_loader import SpecError, load_page_spec
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="ruos")
     sub = parser.add_subparsers(dest="command", required=True)
-    build = sub.add_parser("build", help="Compile one page specification")
+    build = sub.add_parser("build", help="Compile one page specification through the CIE pre-build gate")
     build.add_argument("page"); build.add_argument("--spec-root", default="pages"); build.add_argument("--output", default="dist"); build.add_argument("--no-strict", action="store_true")
     build.add_argument("--require-live-research", action="store_true"); build.add_argument("--snapshot-root", default=".ruos/research"); build.add_argument("--research-max-age-days", type=int, default=14)
     build.add_argument("--require-search-discovery", action="store_true"); build.add_argument("--discovery-root", default=".ruos/discovery"); build.add_argument("--discovery-max-age-days", type=int, default=7); build.add_argument("--discovery-minimum-results", type=int, default=5)
@@ -115,7 +116,7 @@ def main(argv: list[str] | None = None) -> int:
             if discovery is not None: print(f"RUOS SEARCH DISCOVERY VERIFIED: {discovery.result_count} results snapshot={discovery.sha256}")
             competitor = result.page.metadata.get("verified_competitor_evidence")
             if isinstance(competitor, dict): print(f"RUOS COMPETITOR EVIDENCE VERIFIED: {competitor.get('evidence_count')} pages snapshot={competitor.get('snapshot_sha256')}")
-        else: result = compile_page(page, context)
+        else: result = compile_page_with_cie(page, context)
     except (SpecError, BuildRejected, LiveResearchError, OpenSourceRegistryError) as exc:
         if args.command == "registry": label = "REGISTRY FAILED"
         elif args.command in {"research", "discover", "research-competitors"}: label = "RESEARCH FAILED"
