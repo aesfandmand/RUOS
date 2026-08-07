@@ -19,14 +19,36 @@ def _entry(spec: dict, block_id: str) -> dict:
     return next(entry for entry in spec["blocks"] if entry["block"] == block_id)
 
 
-def test_reference_page_composes_cleanly() -> None:
+def test_reference_page_still_fails_the_shape_rules() -> None:
+    """V16's own tail is five card grids, so the approved page does not pass.
+
+    This is deliberate and is the open design work, not a defect in the rule.
+    """
     spec = _spec()
-    composed = compose_page(load_library(), spec["slug"], spec["blocks"], spec["shell"])
+    with pytest.raises(BlockCompositionError, match="repeated pattern"):
+        compose_page(load_library(), spec["slug"], spec["blocks"], spec["shell"])
+
+
+def _passing_sequence(spec: dict) -> list:
+    return [
+        _entry(spec, "hero-scroll-scene"),
+        _entry(spec, "opportunity-section"),
+        _entry(spec, "products-section"),
+        _entry(spec, "assessment-section"),
+        _entry(spec, "proof-section-final"),
+        _entry(spec, "process-section-final"),
+        _entry(spec, "faq-section-final"),
+        _entry(spec, "review-gate"),
+    ]
+
+
+def test_a_shape_varied_sequence_composes_cleanly() -> None:
+    spec = _spec()
+    composed = compose_page(load_library(), spec["slug"], _passing_sequence(spec), spec["shell"])
     assert [block.block_id for block in composed.blocks] == [
-        "hero-scroll-scene", "opportunity-section", "paths-scroll", "products-section",
-        "contract-section", "assessment-section", "proof-section-final",
-        "process-section-final", "media-section-final", "audience-section-final",
-        "knowledge-section-final", "faq-section-final", "review-gate",
+        "hero-scroll-scene", "opportunity-section", "products-section",
+        "assessment-section", "proof-section-final", "process-section-final",
+        "faq-section-final", "review-gate",
     ]
     # The foundation must be first in the cascade, before any block styles.
     assert composed.used_blocks[:2] == ("_tokens", "_foundation")
@@ -35,17 +57,18 @@ def test_reference_page_composes_cleanly() -> None:
 def test_composition_is_deterministic() -> None:
     spec = _spec()
     library = load_library()
-    first = compose_page(library, spec["slug"], spec["blocks"], spec["shell"])
-    second = compose_page(library, spec["slug"], spec["blocks"], spec["shell"])
+    sequence = _passing_sequence(spec)
+    first = compose_page(library, spec["slug"], sequence, spec["shell"])
+    second = compose_page(library, spec["slug"], sequence, spec["shell"])
     assert first.sha256 == second.sha256
     assert first.body == second.body
 
 
 def test_only_the_used_blocks_contribute_css() -> None:
     spec = _spec()
-    spec["blocks"] = [entry for entry in spec["blocks"]
-                      if entry["block"] not in {"media-section-final", "process-section-final", "faq-section-final"}]
-    composed = compose_page(load_library(), spec["slug"], spec["blocks"], spec["shell"])
+    sequence = [b for b in _passing_sequence(spec)
+                if b["block"] not in {"process-section-final", "faq-section-final"}]
+    composed = compose_page(load_library(), spec["slug"], sequence, spec["shell"])
     assert "media-grid" not in composed.css
     assert "process-timeline" not in composed.css
     assert "faq-list" not in composed.css
@@ -62,6 +85,35 @@ def test_two_blocks_of_the_same_family_may_not_be_adjacent() -> None:
     spec["blocks"].insert(index + 1, twin)
     with pytest.raises(BlockCompositionError, match="repeated pattern"):
         compose_page(load_library(), spec["slug"], spec["blocks"], spec["shell"])
+
+
+def test_two_blocks_with_the_same_visual_shape_may_not_be_adjacent() -> None:
+    """Family was not enough: six card grids in a row once passed that rule."""
+    spec = _spec()
+    spec["blocks"] = [
+        _entry(spec, "hero-scroll-scene"),
+        _entry(spec, "media-section-final"),
+        _entry(spec, "audience-section-final"),
+        _entry(spec, "review-gate"),
+    ]
+    with pytest.raises(BlockCompositionError, match="'card-grid' layout"):
+        compose_page(load_library(), spec["slug"], spec["blocks"], spec["shell"])
+
+
+def test_a_page_may_not_be_mostly_card_grids() -> None:
+    spec = _spec()
+    # Card grids separated by other shapes still hit the per-page cap.
+    sequence = [
+        _entry(spec, "hero-scroll-scene"),
+        _entry(spec, "contract-section"),
+        _entry(spec, "assessment-section"),
+        _entry(spec, "proof-section-final"),
+        _entry(spec, "process-section-final"),
+        _entry(spec, "media-section-final"),
+        _entry(spec, "review-gate"),
+    ]
+    with pytest.raises(BlockCompositionError, match="card-grid sections on one page"):
+        compose_page(load_library(), spec["slug"], sequence, spec["shell"])
 
 
 def test_more_than_two_identical_surfaces_in_a_row_is_rejected() -> None:
@@ -133,8 +185,14 @@ def test_duplicate_section_ids_are_rejected() -> None:
         compose_page(load_library(), spec["slug"], spec["blocks"], spec["shell"])
 
 
+def _passing_spec() -> dict:
+    spec = _spec()
+    spec["blocks"] = _passing_sequence(spec)
+    return spec
+
+
 def test_rendered_document_carries_one_h1_and_a_schema_graph() -> None:
-    page = render_page(_spec())
+    page = render_page(_passing_spec())
     assert page.html.count("<h1") == 1
     payload = page.html.split('<script type="application/ld+json">')[1].split("</script>")[0]
     graph = json.loads(payload)["@graph"]
@@ -142,8 +200,8 @@ def test_rendered_document_carries_one_h1_and_a_schema_graph() -> None:
 
 
 def test_page_content_is_escaped() -> None:
-    spec = _spec()
-    _entry(spec, "audience-section-final")["data"]["title"] = '<img src=x onerror="alert(1)">'
+    spec = _passing_spec()
+    _entry(spec, "proof-section-final")["data"]["title"] = '<img src=x onerror="alert(1)">'
     page = render_page(spec)
     assert "<img src=x" not in page.html
     assert "&lt;img src=x" in page.html

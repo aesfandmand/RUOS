@@ -66,7 +66,7 @@ def test_contract_rejects_directory_and_id_mismatch(tmp_path) -> None:
     block.mkdir()
     (block / "block.json").write_text(json.dumps({
         "id": "something-else", "name": {"fa": "x"}, "role": "content",
-        "family": "test", "surface": "light", "composition": "x",
+        "family": "test", "surface": "light", "layout": "card-grid", "composition": "x",
     }), encoding="utf-8")
     (block / "style.css").write_text(".x{color:red}", encoding="utf-8")
     (block / "markup.html").write_text("<section></section>", encoding="utf-8")
@@ -79,7 +79,7 @@ def test_content_block_without_markup_is_rejected(tmp_path) -> None:
     block.mkdir()
     (block / "block.json").write_text(json.dumps({
         "id": "example", "name": {"fa": "x"}, "role": "content",
-        "family": "test", "surface": "light", "composition": "x",
+        "family": "test", "surface": "light", "layout": "card-grid", "composition": "x",
     }), encoding="utf-8")
     (block / "style.css").write_text(".x{color:red}", encoding="utf-8")
     with pytest.raises(BlockRegistryError, match="no markup.html"):
@@ -91,7 +91,7 @@ def test_library_requires_the_foundation_blocks(tmp_path) -> None:
     block.mkdir()
     (block / "block.json").write_text(json.dumps({
         "id": "example", "name": {"fa": "x"}, "role": "content",
-        "family": "test", "surface": "light", "composition": "x",
+        "family": "test", "surface": "light", "layout": "card-grid", "composition": "x",
     }), encoding="utf-8")
     (block / "style.css").write_text(".x{color:red}", encoding="utf-8")
     (block / "markup.html").write_text("<section></section>", encoding="utf-8")

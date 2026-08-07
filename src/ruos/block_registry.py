@@ -20,6 +20,21 @@ SURFACES = frozenset({"dark", "light", "paper", "accent", "none"})
 POSITIONS = frozenset({"first", "last", "any"})
 SLOT_TYPES = frozenset({"text", "list", "object", "map"})
 
+# The visual shape a block takes on the page. Family says what a block means;
+# layout says what it looks like. Two blocks can mean different things and still
+# read as the same repeated grid, so the anti-repetition rule needs both.
+LAYOUTS = frozenset({
+    "scene",        # composed visual with copy beside it
+    "sticky-track", # pinned column against a moving track
+    "editorial",    # split heading and prose, no repeated units
+    "card-grid",    # a grid of repeated cards — the fallback shape
+    "catalog",      # filterable grid of many product units
+    "timeline",     # ordered, numbered progression
+    "console",      # interactive controls with live output
+    "disclosure",   # expandable question list
+    "band",         # full-bleed closing statement
+})
+
 
 class BlockRegistryError(ValueError):
     """Raised when the block library on disk is not internally consistent."""
@@ -42,6 +57,7 @@ class BlockContract:
     family: str
     surface: str
     composition: str
+    layout: str
     serves_intent: tuple[str, ...]
     position: str
     behavior: bool
@@ -64,6 +80,7 @@ class BlockContract:
         payload = {
             "id": self.id,
             "family": self.family,
+            "layout": self.layout,
             "surface": self.surface,
             "position": self.position,
             "slots": [(s.name, s.type, s.required, s.minimum, s.maximum) for s in self.slots],
@@ -159,6 +176,12 @@ def _load_contract(directory: Path) -> BlockContract:
     surface = str(_require(raw, "surface", block_id))
     if surface not in SURFACES:
         raise BlockRegistryError(f"Block '{block_id}' has unsupported surface '{surface}'")
+    layout = str(_require(raw, "layout", block_id))
+    if layout not in LAYOUTS:
+        raise BlockRegistryError(
+            f"Block '{block_id}' has unsupported layout '{layout}'. "
+            f"Allowed: {', '.join(sorted(LAYOUTS))}"
+        )
     position = str(raw.get("position", "any"))
     if position not in POSITIONS:
         raise BlockRegistryError(f"Block '{block_id}' has unsupported position '{position}'")
@@ -205,6 +228,7 @@ def _load_contract(directory: Path) -> BlockContract:
         family=str(_require(raw, "family", block_id)),
         surface=surface,
         composition=str(_require(raw, "composition", block_id)),
+        layout=layout,
         serves_intent=tuple(raw.get("serves_intent", [])),
         position=position,
         behavior=behavior,

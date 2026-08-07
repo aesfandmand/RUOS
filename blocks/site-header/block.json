@@ -31,5 +31,6 @@
       "type": "list",
       "required": false
     }
-  }
+  },
+  "layout": "band"
 }

@@ -18,6 +18,13 @@ from .block_registry import BlockContract, BlockLibrary
 # A page may not run more than this many same-surface sections back to back.
 MAX_CONSECUTIVE_SURFACE = 2
 
+# A grid of repeated cards is the fallback shape: it carries no argument of its
+# own, so a page built mostly out of them reads as a list, not a designed page.
+# These caps exist because labelling blocks with different families was not
+# enough — six card grids in a row all passed the family rule.
+MAX_CARD_GRIDS_PER_PAGE = 2
+CARD_LAYOUTS = frozenset({"card-grid"})
+
 
 class BlockCompositionError(ValueError):
     """Raised when a requested block sequence violates the composition contract."""
@@ -137,6 +144,24 @@ def _validate_sequence(contracts: Sequence[BlockContract]) -> None:
                 f"'{current.id}' cannot follow '{previous.id}': both are "
                 f"'{current.family}' blocks, which reads as a repeated pattern"
             )
+
+    # Shape, not meaning: two blocks may mean different things and still land as
+    # the same repeated grid. This is the rule the family check could not make.
+    for previous, current in zip(contracts, contracts[1:]):
+        if previous.layout == current.layout and current.layout != "editorial":
+            raise BlockCompositionError(
+                f"'{current.id}' cannot follow '{previous.id}': both use the "
+                f"'{current.layout}' layout, so the two sections read as one "
+                "repeated pattern"
+            )
+
+    card_blocks = [c.id for c in contracts if c.layout in CARD_LAYOUTS]
+    if len(card_blocks) > MAX_CARD_GRIDS_PER_PAGE:
+        raise BlockCompositionError(
+            f"{len(card_blocks)} card-grid sections on one page "
+            f"({', '.join(card_blocks)}); at most {MAX_CARD_GRIDS_PER_PAGE} are "
+            "allowed before the page reads as a list of cards"
+        )
 
     # Visual rhythm: never let the eye cross more than two identical surfaces in a row.
     run_surface, run_length = None, 0

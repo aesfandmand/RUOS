@@ -41,5 +41,6 @@
       "type": "text",
       "required": true
     }
-  }
+  },
+  "layout": "band"
 }

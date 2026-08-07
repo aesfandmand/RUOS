@@ -39,5 +39,6 @@
       "type": "text",
       "required": false
     }
-  }
+  },
+  "layout": "band"
 }

@@ -40,5 +40,6 @@
       "type": "text",
       "required": true
     }
-  }
+  },
+  "layout": "sticky-track"
 }

@@ -17,5 +17,6 @@
   "source": {
     "page": "red-umbrella-website/services-urban-investment-final-v16.html",
     "selector": ":root"
-  }
+  },
+  "layout": "editorial"
 }

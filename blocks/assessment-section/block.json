@@ -48,5 +48,6 @@
       "type": "text",
       "required": true
     }
-  }
+  },
+  "layout": "console"
 }

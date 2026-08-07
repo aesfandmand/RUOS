@@ -39,5 +39,6 @@
       "type": "text",
       "required": true
     }
-  }
+  },
+  "layout": "card-grid"
 }

@@ -64,5 +64,6 @@
       "type": "text",
       "required": true
     }
-  }
+  },
+  "layout": "scene"
 }
