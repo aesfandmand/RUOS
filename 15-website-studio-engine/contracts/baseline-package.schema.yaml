@@ -1,0 +1,44 @@
+contract_id: baseline-package
+version: 1.0.0
+status: locked
+purpose: >-
+  Preserve a project-specific non-regression floor while keeping aspirational
+  creative targets separate and higher than the baseline.
+package:
+  required:
+    - page.html
+    - manifest.json
+    - design-dna.json
+    - motion.json
+    - voice.json
+    - capabilities.json
+    - knowledge-graph.json
+  optional:
+    - assets/
+    - screenshots/
+semantics:
+  baseline_role: non_regression_floor
+  baseline_is_not:
+    - creative_ceiling
+    - substitute_for_live_research
+    - substitute_for_award_level_references
+  aspirational_role: >-
+    Owner-approved and live-researched references (including Awwwards/Dribbble
+    where relevant) define the direction for advancement beyond the baseline.
+build_requirements:
+  - verify_baseline_integrity
+  - read_project_design_dna
+  - read_project_voice
+  - research_live_references
+  - research_and_compare_libraries
+  - translate_references_into_explicit_design_decisions
+  - declare_conversion_hypothesis
+  - implement_selected_libraries_when_fit
+  - prove_non_regression
+  - document_advancement_beyond_baseline
+reject_when:
+  - weaker_than_baseline
+  - baseline_copied_without_advancement
+  - live_research_skipped_without_reason
+  - library_selection_missing
+  - raw_html_used_as_creative_strategy
