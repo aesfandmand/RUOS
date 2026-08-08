@@ -57,9 +57,9 @@ def _index(plan: Mapping[str, Any] | None) -> dict[str, Mapping[str, Any]]:
 
 
 def build_ui_implementation_contract(page: PageSpec, components: ComponentPlan, creative_director: Mapping[str, Any], experience_patterns: Mapping[str, Any] | None=None, scene_orchestration: Mapping[str, Any] | None=None, visual_scene_composition: Mapping[str, Any] | None=None) -> dict[str, Any]:
-    if creative_director.get("status")!="ready": return {"version":"1.3","status":"blocked","page_id":page.slug,"sections":[],"blockers":["creative director plan is not ready"]}
+    if creative_director.get("status")!="ready": return {"version":"1.2","status":"blocked","page_id":page.slug,"sections":[],"blockers":["creative director plan is not ready"]}
     decisions=creative_director.get("sections",[])
-    if not isinstance(decisions,list): return {"version":"1.3","status":"blocked","page_id":page.slug,"sections":[],"blockers":["creative director sections must be a list"]}
+    if not isinstance(decisions,list): return {"version":"1.2","status":"blocked","page_id":page.slug,"sections":[],"blockers":["creative director sections must be a list"]}
     experience_index=_index(experience_patterns); scene_index=_index(scene_orchestration); visual_index=_index(visual_scene_composition)
     contracts=[]; blockers=[]
     for decision in decisions:
@@ -86,4 +86,4 @@ def build_ui_implementation_contract(page: PageSpec, components: ComponentPlan, 
         contracts.append(contract)
     if len(contracts)!=len(components.components): blockers.append("implementation contract requires exactly one section contract per resolved component")
     status="ready" if contracts and not blockers else "blocked"
-    return {"version":"1.3","status":status,"page_id":page.slug,"execution_model":"single-codebase-progressive-enhancement","global_contract":{"semantic_html_first":True,"css_layout_before_scripted_positioning":True,"javascript_progressive_enhancement":True,"mobile_touch_first":True,"keyboard_access_required":True,"reduced_motion_required":True,"asset_fallback_required":True,"anti_copy_required":True,"experience_pattern_engine_required":True,"scene_orchestration_required":True,"visual_scene_composition_required":True},"sections":contracts,"blockers":blockers}
+    return {"version":"1.2","status":status,"page_id":page.slug,"execution_model":"single-codebase-progressive-enhancement","global_contract":{"semantic_html_first":True,"css_layout_before_scripted_positioning":True,"javascript_progressive_enhancement":True,"mobile_touch_first":True,"keyboard_access_required":True,"reduced_motion_required":True,"asset_fallback_required":True,"anti_copy_required":True,"experience_pattern_engine_required":True,"scene_orchestration_required":True,"visual_scene_composition_required":True},"sections":contracts,"blockers":blockers}
