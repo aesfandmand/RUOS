@@ -11,6 +11,7 @@ from .cie_experience_patterns import build_experience_pattern_plan
 from .cie_gate import build_creative_blueprint
 from .cie_implementation import build_ui_implementation_contract
 from .cie_media_publish import enforce_publish_media, resolve_asset_registry, validate_publish_media
+from .cie_media_worker import MediaProductionError, produce_media_derivatives, validate_produced_media_budget
 from .cie_providers import ProviderContext, run_provider_pipeline
 from .cie_scene_orchestrator import build_scene_orchestration_plan
 from .cie_visual_scene_composer import build_visual_scene_composition
@@ -47,8 +48,7 @@ def write_cie_blueprint(page: PageSpec, output_root: Path) -> Path:
 
 
 def _load_media_bindings(context: BuildContext) -> dict[str, dict[str, object]]:
-    if context.media_bindings_path is None:
-        return {}
+    if context.media_bindings_path is None: return {}
     path=context.media_bindings_path if context.media_bindings_path.is_absolute() else context.project_root/context.media_bindings_path
     if not path.is_file(): raise BuildRejected(f"CIE media bindings file not found: {path}")
     payload=json.loads(path.read_text(encoding="utf-8"))
@@ -70,25 +70,32 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
 
     registry=blueprint["asset_source_registry"]
     if context.require_publish_media:
-        registry=resolve_asset_registry(registry,context.project_root,_load_media_bindings(context))
-        report=validate_publish_media(registry)
-        blueprint["asset_source_registry"]=registry; blueprint["publish_media_gate"]=report
+        registry=resolve_asset_registry(registry,context.project_root,_load_media_bindings(context)); report=validate_publish_media(registry); blueprint["asset_source_registry"]=registry; blueprint["publish_media_gate"]=report
         try: enforce_publish_media(registry)
         except ValueError as exc: raise BuildRejected(str(exc)) from exc
-    else:
-        blueprint["publish_media_gate"]={"status":"not-required","checked_assets":0,"failures":[]}
+    else: blueprint["publish_media_gate"]={"status":"not-required","checked_assets":0,"failures":[]}
 
-    production_manifest=build_asset_production_manifest(registry,context.project_root)
-    delivery_gate=validate_delivery_budget(production_manifest)
-    blueprint["asset_production_manifest"]=production_manifest
-    blueprint["media_delivery_gate"]=delivery_gate
-    if context.require_publish_media and delivery_gate["status"]!="pass":
-        raise BuildRejected("CIE media delivery budget blocked: " + "; ".join(delivery_gate["failures"]))
+    production_manifest=build_asset_production_manifest(registry,context.project_root); delivery_gate=validate_delivery_budget(production_manifest); blueprint["asset_production_manifest"]=production_manifest; blueprint["media_delivery_gate"]=delivery_gate
+    if context.require_publish_media and delivery_gate["status"]!="pass": raise BuildRejected("CIE media delivery budget blocked: " + "; ".join(delivery_gate["failures"]))
 
-    implementation=blueprint["ui_implementation_contract"]
-    implementation["asset_production_manifest_ref"]={"version":production_manifest["version"],"artifact":"assets/asset-production-manifest.json"}
+    implementation=blueprint["ui_implementation_contract"]; implementation["asset_production_manifest_ref"]={"version":production_manifest["version"],"artifact":"assets/asset-production-manifest.json"}
     result=compile_page(page,context,implementation_contract=implementation)
     manifest_path=result.output_dir/"assets"/"asset-production-manifest.json"; manifest_path.parent.mkdir(parents=True,exist_ok=True); manifest_path.write_text(json.dumps(production_manifest,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8")
-    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json","assets/asset-production-manifest.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied","asset_media_engine":"applied","asset_source_registry":"applied","publish_media_gate":blueprint["publish_media_gate"]["status"],"media_delivery_gate":delivery_gate["status"],"webgl_mode":"progressive-enhancement"}
-    blueprint_path=result.output_dir/"creative-blueprint.json"; blueprint_path.write_text(json.dumps(blueprint,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8")
-    return BuildResult(page=result.page,output_dir=result.output_dir,files=result.files+(manifest_path,blueprint_path),gates=result.gates)
+
+    extra_files: list[Path] = [manifest_path]
+    if context.produce_media_derivatives:
+        if not context.require_publish_media: raise BuildRejected("CIE derivative production requires publish-media validation")
+        media_root=result.output_dir/context.media_output_subdir
+        try: production_report=produce_media_derivatives(production_manifest,registry,context.project_root,media_root)
+        except MediaProductionError as exc: raise BuildRejected(f"CIE media production failed: {exc}") from exc
+        produced_gate=validate_produced_media_budget(production_report,production_manifest); blueprint["media_production_report"]=production_report; blueprint["produced_media_gate"]=produced_gate
+        if produced_gate["status"]!="pass": raise BuildRejected("CIE produced media gate blocked: " + "; ".join(produced_gate["failures"]))
+        report_path=media_root/"media-production-report.json"; extra_files.append(report_path)
+        implementation["media_production_report_ref"]={"version":production_report["version"],"artifact":str(report_path.relative_to(result.output_dir)).replace("\\","/")}
+    else:
+        blueprint["media_production_report"]={"status":"not-requested","assets":[],"observed":{}}
+        blueprint["produced_media_gate"]={"status":"not-required","failures":[],"observed":{}}
+
+    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json","assets/asset-production-manifest.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied","asset_media_engine":"applied","asset_source_registry":"applied","publish_media_gate":blueprint["publish_media_gate"]["status"],"media_delivery_gate":delivery_gate["status"],"media_production_worker":blueprint["media_production_report"]["status"],"produced_media_gate":blueprint["produced_media_gate"]["status"],"webgl_mode":"progressive-enhancement"}
+    blueprint_path=result.output_dir/"creative-blueprint.json"; blueprint_path.write_text(json.dumps(blueprint,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8"); extra_files.append(blueprint_path)
+    return BuildResult(page=result.page,output_dir=result.output_dir,files=result.files+tuple(extra_files),gates=result.gates)
