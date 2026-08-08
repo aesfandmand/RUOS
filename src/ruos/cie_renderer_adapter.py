@@ -53,7 +53,7 @@ def apply_cie_document_contract(html_text: str, contract: Mapping[str, Any]) -> 
             "data-cie-touch-min": responsive.get("touch_targets_min_px", 44),
         }
         encoded = " ".join(f'{key}="{_esc(value)}"' for key, value in attrs.items())
-        pattern = re.compile(rf'(<section\s+id="{re.escape(section_id)}"\b)')
+        pattern = re.compile(rf'(<section\s+id="{re.escape(section_id)}")')
         output, count = pattern.subn(rf'\1 {encoded}', output, count=1)
         if count != 1:
             raise CIERenderAdapterError(f"Rendered HTML is missing section '{section_id}' required by CIE")
