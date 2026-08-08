@@ -1,9 +1,16 @@
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
+from dataclasses import asdict
+from pathlib import Path
 from typing import Any, Mapping
+
+from .compiler import BuildRejected
+from .models import BuildResult, PageSpec
+from .qa import evaluate
 
 
 class CIERenderAdapterError(ValueError):
@@ -30,7 +37,6 @@ def _section_index(contract: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
 
 
 def apply_cie_document_contract(html_text: str, contract: Mapping[str, Any]) -> str:
-    """Bind CIE section contracts to semantic section roots without replacing source content."""
     sections = _section_index(contract)
     output = html_text
     for section_id, spec in sections.items():
@@ -51,8 +57,9 @@ def apply_cie_document_contract(html_text: str, contract: Mapping[str, Any]) -> 
         output, count = pattern.subn(rf'\1 {encoded}', output, count=1)
         if count != 1:
             raise CIERenderAdapterError(f"Rendered HTML is missing section '{section_id}' required by CIE")
-    output = output.replace("<main id=\"main\">", '<main id="main" data-cie-renderer="implementation-contract">', 1)
-    return output
+    if '<main id="main">' not in output:
+        raise CIERenderAdapterError("Rendered HTML is missing the primary main landmark")
+    return output.replace('<main id="main">', '<main id="main" data-cie-renderer="implementation-contract">', 1)
 
 
 def apply_cie_css_contract(css_text: str, contract: Mapping[str, Any]) -> str:
@@ -92,20 +99,60 @@ for(const [sectionId,contract] of Object.entries(RUOS_CIE_IMPLEMENTATION)){{
   const section=document.getElementById(sectionId); if(!section) continue;
   section.dataset.cieRuntime='bound';
   section.style.setProperty('--cie-touch-min',`${{Number(contract.responsive.touch_targets_min_px||44)}}px`);
-  for(const control of section.querySelectorAll('a,button,[role="button"]')){{
-    control.style.minWidth=`var(--cie-touch-min)`; control.style.minHeight=`var(--cie-touch-min)`;
-  }}
-  if(contract.interaction.keyboard_required){{
-    section.addEventListener('keydown',event=>{{if(event.key==='Enter'||event.key===' ') section.dataset.cieKeyboard='active';}});
-  }}
+  for(const control of section.querySelectorAll('a,button,[role="button"]')){{control.style.minWidth='var(--cie-touch-min)';control.style.minHeight='var(--cie-touch-min)';}}
+  if(contract.interaction.keyboard_required){{section.addEventListener('keydown',event=>{{if(event.key==='Enter'||event.key===' ') section.dataset.cieKeyboard='active';}});}}
 }}
 '''.strip()
     return runtime_text.rstrip() + "\n\n" + adapter + "\n"
 
 
 def apply_cie_render_contract(html_text: str, css_text: str, runtime_text: str, contract: Mapping[str, Any]) -> tuple[str, str, str]:
-    return (
-        apply_cie_document_contract(html_text, contract),
-        apply_cie_css_contract(css_text, contract),
-        apply_cie_runtime_contract(runtime_text, contract),
+    return apply_cie_document_contract(html_text, contract), apply_cie_css_contract(css_text, contract), apply_cie_runtime_contract(runtime_text, contract)
+
+
+def _sha(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def apply_cie_contract_to_build(page: PageSpec, result: BuildResult, contract: Mapping[str, Any], strict: bool) -> BuildResult:
+    """Apply the contract to published artifacts, then re-run QA and refresh manifest integrity."""
+    html_path = result.output_dir / "index.html"
+    css_path = result.output_dir / "assets/styles.css"
+    runtime_path = result.output_dir / "assets/runtime.js"
+    html_text, css_text, runtime_text = apply_cie_render_contract(
+        html_path.read_text(encoding="utf-8"), css_path.read_text(encoding="utf-8"), runtime_path.read_text(encoding="utf-8"), contract
     )
+    html_path.write_text(html_text, encoding="utf-8", newline="\n")
+    css_path.write_text(css_text, encoding="utf-8", newline="\n")
+    runtime_path.write_text(runtime_text, encoding="utf-8", newline="\n")
+
+    gates = evaluate(page, html_text, css_text, runtime_text)
+    rejected = [gate for gate in gates if not gate.passed]
+    if strict and rejected:
+        details = [f"{gate.gate}: {', '.join(gate.failures)}" for gate in rejected]
+        raise BuildRejected("CIE renderer adapter QA failed: " + "; ".join(details))
+
+    qa_path = result.output_dir / "qa-report.json"
+    qa_path.write_text(json.dumps([asdict(gate) for gate in gates], ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
+    manifest_path = result.output_dir / "build-manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["cie_renderer_adapter"] = {
+        "status": "applied",
+        "contract_version": contract.get("version"),
+        "execution_model": contract.get("execution_model"),
+        "section_count": len(_section_index(contract)),
+    }
+    manifest["gates"] = [asdict(gate) for gate in gates]
+    sha_map = manifest.setdefault("sha256", {})
+    artifacts = manifest.setdefault("artifacts", {})
+    for relative in ("index.html", "assets/styles.css", "assets/runtime.js", "qa-report.json"):
+        digest = _sha(result.output_dir / relative)
+        sha_map[relative] = digest
+        if relative in artifacts:
+            artifacts[relative] = digest
+    stable = json.dumps({key: value for key, value in manifest.items() if key not in {"build_id", "built_at", "sha256"}}, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    build_id = hashlib.sha256(stable.encode("utf-8")).hexdigest()[:16]
+    manifest["build_id"] = build_id
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8", newline="\n")
+    (result.output_dir / ".ruos-build").write_text(build_id + "\n", encoding="utf-8")
+    return BuildResult(page=result.page, output_dir=result.output_dir, files=result.files, gates=tuple(gates))
