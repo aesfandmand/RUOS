@@ -10,7 +10,7 @@ def _default_source_contract(asset: Mapping[str, Any]) -> dict[str, Any]:
         "asset_id": asset_id,
         "media_type": media_type,
         "uri": None,
-        "poster_uri": None if media_type not in {"model-3d", "video"} else None,
+        "poster_uri": None,
         "responsive_sources": [],
         "mime_type": None,
         "checksum": None,
@@ -53,10 +53,7 @@ def build_asset_source_registry(asset_media_plan: Mapping[str, Any]) -> dict[str
 
 
 def bind_asset_sources(asset_media_plan: Mapping[str, Any], registry: Mapping[str, Any]) -> dict[str, Any]:
-    by_id = {
-        str(entry.get("asset_id")): entry
-        for entry in registry.get("entries", []) if isinstance(entry, Mapping) and entry.get("asset_id")
-    }
+    known = {str(entry.get("asset_id")) for entry in registry.get("entries", []) if isinstance(entry, Mapping) and entry.get("asset_id")}
     sections: list[dict[str, Any]] = []
     for section in asset_media_plan.get("sections", []) if isinstance(asset_media_plan, Mapping) else []:
         if not isinstance(section, Mapping):
@@ -66,7 +63,8 @@ def bind_asset_sources(asset_media_plan: Mapping[str, Any], registry: Mapping[st
             if not isinstance(asset, Mapping):
                 continue
             bound = dict(asset)
-            bound["source_contract"] = by_id.get(str(asset.get("asset_id")), _default_source_contract(asset))
+            asset_id = str(asset.get("asset_id", ""))
+            bound["source_ref"] = asset_id if asset_id in known else None
             bound_assets.append(bound)
         sections.append({"section_id": str(section.get("section_id", "")), "assets": bound_assets})
     result = dict(asset_media_plan)
