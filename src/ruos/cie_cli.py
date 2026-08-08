@@ -25,6 +25,8 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--spec-root", default="pages")
     build.add_argument("--output", default="dist")
     build.add_argument("--no-strict", action="store_true")
+    build.add_argument("--require-publish-media", action="store_true", help="Resolve real media and block publish when integrity/provenance/license/semantics/posters are incomplete")
+    build.add_argument("--media-bindings", help="JSON object keyed by asset_id with uri, poster_uri, provenance and semantic metadata")
     return parser
 
 
@@ -48,7 +50,13 @@ def main(argv: list[str] | None = None) -> int:
                 return 2
             return 0
 
-        context = BuildContext(project_root=root, output_root=root / args.output, strict=not args.no_strict)
+        context = BuildContext(
+            project_root=root,
+            output_root=root / args.output,
+            strict=not args.no_strict,
+            require_publish_media=bool(args.require_publish_media),
+            media_bindings_path=Path(args.media_bindings) if args.media_bindings else None,
+        )
         result = compile_page_with_cie(page, context)
         print(f"RUOS CIE BUILD PASSED: {result.output_dir}")
         for path in result.files:
