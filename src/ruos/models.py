@@ -45,6 +45,7 @@ class BuildContext:
     media_bindings_path: Path | None = None
     produce_media_derivatives: bool = False
     media_output_subdir: str = "assets/generated-media"
+    post_lod_gate_path: Path | None = None
 
 
 @dataclass(frozen=True)

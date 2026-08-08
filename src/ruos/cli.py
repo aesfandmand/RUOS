@@ -29,6 +29,7 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--require-live-research", action="store_true"); build.add_argument("--snapshot-root", default=".ruos/research"); build.add_argument("--research-max-age-days", type=int, default=14)
     build.add_argument("--require-search-discovery", action="store_true"); build.add_argument("--discovery-root", default=".ruos/discovery"); build.add_argument("--discovery-max-age-days", type=int, default=7); build.add_argument("--discovery-minimum-results", type=int, default=5)
     build.add_argument("--require-competitor-evidence", action="store_true"); build.add_argument("--competitor-root", default=".ruos/competitors"); build.add_argument("--competitor-max-age-days", type=int, default=7); build.add_argument("--competitor-minimum-pages", type=int, default=3)
+    build.add_argument("--require-publish-media", action="store_true"); build.add_argument("--media-bindings"); build.add_argument("--produce-media", action="store_true"); build.add_argument("--media-output-subdir", default="assets/generated-media"); build.add_argument("--post-lod-gate")
     research = sub.add_parser("research", help="Fetch configured live sources"); research.add_argument("page"); research.add_argument("--spec-root", default="pages"); research.add_argument("--snapshot-root", default=".ruos/research")
     discover = sub.add_parser("discover", help="Run live search discovery for a page query"); discover.add_argument("page"); discover.add_argument("--spec-root", default="pages"); discover.add_argument("--provider", choices=("brave", "serper"), default="brave"); discover.add_argument("--query", default=""); discover.add_argument("--market", default="ir"); discover.add_argument("--language", default="fa"); discover.add_argument("--count", type=int, default=10); discover.add_argument("--output-root", default=".ruos/discovery")
     competitors = sub.add_parser("research-competitors", help="Fetch pages from verified discovery results"); competitors.add_argument("page"); competitors.add_argument("--spec-root", default="pages"); competitors.add_argument("--discovery-root", default=".ruos/discovery"); competitors.add_argument("--output-root", default=".ruos/competitors"); competitors.add_argument("--limit", type=int, default=5); competitors.add_argument("--minimum-success", type=int, default=3)
@@ -109,7 +110,24 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "research-competitors": return _run_competitor_research(page, args, project_root)
         if args.require_search_discovery and not args.require_live_research: raise BuildRejected("Search discovery requires --require-live-research")
         if args.require_competitor_evidence and not args.require_search_discovery: raise BuildRejected("Competitor evidence requires --require-search-discovery")
-        context = BuildContext(project_root, project_root / args.output, not args.no_strict, args.require_live_research, project_root / args.snapshot_root, args.require_search_discovery, project_root / args.discovery_root, args.require_competitor_evidence, project_root / args.competitor_root)
+        if args.produce_media and not args.require_publish_media: raise BuildRejected("--produce-media requires --require-publish-media")
+        if args.post_lod_gate and not args.produce_media: raise BuildRejected("--post-lod-gate requires --produce-media because it is a runtime delivery gate")
+        context = BuildContext(
+            project_root=project_root,
+            output_root=project_root / args.output,
+            strict=not args.no_strict,
+            require_live_research=bool(args.require_live_research),
+            research_snapshot_root=project_root / args.snapshot_root,
+            require_search_discovery=bool(args.require_search_discovery),
+            discovery_snapshot_root=project_root / args.discovery_root,
+            require_competitor_evidence=bool(args.require_competitor_evidence),
+            competitor_snapshot_root=project_root / args.competitor_root,
+            require_publish_media=bool(args.require_publish_media),
+            media_bindings_path=Path(args.media_bindings) if args.media_bindings else None,
+            produce_media_derivatives=bool(args.produce_media),
+            media_output_subdir=str(args.media_output_subdir),
+            post_lod_gate_path=Path(args.post_lod_gate) if args.post_lod_gate else None,
+        )
         if args.require_live_research:
             result, verified, discovery = compile_production_page(page, context, max_age_days=args.research_max_age_days, discovery_max_age_days=args.discovery_max_age_days, discovery_minimum_results=args.discovery_minimum_results, competitor_max_age_days=args.competitor_max_age_days, competitor_minimum_pages=args.competitor_minimum_pages)
             print(f"RUOS LIVE RESEARCH VERIFIED: {verified.source_count} sources snapshot={verified.snapshot_sha256}")

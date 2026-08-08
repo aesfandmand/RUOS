@@ -30,7 +30,8 @@ def resolve_asset_registry(
             continue
         entry = dict(raw)
         asset_id = str(entry.get("asset_id", ""))
-        binding = bindings.get(asset_id, {})
+        section_id = str(entry.get("section_id", ""))
+        binding = bindings.get(f"{section_id}:{asset_id}", bindings.get(asset_id, {}))
         uri = binding.get("uri", entry.get("uri"))
         poster_uri = binding.get("poster_uri", entry.get("poster_uri"))
         entry["uri"] = uri

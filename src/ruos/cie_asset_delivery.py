@@ -27,6 +27,7 @@ def build_asset_production_manifest(registry: Mapping[str, Any], project_root: P
         source_kb = _source_size_kb(project_root, raw.get("uri"))
         delivery: dict[str, Any] = {
             "asset_id": asset_id,
+            "section_id": str(raw.get("section_id", "")),
             "media_type": media_type,
             "source_kb": source_kb,
             "priority": "high" if raw.get("preload_priority") == "high" else "auto",
