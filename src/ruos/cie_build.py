@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .cie_director import build_creative_director_plan
 from .cie_gate import build_creative_blueprint
+from .cie_implementation import build_ui_implementation_contract
 from .cie_providers import ProviderContext, run_provider_pipeline
 from .compiler import BuildRejected, compile_page
 from .component_resolver import resolve_components
@@ -36,13 +37,19 @@ def generate_cie_blueprint(page: PageSpec) -> dict[str, object]:
         ProviderContext(page=page, content=content, intelligence=intelligence, patterns=patterns, motion=motion, references=references)
     )
     blueprint["provider_pipeline"] = provider_pipeline
-    blueprint["creative_director"] = build_creative_director_plan(
+    creative_director = build_creative_director_plan(
         page=page,
         content=content,
         intelligence=intelligence,
         patterns=patterns,
         motion=motion,
         provider_pipeline=provider_pipeline,
+    )
+    blueprint["creative_director"] = creative_director
+    blueprint["ui_implementation_contract"] = build_ui_implementation_contract(
+        page=page,
+        components=components,
+        creative_director=creative_director,
     )
     return blueprint
 
@@ -56,7 +63,7 @@ def write_cie_blueprint(page: PageSpec, output_root: Path) -> Path:
 
 
 def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
-    """Run CIE provider and Creative Director blocking gates before the RUOS compiler."""
+    """Run all CIE blocking layers before the RUOS compiler."""
     blueprint = generate_cie_blueprint(page)
     gate = blueprint["gate"]
     status = str(gate.get("status", "blocked"))
@@ -74,6 +81,9 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
     director = blueprint.get("creative_director", {})
     if not isinstance(director, dict) or director.get("status") != "ready":
         raise BuildRejected("CIE Creative Director did not produce executable section decisions")
+    implementation = blueprint.get("ui_implementation_contract", {})
+    if not isinstance(implementation, dict) or implementation.get("status") != "ready":
+        raise BuildRejected("CIE UI implementation contract is incomplete")
 
     result = compile_page(page, context)
     blueprint_path = result.output_dir / "creative-blueprint.json"
