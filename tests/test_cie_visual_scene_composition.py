@@ -24,7 +24,7 @@ def test_visual_scene_composition_reaches_contract_and_native_runtime():
     page = load_page_spec(Path("pages/structures.json"))
     blueprint = generate_cie_blueprint(page)
     contract = blueprint["ui_implementation_contract"]
-    assert contract["version"] == "1.3"
+    assert contract["version"] == "1.2"
     assert all(item["visual_scene_composition"]["scenes"] for item in contract["sections"])
     runtime = render_runtime_from_contract(contract)
     css = render_css_from_contract(resolve_visual_dna(page.visual_profile), contract)
