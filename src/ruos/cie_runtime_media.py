@@ -9,16 +9,14 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Mapping
 
+from .cie_camera_choreography import render_camera_choreography_runtime
 from .cie_webgl_runtime import render_model_viewer, render_webgl_css, render_webgl_runtime
 from .models import PageSpec
 from .qa import evaluate
 
 
 def _esc(value: object) -> str: return html.escape(str(value), quote=True)
-
-def _entry_index(registry: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
-    return {str(item.get("asset_id")): item for item in registry.get("entries", []) if isinstance(item, Mapping) and item.get("asset_id")}
-
+def _entry_index(registry: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]: return {str(item.get("asset_id")): item for item in registry.get("entries", []) if isinstance(item, Mapping) and item.get("asset_id")}
 def _section_index(asset_media_plan: Mapping[str, Any]) -> dict[str, str]:
     result: dict[str, str] = {}
     for section in asset_media_plan.get("sections", []) if isinstance(asset_media_plan, Mapping) else []:
@@ -26,7 +24,6 @@ def _section_index(asset_media_plan: Mapping[str, Any]) -> dict[str, str]:
         for asset in section.get("assets", []) if isinstance(section.get("assets"), list) else []:
             if isinstance(asset, Mapping) and asset.get("asset_id"): result[str(asset.get("asset_id"))] = str(section.get("section_id", ""))
     return result
-
 def _artifact_uri(asset_id: str, source_uri: object) -> str: return f"assets/media/{asset_id}/{Path(str(source_uri)).name}"
 
 
@@ -47,7 +44,7 @@ def build_runtime_media_delivery(production_report: Mapping[str, Any], registry:
         semantics=entry.get("semantics",{}) if isinstance(entry.get("semantics"),Mapping) else {}; hotspots=[dict(item) for item in entry.get("hotspots",[]) if isinstance(item,Mapping)] if isinstance(entry.get("hotspots"),list) else []
         bindings.append({"asset_id":asset_id,"section_id":sections.get(asset_id,""),"media_type":str(result.get("media_type",entry.get("media_type","image"))),"variants":variants,"poster_uri":final_poster,"alt":str(semantics.get("alt") or ""),"caption":str(semantics.get("caption") or ""),"decorative":bool(semantics.get("decorative",False)),"hotspots":hotspots,"status":"ready" if variants else "fallback-only" if final_poster else "unavailable"})
     ready=[item for item in bindings if item["status"] in {"ready","fallback-only"}]
-    return {"version":"1.1","status":"ready" if ready else "blocked","selection_policy":{"images":"native-picture-srcset","video":"poster-first-native-sources","model_3d":"progressive-model-viewer-webgl","save_data_prefers_poster":True,"reduced_motion_prefers_poster":True,"hotspot_state_sync":True},"bindings":bindings},artifacts
+    return {"version":"1.2","status":"ready" if ready else "blocked","selection_policy":{"images":"native-picture-srcset","video":"poster-first-native-sources","model_3d":"progressive-model-viewer-webgl","save_data_prefers_poster":True,"reduced_motion_prefers_poster":True,"hotspot_state_sync":True,"camera_choreography":True},"bindings":bindings},artifacts
 
 
 def _image_markup(binding: Mapping[str, Any]) -> str:
@@ -96,7 +93,7 @@ def render_runtime_media_css(delivery: Mapping[str, Any]) -> str:
 def render_runtime_media_js(delivery: Mapping[str, Any]) -> str:
     if delivery.get("status")!="ready": return ""
     payload=json.dumps(delivery.get("selection_policy",{}),ensure_ascii=False,separators=(",",":")); native=f'''const RUOS_CIE_MEDIA_POLICY={payload};\nconst cieConnection=navigator.connection||navigator.mozConnection||navigator.webkitConnection;\nconst cieSaveData=Boolean(cieConnection&&cieConnection.saveData);\nconst cieReducedMedia=matchMedia('(prefers-reduced-motion: reduce)').matches;\nfor(const video of document.querySelectorAll('[data-cie-responsive-video]')){{if(cieSaveData||cieReducedMedia){{video.preload='none';video.removeAttribute('autoplay');}}}}\n'''
-    return native+"\n"+render_webgl_runtime(delivery.get("selection_policy",{}))
+    return native+"\n"+render_webgl_runtime(delivery.get("selection_policy",{}))+"\n"+render_camera_choreography_runtime(delivery.get("camera_choreography",{}))
 
 
 def apply_runtime_media_delivery(output_dir: Path,page: PageSpec,delivery: Mapping[str, Any],artifacts: Mapping[str, Path],implementation_contract: Mapping[str, Any],strict: bool=True) -> tuple[Path,...]:
@@ -111,6 +108,6 @@ def apply_runtime_media_delivery(output_dir: Path,page: PageSpec,delivery: Mappi
     if strict and rejected: raise ValueError("CIE runtime media binding QA blocked: "+"; ".join(f"{gate.gate}: {', '.join(gate.failures)}" for gate in rejected))
     qa_path=output_dir/"qa-report.json"; qa_path.write_text(json.dumps([asdict(gate) for gate in gates],ensure_ascii=False,indent=2),encoding="utf-8")
     manifest_path=output_dir/"build-manifest.json"; manifest=json.loads(manifest_path.read_text(encoding="utf-8")); tracked=[path for path in output_dir.rglob("*") if path.is_file() and path.name not in {".ruos-build","build-manifest.json"}]; sha={str(path.relative_to(output_dir)).replace("\\","/"):hashlib.sha256(path.read_bytes()).hexdigest() for path in tracked}
-    manifest["files"]=sorted(sha); manifest["sha256"]=sha; manifest["artifacts"]={**dict(manifest.get("artifacts",{})),**sha}; manifest["gates"]=[asdict(gate) for gate in gates]; manifest["cie_runtime_media"]={"status":delivery.get("status"),"version":delivery.get("version"),"binding_count":len(delivery.get("bindings",[])),"webgl_runtime":"progressive-model-viewer","hotspot_state_sync":True}; manifest["build_id"]=hashlib.sha256(json.dumps(sha,sort_keys=True,separators=(",",":")).encode("utf-8")).hexdigest()[:16]
+    manifest["files"]=sorted(sha); manifest["sha256"]=sha; manifest["artifacts"]={**dict(manifest.get("artifacts",{})),**sha}; manifest["gates"]=[asdict(gate) for gate in gates]; manifest["cie_runtime_media"]={"status":delivery.get("status"),"version":delivery.get("version"),"binding_count":len(delivery.get("bindings",[])),"webgl_runtime":"progressive-model-viewer","hotspot_state_sync":True,"camera_choreography":delivery.get("camera_choreography",{}).get("status","not-applicable")}; manifest["build_id"]=hashlib.sha256(json.dumps(sha,sort_keys=True,separators=(",",":")).encode("utf-8")).hexdigest()[:16]
     manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8"); (output_dir/".ruos-build").write_text(str(manifest["build_id"])+"\n",encoding="utf-8")
     return tuple(output_dir/relative for relative in sorted(sha))+(manifest_path,)
