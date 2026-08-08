@@ -31,6 +31,7 @@ def render_visual_scene_runtime(contract: Mapping[str, Any]) -> str:
         payload[section_id] = composition
     encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     return f'''
+/* compatibility: contract.experience.pattern==='cinematic-scroll-stage' now delegates continuous transforms to visual scene composition */
 const RUOS_CIE_VISUAL_SCENES={encoded};
 const cieVisualReduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const cieVisualMobile=matchMedia('(max-width: 760px)').matches;
