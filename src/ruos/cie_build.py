@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from .cie_gate import build_creative_blueprint
+from .cie_providers import ProviderContext, run_provider_pipeline
 from .compiler import BuildRejected, compile_page
 from .component_resolver import resolve_components
 from .content_composer import compose_content
@@ -20,7 +21,20 @@ def generate_cie_blueprint(page: PageSpec) -> dict[str, object]:
     components = resolve_components(page)
     patterns = resolve_patterns(page, components)
     motion = compose_motion(patterns, components)
-    return build_creative_blueprint(page, content, intelligence, patterns, motion)
+    blueprint = build_creative_blueprint(page, content, intelligence, patterns, motion)
+    references = tuple(
+        {
+            "name": str(item.get("reference", "")),
+            "url": str(item.get("source_url", "")),
+            "principle": str(item.get("observed_principle", "")),
+        }
+        for item in blueprint.get("reference_translation", [])
+        if isinstance(item, dict)
+    )
+    blueprint["provider_pipeline"] = run_provider_pipeline(
+        ProviderContext(page=page, content=content, intelligence=intelligence, patterns=patterns, motion=motion, references=references)
+    )
+    return blueprint
 
 
 def write_cie_blueprint(page: PageSpec, output_root: Path) -> Path:
@@ -44,13 +58,11 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
         if remediation:
             detail += f"; remediation: {remediation}"
         raise BuildRejected(detail)
+    provider_pipeline = blueprint.get("provider_pipeline", {})
+    if not isinstance(provider_pipeline, dict) or provider_pipeline.get("synthesis", {}).get("status") != "ready":
+        raise BuildRejected("CIE provider pipeline is not ready for synthesis")
 
     result = compile_page(page, context)
     blueprint_path = result.output_dir / "creative-blueprint.json"
     blueprint_path.write_text(json.dumps(blueprint, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
-    return BuildResult(
-        page=result.page,
-        output_dir=result.output_dir,
-        files=result.files + (blueprint_path,),
-        gates=result.gates,
-    )
+    return BuildResult(page=result.page, output_dir=result.output_dir, files=result.files + (blueprint_path,), gates=result.gates)
