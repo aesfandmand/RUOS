@@ -6,6 +6,7 @@ from pathlib import Path
 from .cie_asset_delivery import build_asset_production_manifest, validate_delivery_budget
 from .cie_asset_media import build_asset_media_plan
 from .cie_asset_registry import build_asset_source_registry
+from .cie_camera_choreography import build_camera_choreography_plan
 from .cie_director import build_creative_director_plan
 from .cie_experience_patterns import build_experience_pattern_plan
 from .cie_gate import build_creative_blueprint
@@ -97,14 +98,16 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
         implementation["media_production_report_ref"]={"version":production_report["version"],"artifact":str(report_path.relative_to(result.output_dir)).replace("\\","/")}
         runtime_delivery, runtime_artifacts=build_runtime_media_delivery(production_report,registry,blueprint["asset_media_plan"],context.project_root)
         if runtime_delivery.get("status")!="ready": raise BuildRejected("CIE runtime media delivery could not bind produced derivatives")
+        camera_plan=build_camera_choreography_plan(blueprint["scene_orchestration"],runtime_delivery); runtime_delivery["camera_choreography"]=camera_plan; blueprint["camera_choreography"]=camera_plan
         implementation["runtime_media_delivery"]=runtime_delivery
         blueprint["runtime_media_delivery"]=runtime_delivery
     else:
         blueprint["media_production_report"]={"status":"not-requested","assets":[],"observed":{}}
         blueprint["produced_media_gate"]={"status":"not-required","failures":[],"observed":{}}
         blueprint["runtime_media_delivery"]={"status":"not-requested","bindings":[]}
+        blueprint["camera_choreography"]={"status":"not-requested","sections":[]}
 
-    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json","assets/asset-production-manifest.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied","asset_media_engine":"applied","asset_source_registry":"applied","publish_media_gate":blueprint["publish_media_gate"]["status"],"media_delivery_gate":delivery_gate["status"],"media_production_worker":blueprint["media_production_report"]["status"],"produced_media_gate":blueprint["produced_media_gate"]["status"],"runtime_media_delivery":blueprint["runtime_media_delivery"]["status"],"webgl_mode":"progressive-enhancement"}
+    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json","assets/asset-production-manifest.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied","asset_media_engine":"applied","asset_source_registry":"applied","publish_media_gate":blueprint["publish_media_gate"]["status"],"media_delivery_gate":delivery_gate["status"],"media_production_worker":blueprint["media_production_report"]["status"],"produced_media_gate":blueprint["produced_media_gate"]["status"],"runtime_media_delivery":blueprint["runtime_media_delivery"]["status"],"camera_choreography":blueprint["camera_choreography"]["status"],"webgl_mode":"progressive-enhancement"}
     blueprint_path=result.output_dir/"creative-blueprint.json"; blueprint_path.write_text(json.dumps(blueprint,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8"); extra_files.append(blueprint_path)
 
     if context.produce_media_derivatives:
