@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Mapping
 
+from .cie_asset_registry import bind_asset_sources, build_asset_source_registry
 from .models import PageSpec
 
 
@@ -45,19 +46,12 @@ def build_asset_media_plan(page: PageSpec, visual_scene_composition: Mapping[str
                     "lod": ["poster", "medium", "high"] if media_type == "model-3d" else ["mobile", "desktop"],
                     "mobile_fallback": "poster-image" if media_type in {"model-3d", "video"} else "responsive-source",
                     "reduced_motion_fallback": "poster-image" if media_type in {"model-3d", "video"} else "static",
-                    "webgl": {
-                        "eligible": media_type == "model-3d",
-                        "progressive_enhancement": True,
-                        "fallback_required": media_type == "model-3d",
-                    },
-                    "performance_budget": {
-                        "max_initial_kb": 350 if media_type == "model-3d" else 220,
-                        "max_deferred_kb": 1800 if media_type == "model-3d" else 900,
-                    },
+                    "webgl": {"eligible": media_type == "model-3d", "progressive_enhancement": True, "fallback_required": media_type == "model-3d"},
+                    "performance_budget": {"max_initial_kb": 350 if media_type == "model-3d" else 220, "max_deferred_kb": 1800 if media_type == "model-3d" else 900},
                 }
         planned_sections.append({"section_id": str(section.get("section_id", "")), "assets": list(assets.values())})
-    return {
-        "version": "1.0",
+    plan = {
+        "version": "1.1",
         "status": "ready" if len(planned_sections) == len(sections) else "blocked",
         "policy": {
             "webgl_is_progressive_enhancement": True,
@@ -69,3 +63,5 @@ def build_asset_media_plan(page: PageSpec, visual_scene_composition: Mapping[str
         "sections": planned_sections,
         "page_slug": page.slug,
     }
+    registry = build_asset_source_registry(plan)
+    return bind_asset_sources(plan, registry)
