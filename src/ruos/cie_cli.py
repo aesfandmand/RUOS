@@ -27,6 +27,8 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--no-strict", action="store_true")
     build.add_argument("--require-publish-media", action="store_true", help="Resolve real media and block publish when integrity/provenance/license/semantics/posters are incomplete")
     build.add_argument("--media-bindings", help="JSON object keyed by asset_id with uri, poster_uri, provenance and semantic metadata")
+    build.add_argument("--produce-media", action="store_true", help="Generate real image/SVG derivatives and use ffmpeg/gltf-transform adapters when available")
+    build.add_argument("--media-output-subdir", default="assets/generated-media", help="Build-relative directory for generated media derivatives")
     return parser
 
 
@@ -50,12 +52,16 @@ def main(argv: list[str] | None = None) -> int:
                 return 2
             return 0
 
+        if args.produce_media and not args.require_publish_media:
+            raise BuildRejected("--produce-media requires --require-publish-media so source integrity and rights are validated before derivative production")
         context = BuildContext(
             project_root=root,
             output_root=root / args.output,
             strict=not args.no_strict,
             require_publish_media=bool(args.require_publish_media),
             media_bindings_path=Path(args.media_bindings) if args.media_bindings else None,
+            produce_media_derivatives=bool(args.produce_media),
+            media_output_subdir=str(args.media_output_subdir),
         )
         result = compile_page_with_cie(page, context)
         print(f"RUOS CIE BUILD PASSED: {result.output_dir}")

@@ -43,6 +43,8 @@ class BuildContext:
     competitor_snapshot_root: Path | None = None
     require_publish_media: bool = False
     media_bindings_path: Path | None = None
+    produce_media_derivatives: bool = False
+    media_output_subdir: str = "assets/generated-media"
 
 
 @dataclass(frozen=True)
