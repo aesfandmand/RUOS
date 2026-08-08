@@ -9,6 +9,7 @@ from .cie_gate import build_creative_blueprint
 from .cie_implementation import build_ui_implementation_contract
 from .cie_providers import ProviderContext, run_provider_pipeline
 from .cie_scene_orchestrator import build_scene_orchestration_plan
+from .cie_visual_scene_composer import build_visual_scene_composition
 from .compiler import BuildRejected, compile_page
 from .component_resolver import resolve_components
 from .content_composer import compose_content
@@ -26,7 +27,8 @@ def generate_cie_blueprint(page: PageSpec) -> dict[str, object]:
     creative_director=build_creative_director_plan(page=page,content=content,intelligence=intelligence,patterns=patterns,motion=motion,provider_pipeline=provider_pipeline); blueprint["creative_director"]=creative_director
     experience_patterns=build_experience_pattern_plan(page,creative_director); blueprint["experience_patterns"]=experience_patterns
     scene_orchestration=build_scene_orchestration_plan(page,experience_patterns); blueprint["scene_orchestration"]=scene_orchestration
-    blueprint["ui_implementation_contract"]=build_ui_implementation_contract(page=page,components=components,creative_director=creative_director,experience_patterns=experience_patterns,scene_orchestration=scene_orchestration)
+    visual_scene_composition=build_visual_scene_composition(page,scene_orchestration); blueprint["visual_scene_composition"]=visual_scene_composition
+    blueprint["ui_implementation_contract"]=build_ui_implementation_contract(page=page,components=components,creative_director=creative_director,experience_patterns=experience_patterns,scene_orchestration=scene_orchestration,visual_scene_composition=visual_scene_composition)
     return blueprint
 
 
@@ -48,9 +50,11 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
     if not isinstance(experience,dict) or experience.get("status")!="ready": raise BuildRejected("CIE Experience Pattern Engine did not resolve every section")
     scenes=blueprint.get("scene_orchestration",{})
     if not isinstance(scenes,dict) or scenes.get("status")!="ready": raise BuildRejected("CIE Scene Orchestration Engine did not resolve every section")
+    visual=blueprint.get("visual_scene_composition",{})
+    if not isinstance(visual,dict) or visual.get("status")!="ready": raise BuildRejected("CIE Visual Scene Composition Engine did not resolve every section")
     implementation=blueprint.get("ui_implementation_contract",{})
     if not isinstance(implementation,dict) or implementation.get("status")!="ready": raise BuildRejected("CIE UI implementation contract is incomplete")
     result=compile_page(page,context,implementation_contract=implementation)
-    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied"}
+    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied"}
     blueprint_path=result.output_dir/"creative-blueprint.json"; blueprint_path.write_text(json.dumps(blueprint,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8")
     return BuildResult(page=result.page,output_dir=result.output_dir,files=result.files+(blueprint_path,),gates=result.gates)
