@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from .cie_asset_media import build_asset_media_plan
 from .cie_director import build_creative_director_plan
 from .cie_experience_patterns import build_experience_pattern_plan
 from .cie_gate import build_creative_blueprint
@@ -28,7 +29,11 @@ def generate_cie_blueprint(page: PageSpec) -> dict[str, object]:
     experience_patterns=build_experience_pattern_plan(page,creative_director); blueprint["experience_patterns"]=experience_patterns
     scene_orchestration=build_scene_orchestration_plan(page,experience_patterns); blueprint["scene_orchestration"]=scene_orchestration
     visual_scene_composition=build_visual_scene_composition(page,scene_orchestration); blueprint["visual_scene_composition"]=visual_scene_composition
-    blueprint["ui_implementation_contract"]=build_ui_implementation_contract(page=page,components=components,creative_director=creative_director,experience_patterns=experience_patterns,scene_orchestration=scene_orchestration,visual_scene_composition=visual_scene_composition)
+    asset_media_plan=build_asset_media_plan(page,visual_scene_composition); blueprint["asset_media_plan"]=asset_media_plan
+    implementation=build_ui_implementation_contract(page=page,components=components,creative_director=creative_director,experience_patterns=experience_patterns,scene_orchestration=scene_orchestration,visual_scene_composition=visual_scene_composition)
+    implementation["asset_media_plan"]=asset_media_plan
+    implementation.setdefault("global_contract",{})["asset_media_progressive_enhancement_required"]=True
+    blueprint["ui_implementation_contract"]=implementation
     return blueprint
 
 
@@ -52,9 +57,11 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
     if not isinstance(scenes,dict) or scenes.get("status")!="ready": raise BuildRejected("CIE Scene Orchestration Engine did not resolve every section")
     visual=blueprint.get("visual_scene_composition",{})
     if not isinstance(visual,dict) or visual.get("status")!="ready": raise BuildRejected("CIE Visual Scene Composition Engine did not resolve every section")
+    assets=blueprint.get("asset_media_plan",{})
+    if not isinstance(assets,dict) or assets.get("status")!="ready": raise BuildRejected("CIE Asset Media Engine did not resolve every section")
     implementation=blueprint.get("ui_implementation_contract",{})
     if not isinstance(implementation,dict) or implementation.get("status")!="ready": raise BuildRejected("CIE UI implementation contract is incomplete")
     result=compile_page(page,context,implementation_contract=implementation)
-    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied"}
+    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied","asset_media_engine":"applied","webgl_mode":"progressive-enhancement"}
     blueprint_path=result.output_dir/"creative-blueprint.json"; blueprint_path.write_text(json.dumps(blueprint,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8")
     return BuildResult(page=result.page,output_dir=result.output_dir,files=result.files+(blueprint_path,),gates=result.gates)
