@@ -41,6 +41,8 @@ class BuildContext:
     discovery_snapshot_root: Path | None = None
     require_competitor_evidence: bool = False
     competitor_snapshot_root: Path | None = None
+    require_publish_media: bool = False
+    media_bindings_path: Path | None = None
 
 
 @dataclass(frozen=True)
