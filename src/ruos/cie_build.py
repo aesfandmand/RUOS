@@ -10,6 +10,7 @@ from .cie_camera_choreography import build_camera_choreography_plan
 from .cie_director import build_creative_director_plan
 from .cie_experience_patterns import build_experience_pattern_plan
 from .cie_gate import build_creative_blueprint
+from .cie_glb_validation import build_source_model_delivery, enforce_glb_authoring, validate_registry_glb_authoring
 from .cie_implementation import build_ui_implementation_contract
 from .cie_media_publish import enforce_publish_media, resolve_asset_registry, validate_publish_media
 from .cie_media_worker import MediaProductionError, produce_media_derivatives, validate_produced_media_budget
@@ -76,7 +77,13 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
         registry=resolve_asset_registry(registry,context.project_root,_load_media_bindings(context)); report=validate_publish_media(registry); blueprint["asset_source_registry"]=registry; blueprint["publish_media_gate"]=report
         try: enforce_publish_media(registry)
         except ValueError as exc: raise BuildRejected(str(exc)) from exc
-    else: blueprint["publish_media_gate"]={"status":"not-required","checked_assets":0,"failures":[]}
+        source_delivery=build_source_model_delivery(registry,blueprint["asset_media_plan"])
+        source_mesh_plan=build_mesh_state_plan(blueprint["scene_orchestration"],source_delivery)
+        glb_report=validate_registry_glb_authoring(registry,source_delivery,source_mesh_plan,context.project_root,strict=True); blueprint["glb_authoring_gate"]=glb_report
+        try: enforce_glb_authoring(glb_report)
+        except ValueError as exc: raise BuildRejected(str(exc)) from exc
+    else:
+        blueprint["publish_media_gate"]={"status":"not-required","checked_assets":0,"failures":[]}; blueprint["glb_authoring_gate"]={"status":"not-required","checked_models":0,"reports":[],"failures":[]}
 
     production_manifest=build_asset_production_manifest(registry,context.project_root); delivery_gate=validate_delivery_budget(production_manifest); blueprint["asset_production_manifest"]=production_manifest; blueprint["media_delivery_gate"]=delivery_gate
     if context.require_publish_media and delivery_gate["status"]!="pass": raise BuildRejected("CIE media delivery budget blocked: " + "; ".join(delivery_gate["failures"]))
@@ -86,8 +93,7 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
     manifest_path=result.output_dir/"assets"/"asset-production-manifest.json"; manifest_path.parent.mkdir(parents=True,exist_ok=True); manifest_path.write_text(json.dumps(production_manifest,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8")
 
     extra_files: list[Path] = [manifest_path]
-    runtime_delivery: dict[str, object] = {"status":"not-requested","bindings":[]}
-    runtime_artifacts: dict[str, Path] = {}
+    runtime_delivery: dict[str, object] = {"status":"not-requested","bindings":[]}; runtime_artifacts: dict[str, Path] = {}
     if context.produce_media_derivatives:
         if not context.require_publish_media: raise BuildRejected("CIE derivative production requires publish-media validation")
         media_root=result.output_dir/context.media_output_subdir
@@ -95,28 +101,20 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
         except MediaProductionError as exc: raise BuildRejected(f"CIE media production failed: {exc}") from exc
         produced_gate=validate_produced_media_budget(production_report,production_manifest); blueprint["media_production_report"]=production_report; blueprint["produced_media_gate"]=produced_gate
         if produced_gate["status"]!="pass": raise BuildRejected("CIE produced media gate blocked: " + "; ".join(produced_gate["failures"]))
-        report_path=media_root/"media-production-report.json"; extra_files.append(report_path)
-        implementation["media_production_report_ref"]={"version":production_report["version"],"artifact":str(report_path.relative_to(result.output_dir)).replace("\\","/")}
-        runtime_delivery, runtime_artifacts=build_runtime_media_delivery(production_report,registry,blueprint["asset_media_plan"],context.project_root)
+        report_path=media_root/"media-production-report.json"; extra_files.append(report_path); implementation["media_production_report_ref"]={"version":production_report["version"],"artifact":str(report_path.relative_to(result.output_dir)).replace("\\","/")}
+        runtime_delivery,runtime_artifacts=build_runtime_media_delivery(production_report,registry,blueprint["asset_media_plan"],context.project_root)
         if runtime_delivery.get("status")!="ready": raise BuildRejected("CIE runtime media delivery could not bind produced derivatives")
         camera_plan=build_camera_choreography_plan(blueprint["scene_orchestration"],runtime_delivery); runtime_delivery["camera_choreography"]=camera_plan; blueprint["camera_choreography"]=camera_plan
         mesh_state_plan=build_mesh_state_plan(blueprint["scene_orchestration"],runtime_delivery); runtime_delivery["mesh_state_plan"]=mesh_state_plan; blueprint["mesh_state_plan"]=mesh_state_plan
-        implementation["runtime_media_delivery"]=runtime_delivery
-        blueprint["runtime_media_delivery"]=runtime_delivery
+        implementation["runtime_media_delivery"]=runtime_delivery; blueprint["runtime_media_delivery"]=runtime_delivery
     else:
-        blueprint["media_production_report"]={"status":"not-requested","assets":[],"observed":{}}
-        blueprint["produced_media_gate"]={"status":"not-required","failures":[],"observed":{}}
-        blueprint["runtime_media_delivery"]={"status":"not-requested","bindings":[]}
-        blueprint["camera_choreography"]={"status":"not-requested","sections":[]}
-        blueprint["mesh_state_plan"]={"status":"not-requested","sections":[]}
+        blueprint["media_production_report"]={"status":"not-requested","assets":[],"observed":{}}; blueprint["produced_media_gate"]={"status":"not-required","failures":[],"observed":{}}; blueprint["runtime_media_delivery"]={"status":"not-requested","bindings":[]}; blueprint["camera_choreography"]={"status":"not-requested","sections":[]}; blueprint["mesh_state_plan"]={"status":"not-requested","sections":[]}
 
-    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json","assets/asset-production-manifest.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied","asset_media_engine":"applied","asset_source_registry":"applied","publish_media_gate":blueprint["publish_media_gate"]["status"],"media_delivery_gate":delivery_gate["status"],"media_production_worker":blueprint["media_production_report"]["status"],"produced_media_gate":blueprint["produced_media_gate"]["status"],"runtime_media_delivery":blueprint["runtime_media_delivery"]["status"],"camera_choreography":blueprint["camera_choreography"]["status"],"mesh_state_plan":blueprint["mesh_state_plan"]["status"],"webgl_mode":"progressive-enhancement"}
+    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json","assets/asset-production-manifest.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied","asset_media_engine":"applied","asset_source_registry":"applied","publish_media_gate":blueprint["publish_media_gate"]["status"],"glb_authoring_gate":blueprint["glb_authoring_gate"]["status"],"media_delivery_gate":delivery_gate["status"],"media_production_worker":blueprint["media_production_report"]["status"],"produced_media_gate":blueprint["produced_media_gate"]["status"],"runtime_media_delivery":blueprint["runtime_media_delivery"]["status"],"camera_choreography":blueprint["camera_choreography"]["status"],"mesh_state_plan":blueprint["mesh_state_plan"]["status"],"webgl_mode":"progressive-enhancement"}
     blueprint_path=result.output_dir/"creative-blueprint.json"; blueprint_path.write_text(json.dumps(blueprint,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8"); extra_files.append(blueprint_path)
 
     if context.produce_media_derivatives:
-        try:
-            rebound_files=apply_runtime_media_delivery(result.output_dir,page,runtime_delivery,runtime_artifacts,implementation,strict=context.strict)
-        except ValueError as exc:
-            raise BuildRejected(str(exc)) from exc
+        try: rebound_files=apply_runtime_media_delivery(result.output_dir,page,runtime_delivery,runtime_artifacts,implementation,strict=context.strict)
+        except ValueError as exc: raise BuildRejected(str(exc)) from exc
         return BuildResult(page=result.page,output_dir=result.output_dir,files=rebound_files,gates=result.gates)
     return BuildResult(page=result.page,output_dir=result.output_dir,files=result.files+tuple(extra_files),gates=result.gates)
