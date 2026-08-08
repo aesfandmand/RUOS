@@ -1,10 +1,16 @@
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
+import shutil
+from dataclasses import asdict
 from pathlib import Path
 from typing import Any, Mapping
+
+from .models import PageSpec
+from .qa import evaluate
 
 
 def _esc(value: object) -> str:
@@ -160,9 +166,7 @@ def bind_runtime_media_document(document: str, delivery: Mapping[str, Any]) -> s
             continue
         markup = render_runtime_media_markup(binding)
         pattern = re.compile(rf'(<section\b[^>]*\bid="{re.escape(section_id)}"[^>]*>.*?)(</section>)', re.S)
-        result, count = pattern.subn(lambda match: match.group(1) + markup + match.group(2), result, count=1)
-        if count == 0:
-            continue
+        result, _ = pattern.subn(lambda match: match.group(1) + markup + match.group(2), result, count=1)
     return result
 
 
@@ -188,3 +192,45 @@ const cieReducedMedia=matchMedia('(prefers-reduced-motion: reduce)').matches;
 for(const video of document.querySelectorAll('[data-cie-responsive-video]')){{if(cieSaveData||cieReducedMedia){{video.preload='none';video.removeAttribute('autoplay');}}}}
 for(const model of document.querySelectorAll('[data-cie-responsive-model]')){{let lod='high';if(cieSaveData||/2g/.test(cieEffectiveType))lod='poster';else if(/3g/.test(cieEffectiveType)||innerWidth<900)lod='medium';const uri=model.dataset[`cieModel${{lod[0].toUpperCase()+lod.slice(1)}}`]||model.dataset.cieModelMedium||model.dataset.cieModelHigh||'';model.dataset.cieSelectedLod=lod;model.dataset.cieSelectedSource=uri;const status=model.querySelector('.cie-media__model-status');if(status)status.textContent=uri?`LOD: ${{lod}}`:'';}}
 '''
+
+
+def apply_runtime_media_delivery(
+    output_dir: Path,
+    page: PageSpec,
+    delivery: Mapping[str, Any],
+    artifacts: Mapping[str, Path],
+    implementation_contract: Mapping[str, Any],
+    strict: bool = True,
+) -> tuple[Path, ...]:
+    for relative, source in artifacts.items():
+        target = output_dir / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if source.resolve() != target.resolve():
+            shutil.copy2(source, target)
+    index = output_dir / "index.html"; styles = output_dir / "assets/styles.css"; runtime = output_dir / "assets/runtime.js"
+    html_text = bind_runtime_media_document(index.read_text(encoding="utf-8"), delivery)
+    css_text = styles.read_text(encoding="utf-8").rstrip() + "\n\n" + render_runtime_media_css(delivery) + "\n"
+    js_text = runtime.read_text(encoding="utf-8").rstrip() + "\n\n" + render_runtime_media_js(delivery) + "\n"
+    index.write_text(html_text, encoding="utf-8"); styles.write_text(css_text, encoding="utf-8"); runtime.write_text(js_text, encoding="utf-8")
+    contract_path = output_dir / "assets/cie-implementation-contract.json"
+    contract_path.write_text(json.dumps(implementation_contract, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+    gates = evaluate(page, html_text, css_text, js_text)
+    rejected = [gate for gate in gates if not gate.passed]
+    if strict and rejected:
+        detail = "; ".join(f"{gate.gate}: {', '.join(gate.failures)}" for gate in rejected)
+        raise ValueError("CIE runtime media binding QA blocked: " + detail)
+    qa_path = output_dir / "qa-report.json"
+    qa_path.write_text(json.dumps([asdict(gate) for gate in gates], ensure_ascii=False, indent=2), encoding="utf-8")
+    manifest_path = output_dir / "build-manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    tracked = [path for path in output_dir.rglob("*") if path.is_file() and path.name not in {".ruos-build", "build-manifest.json"}]
+    sha = {str(path.relative_to(output_dir)).replace("\\", "/"): hashlib.sha256(path.read_bytes()).hexdigest() for path in tracked}
+    manifest["files"] = sorted(sha)
+    manifest["sha256"] = sha
+    manifest["artifacts"] = {**dict(manifest.get("artifacts", {})), **sha}
+    manifest["gates"] = [asdict(gate) for gate in gates]
+    manifest["cie_runtime_media"] = {"status": delivery.get("status"), "version": delivery.get("version"), "binding_count": len(delivery.get("bindings", []))}
+    manifest["build_id"] = hashlib.sha256(json.dumps(sha, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()[:16]
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+    (output_dir / ".ruos-build").write_text(str(manifest["build_id"]) + "\n", encoding="utf-8")
+    return tuple(output_dir / relative for relative in sorted(sha)) + (manifest_path,)
