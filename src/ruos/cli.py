@@ -29,6 +29,13 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--require-live-research", action="store_true"); build.add_argument("--snapshot-root", default=".ruos/research"); build.add_argument("--research-max-age-days", type=int, default=14)
     build.add_argument("--require-search-discovery", action="store_true"); build.add_argument("--discovery-root", default=".ruos/discovery"); build.add_argument("--discovery-max-age-days", type=int, default=7); build.add_argument("--discovery-minimum-results", type=int, default=5)
     build.add_argument("--require-competitor-evidence", action="store_true"); build.add_argument("--competitor-root", default=".ruos/competitors"); build.add_argument("--competitor-max-age-days", type=int, default=7); build.add_argument("--competitor-minimum-pages", type=int, default=3)
+    build.add_argument("--require-publish-media", action="store_true", help="Require resolved media provenance, rights and publish metadata")
+    build.add_argument("--media-bindings", default=None, help="JSON bindings keyed by CIE asset_id")
+    build.add_argument("--produce-media", action="store_true", help="Produce media derivatives and bind them into runtime delivery")
+    build.add_argument("--media-output-subdir", default="assets/generated-media")
+    build.add_argument("--require-3d-lod-qa", action="store_true", help="Block runtime 3D delivery unless source/high/medium LOD QA passes")
+    build.add_argument("--3d-source-map", dest="three_d_source_map", default=None, help="JSON map of section_id to authored .blend source")
+    build.add_argument("--3d-visual-approvals", dest="three_d_visual_approvals", default=None, help="JSON visual QA approvals keyed by section_id")
     research = sub.add_parser("research", help="Fetch configured live sources"); research.add_argument("page"); research.add_argument("--spec-root", default="pages"); research.add_argument("--snapshot-root", default=".ruos/research")
     discover = sub.add_parser("discover", help="Run live search discovery for a page query"); discover.add_argument("page"); discover.add_argument("--spec-root", default="pages"); discover.add_argument("--provider", choices=("brave", "serper"), default="brave"); discover.add_argument("--query", default=""); discover.add_argument("--market", default="ir"); discover.add_argument("--language", default="fa"); discover.add_argument("--count", type=int, default=10); discover.add_argument("--output-root", default=".ruos/discovery")
     competitors = sub.add_parser("research-competitors", help="Fetch pages from verified discovery results"); competitors.add_argument("page"); competitors.add_argument("--spec-root", default="pages"); competitors.add_argument("--discovery-root", default=".ruos/discovery"); competitors.add_argument("--output-root", default=".ruos/competitors"); competitors.add_argument("--limit", type=int, default=5); competitors.add_argument("--minimum-success", type=int, default=3)
@@ -109,7 +116,28 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "research-competitors": return _run_competitor_research(page, args, project_root)
         if args.require_search_discovery and not args.require_live_research: raise BuildRejected("Search discovery requires --require-live-research")
         if args.require_competitor_evidence and not args.require_search_discovery: raise BuildRejected("Competitor evidence requires --require-search-discovery")
-        context = BuildContext(project_root, project_root / args.output, not args.no_strict, args.require_live_research, project_root / args.snapshot_root, args.require_search_discovery, project_root / args.discovery_root, args.require_competitor_evidence, project_root / args.competitor_root)
+        if args.produce_media and not args.require_publish_media: raise BuildRejected("Media derivative production requires --require-publish-media")
+        if args.require_publish_media and not args.media_bindings: raise BuildRejected("Publish media validation requires --media-bindings")
+        if args.require_3d_lod_qa and not args.produce_media: raise BuildRejected("3D LOD QA requires --produce-media so validated LODs can gate runtime delivery")
+        if args.require_3d_lod_qa and (not args.three_d_source_map or not args.three_d_visual_approvals): raise BuildRejected("3D LOD QA requires --3d-source-map and --3d-visual-approvals")
+        context = BuildContext(
+            project_root=project_root,
+            output_root=project_root / args.output,
+            strict=not args.no_strict,
+            require_live_research=args.require_live_research,
+            research_snapshot_root=project_root / args.snapshot_root,
+            require_search_discovery=args.require_search_discovery,
+            discovery_snapshot_root=project_root / args.discovery_root,
+            require_competitor_evidence=args.require_competitor_evidence,
+            competitor_snapshot_root=project_root / args.competitor_root,
+            require_publish_media=args.require_publish_media,
+            media_bindings_path=Path(args.media_bindings) if args.media_bindings else None,
+            produce_media_derivatives=args.produce_media,
+            media_output_subdir=args.media_output_subdir,
+            require_3d_lod_qa=args.require_3d_lod_qa,
+            three_d_source_map_path=Path(args.three_d_source_map) if args.three_d_source_map else None,
+            three_d_visual_approvals_path=Path(args.three_d_visual_approvals) if args.three_d_visual_approvals else None,
+        )
         if args.require_live_research:
             result, verified, discovery = compile_production_page(page, context, max_age_days=args.research_max_age_days, discovery_max_age_days=args.discovery_max_age_days, discovery_minimum_results=args.discovery_minimum_results, competitor_max_age_days=args.competitor_max_age_days, competitor_minimum_pages=args.competitor_minimum_pages)
             print(f"RUOS LIVE RESEARCH VERIFIED: {verified.source_count} sources snapshot={verified.snapshot_sha256}")
@@ -117,7 +145,7 @@ def main(argv: list[str] | None = None) -> int:
             competitor = result.page.metadata.get("verified_competitor_evidence")
             if isinstance(competitor, dict): print(f"RUOS COMPETITOR EVIDENCE VERIFIED: {competitor.get('evidence_count')} pages snapshot={competitor.get('snapshot_sha256')}")
         else: result = compile_page_with_cie(page, context)
-    except (SpecError, BuildRejected, LiveResearchError, OpenSourceRegistryError) as exc:
+    except (SpecError, BuildRejected, LiveResearchError, OpenSourceRegistryError, ValueError) as exc:
         if args.command == "registry": label = "REGISTRY FAILED"
         elif args.command in {"research", "discover", "research-competitors"}: label = "RESEARCH FAILED"
         else: label = "BUILD REJECTED"

@@ -45,6 +45,9 @@ class BuildContext:
     media_bindings_path: Path | None = None
     produce_media_derivatives: bool = False
     media_output_subdir: str = "assets/generated-media"
+    require_3d_lod_qa: bool = False
+    three_d_source_map_path: Path | None = None
+    three_d_visual_approvals_path: Path | None = None
 
 
 @dataclass(frozen=True)
