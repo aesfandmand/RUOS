@@ -64,5 +64,4 @@ def build_asset_media_plan(page: PageSpec, visual_scene_composition: Mapping[str
         "page_slug": page.slug,
     }
     registry = build_asset_source_registry(plan)
-    plan["source_registry"] = registry
     return bind_asset_sources(plan, registry)
