@@ -33,6 +33,7 @@ def render_visual_scene_runtime(contract: Mapping[str, Any]) -> str:
     return f'''
 /* compatibility: contract.experience.pattern==='cinematic-scroll-stage' now delegates continuous transforms to visual scene composition */
 const RUOS_CIE_VISUAL_SCENES={encoded};
+const RUOS_CIE_SCENES=RUOS_CIE_VISUAL_SCENES;
 const cieVisualReduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const cieVisualMobile=matchMedia('(max-width: 760px)').matches;
 for(const [sectionId,composition] of Object.entries(RUOS_CIE_VISUAL_SCENES)){{
