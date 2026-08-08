@@ -8,6 +8,8 @@ from typing import Any, Mapping
 
 from PIL import Image, ImageChops, ImageStat
 
+from .cie_lod_compile import build_compile_3d_plan_bundle
+
 
 class VisualEvidenceError(ValueError):
     pass
@@ -124,9 +126,65 @@ def execute_visual_evidence_plan(plan: Mapping[str, Any], project_root: Path, sc
                 continue
             payload = {"model": str(model), "output": str(output), "view": dict(shot.get("view", {}))}
             command = [blender, "-b", "--python", str(script_path), "--", json.dumps(payload, separators=(",", ":"))]
-            result = subprocess.run(command, cwd=project_root, capture_output=True, text=True, timeout=timeout, check=False)
+            try:
+                result = subprocess.run(command, cwd=project_root, capture_output=True, text=True, timeout=timeout, check=False)
+            except subprocess.TimeoutExpired:
+                failures.append(f"{shot.get('shot_id')}: Blender evidence render timed out after {timeout}s")
+                continue
             if result.returncode != 0 or not output.is_file():
                 failures.append(f"{shot.get('shot_id')}: Blender evidence render failed")
             else:
                 completed_shots += 1
     return {"version": "1.0", "status": "rendered" if not failures else "blocked", "completed_shots": completed_shots, "failures": failures}
+
+
+def _write_json(path: Path, payload: Mapping[str, Any]) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+    return path
+
+
+def capture_visual_evidence(
+    *,
+    page_slug: str,
+    blueprint: Mapping[str, Any],
+    project_root: Path,
+    source_map: Mapping[str, Any],
+    output_root: Path,
+    script_path: Path,
+    executable: str = "blender",
+    timeout: int = 300,
+) -> dict[str, Any]:
+    if not script_path.is_file():
+        raise VisualEvidenceError(f"CIE Blender visual evidence script not found: {script_path}")
+    plan_bundle = build_compile_3d_plan_bundle(blueprint, source_map)
+    if plan_bundle.get("status") != "ready":
+        raise VisualEvidenceError("CIE visual evidence capture requires at least one ready 3D model section")
+    visual_plan = build_visual_evidence_plan(plan_bundle["blender_plan"])
+    if visual_plan.get("status") != "ready":
+        raise VisualEvidenceError("CIE visual evidence plan is blocked")
+
+    paths = {
+        "compile_plan": output_root / f"{page_slug}.3d-compile-plan.json",
+        "visual_plan": output_root / f"{page_slug}.visual-evidence-plan.json",
+        "render_report": output_root / f"{page_slug}.visual-evidence-run.json",
+        "evaluation": output_root / f"{page_slug}.visual-evidence-report.json",
+        "approvals": output_root / f"{page_slug}.visual-approvals.json",
+    }
+    _write_json(paths["compile_plan"], plan_bundle)
+    _write_json(paths["visual_plan"], visual_plan)
+    render_report = execute_visual_evidence_plan(visual_plan, project_root, script_path, executable=executable, timeout=timeout)
+    _write_json(paths["render_report"], render_report)
+    if render_report.get("status") != "rendered":
+        raise VisualEvidenceError("CIE visual evidence render blocked: " + "; ".join(str(item) for item in render_report.get("failures", [])))
+    evaluation = evaluate_visual_evidence(visual_plan, project_root)
+    approvals = build_visual_approval_template(evaluation)
+    _write_json(paths["evaluation"], evaluation)
+    _write_json(paths["approvals"], approvals)
+    return {
+        "version": "1.0",
+        "status": evaluation.get("status", "needs-review"),
+        "human_approval_required": True,
+        "paths": {key: path.as_posix() for key, path in paths.items()},
+        "completed_shots": render_report.get("completed_shots", 0),
+    }

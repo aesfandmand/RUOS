@@ -12,6 +12,15 @@ For each model section and each of `source`, `high`, and `medium`, RUOS plans th
 
 Every level in a view uses the same camera parameters, 55mm lens, lighting setup, background and 768×768 PNG output. The Blender evidence renderer imports each GLB into a clean scene, derives the model bounds, places the camera deterministically and renders the evidence image.
 
+Run the capture as a separate review-preparation stage after the source/high/medium GLBs exist:
+
+```bash
+ruos capture-3d-evidence structures \
+  --3d-source-map .ruos/3d-sources.json
+```
+
+`ruos-cie capture-3d-evidence` exposes the same contract. The command writes the compile plan, render plan, execution report, automated comparison report and a visual-approval template under `.ruos/3d-evidence/`. It never marks the template approved.
+
 ## Automated signal
 
 After rendering, RUOS computes normalized mean absolute image difference between the source render and each LOD render. Default advisory thresholds are:
@@ -32,6 +41,8 @@ The evidence evaluator produces a review template with:
 - an empty review-notes field
 
 A human reviewer must explicitly set approval and reviewer identity before the existing post-LOD production gate can pass.
+
+At production build time every approved evidence URI must resolve to a real file. RUOS copies those files into `assets/3d-qa/<section>/`, rewrites the post-LOD artifact to the retained URIs and includes their SHA-256 values in `build-manifest.json`.
 
 ## Truth rule
 

@@ -11,7 +11,7 @@ def test_manifest_plans_modern_image_video_and_3d_delivery(tmp_path: Path):
         "entries": [
             {"asset_id": "image-a", "media_type": "image", "uri": None, "preload_priority": "high"},
             {"asset_id": "video-a", "media_type": "video", "uri": None, "preload_priority": "auto"},
-            {"asset_id": "model-a", "media_type": "model-3d", "uri": None, "preload_priority": "auto"},
+            {"asset_id": "model-a", "section_id": "technical", "media_type": "model-3d", "uri": None, "preload_priority": "auto"},
         ]
     }
     manifest = build_asset_production_manifest(registry, tmp_path)
@@ -22,6 +22,7 @@ def test_manifest_plans_modern_image_video_and_3d_delivery(tmp_path: Path):
     video = next(item for item in manifest["assets"] if item["asset_id"] == "video-a")
     assert video["mobile_strategy"] == "poster-first-lazy-video"
     model = next(item for item in manifest["assets"] if item["asset_id"] == "model-a")
+    assert model["section_id"] == "technical"
     assert [item["lod"] for item in model["variants"]] == ["poster", "medium", "high"]
 
 

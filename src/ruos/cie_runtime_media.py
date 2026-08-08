@@ -17,7 +17,12 @@ from .qa import evaluate
 
 
 def _esc(value: object) -> str: return html.escape(str(value), quote=True)
-def _entry_index(registry: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]: return {str(item.get("asset_id")): item for item in registry.get("entries", []) if isinstance(item, Mapping) and item.get("asset_id")}
+def _entry_index(registry: Mapping[str, Any]) -> tuple[dict[tuple[str, str], Mapping[str, Any]], dict[str, Mapping[str, Any]]]:
+    scoped: dict[tuple[str, str], Mapping[str, Any]] = {}; fallback: dict[str, Mapping[str, Any]] = {}
+    for item in registry.get("entries", []) if isinstance(registry, Mapping) else []:
+        if not isinstance(item, Mapping) or not item.get("asset_id"): continue
+        asset_id=str(item.get("asset_id")); section_id=str(item.get("section_id", "")); scoped[(section_id,asset_id)]=item; fallback.setdefault(asset_id,item)
+    return scoped,fallback
 def _section_index(asset_media_plan: Mapping[str, Any]) -> dict[str, str]:
     result: dict[str, str] = {}
     for section in asset_media_plan.get("sections", []) if isinstance(asset_media_plan, Mapping) else []:
@@ -25,27 +30,29 @@ def _section_index(asset_media_plan: Mapping[str, Any]) -> dict[str, str]:
         for asset in section.get("assets", []) if isinstance(section.get("assets"), list) else []:
             if isinstance(asset, Mapping) and asset.get("asset_id"): result[str(asset.get("asset_id"))] = str(section.get("section_id", ""))
     return result
-def _artifact_uri(asset_id: str, source_uri: object) -> str: return f"assets/media/{asset_id}/{Path(str(source_uri)).name}"
+def _artifact_uri(asset_id: str, source_uri: object, section_id: str="") -> str:
+    scope=f"{section_id}/{asset_id}" if section_id else asset_id
+    return f"assets/media/{scope}/{Path(str(source_uri)).name}"
 
 
 def build_runtime_media_delivery(production_report: Mapping[str, Any], registry: Mapping[str, Any], asset_media_plan: Mapping[str, Any], project_root: Path) -> tuple[dict[str, Any], dict[str, Path]]:
-    entries=_entry_index(registry); sections=_section_index(asset_media_plan); bindings=[]; artifacts:dict[str,Path]={}
+    scoped_entries,entries=_entry_index(registry); sections=_section_index(asset_media_plan); bindings=[]; artifacts:dict[str,Path]={}
     for result in production_report.get("assets", []) if isinstance(production_report, Mapping) else []:
         if not isinstance(result, Mapping) or result.get("status") not in {"produced","partial"}: continue
-        asset_id=str(result.get("asset_id","")); entry=entries.get(asset_id,{}); variants=[]
+        asset_id=str(result.get("asset_id","")); section_id=str(result.get("section_id") or sections.get(asset_id,"")); entry=scoped_entries.get((section_id,asset_id),entries.get(asset_id,{})); variants=[]
         for variant in result.get("variants", []) if isinstance(result.get("variants"), list) else []:
             if not isinstance(variant, Mapping) or variant.get("status")!="produced" or not variant.get("uri"): continue
             source=Path(str(variant["uri"])); source=source if source.is_absolute() else project_root/source
             if not source.is_file(): continue
-            final_uri=_artifact_uri(asset_id,source); artifacts[final_uri]=source; item=dict(variant); item["uri"]=final_uri; variants.append(item)
+            final_uri=_artifact_uri(asset_id,source,section_id); artifacts[final_uri]=source; item=dict(variant); item["uri"]=final_uri; variants.append(item)
         poster_uri=entry.get("poster_uri"); final_poster=None
         if poster_uri:
             poster=Path(str(poster_uri)); poster=poster if poster.is_absolute() else project_root/poster
-            if poster.is_file(): final_poster=f"assets/media/{asset_id}/poster{poster.suffix.lower()}"; artifacts[final_poster]=poster
+            if poster.is_file(): final_poster=_artifact_uri(asset_id,f"poster{poster.suffix.lower()}",section_id); artifacts[final_poster]=poster
         semantics=entry.get("semantics",{}) if isinstance(entry.get("semantics"),Mapping) else {}; hotspots=[dict(item) for item in entry.get("hotspots",[]) if isinstance(item,Mapping)] if isinstance(entry.get("hotspots"),list) else []
-        bindings.append({"asset_id":asset_id,"section_id":sections.get(asset_id,""),"media_type":str(result.get("media_type",entry.get("media_type","image"))),"variants":variants,"poster_uri":final_poster,"alt":str(semantics.get("alt") or ""),"caption":str(semantics.get("caption") or ""),"decorative":bool(semantics.get("decorative",False)),"hotspots":hotspots,"status":"ready" if variants else "fallback-only" if final_poster else "unavailable"})
+        bindings.append({"asset_id":asset_id,"section_id":section_id,"media_type":str(result.get("media_type",entry.get("media_type","image"))),"variants":variants,"poster_uri":final_poster,"alt":str(semantics.get("alt") or ""),"caption":str(semantics.get("caption") or ""),"decorative":bool(semantics.get("decorative",False)),"hotspots":hotspots,"status":"ready" if variants else "fallback-only" if final_poster else "unavailable"})
     ready=[item for item in bindings if item["status"] in {"ready","fallback-only"}]
-    return {"version":"1.3","status":"ready" if ready else "blocked","selection_policy":{"images":"native-picture-srcset","video":"poster-first-native-sources","model_3d":"progressive-model-viewer-webgl","save_data_prefers_poster":True,"reduced_motion_prefers_poster":True,"hotspot_state_sync":True,"camera_choreography":True,"mesh_state_sync":True},"bindings":bindings},artifacts
+    return {"version":"1.4","status":"ready" if ready else "blocked","selection_policy":{"images":"native-picture-srcset","video":"poster-first-native-sources","model_3d":"progressive-model-viewer-webgl","save_data_prefers_poster":True,"reduced_motion_prefers_poster":True,"hotspot_state_sync":True,"camera_choreography":True,"mesh_state_sync":True},"bindings":bindings},artifacts
 
 
 def _image_markup(binding: Mapping[str, Any]) -> str:
@@ -97,7 +104,7 @@ def render_runtime_media_js(delivery: Mapping[str, Any]) -> str:
     return native+"\n"+render_webgl_runtime(delivery.get("selection_policy",{}))+"\n"+render_camera_choreography_runtime(delivery.get("camera_choreography",{}))+"\n"+render_mesh_state_runtime(delivery.get("mesh_state_plan",{}))
 
 
-def apply_runtime_media_delivery(output_dir: Path,page: PageSpec,delivery: Mapping[str, Any],artifacts: Mapping[str, Path],implementation_contract: Mapping[str, Any],strict: bool=True) -> tuple[Path,...]:
+def apply_runtime_media_delivery(output_dir: Path,page: PageSpec,delivery: Mapping[str, Any],artifacts: Mapping[str, Path],implementation_contract: Mapping[str, Any],strict: bool=True,post_lod_gate: Mapping[str, Any] | None=None) -> tuple[Path,...]:
     for relative,source in artifacts.items():
         target=output_dir/relative; target.parent.mkdir(parents=True,exist_ok=True)
         if source.resolve()!=target.resolve(): shutil.copy2(source,target)
@@ -109,6 +116,6 @@ def apply_runtime_media_delivery(output_dir: Path,page: PageSpec,delivery: Mappi
     if strict and rejected: raise ValueError("CIE runtime media binding QA blocked: "+"; ".join(f"{gate.gate}: {', '.join(gate.failures)}" for gate in rejected))
     qa_path=output_dir/"qa-report.json"; qa_path.write_text(json.dumps([asdict(gate) for gate in gates],ensure_ascii=False,indent=2),encoding="utf-8")
     manifest_path=output_dir/"build-manifest.json"; manifest=json.loads(manifest_path.read_text(encoding="utf-8")); tracked=[path for path in output_dir.rglob("*") if path.is_file() and path.name not in {".ruos-build","build-manifest.json"}]; sha={str(path.relative_to(output_dir)).replace("\\","/"):hashlib.sha256(path.read_bytes()).hexdigest() for path in tracked}
-    manifest["files"]=sorted(sha); manifest["sha256"]=sha; manifest["artifacts"]={**dict(manifest.get("artifacts",{})),**sha}; manifest["gates"]=[asdict(gate) for gate in gates]; manifest["cie_runtime_media"]={"status":delivery.get("status"),"version":delivery.get("version"),"binding_count":len(delivery.get("bindings",[])),"webgl_runtime":"progressive-model-viewer","hotspot_state_sync":True,"camera_choreography":delivery.get("camera_choreography",{}).get("status","not-applicable"),"mesh_state_plan":delivery.get("mesh_state_plan",{}).get("status","not-applicable")}; manifest["build_id"]=hashlib.sha256(json.dumps(sha,sort_keys=True,separators=(",",":")).encode("utf-8")).hexdigest()[:16]
+    manifest["files"]=sorted(sha); manifest["sha256"]=sha; manifest["artifacts"]={**dict(manifest.get("artifacts",{})),**sha}; manifest["gates"]=[asdict(gate) for gate in gates]; manifest["cie_runtime_media"]={"status":delivery.get("status"),"version":delivery.get("version"),"binding_count":len(delivery.get("bindings",[])),"webgl_runtime":"progressive-model-viewer","hotspot_state_sync":True,"camera_choreography":delivery.get("camera_choreography",{}).get("status","not-applicable"),"mesh_state_plan":delivery.get("mesh_state_plan",{}).get("status","not-applicable")}; manifest["cie_post_lod_qa"]=dict(post_lod_gate or {"status":"not-required","runtime_delivery_blocking":True,"sections":[]}); manifest["build_id"]=hashlib.sha256(json.dumps(sha,sort_keys=True,separators=(",",":")).encode("utf-8")).hexdigest()[:16]
     manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8"); (output_dir/".ruos-build").write_text(str(manifest["build_id"])+"\n",encoding="utf-8")
     return tuple(output_dir/relative for relative in sorted(sha))+(manifest_path,)

@@ -58,7 +58,8 @@ def build_source_model_delivery(registry: Mapping[str, Any], asset_media_plan: M
     for entry in registry.get("entries", []) if isinstance(registry, Mapping) else []:
         if not isinstance(entry, Mapping) or entry.get("media_type") != "model-3d" or entry.get("status") != "resolved": continue
         asset_id = str(entry.get("asset_id", ""))
-        bindings.append({"asset_id": asset_id, "section_id": section_by_asset.get(asset_id, ""), "media_type": "model-3d", "status": "ready", "hotspots": list(entry.get("hotspots", []) or [])})
+        section_id = str(entry.get("section_id") or section_by_asset.get(asset_id, ""))
+        bindings.append({"asset_id": asset_id, "section_id": section_id, "media_type": "model-3d", "status": "ready", "hotspots": list(entry.get("hotspots", []) or [])})
     return {"status": "ready" if bindings else "not-applicable", "bindings": bindings}
 
 
@@ -79,10 +80,13 @@ def validate_glb_authoring(path: Path, mesh_state_plan: Mapping[str, Any], secti
 
 
 def validate_registry_glb_authoring(registry: Mapping[str, Any], runtime_delivery: Mapping[str, Any], mesh_state_plan: Mapping[str, Any], project_root: Path, *, strict: bool = True) -> dict[str, Any]:
-    entries = {str(item.get("asset_id")): item for item in registry.get("entries", []) if isinstance(item, Mapping) and item.get("asset_id")}; reports: list[dict[str, Any]] = []; failures: list[str] = []
+    scoped_entries = {(str(item.get("section_id", "")), str(item.get("asset_id"))): item for item in registry.get("entries", []) if isinstance(item, Mapping) and item.get("asset_id")}; entries: dict[str, Mapping[str, Any]] = {}
+    for item in registry.get("entries", []) if isinstance(registry, Mapping) else []:
+        if isinstance(item, Mapping) and item.get("asset_id"): entries.setdefault(str(item.get("asset_id")), item)
+    reports: list[dict[str, Any]] = []; failures: list[str] = []
     for binding in runtime_delivery.get("bindings", []) if isinstance(runtime_delivery, Mapping) else []:
         if not isinstance(binding, Mapping) or binding.get("media_type") != "model-3d": continue
-        asset_id = str(binding.get("asset_id", "")); section_id = str(binding.get("section_id", "")); entry = entries.get(asset_id, {}); uri = entry.get("uri")
+        asset_id = str(binding.get("asset_id", "")); section_id = str(binding.get("section_id", "")); entry = scoped_entries.get((section_id, asset_id), entries.get(asset_id, {})); uri = entry.get("uri")
         if not uri: report = {"asset_id": asset_id, "section_id": section_id, "status": "blocked", "failures": ["resolved GLB source URI is missing"]}
         else:
             path = Path(str(uri)); path = path if path.is_absolute() else project_root / path

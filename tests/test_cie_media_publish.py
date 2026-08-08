@@ -35,3 +35,15 @@ def test_real_asset_resolver_computes_integrity_and_publish_gate_passes(tmp_path
     assert all(entry["integrity"]["value"] for entry in resolved["entries"])
     assert validate_publish_media(resolved)["status"] == "pass"
     enforce_publish_media(resolved)
+
+
+def test_scoped_binding_disambiguates_duplicate_asset_ids(tmp_path: Path):
+    first = tmp_path / "first.glb"; first.write_bytes(b"first")
+    second = tmp_path / "second.glb"; second.write_bytes(b"second")
+    registry = {"entries": [
+        {"asset_id": "model", "section_id": "hero", "media_type": "model-3d", "status": "unresolved", "integrity": {}, "provenance": {}, "semantics": {}, "poster_uri": None},
+        {"asset_id": "model", "section_id": "technical", "media_type": "model-3d", "status": "unresolved", "integrity": {}, "provenance": {}, "semantics": {}, "poster_uri": None},
+    ]}
+    bindings = {"hero:model": {"uri": first.name}, "technical:model": {"uri": second.name}}
+    resolved = resolve_asset_registry(registry, tmp_path, bindings)
+    assert [item["uri"] for item in resolved["entries"]] == [first.name, second.name]

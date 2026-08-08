@@ -56,3 +56,16 @@ def test_publish_registry_blocks_missing_hotspot_anchor(tmp_path):
     delivery = {"status": "ready", "bindings": [{"asset_id": "structure-model", "section_id": "technical", "media_type": "model-3d", "status": "ready"}]}
     report = validate_registry_glb_authoring(registry, delivery, _plan(), tmp_path, strict=True)
     assert report["status"] == "blocked"; assert any("hotspot anchors" in item for item in report["failures"])
+
+
+def test_source_model_delivery_uses_registry_section_for_duplicate_ids():
+    registry = {"entries": [
+        {"asset_id": "model", "section_id": "hero", "media_type": "model-3d", "status": "resolved"},
+        {"asset_id": "model", "section_id": "technical", "media_type": "model-3d", "status": "resolved"},
+    ]}
+    media_plan = {"sections": [
+        {"section_id": "hero", "assets": [{"asset_id": "model"}]},
+        {"section_id": "technical", "assets": [{"asset_id": "model"}]},
+    ]}
+    delivery = build_source_model_delivery(registry, media_plan)
+    assert [item["section_id"] for item in delivery["bindings"]] == ["hero", "technical"]

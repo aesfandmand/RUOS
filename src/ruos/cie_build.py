@@ -12,7 +12,7 @@ from .cie_experience_patterns import build_experience_pattern_plan
 from .cie_gate import build_creative_blueprint
 from .cie_glb_validation import build_source_model_delivery, enforce_glb_authoring, validate_registry_glb_authoring
 from .cie_implementation import build_ui_implementation_contract
-from .cie_lod_compile import bind_validated_lods_to_media_report, build_compile_post_lod_gate, load_json_mapping
+from .cie_lod_compile import bind_validated_lods_to_media_report, build_compile_post_lod_gate, load_json_mapping, materialize_post_lod_evidence, validate_runtime_lod_delivery
 from .cie_media_publish import enforce_publish_media, resolve_asset_registry, validate_publish_media
 from .cie_media_worker import MediaProductionError, produce_media_derivatives, validate_produced_media_budget
 from .cie_mesh_state import build_mesh_state_plan
@@ -57,7 +57,7 @@ def _load_media_bindings(context: BuildContext) -> dict[str, dict[str, object]]:
     path=context.media_bindings_path if context.media_bindings_path.is_absolute() else context.project_root/context.media_bindings_path
     if not path.is_file(): raise BuildRejected(f"CIE media bindings file not found: {path}")
     payload=json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(payload,dict): raise BuildRejected("CIE media bindings must be a JSON object keyed by asset_id")
+    if not isinstance(payload,dict): raise BuildRejected("CIE media bindings must be a JSON object keyed by section_id:asset_id or unique asset_id")
     return {str(key):value for key,value in payload.items() if isinstance(value,dict)}
 
 
@@ -114,8 +114,11 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
     manifest_path=result.output_dir/"assets"/"asset-production-manifest.json"; manifest_path.parent.mkdir(parents=True,exist_ok=True); manifest_path.write_text(json.dumps(production_manifest,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8")
 
     extra_files: list[Path] = [manifest_path]
+    post_lod_summary: dict[str, object] = {"status":"not-required","runtime_delivery_blocking":True,"sections":[]}
     if context.require_3d_lod_qa:
-        post_lod_path=result.output_dir/"assets"/"post-lod-gate.json"; post_lod_path.write_text(json.dumps(lod_bundle,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8"); extra_files.append(post_lod_path)
+        try: lod_bundle,post_lod_files,post_lod_summary=materialize_post_lod_evidence(lod_bundle,context.project_root,result.output_dir)
+        except ValueError as exc: raise BuildRejected(str(exc)) from exc
+        extra_files.extend(post_lod_files); blueprint["post_lod_gate"]=lod_bundle.get("gate",{}); implementation["post_lod_gate_ref"]=post_lod_summary
     runtime_delivery: dict[str, object] = {"status":"not-requested","bindings":[]}; runtime_artifacts: dict[str, Path] = {}
     if context.produce_media_derivatives:
         if not context.require_publish_media: raise BuildRejected("CIE derivative production requires publish-media validation")
@@ -132,7 +135,10 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
         runtime_delivery,runtime_artifacts=build_runtime_media_delivery(production_report,registry,blueprint["asset_media_plan"],context.project_root)
         if runtime_delivery.get("status")!="ready": raise BuildRejected("CIE runtime media delivery could not bind produced derivatives")
         if context.require_3d_lod_qa:
-            runtime_delivery["post_lod_gate"]={"status":"pass","artifact":"assets/post-lod-gate.json","validated_lod_binding":True}
+            try: delivered_summary=validate_runtime_lod_delivery(runtime_delivery,lod_bundle,context.project_root)
+            except ValueError as exc: raise BuildRejected(str(exc)) from exc
+            post_lod_summary={**post_lod_summary,**delivered_summary}; lod_bundle["runtime_delivery"]=post_lod_summary; runtime_delivery["post_lod_gate"]={**post_lod_summary,"validated_lod_binding":True}; implementation["post_lod_gate_ref"]=post_lod_summary
+            (result.output_dir/"assets/post-lod-gate.json").write_text(json.dumps(lod_bundle,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8")
         camera_plan=build_camera_choreography_plan(blueprint["scene_orchestration"],runtime_delivery); runtime_delivery["camera_choreography"]=camera_plan; blueprint["camera_choreography"]=camera_plan
         mesh_state_plan=build_mesh_state_plan(blueprint["scene_orchestration"],runtime_delivery); runtime_delivery["mesh_state_plan"]=mesh_state_plan; blueprint["mesh_state_plan"]=mesh_state_plan
         implementation["runtime_media_delivery"]=runtime_delivery; blueprint["runtime_media_delivery"]=runtime_delivery
@@ -143,7 +149,7 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
     blueprint_path=result.output_dir/"creative-blueprint.json"; blueprint_path.write_text(json.dumps(blueprint,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8"); extra_files.append(blueprint_path)
 
     if context.produce_media_derivatives:
-        try: rebound_files=apply_runtime_media_delivery(result.output_dir,page,runtime_delivery,runtime_artifacts,implementation,strict=context.strict)
+        try: rebound_files=apply_runtime_media_delivery(result.output_dir,page,runtime_delivery,runtime_artifacts,implementation,strict=context.strict,post_lod_gate=post_lod_summary)
         except ValueError as exc: raise BuildRejected(str(exc)) from exc
         return BuildResult(page=result.page,output_dir=result.output_dir,files=rebound_files,gates=result.gates)
     return BuildResult(page=result.page,output_dir=result.output_dir,files=result.files+tuple(extra_files),gates=result.gates)

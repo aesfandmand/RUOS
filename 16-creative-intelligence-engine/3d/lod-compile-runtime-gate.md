@@ -27,7 +27,11 @@ ruos build structures \
 5. The gate must pass before model derivatives are eligible for runtime media delivery.
 6. Generic model derivatives in the media worker report are replaced by the approved Blender high/medium LOD files.
 7. Runtime delivery, camera choreography and mesh-state binding are built from those approved LOD files.
-8. `assets/post-lod-gate.json` is written before runtime binding; the runtime manifest refresh therefore records and hashes it with the final production build.
+8. Runtime delivery hashes must exactly match the approved high/medium GLBs.
+9. Visual evidence is copied into `assets/3d-qa/<section>/` and `assets/post-lod-gate.json` is rewritten to those retained artifacts.
+10. The runtime manifest refresh records the post-LOD summary and hashes the gate, evidence and delivered GLBs with the final production build.
+
+Media bindings may use `section_id:asset_id` keys. The scoped form is required when multiple sections reuse an asset ID; legacy unscoped keys remain a fallback for unique IDs.
 
 ## Truth policy
 

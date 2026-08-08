@@ -90,13 +90,16 @@ def _produce_model(asset: Mapping[str, Any], source: Path, output_dir: Path, pro
 
 
 def produce_media_derivatives(manifest: Mapping[str, Any], registry: Mapping[str, Any], project_root: Path, output_root: Path) -> dict[str, Any]:
-    sources = {str(item.get("asset_id")): item for item in registry.get("entries", []) if isinstance(item, Mapping)}; output_root.mkdir(parents=True, exist_ok=True); results: list[dict[str, Any]] = []
+    scoped_sources = {(str(item.get("section_id", "")), str(item.get("asset_id"))): item for item in registry.get("entries", []) if isinstance(item, Mapping)}; fallback_sources: dict[str, Mapping[str, Any]] = {}
+    for item in registry.get("entries", []) if isinstance(registry, Mapping) else []:
+        if isinstance(item, Mapping): fallback_sources.setdefault(str(item.get("asset_id")), item)
+    output_root.mkdir(parents=True, exist_ok=True); results: list[dict[str, Any]] = []
     for asset in manifest.get("assets", []) if isinstance(manifest, Mapping) else []:
         if not isinstance(asset, Mapping): continue
-        asset_id = str(asset.get("asset_id", "")); entry = sources.get(asset_id, {}); source = _source_path(project_root, entry.get("uri")); media_type = str(asset.get("media_type", "image")); priority = str(asset.get("priority", "auto"))
+        asset_id = str(asset.get("asset_id", "")); section_id = str(asset.get("section_id", "")); entry = scoped_sources.get((section_id, asset_id), fallback_sources.get(asset_id, {})); source = _source_path(project_root, entry.get("uri")); media_type = str(asset.get("media_type", "image")); priority = str(asset.get("priority", "auto"))
         if source is None:
-            results.append({"asset_id": asset_id, "media_type": media_type, "priority": priority, "status": "blocked", "reason": "source-not-found", "variants": []}); continue
-        target_dir = output_root / asset_id; target_dir.mkdir(parents=True, exist_ok=True)
+            results.append({"asset_id": asset_id, "section_id": section_id, "media_type": media_type, "priority": priority, "status": "blocked", "reason": "source-not-found", "variants": []}); continue
+        target_dir = output_root / section_id / asset_id if section_id else output_root / asset_id; target_dir.mkdir(parents=True, exist_ok=True)
         if media_type == "image": variants = _produce_image(asset, source, target_dir, project_root)
         elif media_type == "svg": variants = _produce_svg(asset, source, target_dir, project_root)
         elif media_type == "video": variants = _produce_video(asset, source, target_dir, project_root)
@@ -104,7 +107,7 @@ def produce_media_derivatives(manifest: Mapping[str, Any], registry: Mapping[str
         else:
             path = target_dir / source.name; shutil.copy2(source, path); variants = [{"format": "original", **_record(path, project_root), "status": "produced"}]
         status = "produced" if any(v.get("status") == "produced" for v in variants) and not any(v.get("status") == "blocked" for v in variants) else "partial" if any(v.get("status") == "produced" for v in variants) else "blocked"
-        results.append({"asset_id": asset_id, "media_type": media_type, "priority": priority, "status": status, "variants": variants})
+        results.append({"asset_id": asset_id, "section_id": section_id, "media_type": media_type, "priority": priority, "status": status, "variants": variants})
     observed = {"produced_bytes": sum(int(v.get("bytes", 0) or 0) for item in results for v in item.get("variants", []) if isinstance(v, Mapping)), "produced_assets": sum(1 for item in results if item.get("status") == "produced"), "partial_assets": sum(1 for item in results if item.get("status") == "partial"), "blocked_assets": sum(1 for item in results if item.get("status") == "blocked")}
     report = {"version": "1.0", "status": "produced" if results and observed["blocked_assets"] == 0 else "partial" if results else "blocked", "assets": results, "observed": observed}
     (output_root / "media-production-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")

@@ -5,7 +5,9 @@ import sys
 from pathlib import Path
 from typing import Mapping
 
-from .cie_build import compile_page_with_cie
+from .cie_3d_visual_evidence import capture_visual_evidence
+from .cie_build import compile_page_with_cie, generate_cie_blueprint
+from .cie_lod_compile import load_json_mapping
 from .compiler import BuildRejected
 from .competitor_page_research import fetch_competitor_pages
 from .competitor_snapshot import build_competitor_snapshot, write_competitor_snapshot
@@ -30,12 +32,15 @@ def _parser() -> argparse.ArgumentParser:
     build.add_argument("--require-search-discovery", action="store_true"); build.add_argument("--discovery-root", default=".ruos/discovery"); build.add_argument("--discovery-max-age-days", type=int, default=7); build.add_argument("--discovery-minimum-results", type=int, default=5)
     build.add_argument("--require-competitor-evidence", action="store_true"); build.add_argument("--competitor-root", default=".ruos/competitors"); build.add_argument("--competitor-max-age-days", type=int, default=7); build.add_argument("--competitor-minimum-pages", type=int, default=3)
     build.add_argument("--require-publish-media", action="store_true", help="Require resolved media provenance, rights and publish metadata")
-    build.add_argument("--media-bindings", default=None, help="JSON bindings keyed by CIE asset_id")
+    build.add_argument("--media-bindings", default=None, help="JSON bindings keyed by section_id:asset_id (or asset_id when unique)")
     build.add_argument("--produce-media", action="store_true", help="Produce media derivatives and bind them into runtime delivery")
     build.add_argument("--media-output-subdir", default="assets/generated-media")
     build.add_argument("--require-3d-lod-qa", action="store_true", help="Block runtime 3D delivery unless source/high/medium LOD QA passes")
     build.add_argument("--3d-source-map", dest="three_d_source_map", default=None, help="JSON map of section_id to authored .blend source")
     build.add_argument("--3d-visual-approvals", dest="three_d_visual_approvals", default=None, help="JSON visual QA approvals keyed by section_id")
+    evidence = sub.add_parser("capture-3d-evidence", help="Render deterministic source/high/medium comparisons and create a human-review template")
+    evidence.add_argument("page"); evidence.add_argument("--spec-root", default="pages"); evidence.add_argument("--3d-source-map", dest="three_d_source_map", required=True)
+    evidence.add_argument("--output-root", default=".ruos/3d-evidence"); evidence.add_argument("--blender-script", default="scripts/cie_blender_visual_evidence.py"); evidence.add_argument("--blender-executable", default="blender"); evidence.add_argument("--timeout", type=int, default=300)
     research = sub.add_parser("research", help="Fetch configured live sources"); research.add_argument("page"); research.add_argument("--spec-root", default="pages"); research.add_argument("--snapshot-root", default=".ruos/research")
     discover = sub.add_parser("discover", help="Run live search discovery for a page query"); discover.add_argument("page"); discover.add_argument("--spec-root", default="pages"); discover.add_argument("--provider", choices=("brave", "serper"), default="brave"); discover.add_argument("--query", default=""); discover.add_argument("--market", default="ir"); discover.add_argument("--language", default="fa"); discover.add_argument("--count", type=int, default=10); discover.add_argument("--output-root", default=".ruos/discovery")
     competitors = sub.add_parser("research-competitors", help="Fetch pages from verified discovery results"); competitors.add_argument("page"); competitors.add_argument("--spec-root", default="pages"); competitors.add_argument("--discovery-root", default=".ruos/discovery"); competitors.add_argument("--output-root", default=".ruos/competitors"); competitors.add_argument("--limit", type=int, default=5); competitors.add_argument("--minimum-success", type=int, default=3)
@@ -103,6 +108,18 @@ def _run_registry_refresh(args, project_root: Path) -> int:
     return 0
 
 
+def _run_3d_evidence(page, args, project_root: Path) -> int:
+    source_map = load_json_mapping(project_root, Path(args.three_d_source_map), "3D source map")
+    script = Path(args.blender_script); script = script if script.is_absolute() else project_root / script
+    output_root = Path(args.output_root); output_root = output_root if output_root.is_absolute() else project_root / output_root
+    result = capture_visual_evidence(page_slug=page.slug, blueprint=generate_cie_blueprint(page), project_root=project_root, source_map=source_map, output_root=output_root, script_path=script, executable=str(args.blender_executable), timeout=int(args.timeout))
+    print(f"RUOS 3D VISUAL EVIDENCE: {result['status']}")
+    print(f"RUOS 3D VISUAL EVIDENCE SHOTS: {result['completed_shots']}")
+    for label, path in result["paths"].items(): print(f"RUOS 3D VISUAL EVIDENCE {label.upper()}: {path}")
+    print("RUOS 3D VISUAL EVIDENCE: human approval is still required")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv); project_root = Path.cwd()
     try:
@@ -114,6 +131,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "research": return _run_research(page, project_root / args.snapshot_root / f"{page.slug}.json")
         if args.command == "discover": return _run_discovery(page, args, project_root)
         if args.command == "research-competitors": return _run_competitor_research(page, args, project_root)
+        if args.command == "capture-3d-evidence": return _run_3d_evidence(page, args, project_root)
         if args.require_search_discovery and not args.require_live_research: raise BuildRejected("Search discovery requires --require-live-research")
         if args.require_competitor_evidence and not args.require_search_discovery: raise BuildRejected("Competitor evidence requires --require-search-discovery")
         if args.produce_media and not args.require_publish_media: raise BuildRejected("Media derivative production requires --require-publish-media")
