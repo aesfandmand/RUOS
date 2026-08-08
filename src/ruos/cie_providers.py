@@ -107,7 +107,7 @@ class IndustrialProductAnalyst(BaseProvider):
     provider_id = "industrial_product_analyst"; domain = "industrial_product"
     def applies(self, context: ProviderContext) -> bool:
         page_type = str(context.page.metadata.get("page_type", context.page.metadata.get("type", ""))).strip().lower()
-        return page_type in STRUCTURE_PAGE_TYPES
+        return page_type in STRUCTURE_PAGE_TYPES or context.page.slug in {"structures", "structure", "catalog"}
     def analyze(self, context: ProviderContext) -> ProviderFinding:
         return ProviderFinding(self.provider_id, self.domain, "Expose structure anatomy, technical layers, options, scale and evidence progressively; prefer NRG-like staged construction logic for structure/catalog pages.", "Industrial pages require comprehension of physical relationships before purchase, investment or specification decisions.", 0.98, "evidence_and_truth", tuple(str(item.get("url", "")) for item in context.references if "NRG" in str(item.get("name", ""))), ("unsupported technical values can become false claims",), "Convert hotspots and horizontal assemblies into tap-accessible vertical anatomy stages.", "Show labeled static diagrams and evidence-bound specifications when 3D or virtual-tour interactions are unavailable.")
 
