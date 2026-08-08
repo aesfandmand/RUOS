@@ -13,6 +13,7 @@ from .cie_gate import build_creative_blueprint
 from .cie_implementation import build_ui_implementation_contract
 from .cie_media_publish import enforce_publish_media, resolve_asset_registry, validate_publish_media
 from .cie_media_worker import MediaProductionError, produce_media_derivatives, validate_produced_media_budget
+from .cie_mesh_state import build_mesh_state_plan
 from .cie_providers import ProviderContext, run_provider_pipeline
 from .cie_runtime_media import apply_runtime_media_delivery, build_runtime_media_delivery
 from .cie_scene_orchestrator import build_scene_orchestration_plan
@@ -99,6 +100,7 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
         runtime_delivery, runtime_artifacts=build_runtime_media_delivery(production_report,registry,blueprint["asset_media_plan"],context.project_root)
         if runtime_delivery.get("status")!="ready": raise BuildRejected("CIE runtime media delivery could not bind produced derivatives")
         camera_plan=build_camera_choreography_plan(blueprint["scene_orchestration"],runtime_delivery); runtime_delivery["camera_choreography"]=camera_plan; blueprint["camera_choreography"]=camera_plan
+        mesh_state_plan=build_mesh_state_plan(blueprint["scene_orchestration"],runtime_delivery); runtime_delivery["mesh_state_plan"]=mesh_state_plan; blueprint["mesh_state_plan"]=mesh_state_plan
         implementation["runtime_media_delivery"]=runtime_delivery
         blueprint["runtime_media_delivery"]=runtime_delivery
     else:
@@ -106,8 +108,9 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
         blueprint["produced_media_gate"]={"status":"not-required","failures":[],"observed":{}}
         blueprint["runtime_media_delivery"]={"status":"not-requested","bindings":[]}
         blueprint["camera_choreography"]={"status":"not-requested","sections":[]}
+        blueprint["mesh_state_plan"]={"status":"not-requested","sections":[]}
 
-    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json","assets/asset-production-manifest.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied","asset_media_engine":"applied","asset_source_registry":"applied","publish_media_gate":blueprint["publish_media_gate"]["status"],"media_delivery_gate":delivery_gate["status"],"media_production_worker":blueprint["media_production_report"]["status"],"produced_media_gate":blueprint["produced_media_gate"]["status"],"runtime_media_delivery":blueprint["runtime_media_delivery"]["status"],"camera_choreography":blueprint["camera_choreography"]["status"],"webgl_mode":"progressive-enhancement"}
+    blueprint["renderer"]={"status":"native-contract-driven","target_artifacts":["index.html","assets/styles.css","assets/runtime.js","assets/cie-implementation-contract.json","assets/asset-production-manifest.json"],"post_render_qa":"passed" if all(item.passed for item in result.gates) else "failed","legacy_adapter_required":False,"experience_pattern_engine":"applied","scene_orchestration_engine":"applied","visual_scene_composition_engine":"applied","asset_media_engine":"applied","asset_source_registry":"applied","publish_media_gate":blueprint["publish_media_gate"]["status"],"media_delivery_gate":delivery_gate["status"],"media_production_worker":blueprint["media_production_report"]["status"],"produced_media_gate":blueprint["produced_media_gate"]["status"],"runtime_media_delivery":blueprint["runtime_media_delivery"]["status"],"camera_choreography":blueprint["camera_choreography"]["status"],"mesh_state_plan":blueprint["mesh_state_plan"]["status"],"webgl_mode":"progressive-enhancement"}
     blueprint_path=result.output_dir/"creative-blueprint.json"; blueprint_path.write_text(json.dumps(blueprint,ensure_ascii=False,indent=2,sort_keys=True),encoding="utf-8"); extra_files.append(blueprint_path)
 
     if context.produce_media_derivatives:
