@@ -6,8 +6,8 @@ from ruos.spec_loader import load_page_spec
 
 def test_asset_source_registry_contracts():
     page = load_page_spec(Path("pages/structures.json"))
-    plan = generate_cie_blueprint(page)["asset_media_plan"]
-    registry = plan["source_registry"]
+    blueprint = generate_cie_blueprint(page)
+    registry = blueprint["asset_source_registry"]
     assert registry["status"] == "ready"
     assert registry["entries"]
     assert registry["policy"]["provenance_required_before_publish"] is True
@@ -19,10 +19,14 @@ def test_asset_source_registry_contracts():
         assert "hotspots" in entry
 
 
-def test_source_contract_is_bound_to_every_asset():
+def test_every_asset_uses_lightweight_source_reference():
     page = load_page_spec(Path("pages/structures.json"))
-    plan = generate_cie_blueprint(page)["asset_media_plan"]
+    blueprint = generate_cie_blueprint(page)
+    plan = blueprint["asset_media_plan"]
     assets = [asset for section in plan["sections"] for asset in section["assets"]]
     assert assets
-    assert all("source_contract" in asset for asset in assets)
-    assert all(asset["source_contract"]["asset_id"] == asset["asset_id"] for asset in assets)
+    assert all(asset.get("source_ref") == asset["asset_id"] for asset in assets)
+    assert "source_registry" not in plan
+    contract = blueprint["ui_implementation_contract"]
+    assert contract["asset_source_registry_ref"]["status"] == "ready"
+    assert contract["asset_source_registry_ref"]["artifact"].endswith("#asset_source_registry")
