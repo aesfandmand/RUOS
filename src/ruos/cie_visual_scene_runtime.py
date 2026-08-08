@@ -40,6 +40,7 @@ def render_visual_scene_runtime(contract: Mapping[str, Any]) -> str:
     encoded_assets = json.dumps(asset_plan, ensure_ascii=False, separators=(",", ":"))
     return f'''
 /* compatibility: contract.experience.pattern==='cinematic-scroll-stage' now delegates continuous transforms to visual scene composition */
+/* asset DOM contract: data-cie-media-slot data-cie-media-type data-cie-media-fallback data-cie-webgl */
 const RUOS_CIE_VISUAL_SCENES={encoded};
 const RUOS_CIE_SCENES=RUOS_CIE_VISUAL_SCENES;
 const RUOS_CIE_ASSET_MEDIA={encoded_assets};
