@@ -34,11 +34,13 @@ def render_visual_scene_runtime(contract: Mapping[str, Any]) -> str:
 /* compatibility: contract.experience.pattern==='cinematic-scroll-stage' now delegates continuous transforms to visual scene composition */
 const RUOS_CIE_VISUAL_SCENES={encoded};
 const RUOS_CIE_SCENES=RUOS_CIE_VISUAL_SCENES;
+const cieSceneProgress=(section)=>{{const r=section.getBoundingClientRect();const total=Math.max(1,r.height+innerHeight);return Math.max(0,Math.min(1,(innerHeight-r.top)/total));}};
 const cieVisualReduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const cieVisualMobile=matchMedia('(max-width: 760px)').matches;
 for(const [sectionId,composition] of Object.entries(RUOS_CIE_VISUAL_SCENES)){{
   const section=document.getElementById(sectionId); if(!section||!composition||!Array.isArray(composition.scenes)) continue;
   section.dataset.cieVisualComposition='active';
+  section.dataset.cieVisualProgress=String(cieSceneProgress(section));
   const ensureLayer=(id,role,priority)=>{{
     let layer=section.querySelector(`[data-cie-visual-layer="${{id}}"]`);
     if(!layer){{layer=document.createElement('span');layer.hidden=true;layer.dataset.cieVisualLayer=id;layer.dataset.cieRole=role||'';layer.dataset.ciePriority=priority||'';section.appendChild(layer);}}
@@ -46,6 +48,7 @@ for(const [sectionId,composition] of Object.entries(RUOS_CIE_VISUAL_SCENES)){{
   }};
   for(const scene of composition.scenes) for(const layer of (scene.layers||[])) ensureLayer(layer.id,layer.role,layer.priority);
   const apply=()=>{{
+    section.dataset.cieVisualProgress=String(cieSceneProgress(section));
     const activeState=section.dataset.cieState||composition.scenes[0]?.state;
     const scene=composition.scenes.find(item=>item.state===activeState)||composition.scenes[0]; if(!scene)return;
     section.dataset.cieVisualScene=scene.scene_id||'';
