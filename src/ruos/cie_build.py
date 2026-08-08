@@ -7,7 +7,6 @@ from .cie_director import build_creative_director_plan
 from .cie_gate import build_creative_blueprint
 from .cie_implementation import build_ui_implementation_contract
 from .cie_providers import ProviderContext, run_provider_pipeline
-from .cie_renderer_adapter import apply_cie_contract_to_build
 from .compiler import BuildRejected, compile_page
 from .component_resolver import resolve_components
 from .content_composer import compose_content
@@ -64,7 +63,7 @@ def write_cie_blueprint(page: PageSpec, output_root: Path) -> Path:
 
 
 def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
-    """Run all CIE blocking layers, then bind the implementation contract to real output artifacts."""
+    """Run all CIE gates and let the compiler render natively from the implementation contract."""
     blueprint = generate_cie_blueprint(page)
     gate = blueprint["gate"]
     status = str(gate.get("status", "blocked"))
@@ -86,12 +85,12 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
     if not isinstance(implementation, dict) or implementation.get("status") != "ready":
         raise BuildRejected("CIE UI implementation contract is incomplete")
 
-    result = compile_page(page, context)
-    result = apply_cie_contract_to_build(page, result, implementation, context.strict)
-    blueprint["renderer_adapter"] = {
-        "status": "applied",
-        "target_artifacts": ["index.html", "assets/styles.css", "assets/runtime.js"],
-        "post_render_qa": "passed" if all(gate.passed for gate in result.gates) else "failed",
+    result = compile_page(page, context, implementation_contract=implementation)
+    blueprint["renderer"] = {
+        "status": "native-contract-driven",
+        "target_artifacts": ["index.html", "assets/styles.css", "assets/runtime.js", "assets/cie-implementation-contract.json"],
+        "post_render_qa": "passed" if all(item.passed for item in result.gates) else "failed",
+        "legacy_adapter_required": False,
     }
     blueprint_path = result.output_dir / "creative-blueprint.json"
     blueprint_path.write_text(json.dumps(blueprint, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
