@@ -1,0 +1,27 @@
+version: 1.0
+status: active
+purpose: Prevent optimized 3D assets from shipping after semantic, geometric, or visible degradation.
+gates:
+  semantic_revalidation:
+    required: true
+    checks:
+      - required KHR_materials_variants survive optimization
+      - required cie-explode-* animations survive optimization
+      - required cie-group-* semantic groups survive optimization
+      - registered cie-hotspot-* anchors survive optimization
+  geometry_integrity:
+    required: true
+    max_bounds_drift: 0.02
+    hierarchy: medium < high < source
+    note: accessor POSITION counts are a deterministic structural signal, not a visual-quality substitute
+  visual_review:
+    required: true
+    evidence_required: true
+    reviewer_required: true
+    approval_required: true
+rules:
+  - Polygon reduction alone MUST NOT approve an LOD for production.
+  - A semantically invalid LOD MUST block publish even when file size and polygon budgets pass.
+  - Missing bounding metadata MUST block geometry approval.
+  - Visual approval MUST reference retained comparison evidence.
+  - Automated geometry QA and human visual QA are complementary gates, not replacements for one another.
