@@ -1,0 +1,59 @@
+from __future__ import annotations
+
+import json
+from typing import Any, Mapping
+
+
+def _sections(contract: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
+    raw = contract.get("sections", [])
+    if not isinstance(raw, list): return {}
+    return {str(item.get("section_id")): item for item in raw if isinstance(item, Mapping) and item.get("section_id")}
+
+
+def render_visual_scene_css(contract: Mapping[str, Any]) -> str:
+    if not _sections(contract): return ""
+    return r'''
+/* CIE visual scene composition */
+[data-cie-visual-layer]{transition:opacity .42s cubic-bezier(.22,.61,.36,1),transform .42s cubic-bezier(.22,.61,.36,1);transform-origin:center}
+[data-cie-visual-stage]{position:relative;isolation:isolate}
+[data-cie-camera]{transform-origin:center;will-change:transform}
+[data-cie-visual-layer][data-cie-priority="decorative"]{pointer-events:none}
+@media (max-width:760px){[data-cie-camera]{transform:none!important}[data-cie-visual-layer]{transition-duration:.2s}}
+@media (prefers-reduced-motion:reduce){[data-cie-camera],[data-cie-visual-layer]{transform:none!important;transition:none!important}}
+'''.strip() + "\n"
+
+
+def render_visual_scene_runtime(contract: Mapping[str, Any]) -> str:
+    sections = _sections(contract)
+    payload: dict[str, Any] = {}
+    for section_id, section in sections.items():
+        composition = section.get("visual_scene_composition", {}) if isinstance(section.get("visual_scene_composition"), Mapping) else {}
+        payload[section_id] = composition
+    encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+    return f'''
+const RUOS_CIE_VISUAL_SCENES={encoded};
+const cieVisualReduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cieVisualMobile=matchMedia('(max-width: 760px)').matches;
+for(const [sectionId,composition] of Object.entries(RUOS_CIE_VISUAL_SCENES)){{
+  const section=document.getElementById(sectionId); if(!section||!composition||!Array.isArray(composition.scenes)) continue;
+  section.dataset.cieVisualComposition='active';
+  const ensureLayer=(id,role,priority)=>{{
+    let layer=section.querySelector(`[data-cie-visual-layer="${{id}}"]`);
+    if(!layer){{layer=document.createElement('span');layer.hidden=true;layer.dataset.cieVisualLayer=id;layer.dataset.cieRole=role||'';layer.dataset.ciePriority=priority||'';section.appendChild(layer);}}
+    return layer;
+  }};
+  for(const scene of composition.scenes) for(const layer of (scene.layers||[])) ensureLayer(layer.id,layer.role,layer.priority);
+  const apply=()=>{{
+    const activeState=section.dataset.cieState||composition.scenes[0]?.state;
+    const scene=composition.scenes.find(item=>item.state===activeState)||composition.scenes[0]; if(!scene)return;
+    section.dataset.cieVisualScene=scene.scene_id||'';
+    const camera=scene.camera||{{}};
+    const cameraTarget=section.querySelector('[data-cie-depth-layer]')||section.querySelector('[data-cie-stage]');
+    if(cameraTarget&&!cieVisualReduce&&!cieVisualMobile){{cameraTarget.dataset.cieCamera='true';cameraTarget.style.transform=`translate3d(${{Number(camera.x||0)*24}}px,${{Number(camera.y||0)*24}}px,0) scale(${{Number(camera.z||1)}}) rotate(${{Number(camera.rotate||0)}}deg)`;}}
+    for(const node of section.querySelectorAll('[data-cie-visual-layer]')){{node.hidden=true;node.style.opacity='0';}}
+    for(const layer of (scene.layers||[])){{const node=ensureLayer(layer.id,layer.role,layer.priority);node.hidden=false;node.style.opacity=String(layer.opacity??1);if(!cieVisualReduce&&!cieVisualMobile)node.style.transform=`translateY(${{Number(layer.translate_y||0)}}px) scale(${{Number(layer.scale||1)}})`;}}
+  }};
+  apply();
+  new MutationObserver(apply).observe(section,{{attributes:true,attributeFilter:['data-cie-state','data-cie-scene']}});
+}}
+'''.strip() + "\n"
