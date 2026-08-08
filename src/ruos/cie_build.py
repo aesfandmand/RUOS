@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from .cie_director import build_creative_director_plan
 from .cie_gate import build_creative_blueprint
 from .cie_providers import ProviderContext, run_provider_pipeline
 from .compiler import BuildRejected, compile_page
@@ -31,8 +32,17 @@ def generate_cie_blueprint(page: PageSpec) -> dict[str, object]:
         for item in blueprint.get("reference_translation", [])
         if isinstance(item, dict)
     )
-    blueprint["provider_pipeline"] = run_provider_pipeline(
+    provider_pipeline = run_provider_pipeline(
         ProviderContext(page=page, content=content, intelligence=intelligence, patterns=patterns, motion=motion, references=references)
+    )
+    blueprint["provider_pipeline"] = provider_pipeline
+    blueprint["creative_director"] = build_creative_director_plan(
+        page=page,
+        content=content,
+        intelligence=intelligence,
+        patterns=patterns,
+        motion=motion,
+        provider_pipeline=provider_pipeline,
     )
     return blueprint
 
@@ -46,7 +56,7 @@ def write_cie_blueprint(page: PageSpec, output_root: Path) -> Path:
 
 
 def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
-    """Run the CIE blocking gate before entering the existing RUOS compiler."""
+    """Run CIE provider and Creative Director blocking gates before the RUOS compiler."""
     blueprint = generate_cie_blueprint(page)
     gate = blueprint["gate"]
     status = str(gate.get("status", "blocked"))
@@ -61,6 +71,9 @@ def compile_page_with_cie(page: PageSpec, context: BuildContext) -> BuildResult:
     provider_pipeline = blueprint.get("provider_pipeline", {})
     if not isinstance(provider_pipeline, dict) or provider_pipeline.get("synthesis", {}).get("status") != "ready":
         raise BuildRejected("CIE provider pipeline is not ready for synthesis")
+    director = blueprint.get("creative_director", {})
+    if not isinstance(director, dict) or director.get("status") != "ready":
+        raise BuildRejected("CIE Creative Director did not produce executable section decisions")
 
     result = compile_page(page, context)
     blueprint_path = result.output_dir / "creative-blueprint.json"
