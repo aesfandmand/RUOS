@@ -32,6 +32,7 @@ def render_model_viewer(binding: Mapping[str, Any]) -> str:
         )
     attrs = [
         'data-cie-model-viewer',
+        'data-cie-responsive-model',
         f'data-cie-model-high="{_esc(by_lod.get("high", ""))}"',
         f'data-cie-model-medium="{_esc(by_lod.get("medium", ""))}"',
         f'data-cie-model-poster="{_esc(poster)}"',
