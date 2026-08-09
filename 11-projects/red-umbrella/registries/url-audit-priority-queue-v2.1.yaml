@@ -1,0 +1,123 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-url-audit-priority-queue-v2.1
+project_id: red-umbrella
+status: locked
+source: چتر_قرمز_معماری_و_رجیستری_سایت_v2.1.xlsx#05-صف بررسی URL
+records:
+- priority: P0
+  entity_id: KNW-000
+  current_legacy_url: /blog/
+  proposed_conceptual_url: /knowledge/ یا حفظ /blog/
+  decision_needed: نام URL مرکز دانش
+  live_checks:
+  - Indexation
+  - backlinks
+  - Search Console
+  - current content
+  possible_actions:
+  - KEEP / 301
+  note: نام نمایشی «مرکز دانش» قطعی؛ URL باز.
+- priority: P0
+  entity_id: ABT-000
+  current_legacy_url: /about/ یا /about-us/
+  proposed_conceptual_url: Canonical one
+  decision_needed: About URL
+  live_checks:
+  - Index
+  - backlinks
+  - navigation
+  possible_actions:
+  - KEEP / 301
+  note: یکی کانونیکال شود.
+- priority: P0
+  entity_id: CNT-000
+  current_legacy_url: /contact/ یا /contact-us/
+  proposed_conceptual_url: Canonical one
+  decision_needed: Contact URL
+  live_checks:
+  - Index
+  - backlinks
+  - forms
+  possible_actions:
+  - KEEP / 301
+  note: یکی کانونیکال شود.
+- priority: P0
+  entity_id: INV-000
+  current_legacy_url: /municipality-investment/
+  proposed_conceptual_url: /investment/
+  decision_needed: Investment migration
+  live_checks:
+  - Index
+  - backlinks
+  - project traffic
+  possible_actions:
+  - KEEP legacy / 301
+  note: هاب مستقل سرمایه‌گذاری.
+- priority: P0
+  entity_id: STR-000
+  current_legacy_url: /billboard-types/
+  proposed_conceptual_url: /structures/
+  decision_needed: Structure migration
+  live_checks:
+  - Index
+  - backlinks
+  possible_actions:
+  - 301 / keep supporting article
+  note: /structures کانونیکال است.
+- priority: P1
+  entity_id: WEB-001
+  current_legacy_url: /web-design-isfahan/
+  proposed_conceptual_url: URL canonical design-site
+  decision_needed: Local vs generic intent
+  live_checks:
+  - Index
+  - ranking
+  - conversions
+  possible_actions:
+  - KEEP / 301 / split
+  note: IA hierarchy ≠ URL hierarchy.
+- priority: P1
+  entity_id: PF-004
+  current_legacy_url: /video-marketing-isfahan/
+  proposed_conceptual_url: تیزر/فیلم‌برداری canonical
+  decision_needed: Entity correction
+  live_checks:
+  - Index
+  - traffic
+  - backlinks
+  possible_actions:
+  - KEEP legacy / 301 / rename
+  note: نباید ارزش URL قدیمی کورکورانه از دست برود.
+- priority: P1
+  entity_id: SOC-001
+  current_legacy_url: /social-media-management/
+  proposed_conceptual_url: Social/Instagram model
+  decision_needed: Intent ownership
+  live_checks:
+  - Index
+  - ranking
+  possible_actions:
+  - KEEP / split
+  note: Page roles روشن شود.
+- priority: P1
+  entity_id: CITY-*
+  current_legacy_url: old city advertising URLs
+  proposed_conceptual_url: /cities/{slug}/
+  decision_needed: Local migration
+  live_checks:
+  - Evidence
+  - index
+  - local rankings
+  possible_actions:
+  - KEEP / 301 / merge
+  note: Local hubs چندخدمتی.
+- priority: P2
+  entity_id: PRT/PRJ
+  current_legacy_url: legacy portfolio/project URLs
+  proposed_conceptual_url: /portfolio/... & /projects/...
+  decision_needed: Project vs WorkSample split
+  live_checks:
+  - Existing slugs/index
+  possible_actions:
+  - KEEP / 301 / canonical
+  note: Project canonical مستقل از Portfolio.

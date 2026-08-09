@@ -1,0 +1,1185 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-services-and-landings-v2.1
+project_id: red-umbrella
+status: locked
+source: چتر_قرمز_معماری_و_رجیستری_سایت_v2.1.xlsx#02-خدمات و لندینگ‌ها
+records:
+- id: OOH-001
+  family: تبلیغات محیطی
+  subgroup: مادر
+  name: تبلیغات محیطی
+  entity_type: Service Domain
+  page_level: PILLAR/HUB
+  canonical_owner: Outdoor Advertising
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: LOCKED
+  display_contexts:
+  - Structures
+  - Projects
+  - Investment
+  - Design
+  - Printing
+  note: Hybrid Hub؛ صفحه عمومی اجرای کمپین جدا نسازیم.
+- id: OOH-002
+  family: تبلیغات محیطی
+  subgroup: اجاره و اکران
+  name: اجاره و اکران رسانه
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Outdoor Advertising
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: LOCKED
+  display_contexts:
+  - Media Rental(FUTURE)
+  - Projects
+  note: صفحه خدمت فعلی می‌ماند؛ موتور رزرو بعداً.
+- id: OOH-003
+  family: تبلیغات محیطی
+  subgroup: برنامه‌ریزی
+  name: Media Planning
+  entity_type: ServiceCapability
+  page_level: SECTION/ENTITY
+  canonical_owner: Outdoor Advertising
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: SERP GATE
+  display_contexts:
+  - Outdoor hub
+  note: Entity داشته باشد؛ URL مستقل فقط در صورت Query/SERP مستقل.
+- id: WEB-001
+  family: دیجیتال مارکتینگ
+  subgroup: Website
+  name: طراحی سایت
+  entity_type: Service
+  page_level: PILLAR
+  canonical_owner: Digital Marketing / Website
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Website hub
+  - Portfolio
+  - Knowledge
+  note: Landing مادر طراحی/توسعه.
+- id: WEB-002
+  family: دیجیتال مارکتینگ
+  subgroup: Website
+  name: طراحی سایت شرکتی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Digital Marketing / Website
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - B2B Solution
+  - Portfolio
+  note: اولویت بالا B2B.
+- id: WEB-003
+  family: دیجیتال مارکتینگ
+  subgroup: Website
+  name: طراحی سایت فروشگاهی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Digital Marketing / Website
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - SEO E-commerce
+  - Portfolio
+  note: Intent مستقل.
+- id: WEB-004
+  family: دیجیتال مارکتینگ
+  subgroup: Website
+  name: طراحی سایت اختصاصی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Digital Marketing / Website
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - UI/UX
+  - Development
+  note: بودجه و پیچیدگی بالاتر.
+- id: WEB-005
+  family: دیجیتال مارکتینگ
+  subgroup: Website
+  name: طراحی سایت وردپرس
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Digital Marketing / Website
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Corporate/Ecommerce via relation
+  note: Technology dimension ≠ website type.
+- id: WEB-006
+  family: دیجیتال مارکتینگ
+  subgroup: Website
+  name: بازطراحی سایت
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Digital Marketing / Website
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - UI/UX
+  - SEO
+  - Support
+  note: Entry برای سایت موجود.
+- id: WEB-007
+  family: دیجیتال مارکتینگ
+  subgroup: Website
+  name: طراحی لندینگ پیج
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Digital Marketing / Website
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Advertising
+  - CRO
+  - Graphic Design
+  note: مالک Website؛ در کمپین‌ها فراخوانی می‌شود.
+- id: WEB-008
+  family: دیجیتال مارکتینگ
+  subgroup: UI/UX
+  name: طراحی UI/UX
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Digital Marketing / Website
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Redesign
+  - Landing Page
+  note: UI و UX فعلاً سکشن‌های همین Landing.
+- id: SEO-001
+  family: دیجیتال مارکتینگ
+  subgroup: SEO
+  name: خدمات سئو سایت
+  entity_type: Service
+  page_level: PILLAR
+  canonical_owner: SEO
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Website
+  - Knowledge
+  note: Service مستقل در KG؛ در تجربه Website پررنگ.
+- id: SEO-002
+  family: دیجیتال مارکتینگ
+  subgroup: SEO
+  name: سئو فروشگاهی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: SEO
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Ecommerce Website
+  note: Intent تخصصی مستقل.
+- id: SEO-003
+  family: دیجیتال مارکتینگ
+  subgroup: SEO
+  name: سئو محلی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: SEO
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Cities
+  note: Local SEO مستقل از Local Landing city.
+- id: SEO-004
+  family: دیجیتال مارکتینگ
+  subgroup: SEO
+  name: سئو تکنیکال
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: SEO
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Web Design
+  - Redesign
+  note: Intent مستقل.
+- id: SEO-005
+  family: دیجیتال مارکتینگ
+  subgroup: SEO
+  name: مشاوره سئو
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: SEO
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Consulting context
+  note: مشاوره تخصصی SEO.
+- id: SEO-006
+  family: دیجیتال مارکتینگ
+  subgroup: SEO
+  name: سئو سایت شرکتی
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: SEO
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: OPEN
+  display_contexts:
+  - Corporate Website
+  note: تا SERP Gate مستقل نشود Landing نسازیم.
+- id: SEO-007
+  family: دیجیتال مارکتینگ
+  subgroup: SEO
+  name: سئو خارجی / لینک‌سازی
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: SEO
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: OPEN
+  display_contexts:
+  - SEO parent
+  note: تحقیق اختصاصی لازم.
+- id: SEO-008
+  family: دیجیتال مارکتینگ
+  subgroup: SEO
+  name: SEO Audit
+  entity_type: ServiceCapability
+  page_level: SECTION/ENTITY
+  canonical_owner: SEO
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: OPEN
+  display_contexts:
+  - SEO/Support
+  note: می‌تواند Lead Magnet/Service شود.
+- id: CNT-SVC-001
+  family: دیجیتال مارکتینگ
+  subgroup: Website Content
+  name: تولید محتوای سایت
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Content Services
+  commercial_status: FUTURE
+  publication: DRAFT
+  research_decision: SEO OPPORTUNITY
+  display_contexts:
+  - Website
+  note: فعلاً خدمت فاز اول نیست؛ صفحه در صورت Lead strategy صادقانه.
+- id: CNT-SVC-002
+  family: دیجیتال مارکتینگ
+  subgroup: Website Content
+  name: تولید محتوای سئو
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Content Services
+  commercial_status: FUTURE
+  publication: DRAFT
+  research_decision: SEO OPPORTUNITY
+  display_contexts:
+  - SEO
+  note: فعلاً FUTURE.
+- id: CNT-SVC-003
+  family: دیجیتال مارکتینگ
+  subgroup: Website Content
+  name: کپی‌رایتینگ سایت
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Content Services
+  commercial_status: FUTURE
+  publication: DRAFT
+  research_decision: SEO OPPORTUNITY
+  display_contexts:
+  - Website
+  - Conversion
+  note: SEO Content ≠ Copywriting؛ فعلاً FUTURE.
+- id: CNT-SVC-004
+  family: دیجیتال مارکتینگ
+  subgroup: Website Content
+  name: تولید محتوای محصول
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Content Services
+  commercial_status: FUTURE
+  publication: DRAFT
+  research_decision: CANDIDATE
+  display_contexts:
+  - Ecommerce
+  note: کاندید قوی آینده.
+- id: ADS-001
+  family: دیجیتال مارکتینگ
+  subgroup: Website Advertising
+  name: Google Ads
+  entity_type: Service
+  page_level: ENTITY
+  canonical_owner: Digital Advertising
+  commercial_status: FUTURE
+  publication: DRAFT
+  research_decision: HIGH SEO OPPORTUNITY
+  display_contexts:
+  - Website
+  - Landing Page
+  note: خدمت فعلی نیست؛ ادعای اجرا ممنوع تا Capability/Partner.
+- id: ADS-002
+  family: دیجیتال مارکتینگ
+  subgroup: Website Advertising
+  name: تبلیغات بنری آنلاین
+  entity_type: Service
+  page_level: ENTITY
+  canonical_owner: Digital Advertising
+  commercial_status: FUTURE
+  publication: DRAFT
+  research_decision: CANDIDATE
+  display_contexts:
+  - Web Banner Design
+  note: خدمت آینده/Lead partner possible.
+- id: CRO-001
+  family: دیجیتال مارکتینگ
+  subgroup: Website
+  name: CRO / بهینه‌سازی نرخ تبدیل
+  entity_type: ServiceCapability
+  page_level: ENTITY
+  canonical_owner: Website/CRO
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: OPEN
+  display_contexts:
+  - UI/UX
+  - Redesign
+  note: Landing فروش فعلاً نسازیم.
+- id: SUP-001
+  family: دیجیتال مارکتینگ
+  subgroup: Support
+  name: پشتیبانی سایت
+  entity_type: Service
+  page_level: PILLAR/LANDING
+  canonical_owner: Website Support
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Web Design
+  - SEO
+  - CRM future
+  note: درآمد تکرارشونده.
+- id: SUP-002
+  family: دیجیتال مارکتینگ
+  subgroup: Support
+  name: پشتیبانی وردپرس
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Website Support
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - WordPress Design
+  note: قرارداد ماهانه.
+- id: SUP-003
+  family: دیجیتال مارکتینگ
+  subgroup: Support
+  name: افزایش سرعت سایت
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Website Support
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - SEO
+  - Redesign
+  note: Entry Service.
+- id: SUP-004
+  family: دیجیتال مارکتینگ
+  subgroup: Support
+  name: رفع مشکلات سایت
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Website Support
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Support
+  - Redesign
+  note: Entry Service.
+- id: SUP-005
+  family: دیجیتال مارکتینگ
+  subgroup: Support
+  name: امنیت سایت
+  entity_type: Capability
+  page_level: SECTION/ENTITY
+  canonical_owner: Website Support
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: VERIFY CAPABILITY
+  display_contexts:
+  - Support
+  note: فقط با توان اجرایی تخصصی Promote شود.
+- id: SOC-001
+  family: دیجیتال مارکتینگ
+  subgroup: Social Media
+  name: مدیریت شبکه‌های اجتماعی
+  entity_type: Service
+  page_level: PILLAR
+  canonical_owner: Social Media
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Instagram
+  - future channels
+  note: مادر مدیریت شبکه اجتماعی.
+- id: SOC-002
+  family: دیجیتال مارکتینگ
+  subgroup: Instagram
+  name: مدیریت پیج اینستاگرام
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Social Media
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Graphic Design
+  - Photo/Film
+  note: شامل Community management.
+- id: SOC-003
+  family: دیجیتال مارکتینگ
+  subgroup: Instagram
+  name: تولید محتوای اینستاگرام
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Social Media
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Graphic Design
+  - Photo/Film
+  note: تولید محتوا ≠ طراحی پست.
+- id: SOC-004
+  family: دیجیتال مارکتینگ
+  subgroup: Instagram
+  name: تولید ریلز
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Social Media
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Photography & Filming
+  - Graphic Design
+  note: Context مالک Social؛ Production capability مشترک.
+- id: SOC-005
+  family: دیجیتال مارکتینگ
+  subgroup: Instagram
+  name: استراتژی اینستاگرام
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Social Media
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: CONFIRMED ENTITY
+  display_contexts:
+  - Content Strategy
+  note: فعلاً Landing مستقل الزام ندارد.
+- id: SOC-006
+  family: دیجیتال مارکتینگ
+  subgroup: Instagram
+  name: تبلیغات اینستاگرام
+  entity_type: Service
+  page_level: ENTITY
+  canonical_owner: Social Media
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: OPEN
+  display_contexts:
+  - Social
+  note: وضعیت خدمت فاز اول نیازمند تایید.
+- id: GD-001
+  family: طراحی گرافیک
+  subgroup: هویت
+  name: طراحی لوگو
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - Brand Consulting
+  - Portfolio
+  note: Logo ≠ Branding.
+- id: GD-002
+  family: طراحی گرافیک
+  subgroup: هویت
+  name: طراحی هویت بصری
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - Brand Strategy
+  - Logo
+  - Portfolio
+  note: Brand Strategy guides Visual Identity.
+- id: GD-003
+  family: طراحی گرافیک
+  subgroup: سازمانی
+  name: طراحی ست اداری
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Printing
+  - Business Card
+  - Letterhead
+  - Envelope
+  note: Object مرکب.
+- id: GD-004
+  family: طراحی گرافیک
+  subgroup: سازمانی
+  name: طراحی کارت ویزیت
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Business Card Printing
+  - Stationery
+  note: Cross-sell B2B.
+- id: GD-005
+  family: طراحی گرافیک
+  subgroup: سازمانی
+  name: طراحی سربرگ
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: SECTION
+  display_contexts:
+  - Stationery
+  note: فعلاً Landing جدا نه.
+- id: GD-006
+  family: طراحی گرافیک
+  subgroup: سازمانی
+  name: طراحی پاکت
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: SECTION
+  display_contexts:
+  - Stationery
+  note: A4/A5/ملخی Variant هستند.
+- id: GD-007
+  family: طراحی گرافیک
+  subgroup: چاپی
+  name: طراحی کاتالوگ
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - Catalog Printing
+  - Product Photography
+  - B2B Solution
+  note: Lead B2B قوی.
+- id: GD-008
+  family: طراحی گرافیک
+  subgroup: چاپی
+  name: طراحی بروشور
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Brochure Printing
+  note: Intent مستقل.
+- id: GD-009
+  family: طراحی گرافیک
+  subgroup: تبلیغاتی
+  name: طراحی بنر
+  entity_type: Service
+  page_level: LANDING/RESOLVER
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - Web
+  - Social
+  - Outdoor
+  - Printing
+  note: Market term چندمعنا؛ Resolver.
+- id: GD-010
+  family: طراحی گرافیک
+  subgroup: وب
+  name: طراحی بنر سایت
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Digital Marketing/Website
+  note: یک Entity، چند Context.
+- id: GD-011
+  family: طراحی گرافیک
+  subgroup: محیطی
+  name: طراحی بیلبورد
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - OOH
+  - Structures
+  - Printing
+  - Portfolio
+  note: Strategic fit بالا.
+- id: GD-012
+  family: طراحی گرافیک
+  subgroup: تبلیغاتی
+  name: طراحی پوستر
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: OWNER PRIORITY
+  display_contexts:
+  - Printing
+  - Events
+  note: به درخواست کارفرما Landing مستقل.
+- id: GD-013
+  family: طراحی گرافیک
+  subgroup: محیطی/نمایشگاهی
+  name: طراحی لایت‌باکس
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: OWNER PRIORITY
+  display_contexts:
+  - Structure Lightbox
+  - Lightbox Fabric Printing
+  note: Landing مستقل.
+- id: GD-014
+  family: طراحی گرافیک
+  subgroup: نمایشگاهی
+  name: طراحی استند نمایشگاهی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: OWNER PRIORITY
+  display_contexts:
+  - Exhibition Solution
+  - Printing
+  note: Landing مستقل.
+- id: GD-015
+  family: طراحی گرافیک
+  subgroup: نمایشگاهی
+  name: طراحی بک‌لایت نمایشگاهی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: OWNER PRIORITY
+  display_contexts:
+  - Lightbox Fabric/Backlight Printing
+  - Exhibition
+  note: Landing مستقل.
+- id: GD-016
+  family: طراحی گرافیک
+  subgroup: بسته‌بندی
+  name: طراحی بسته‌بندی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Printing
+  - Product Photography
+  note: Landing مستقل.
+- id: GD-017
+  family: طراحی گرافیک
+  subgroup: بسته‌بندی
+  name: طراحی لیبل
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Label Printing
+  - Packaging
+  note: Landing مستقل.
+- id: GD-018
+  family: طراحی گرافیک
+  subgroup: سوشال
+  name: طراحی پست/استوری
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: CONTEXT SERVICE
+  display_contexts:
+  - Social Media
+  note: مالک Design؛ در Social فراخوانی شود.
+- id: PRN-001
+  family: چاپ و تولید
+  subgroup: لارج‌فرمت
+  name: چاپ لارج‌فرمت
+  entity_type: ServiceCategory
+  page_level: PILLAR/HUB
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - OOH
+  - Structures
+  note: هاب متریال‌های بزرگ.
+- id: PRN-002
+  family: چاپ و تولید
+  subgroup: لارج‌فرمت
+  name: چاپ بنر
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - Banner Design
+  - OOH
+  - Installation
+  note: Intent transactional قوی.
+- id: PRN-003
+  family: چاپ و تولید
+  subgroup: لارج‌فرمت
+  name: چاپ استیکر / وینیل
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Retail/Exhibition/Outdoor
+  note: Landing مستقل.
+- id: PRN-004
+  family: چاپ و تولید
+  subgroup: لارج‌فرمت
+  name: چاپ بک‌لایت
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Lightbox
+  - Exhibition
+  note: Landing مستقل.
+- id: PRN-005
+  family: چاپ و تولید
+  subgroup: لارج‌فرمت
+  name: چاپ پارچه لایت‌باکس
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: OWNER CORRECTION
+  display_contexts:
+  - Lightbox Structure
+  - Lightbox Design
+  note: «چاپ پارچه» عمومی حذف.
+- id: PRN-006
+  family: چاپ و تولید
+  subgroup: لارج‌فرمت
+  name: چاپ فلکس
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: CANDIDATE
+  display_contexts:
+  - Lightbox/OOH
+  note: در Keyword Gate نهایی می‌تواند Promote شود.
+- id: PRN-007
+  family: چاپ و تولید
+  subgroup: لارج‌فرمت
+  name: چاپ مش
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: CANDIDATE
+  display_contexts:
+  - OOH/Glass/Facade
+  note: در Keyword Gate نهایی.
+- id: PRN-008
+  family: چاپ و تولید
+  subgroup: افست/سازمانی
+  name: چاپ کاتالوگ
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - Catalog Design
+  - Product Photography
+  note: Lead B2B قوی.
+- id: PRN-009
+  family: چاپ و تولید
+  subgroup: افست/سازمانی
+  name: چاپ بروشور
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Brochure Design
+  note: Landing مستقل.
+- id: PRN-010
+  family: چاپ و تولید
+  subgroup: افست/سازمانی
+  name: چاپ ست اداری
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - Stationery Design
+  note: Aggregator B2B.
+- id: PRN-011
+  family: چاپ و تولید
+  subgroup: افست/سازمانی
+  name: چاپ کارت ویزیت
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Business Card Design
+  note: دو Intent چاپ آماده / طراحی+چاپ.
+- id: PRN-012
+  family: چاپ و تولید
+  subgroup: افست/سازمانی
+  name: چاپ سربرگ
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: SECTION
+  display_contexts:
+  - Stationery Printing
+  note: فعلاً زیر ست اداری.
+- id: PRN-013
+  family: چاپ و تولید
+  subgroup: افست/سازمانی
+  name: چاپ پاکت
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: SECTION
+  display_contexts:
+  - Stationery Printing
+  note: A4/A5/نامه Variant.
+- id: PRN-014
+  family: چاپ و تولید
+  subgroup: افست/سازمانی
+  name: چاپ لیبل
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Printing & Production
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: CANDIDATE LANDING
+  display_contexts:
+  - Label Design
+  note: ارزش تخصصی؛ وضعیت نهایی انتشار پس از Keyword Gate.
+- id: PF-001
+  family: عکاسی و فیلم‌برداری
+  subgroup: عکاسی
+  name: عکاسی صنعتی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Photography & Filming
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - B2B Solution
+  - Catalog
+  - Projects
+  note: Landing مستقل.
+- id: PF-002
+  family: عکاسی و فیلم‌برداری
+  subgroup: عکاسی
+  name: عکاسی تبلیغاتی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Photography & Filming
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Website
+  - OOH
+  - Social
+  note: Landing مستقل.
+- id: PF-003
+  family: عکاسی و فیلم‌برداری
+  subgroup: عکاسی
+  name: عکاسی محصول
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Photography & Filming
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Ecommerce
+  - Catalog
+  - Packaging
+  note: Landing مستقل.
+- id: PF-004
+  family: عکاسی و فیلم‌برداری
+  subgroup: فیلم
+  name: ساخت تیزر تبلیغاتی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Photography & Filming
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED HIGH
+  display_contexts:
+  - Advertising
+  - Social
+  - Projects
+  note: Landing مستقل مهم.
+- id: PF-005
+  family: عکاسی و فیلم‌برداری
+  subgroup: فیلم
+  name: فیلم صنعتی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Photography & Filming
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - B2B Solution
+  - Projects
+  note: Landing مستقل.
+- id: PF-006
+  family: عکاسی و فیلم‌برداری
+  subgroup: فیلم
+  name: معرفی شرکت / محصول / پروژه
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Photography & Filming
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: SECTION
+  display_contexts:
+  - Projects
+  - B2B
+  note: قابل Promote در آینده.
+- id: PF-007
+  family: عکاسی و فیلم‌برداری
+  subgroup: فیلم
+  name: مستند سازمانی / مصاحبه / رویداد / هلی‌شات
+  entity_type: Service
+  page_level: SECTION/ENTITY
+  canonical_owner: Photography & Filming
+  commercial_status: ACTIVE
+  publication: INDEX via parent
+  research_decision: SECTION
+  display_contexts:
+  - Projects
+  - Events
+  note: فعلاً سکشن/Entity.
+- id: CON-001
+  family: مشاوره
+  subgroup: تبلیغات
+  name: مشاوره تبلیغات
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Consulting
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - OOH
+  - Design
+  - Digital
+  note: Decision service.
+- id: CON-002
+  family: مشاوره
+  subgroup: برند
+  name: مشاوره برند
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Consulting
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: CONFIRMED SEO / VERIFY PHASE1
+  display_contexts:
+  - Visual Identity
+  - Logo
+  note: وضعیت ارائه فاز اول در Catalog نهایی verify شود.
+- id: CON-003
+  family: مشاوره
+  subgroup: برند
+  name: استراتژی برند
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Consulting
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: CONFIRMED SEO / VERIFY PHASE1
+  display_contexts:
+  - Brand Consulting
+  - Visual Identity
+  note: Strategic deliverable.
+- id: CON-004
+  family: مشاوره
+  subgroup: بازاریابی
+  name: مشاوره بازاریابی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Consulting
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Digital
+  - OOH
+  - Sales
+  note: Landing مستقل.
+- id: CON-005
+  family: مشاوره
+  subgroup: بازاریابی
+  name: استراتژی بازاریابی
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Consulting
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Marketing Consulting
+  note: در فایل اولیه خدمات هم وجود دارد.
+- id: CON-006
+  family: مشاوره
+  subgroup: بازاریابی
+  name: تحقیقات بازار
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Consulting
+  commercial_status: RESEARCH
+  publication: DRAFT
+  research_decision: CONFIRMED SEO / VERIFY PHASE1
+  display_contexts:
+  - Marketing Strategy
+  note: اگر Capability کامل نیست LEAD/FUTURE صادقانه.
+- id: CON-007
+  family: مشاوره
+  subgroup: کسب‌وکار
+  name: مشاوره کسب‌وکار
+  entity_type: Service
+  page_level: PILLAR/LANDING
+  canonical_owner: Consulting
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - Sales
+  - Systems
+  note: هاب مسائل مدیریتی.
+- id: CON-008
+  family: مشاوره
+  subgroup: کسب‌وکار
+  name: سیستم‌سازی کسب‌وکار
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Consulting
+  commercial_status: ACTIVE
+  publication: INDEX
+  research_decision: CONFIRMED
+  display_contexts:
+  - CRM future
+  - Processes
+  note: در فایل اولیه خدمات وجود دارد.
+- id: CON-009
+  family: مشاوره
+  subgroup: کسب‌وکار
+  name: استراتژی فروش
+  entity_type: Service
+  page_level: LANDING
+  canonical_owner: Consulting
+  commercial_status: ACTIVE
+  publication: DRAFT
+  research_decision: CANDIDATE
+  display_contexts:
+  - Business Consulting
+  note: در Keyword/URL Gate نهایی تصمیم Index.

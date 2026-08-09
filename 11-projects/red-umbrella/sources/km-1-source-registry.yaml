@@ -2,7 +2,7 @@ uid: SRC-RU-000001
 type: source_registry
 name: Red Umbrella KM-1 Source Registry
 status: active
-version: 1.4.0
+version: 1.5.0
 source_language: fa
 project_uid: PRJ-000001
 
@@ -93,6 +93,41 @@ sources:
     path: 11-projects/red-umbrella/registries/chatreghermez-sitemap-v5-target-predeploy.xml
     role: current_target_sitemap
     priority: locked
+  - uid: SRC-RU-000021
+    path: 11-projects/red-umbrella/registries/architecture-entity-registry-v2.1.yaml
+    role: machine_readable_entity_registry
+    priority: locked
+    materialized_from: SRC-RU-000008
+  - uid: SRC-RU-000022
+    path: 11-projects/red-umbrella/registries/service-landing-registry-v2.1.yaml
+    role: machine_readable_service_and_landing_catalog
+    priority: locked
+    materialized_from: SRC-RU-000008
+  - uid: SRC-RU-000023
+    path: 11-projects/red-umbrella/registries/entity-relations-registry-v2.1.yaml
+    role: machine_readable_entity_relations
+    priority: locked
+    materialized_from: SRC-RU-000008
+  - uid: SRC-RU-000024
+    path: 11-projects/red-umbrella/registries/locked-architecture-decisions-v2.1.yaml
+    role: machine_readable_locked_decisions
+    priority: locked
+    materialized_from: SRC-RU-000008
+  - uid: SRC-RU-000025
+    path: 11-projects/red-umbrella/registries/future-modules-v2.1.yaml
+    role: machine_readable_future_modules_excluded_from_generation
+    priority: locked
+    materialized_from: SRC-RU-000008
+  - uid: SRC-RU-000026
+    path: 11-projects/red-umbrella/registries/url-migration-map-v1-to-v2.1.yaml
+    role: machine_readable_v1_to_v2_migration_map
+    priority: approved_supporting
+    materialized_from: SRC-RU-000008
+  - uid: SRC-RU-000027
+    path: 11-projects/red-umbrella/registries/url-audit-priority-queue-v2.1.yaml
+    role: machine_readable_url_audit_priority_queue
+    priority: approved_supporting
+    materialized_from: SRC-RU-000008
 
 conflict_rule:
   rule: در تعارض میان منابع، تصمیم متاخر کاربر و سپس تصمیم فعال قفل‌شده و معماری v2.1 حاکم است؛ منابع deprecated حق Override ندارند و تعارض حل‌نشده باید پیش از ثبت پرسیده شود.

@@ -1,0 +1,96 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-locked-architecture-decisions-v2.1
+project_id: red-umbrella
+status: locked
+source: چتر_قرمز_معماری_و_رجیستری_سایت_v2.1.xlsx#06-تصمیم‌های قفل‌شده
+records:
+- id: DEC-V2-001
+  decision: Service / Structure / Media Inventory / Investment مستقل‌اند.
+  architectural_effect: Entity model + Sitemap
+  source: تایید کارفرما 2026-08-09
+  status: LOCKED
+- id: DEC-V2-002
+  decision: Structures سیلوی مستقل و منبع حقیقت سازه است.
+  architectural_effect: Structures + reuse
+  source: تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-003
+  decision: Investment مسیر مستقل است.
+  architectural_effect: Root architecture
+  source: تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-004
+  decision: Project canonical = /projects/{slug}/؛ چند نقش دارد.
+  architectural_effect: Project architecture
+  source: تایید مدل A
+  status: LOCKED
+- id: DEC-V2-005
+  decision: Portfolio = Collection/Showcase؛ WorkSample مستقل یا part_of Project.
+  architectural_effect: Portfolio architecture
+  source: تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-006
+  decision: Media Rental transactional module فعلاً متوقف تا پایان سایت و SEO.
+  architectural_effect: Scope
+  source: تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-007
+  decision: Digital Marketing در UX شامل Website + Social Media است؛ خدمات Cross-channel مستقل می‌مانند.
+  architectural_effect: Service IA
+  source: تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-008
+  decision: Design & Branding حذف؛ خانواده «طراحی گرافیک» است.
+  architectural_effect: Service IA
+  source: تحقیق + تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-009
+  decision: Brand Strategy/Consulting در خانواده مشاوره؛ Visual Identity در Graphic Design.
+  architectural_effect: Ownership
+  source: تحقیق + تایید
+  status: LOCKED
+- id: DEC-V2-010
+  decision: عکاسی و فیلم‌برداری خانواده مستقل است.
+  architectural_effect: Service IA
+  source: فایل خدمات + تایید
+  status: LOCKED
+- id: DEC-V2-011
+  decision: Analytics خدمت نیست؛ CRM/Retention ماژول آینده.
+  architectural_effect: Scope/Data
+  source: تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-012
+  decision: Knowledge = Article + Video؛ نمایش مرتبط و لینک‌دهی دوطرفه در صفحات.
+  architectural_effect: Knowledge architecture
+  source: تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-013
+  decision: 'Solutions: شهرداری، B2B صنعتی، نمایشگاه، کسب‌وکار محلی؛ مالکان فضا به Investment.'
+  architectural_effect: Solutions
+  source: تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-014
+  decision: برای Design/Print یک Object مشترک داریم؛ Serviceها روی آن انجام می‌شوند.
+  architectural_effect: Knowledge Graph
+  source: تایید کارفرما
+  status: LOCKED
+- id: DEC-V2-015
+  decision: «بنر» Market Term چندمعناست و باید Intent Resolution شود.
+  architectural_effect: Query architecture
+  source: تحقیق + تایید
+  status: LOCKED
+- id: DEC-V2-016
+  decision: «چاپ پارچه» حذف؛ فقط «چاپ پارچه لایت‌باکس».
+  architectural_effect: Printing registry
+  source: اصلاح کارفرما
+  status: LOCKED
+- id: DEC-V2-017
+  decision: پوستر، لایت‌باکس، استند نمایشگاهی، بک‌لایت نمایشگاهی Landing مستقل طراحی دارند.
+  architectural_effect: Graphic Design
+  source: تصمیم کارفرما
+  status: LOCKED
+- id: DEC-V2-018
+  decision: صفحات Future/Lead ممکن‌اند ولی ادعای خدمت اجرا نشده ممنوع است.
+  architectural_effect: Commercial governance
+  source: تایید کارفرما
+  status: LOCKED

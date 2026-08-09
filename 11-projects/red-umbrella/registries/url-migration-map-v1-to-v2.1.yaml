@@ -1,0 +1,182 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-url-migration-map-v1-v2.1
+project_id: red-umbrella
+status: locked
+source: چتر_قرمز_معماری_و_رجیستری_سایت_v2.1.xlsx#04-مهاجرت از v1
+records:
+- v1_row: 1
+  v1_name_or_path: خانه /
+  v1_status: بازنویسی
+  v2_destination: CORE-001 Home
+  migration_action: KEEP
+  redirect_url_decision: KEEP after live audit
+  reason: صفحه ریشه کانونیکال باقی می‌ماند.
+  final_status: Ready
+- v1_row: 2
+  v1_name_or_path: /environmental-advertising
+  v1_status: جدید
+  v2_destination: SRV-OOH تبلیغات محیطی
+  migration_action: RENAME/KEEP URL pending
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: مفهوم حفظ؛ URL براساس وضعیت واقعی سایت تصمیم می‌گیرد.
+  final_status: Audit
+- v1_row: 3
+  v1_name_or_path: /municipality-investment
+  v1_status: جدید
+  v2_destination: INV-000 Investment Hub
+  migration_action: MERGE/301 candidate
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: سرمایه‌گذاری از Services جدا و هاب مستقل شده است.
+  final_status: Audit
+- v1_row: 4
+  v1_name_or_path: /billboard-rental-isfahan
+  v1_status: جدید
+  v2_destination: SRV-OOH-RENT + Local layer
+  migration_action: MERGE/SPLIT
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: خدمت اجاره حفظ؛ City-specific page پیش‌فرض حذف و Local Hub چندخدمتی جایگزین.
+  final_status: Audit
+- v1_row: 5
+  v1_name_or_path: /billboard-mobarakeh
+  v1_status: جدید
+  v2_destination: CITY-DETAIL مبارکه + Projects + Rental context
+  migration_action: MERGE
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: صفحه شهر باید چندخدمتی و Evidence-based باشد.
+  final_status: Audit
+- v1_row: 6
+  v1_name_or_path: /advertising-foladshahr
+  v1_status: جدید
+  v2_destination: CITY-DETAIL فولادشهر
+  migration_action: RENAME/MERGE
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: Local hub چندخدمتی.
+  final_status: Audit
+- v1_row: 7
+  v1_name_or_path: /advertising-[city]
+  v1_status: جدید
+  v2_destination: CITY-DETAIL-*
+  migration_action: REPLACE_PATTERN
+  redirect_url_decision: PENDING
+  reason: فقط شهرهای دارای شواهد واقعی.
+  final_status: Audit
+- v1_row: 8
+  v1_name_or_path: /billboard-types
+  v1_status: بازنویسی
+  v2_destination: STR-000 /structures/
+  migration_action: MERGE/301 candidate
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: انواع سازه به دانشنامه Structures منتقل شده.
+  final_status: Audit
+- v1_row: 9
+  v1_name_or_path: /services
+  v1_status: جدید
+  v2_destination: SRV-000 Services
+  migration_action: KEEP
+  redirect_url_decision: KEEP/PENDING canonical slash
+  reason: هاب خدمات حفظ.
+  final_status: Ready
+- v1_row: 10
+  v1_name_or_path: /web-design-isfahan
+  v1_status: بازنویسی
+  v2_destination: WEB-001 + Local layer
+  migration_action: KEEP/301 pending
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: طراحی سایت Landing اصلی؛ Local modifier در لایه شهر/SEO Audit بررسی می‌شود.
+  final_status: Audit
+- v1_row: 11
+  v1_name_or_path: /graphic-design
+  v1_status: بازنویسی
+  v2_destination: SRV-GD طراحی گرافیک
+  migration_action: KEEP
+  redirect_url_decision: KEEP after audit
+  reason: نام خانواده با v2 سازگار است.
+  final_status: Ready
+- v1_row: 12
+  v1_name_or_path: /printing
+  v1_status: جدید
+  v2_destination: SRV-PRN چاپ و تولید
+  migration_action: KEEP/RENAME display
+  redirect_url_decision: KEEP URL candidate
+  reason: نام نمایشی توسعه یافته؛ URL ممکن است چاپ بماند.
+  final_status: Audit
+- v1_row: 13
+  v1_name_or_path: /video-marketing-isfahan
+  v1_status: بازنویسی
+  v2_destination: PF-004 ساخت تیزر + SRV-PHOTO
+  migration_action: SPLIT/RENAME
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: Video Marketing خانواده تولید نیست؛ عکاسی و فیلم‌برداری مالک تولید است.
+  final_status: Audit
+- v1_row: 14
+  v1_name_or_path: /product-photography
+  v1_status: نگه‌داشتن
+  v2_destination: PF-003 عکاسی محصول
+  migration_action: KEEP
+  redirect_url_decision: KEEP after audit
+  reason: Entity مستقیم و مستقل حفظ.
+  final_status: Ready
+- v1_row: 15
+  v1_name_or_path: /social-media-management
+  v1_status: بازنویسی
+  v2_destination: SOC-001/SOC-002
+  migration_action: KEEP/MERGE
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: Social Media hub و Instagram management تفکیک منطقی دارند.
+  final_status: Audit
+- v1_row: 16
+  v1_name_or_path: /consulting
+  v1_status: بازنویسی
+  v2_destination: SRV-CONS مشاوره
+  migration_action: KEEP
+  redirect_url_decision: KEEP
+  reason: خانواده مستقل مشاوره قطعی است.
+  final_status: Ready
+- v1_row: 17
+  v1_name_or_path: /portfolio
+  v1_status: بازنویسی
+  v2_destination: PRT-000 Portfolio
+  migration_action: KEEP
+  redirect_url_decision: KEEP
+  reason: Portfolio ویترین WorkSample/Project است.
+  final_status: Ready
+- v1_row: 18
+  v1_name_or_path: /about
+  v1_status: بازنویسی
+  v2_destination: ABT-000 About
+  migration_action: KEEP candidate
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: /about vs /about-us باید با Live URL Audit حل شود.
+  final_status: Audit
+- v1_row: 19
+  v1_name_or_path: /contact
+  v1_status: بازنویسی
+  v2_destination: CNT-000 Contact
+  migration_action: KEEP candidate
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: /contact vs /contact-us Audit.
+  final_status: Audit
+- v1_row: 20
+  v1_name_or_path: /credentials
+  v1_status: جدید
+  v2_destination: LIC-000 Credentials
+  migration_action: KEEP
+  redirect_url_decision: KEEP candidate
+  reason: Trust page مستقل حفظ.
+  final_status: Ready
+- v1_row: 21
+  v1_name_or_path: /blog
+  v1_status: پاک‌سازی
+  v2_destination: KNW-000 Knowledge
+  migration_action: RENAME display / URL pending
+  redirect_url_decision: PENDING_URL_AUDIT
+  reason: Knowledge شامل Article + Video است؛ URL ممکن است /blog بماند.
+  final_status: Audit
+- v1_row: 22
+  v1_name_or_path: محتوای بی‌ربط وبلاگ
+  v1_status: حذف/ادغام
+  v2_destination: Knowledge cleanup queue
+  migration_action: REMOVE/MERGE
+  redirect_url_decision: PER CONTENT AUDIT
+  reason: هرس محتوای رقیق‌کننده topical authority.
+  final_status: Audit

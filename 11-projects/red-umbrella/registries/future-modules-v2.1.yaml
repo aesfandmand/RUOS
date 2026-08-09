@@ -1,0 +1,47 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-future-modules-v2.1
+project_id: red-umbrella
+status: locked
+source: چتر_قرمز_معماری_و_رجیستری_سایت_v2.1.xlsx#07-ماژول‌های آینده
+records:
+- module: Media Rental & Booking
+  status: FUTURE
+  current_architectural_hooks:
+  - Project
+  - MediaAsset
+  - Structure
+  - Media Rental Service
+  future_entities:
+  - BookableMediaUnit
+  - AvailabilityCalendar
+  - BookingSlot
+  - Cart
+  - Checkout
+  - Contract
+  - Deposit
+  - Cheques
+  activation_gate: پس از نهایی‌شدن سایت + SEO + آماده‌سازی داده واقعی رسانه
+  public_sitemap_now: 'NO'
+  note: تقویم سالانه، فیلتر پروژه/نوع/اندازه/مسیر/خیابان/میدان، نقشه، عکس/فیلم، انتخاب ماه، add-ons طراحی/چاپ/نصب، 10% بیعانه.
+- module: CRM / Customer Intelligence
+  status: FUTURE
+  current_architectural_hooks:
+  - Lead model
+  - Contact
+  - Services
+  - Projects
+  - Knowledge
+  future_entities:
+  - Customer
+  - Segment
+  - Lifecycle
+  - Retention
+  - Email
+  - SMS
+  - Offers
+  - Events
+  - Recommendation
+  - Reporting
+  activation_gate: پس از تثبیت سایت و اتصال داده مشتری
+  public_sitemap_now: 'NO'
+  note: تحلیل داده خدمت قابل فروش نیست؛ CRM برای امور داخلی Retention/Communication است.

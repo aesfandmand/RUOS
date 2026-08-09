@@ -1,0 +1,262 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-entity-relations-v2.1
+project_id: red-umbrella
+status: locked
+source: چتر_قرمز_معماری_و_رجیستری_سایت_v2.1.xlsx#03-موجودیت‌ها و روابط
+glossary:
+- entity: Service
+  canonical_definition: کاری که چتر قرمز انجام می‌دهد و قابل سفارش/قرارداد است
+  canonical_source_of_truth: Service Registry
+  example: طراحی لوگو، چاپ بنر، پشتیبانی سایت
+  key_relations:
+  - serves
+  - uses
+  - related_to
+  - enabled_by
+  displayed_in:
+  - Services, Solutions, Projects, Portfolio, Knowledge
+  duplication_allowed: خیر
+  note: یک Service ID، چند Context.
+- entity: Object / Deliverable
+  canonical_definition: چیزی که روی آن Design/Production انجام می‌شود
+  canonical_source_of_truth: Object Registry
+  example: کارت ویزیت، کاتالوگ، بنر، لیبل
+  key_relations:
+  - designed_by
+  - printed_by
+  - depicted_in
+  displayed_in:
+  - Design, Printing, Portfolio
+  duplication_allowed: خیر
+  note: Design و Print دو Service روی یک Object.
+- entity: Structure
+  canonical_definition: نوع/محصول سازه و مشخصات فنی آن
+  canonical_source_of_truth: Structure Registry
+  example: Billboard, Lightbox, Straboard
+  key_relations:
+  - instance_of
+  - suitable_for
+  - available_for
+  displayed_in:
+  - Structures, Purchase, Investment, OOH, Projects
+  duplication_allowed: خیر
+  note: منبع حقیقت مشخصات سازه.
+- entity: MediaAsset / MediaUnit
+  canonical_definition: نمونه فیزیکی نصب‌شده از سازه
+  canonical_source_of_truth: Future Media Inventory
+  example: تابلو شماره X در میدان Y
+  key_relations:
+  - instance_of
+  - located_in
+  - belongs_to_project
+  displayed_in:
+  - Projects
+  - Future Rental
+  duplication_allowed: خیر
+  note: تقویم/رزرو بعداً اضافه می‌شود.
+- entity: Project
+  canonical_definition: پروژه واقعی، قرارداد یا سرمایه‌گذاری چندنقشی
+  canonical_source_of_truth: Project Registry
+  example: پروژه تبلیغات شهری فولادشهر
+  key_relations:
+  - contains
+  - uses
+  - located_in
+  - related_content
+  displayed_in:
+  - Projects, Investment, Services, Cities, Portfolio
+  duplication_allowed: خیر
+  note: roles[] به جای نوع واحد.
+- entity: WorkSample
+  canonical_definition: خروجی مشخص قابل نمایش
+  canonical_source_of_truth: Portfolio Registry
+  example: لوگوی برند X، چاپ بنر Y
+  key_relations:
+  - service
+  - object
+  - part_of_project(optional)
+  displayed_in:
+  - Portfolio + contextual modules
+  duplication_allowed: خیر
+  note: می‌تواند مستقل یا جزو Project باشد.
+- entity: Investment Model
+  canonical_definition: مدل همکاری/سرمایه‌گذاری
+  canonical_source_of_truth: Investment Registry
+  example: BOLT، مشارکت، بهره‌برداری
+  key_relations:
+  - governs
+  - applies_to
+  displayed_in:
+  - Investment, Projects, Solutions
+  duplication_allowed: خیر
+  note: از Service جدا.
+- entity: Solution
+  canonical_definition: ترکیب خدمات برای مسئله/پرسونا
+  canonical_source_of_truth: Solution Registry
+  example: راهکار نمایشگاه
+  key_relations:
+  - uses_services
+  - serves_persona
+  - proven_by
+  displayed_in:
+  - Solutions + contextual modules
+  duplication_allowed: خیر
+  note: Service جدید ایجاد نمی‌کند.
+- entity: Article
+  canonical_definition: محتوای دانشی متنی
+  canonical_source_of_truth: Knowledge Registry
+  example: راهنمای انتخاب بیلبورد
+  key_relations:
+  - about
+  - related_service
+  - related_project
+  displayed_in:
+  - Knowledge + all related pages
+  duplication_allowed: خیر
+  note: لینک‌دهی دوطرفه.
+- entity: Video
+  canonical_definition: محتوای دانشی ویدئویی مستقل
+  canonical_source_of_truth: Knowledge Registry
+  example: ویدئوی معرفی فرایند ساخت سازه
+  key_relations:
+  - about
+  - related_service
+  - related_project
+  displayed_in:
+  - Knowledge + all related pages
+  duplication_allowed: خیر
+  note: Transcript/context + VideoObject.
+- entity: City / Place
+  canonical_definition: موجودیت جغرافیایی واقعی
+  canonical_source_of_truth: Local Registry
+  example: اصفهان، فولادشهر، مبارکه
+  key_relations:
+  - located_in
+  - has_office
+  - has_project
+  displayed_in:
+  - Cities, Projects, Services local
+  duplication_allowed: خیر
+  note: صفحات شهر چندخدمتی و Evidence-gated.
+- entity: Facility
+  canonical_definition: واحد/زیرساخت واقعی
+  canonical_source_of_truth: Facility Registry
+  example: کارگاه، چاپخانه، دفتر
+  key_relations:
+  - supports
+  - located_in
+  - evidenced_by
+  displayed_in:
+  - About/Facilities, Services, Projects
+  duplication_allowed: خیر
+  note: Index فقط با Evidence.
+- entity: Capability
+  canonical_definition: توانمندی اثبات‌کننده اجرا
+  canonical_source_of_truth: Capability Registry
+  example: چاپ لارج‌فرمت، ساخت سازه
+  key_relations:
+  - enables
+  - proven_by
+  - owned_by
+  displayed_in:
+  - Services, Facilities, Projects
+  duplication_allowed: خیر
+  note: نسخه دوم Service نیست.
+- entity: Persona
+  canonical_definition: مخاطب/نقش تصمیم‌گیر
+  canonical_source_of_truth: Persona Taxonomy
+  example: شهرداری، مدیر بازاریابی B2B
+  key_relations:
+  - served_by
+  - seeks_solution
+  displayed_in:
+  - Solutions, Services, Content
+  duplication_allowed: —
+  note: Taxonomy؛ نه لزوماً صفحه.
+- entity: Market Term / Query Concept
+  canonical_definition: واژه مبهم بازار برای Intent Resolution
+  canonical_source_of_truth: Query Registry
+  example: بنر
+  key_relations:
+  - resolves_to
+  displayed_in:
+  - Search/Content architecture
+  duplication_allowed: —
+  note: بنر می‌تواند Design/Print/Web/Social/Outdoor باشد.
+relation_triples:
+- source: Service
+  relation: canonical_owner
+  target: Service Domain
+  usage: مالکیت کانونیکال
+- source: Service
+  relation: displayed_in
+  target: Context/Hub
+  usage: Polyhierarchy بدون Duplicate
+- source: Object
+  relation: designed_by
+  target: Design Service
+  usage: Design ↔ Production
+- source: Object
+  relation: printed_by
+  target: Printing Service
+  usage: Cross-sell
+- source: Structure
+  relation: instance_of
+  target: Structure Type
+  usage: Data reuse
+- source: MediaAsset
+  relation: instance_of
+  target: Structure
+  usage: فراخوانی مشخصات سازه
+- source: MediaAsset
+  relation: belongs_to
+  target: Project
+  usage: استفاده مشترک سرمایه‌گذاری/اجاره
+- source: Project
+  relation: contains
+  target: MediaAsset
+  usage: لیست تابلوهای پروژه
+- source: Project
+  relation: uses
+  target: Service
+  usage: اثبات خدمات
+- source: Project
+  relation: uses_structure
+  target: Structure
+  usage: اثبات سازه
+- source: Project
+  relation: related_to
+  target: Article/Video
+  usage: Knowledge
+- source: WorkSample
+  relation: part_of
+  target: Project(optional)
+  usage: Portfolio
+- source: Article/Video
+  relation: about
+  target: Service/Structure/Project/etc
+  usage: Internal linking
+- source: Solution
+  relation: uses
+  target: Service
+  usage: راهکار چندخدمتی
+- source: Facility
+  relation: supports
+  target: Capability/Service
+  usage: E-E-A-T / Proof
+- source: Brand Strategy
+  relation: guides
+  target: Visual Identity
+  usage: مرز Consulting/Graphic Design
+- source: SEO
+  relation: primarily_applies_to
+  target: Website
+  usage: Entity مستقل، UI در Website
+- source: Web Banner Design
+  relation: used_in
+  target: Website/Digital
+  usage: مالک کانونیکال Graphic Design
+- source: Social Design
+  relation: used_in
+  target: Social Media
+  usage: مالک کانونیکال Graphic Design

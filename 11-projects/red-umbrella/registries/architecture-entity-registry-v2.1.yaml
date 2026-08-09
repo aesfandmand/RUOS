@@ -1,0 +1,894 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-architecture-entities-v2.1
+project_id: red-umbrella
+status: locked
+source: چتر_قرمز_معماری_و_رجیستری_سایت_v2.1.xlsx#01-رجیستری معماری v2
+records:
+- id: CORE-001
+  parent_id: null
+  layer: Core
+  name_fa: خانه
+  name_en: Home
+  entity_type: Page
+  page_type: HOME
+  page_level: ROOT
+  canonical_owner: Core
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /
+  url_status: KEEP
+  navigation: Main nav
+  primary_role: دروازه اصلی برند و هدایت به مسیرهای اصلی
+  dominant_intent: Mixed
+  main_relations:
+  - Services
+  - Solutions
+  - Investment
+  - Projects
+  - Knowledge
+  knowledge_relation: Related articles/videos selectively
+  note: URL فعلی حفظ شود مگر Audit خلافش را ثابت کند.
+- id: SRV-000
+  parent_id: CORE-001
+  layer: Services
+  name_fa: خدمات
+  name_en: Services
+  entity_type: ServiceCollection
+  page_type: SERVICE_HUB
+  page_level: HUB
+  canonical_owner: Services
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /services/
+  url_status: PENDING_AUDIT
+  navigation: Main nav
+  primary_role: کشف و مسیریابی خانواده‌های خدمات
+  dominant_intent: Commercial investigation
+  main_relations:
+  - 6 service families
+  knowledge_relation: Articles/Videos by family
+  note: هاب فهرست ساده نباشد؛ Discovery + Authority.
+- id: SRV-OOH
+  parent_id: SRV-000
+  layer: Services
+  name_fa: تبلیغات محیطی
+  name_en: Outdoor Advertising
+  entity_type: ServiceDomain
+  page_type: SERVICE_CATEGORY
+  page_level: PILLAR/HUB
+  canonical_owner: Outdoor Advertising
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Mega menu
+  primary_role: Hybrid Service Hub؛ شناخت + انتخاب + اقدام
+  dominant_intent: Informational + Commercial
+  main_relations:
+  - Structures
+  - Design
+  - Printing
+  - Projects
+  - Investment
+  - Media Rental
+  knowledge_relation: OOH articles/videos
+  note: معماری این بخش قبلاً تأیید شده و بازنویسی نمی‌شود.
+- id: SRV-OOH-RENT
+  parent_id: SRV-OOH
+  layer: Services
+  name_fa: اجاره و اکران رسانه
+  name_en: Media Rental & Display Service
+  entity_type: Service
+  page_type: SERVICE_LANDING
+  page_level: LANDING
+  canonical_owner: Outdoor Advertising
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Contextual
+  primary_role: صفحه خدمت اجاره/اکران؛ ورودی به ماژول آینده
+  dominant_intent: Transactional
+  main_relations:
+  - Media Inventory(FUTURE)
+  - Projects
+  - Structures
+  - Design
+  - Printing
+  - Installation
+  knowledge_relation: Rental/OHH knowledge
+  note: سامانه تراکنشی /media فعلاً FUTURE است.
+- id: SRV-DM
+  parent_id: SRV-000
+  layer: Services
+  name_fa: دیجیتال مارکتینگ
+  name_en: Digital Marketing
+  entity_type: ServiceDomain
+  page_type: SERVICE_CATEGORY
+  page_level: PILLAR/HUB
+  canonical_owner: Digital Marketing
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Mega menu
+  primary_role: هاب بزرگ دو اکوسیستم Website و Social Media
+  dominant_intent: Commercial investigation
+  main_relations:
+  - Website
+  - Social Media
+  - Cross-channel entities
+  knowledge_relation: Digital articles/videos
+  note: UI hierarchy با Knowledge Graph یکسان نیست.
+- id: SRV-DM-WEB
+  parent_id: SRV-DM
+  layer: Services
+  name_fa: وب‌سایت
+  name_en: Website Ecosystem
+  entity_type: TopicHub
+  page_type: SERVICE_CATEGORY
+  page_level: HUB
+  canonical_owner: Digital Marketing
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Mega menu
+  primary_role: چرخه کامل ساخت، رشد و نگهداری وب‌سایت
+  dominant_intent: Mixed
+  main_relations:
+  - Web Design
+  - SEO
+  - Support
+  - Web Graphics
+  - future content/ads
+  knowledge_relation: Website articles/videos
+  note: Website مترادف طراحی سایت نیست.
+- id: SRV-DM-SOC
+  parent_id: SRV-DM
+  layer: Services
+  name_fa: سوشال مدیا
+  name_en: Social Media Ecosystem
+  entity_type: TopicHub
+  page_type: SERVICE_CATEGORY
+  page_level: HUB
+  canonical_owner: Digital Marketing
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Mega menu
+  primary_role: هاب خدمات شبکه‌های اجتماعی
+  dominant_intent: Mixed
+  main_relations:
+  - Instagram
+  - Graphic Design
+  - Photography/Filming
+  knowledge_relation: Social articles/videos
+  note: فاز اول Instagram محور، اما معماری قابل توسعه است.
+- id: SRV-GD
+  parent_id: SRV-000
+  layer: Services
+  name_fa: طراحی گرافیک
+  name_en: Graphic Design
+  entity_type: ServiceDomain
+  page_type: SERVICE_CATEGORY
+  page_level: PILLAR/HUB
+  canonical_owner: Graphic Design
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Mega menu
+  primary_role: مالک کانونیکال Design Deliverableها
+  dominant_intent: Commercial
+  main_relations:
+  - Objects
+  - Printing
+  - OOH
+  - Website
+  - Social
+  - Portfolio
+  knowledge_relation: Design articles/videos
+  note: Branding از این خانواده خارج است؛ Visual Identity باقی می‌ماند.
+- id: SRV-PRN
+  parent_id: SRV-000
+  layer: Services
+  name_fa: چاپ و تولید
+  name_en: Printing & Production
+  entity_type: ServiceDomain
+  page_type: SERVICE_CATEGORY
+  page_level: PILLAR/HUB
+  canonical_owner: Printing & Production
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Mega menu
+  primary_role: مالک کانونیکال تولید و چاپ فیزیکی
+  dominant_intent: Transactional
+  main_relations:
+  - Graphic Design
+  - Objects
+  - OOH
+  - Structures
+  knowledge_relation: Print articles/videos
+  note: چاپ پارچه عمومی حذف؛ فقط پارچه لایت‌باکس.
+- id: SRV-PHOTO
+  parent_id: SRV-000
+  layer: Services
+  name_fa: عکاسی و فیلم‌برداری
+  name_en: Photography & Filming
+  entity_type: ServiceDomain
+  page_type: SERVICE_CATEGORY
+  page_level: PILLAR/HUB
+  canonical_owner: Photography & Filming
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Mega menu
+  primary_role: خانواده مستقل تولید عکس/فیلم
+  dominant_intent: Transactional
+  main_relations:
+  - Social
+  - Website
+  - Portfolio
+  - Projects
+  knowledge_relation: Photo/video knowledge
+  note: Video Marketing = Context بازاریابی، نه خانواده تولید.
+- id: SRV-CONS
+  parent_id: SRV-000
+  layer: Services
+  name_fa: مشاوره
+  name_en: Consulting
+  entity_type: ServiceDomain
+  page_type: SERVICE_CATEGORY
+  page_level: PILLAR/HUB
+  canonical_owner: Consulting
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /consulting/
+  url_status: PENDING_AUDIT
+  navigation: Mega menu
+  primary_role: Decision Hub؛ تشخیص مسئله و هدایت به اقدام
+  dominant_intent: Commercial investigation
+  main_relations:
+  - Advertising
+  - Brand
+  - Marketing
+  - Business
+  knowledge_relation: Consulting knowledge
+  note: تحلیل داده می‌تواند ابزار مشاور باشد اما Service مستقل Analytics نیست.
+- id: SOL-000
+  parent_id: CORE-001
+  layer: Solutions
+  name_fa: راهکارها
+  name_en: Solutions
+  entity_type: SolutionCollection
+  page_type: SOLUTION_HUB
+  page_level: HUB
+  canonical_owner: Solutions
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /solutions/
+  url_status: PENDING_AUDIT
+  navigation: Main/Mega
+  primary_role: ترکیب خدمات بر اساس مسئله/پرسونا
+  dominant_intent: Problem-led
+  main_relations:
+  - Services
+  - Projects
+  - Knowledge
+  knowledge_relation: Articles/Videos by persona/problem
+  note: فقط Solutionهای دارای پیشنهاد و Evidence متمایز Index شوند.
+- id: SOL-PUBLIC
+  parent_id: SOL-000
+  layer: Solutions
+  name_fa: شهرداری‌ها و نهادهای عمومی
+  name_en: Public Sector & Municipalities
+  entity_type: Solution
+  page_type: SOLUTION_LANDING
+  page_level: LANDING
+  canonical_owner: Solutions
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Contextual
+  primary_role: ترکیب خدمات سازمانی، سازه، پروژه و مسیر سرمایه‌گذاری
+  dominant_intent: B2G
+  main_relations:
+  - Investment
+  - Structures
+  - OOH
+  - Projects
+  knowledge_relation: Municipal content
+  note: Investment تنها یکی از مسیرهاست.
+- id: SOL-B2B
+  parent_id: SOL-000
+  layer: Solutions
+  name_fa: شرکت‌های صنعتی و B2B
+  name_en: Industrial & B2B
+  entity_type: Solution
+  page_type: SOLUTION_LANDING
+  page_level: LANDING
+  canonical_owner: Solutions
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Contextual
+  primary_role: پکیج چندخدمتی برای شرکت/کارخانه
+  dominant_intent: B2B
+  main_relations:
+  - Website
+  - Catalog
+  - Photo/Film
+  - Printing
+  - Consulting
+  knowledge_relation: Industrial knowledge
+  note: Lead quality بالا.
+- id: SOL-EXPO
+  parent_id: SOL-000
+  layer: Solutions
+  name_fa: حضور در نمایشگاه
+  name_en: Exhibition Presence
+  entity_type: Solution
+  page_type: SOLUTION_LANDING
+  page_level: LANDING
+  canonical_owner: Solutions
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Contextual
+  primary_role: بسته زمانی و چندخدمتی نمایشگاه
+  dominant_intent: Event/commercial
+  main_relations:
+  - Stand
+  - Backlight
+  - Printing
+  - Catalog
+  - Photo/Film
+  - Design
+  knowledge_relation: Exhibition knowledge
+  note: راهکار چندخدمتی حفظ شود.
+- id: SOL-LOCAL
+  parent_id: SOL-000
+  layer: Solutions
+  name_fa: کسب‌وکارهای محلی و اصناف
+  name_en: Local Businesses
+  entity_type: Solution
+  page_type: SOLUTION_LANDING
+  page_level: LANDING
+  canonical_owner: Solutions
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Contextual
+  primary_role: راهکار رشد و دیده‌شدن محلی
+  dominant_intent: Local commercial
+  main_relations:
+  - Lightbox
+  - Print
+  - Website
+  - Social
+  - Design
+  knowledge_relation: Local business knowledge
+  note: پمپ‌بنزین/پارکینگ/مجتمع فعلاً Vertical Entity هستند.
+- id: STR-000
+  parent_id: CORE-001
+  layer: Structures
+  name_fa: سازه‌ها / استراکچر
+  name_en: Structures
+  entity_type: StructureCollection
+  page_type: STRUCTURE_HUB
+  page_level: HUB
+  canonical_owner: Structures
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /structures/
+  url_status: KEEP
+  navigation: Main/Mega
+  primary_role: دانشنامه و منبع حقیقت سازه‌ها
+  dominant_intent: Discover/compare
+  main_relations:
+  - Structure details
+  - Purchase routes
+  - Investment
+  - OOH
+  knowledge_relation: Structure articles/videos
+  note: معماری این بخش قبلاً قفل شده.
+- id: STR-BUY-IN
+  parent_id: STR-000
+  layer: Structures
+  name_fa: خرید سازه‌های ایندور
+  name_en: Indoor Structure Purchase
+  entity_type: CommercialRoute
+  page_type: SERVICE_LANDING
+  page_level: LANDING
+  canonical_owner: Structures/Purchase
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Contextual
+  primary_role: مسیر خرید/ساخت/نصب ایندور
+  dominant_intent: Transactional
+  main_relations:
+  - Structure registry
+  - Design
+  - Printing
+  - Installation
+  knowledge_relation: Indoor structure knowledge
+  note: صفحه Conversion؛ خود Structure page فروش مستقیم نیست.
+- id: STR-BUY-OUT
+  parent_id: STR-000
+  layer: Structures
+  name_fa: خرید سازه‌های اوتدور
+  name_en: Outdoor Structure Purchase
+  entity_type: CommercialRoute
+  page_type: SERVICE_LANDING
+  page_level: LANDING
+  canonical_owner: Structures/Purchase
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_AUDIT
+  navigation: Contextual
+  primary_role: مسیر خرید/ساخت/نصب اوتدور
+  dominant_intent: Transactional
+  main_relations:
+  - Structure registry
+  - OOH
+  - Projects
+  knowledge_relation: Outdoor structure knowledge
+  note: برای شهرداری/سازمان.
+- id: STR-DETAIL-*
+  parent_id: STR-000
+  layer: Structures
+  name_fa: صفحه هر سازه
+  name_en: Structure Detail
+  entity_type: Structure
+  page_type: STRUCTURE_DETAIL
+  page_level: LANDING
+  canonical_owner: Structures
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /structures/{structure-slug}/
+  url_status: CANONICAL_PATTERN
+  navigation: Dynamic collection
+  primary_role: منبع داده فنی، کاربردی و رسانه‌ای هر سازه
+  dominant_intent: Informational/comparison
+  main_relations:
+  - Purchase
+  - Investment
+  - Projects
+  - Portfolio
+  - OOH
+  knowledge_relation: Articles/Videos by structure
+  note: فهرست STR-DETAIL-* اکنون در شیت «08-رجیستری صفحات سازه» به‌صورت صریح ثبت شده است؛ هر تابلو/سازه صفحه مستقل کانونیکال دارد. Variantهای وجه/نور/ابعاد فقط در صورت رکورد محصول تاییدشده URL مستقل می‌گیرند.
+- id: INV-000
+  parent_id: CORE-001
+  layer: Investment
+  name_fa: سرمایه‌گذاری
+  name_en: Investment
+  entity_type: InvestmentDomain
+  page_type: INVESTMENT_HUB
+  page_level: PILLAR/HUB
+  canonical_owner: Investment
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /investment/
+  url_status: KEEP
+  navigation: Main nav
+  primary_role: مسیر مستقل سرمایه‌گذاری و مدل همکاری
+  dominant_intent: Commercial/B2G/B2B
+  main_relations:
+  - Projects
+  - Structures
+  - Cities
+  - Knowledge
+  knowledge_relation: Investment articles/videos
+  note: از Services جداست.
+- id: PRJ-000
+  parent_id: CORE-001
+  layer: Projects
+  name_fa: پروژه‌ها
+  name_en: Projects
+  entity_type: ProjectCollection
+  page_type: PROJECT_HUB
+  page_level: HUB
+  canonical_owner: Projects
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /projects/
+  url_status: CANONICAL_PATTERN
+  navigation: Main/Contextual
+  primary_role: رجیستری همه پروژه‌های واقعی
+  dominant_intent: Proof/discovery
+  main_relations:
+  - Investment
+  - Services
+  - Cities
+  - Structures
+  - Portfolio
+  knowledge_relation: Project-related articles/videos
+  note: Project ≠ Portfolio.
+- id: PRJ-DETAIL-*
+  parent_id: PRJ-000
+  layer: Projects
+  name_fa: صفحه کانونیکال پروژه
+  name_en: Project Detail
+  entity_type: Project
+  page_type: PROJECT_DETAIL
+  page_level: LANDING
+  canonical_owner: Projects
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /projects/{project-slug}/
+  url_status: CANONICAL_PATTERN
+  navigation: Dynamic collection
+  primary_role: پرزنت کامل پروژه؛ نقش‌ها چندگانه‌اند
+  dominant_intent: Proof/commercial
+  main_relations:
+  - MediaAsset
+  - Structures
+  - Services
+  - Investment
+  - City
+  - Portfolio
+  knowledge_relation: Related Articles/Videos
+  note: roles[] به جای project_type واحد.
+- id: PRT-000
+  parent_id: CORE-001
+  layer: Portfolio
+  name_fa: نمونه‌کارها
+  name_en: Portfolio
+  entity_type: PortfolioCollection
+  page_type: PORTFOLIO_HUB
+  page_level: HUB
+  canonical_owner: Portfolio
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /portfolio/
+  url_status: PENDING_AUDIT
+  navigation: Main/Contextual
+  primary_role: ویترین پروژه‌ها و WorkSampleها
+  dominant_intent: Proof
+  main_relations:
+  - WorkSample
+  - Projects
+  - Services
+  - Objects
+  knowledge_relation: Optional related knowledge
+  note: Project در Portfolio کپی نمی‌شود.
+- id: PRT-ITEM-*
+  parent_id: PRT-000
+  layer: Portfolio
+  name_fa: نمونه‌کار منفرد
+  name_en: Work Sample
+  entity_type: WorkSample
+  page_type: PORTFOLIO_ITEM
+  page_level: LANDING/ENTITY
+  canonical_owner: Portfolio
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: conditional
+  url_candidate: /portfolio/{work-sample-slug}/
+  url_status: PENDING_AUDIT
+  navigation: Dynamic
+  primary_role: خروجی مشخص مثل لوگو/بنر/چاپ
+  dominant_intent: Proof
+  main_relations:
+  - Service
+  - Object
+  - Client
+  - Project(optional)
+  knowledge_relation: Optional
+  note: WorkSample می‌تواند مستقل یا part_of Project باشد.
+- id: KNW-000
+  parent_id: CORE-001
+  layer: Knowledge
+  name_fa: مرکز دانش
+  name_en: Knowledge Center
+  entity_type: KnowledgeCollection
+  page_type: KNOWLEDGE_HUB
+  page_level: HUB
+  canonical_owner: Knowledge
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_URL_AUDIT
+  navigation: Main/Contextual
+  primary_role: هاب دانشی مقاله + ویدئو
+  dominant_intent: Informational
+  main_relations:
+  - Articles
+  - Videos
+  - Topics
+  - all entities
+  knowledge_relation: Bidirectional linking
+  note: نام مفهومی قطعی؛ /blog یا /knowledge بعد از URL Audit.
+- id: KNW-ART-*
+  parent_id: KNW-000
+  layer: Knowledge
+  name_fa: مقاله
+  name_en: Article
+  entity_type: Article
+  page_type: ARTICLE
+  page_level: LANDING
+  canonical_owner: Knowledge
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_URL_AUDIT
+  navigation: Dynamic
+  primary_role: پاسخ دانشی و ساخت topical authority
+  dominant_intent: Informational
+  main_relations:
+  - Services
+  - Structures
+  - Projects
+  - Solutions
+  - Investment
+  knowledge_relation: Related Videos
+  note: Article مستقل از Video است.
+- id: KNW-VID-*
+  parent_id: KNW-000
+  layer: Knowledge
+  name_fa: ویدئو
+  name_en: Video
+  entity_type: Video
+  page_type: VIDEO
+  page_level: LANDING
+  canonical_owner: Knowledge
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_URL_AUDIT
+  navigation: Dynamic
+  primary_role: محتوای ویدئویی با متن/Transcript و روابط
+  dominant_intent: Informational
+  main_relations:
+  - Services
+  - Structures
+  - Projects
+  - Solutions
+  - Investment
+  knowledge_relation: Related Articles
+  note: VideoObject + transcript/context.
+- id: CITY-000
+  parent_id: CORE-001
+  layer: Local
+  name_fa: شهرها
+  name_en: Cities
+  entity_type: PlaceCollection
+  page_type: CITY_HUB
+  page_level: HUB
+  canonical_owner: Local
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: conditional
+  url_candidate: /cities/
+  url_status: PENDING_AUDIT
+  navigation: Not necessarily main nav
+  primary_role: هاب لوکال واقعی
+  dominant_intent: Local
+  main_relations:
+  - Projects
+  - Offices
+  - Services
+  - Solutions
+  knowledge_relation: Local knowledge
+  note: صفحات شهر چندخدمتی باشند؛ نه کارخانه صفحات اجاره بیلبورد.
+- id: CITY-DETAIL-*
+  parent_id: CITY-000
+  layer: Local
+  name_fa: صفحه شهر
+  name_en: City Detail
+  entity_type: City
+  page_type: CITY_DETAIL
+  page_level: LANDING
+  canonical_owner: Local
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: evidence-gated
+  url_candidate: /cities/{city-slug}/
+  url_status: PENDING_AUDIT
+  navigation: Dynamic
+  primary_role: هاب محلی چندخدمتی با شواهد واقعی
+  dominant_intent: Local commercial
+  main_relations:
+  - Office
+  - Projects
+  - Services
+  - Portfolio
+  knowledge_relation: Local articles/videos
+  note: فقط شهرهای دارای حضور/خدمت/شواهد واقعی.
+- id: ABT-000
+  parent_id: CORE-001
+  layer: Trust
+  name_fa: درباره ما
+  name_en: About
+  entity_type: OrganizationPage
+  page_type: ABOUT
+  page_level: PAGE
+  canonical_owner: Organization
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_URL_AUDIT
+  navigation: Main/Footer
+  primary_role: هویت، داستان، تیم، سابقه
+  dominant_intent: Trust
+  main_relations:
+  - Facilities
+  - Capabilities
+  - Projects
+  - Credentials
+  knowledge_relation: Related brand knowledge
+  note: /about یا /about-us نیازمند Audit.
+- id: LIC-000
+  parent_id: CORE-001
+  layer: Trust
+  name_fa: مجوزها و گواهی‌ها
+  name_en: Credentials
+  entity_type: TrustPage
+  page_type: LICENSES
+  page_level: PAGE
+  canonical_owner: Organization
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: /credentials/
+  url_status: PENDING_AUDIT
+  navigation: Footer/Contextual
+  primary_role: اثبات حقوقی/سازمانی
+  dominant_intent: Trust/B2G
+  main_relations:
+  - Organization
+  - Projects
+  knowledge_relation: —
+  note: برای مناقصه و ارزیابی سازمانی مهم.
+- id: FAC-000
+  parent_id: CORE-001
+  layer: Trust
+  name_fa: واحدها و زیرساخت‌ها
+  name_en: Facilities
+  entity_type: FacilityCollection
+  page_type: FACILITY_HUB
+  page_level: HUB
+  canonical_owner: Organization
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: evidence-gated
+  url_candidate: PENDING
+  url_status: PENDING_URL_AUDIT
+  navigation: Footer/Contextual
+  primary_role: اثبات توان اجرایی فیزیکی
+  dominant_intent: Trust
+  main_relations:
+  - Capabilities
+  - Services
+  - Projects
+  knowledge_relation: Articles/Videos when useful
+  note: Facility فقط با مالکیت/رابطه/شواهد واقعی Index شود.
+- id: FAC-DETAIL-*
+  parent_id: FAC-000
+  layer: Trust
+  name_fa: صفحه واحد / زیرساخت
+  name_en: Facility Detail
+  entity_type: Facility
+  page_type: FACILITY_DETAIL
+  page_level: LANDING
+  canonical_owner: Organization
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: evidence-gated
+  url_candidate: PENDING
+  url_status: PENDING_URL_AUDIT
+  navigation: Dynamic
+  primary_role: معرفی واحد، تجهیزات، نقش و Evidence
+  dominant_intent: Trust
+  main_relations:
+  - Services
+  - Projects
+  - Capability
+  knowledge_relation: Optional
+  note: صفحه صوری ساخته نشود.
+- id: CAP-000
+  parent_id: CORE-001
+  layer: Trust
+  name_fa: توانمندی‌ها
+  name_en: Capabilities
+  entity_type: CapabilityCollection
+  page_type: CAPABILITY_HUB
+  page_level: HUB
+  canonical_owner: Capabilities
+  commercial_status: RESEARCH
+  publication_status: DRAFT
+  indexability: evidence-gated
+  url_candidate: PENDING
+  url_status: PENDING_URL_AUDIT
+  navigation: Contextual
+  primary_role: Proof of capability؛ نه نسخه دوم Services
+  dominant_intent: Trust
+  main_relations:
+  - Services
+  - Facilities
+  - Projects
+  knowledge_relation: Optional
+  note: فقط Capability با Evidence، فرایند و مسئول مستقل Promote شود.
+- id: CNT-000
+  parent_id: CORE-001
+  layer: Conversion
+  name_fa: تماس با ما
+  name_en: Contact
+  entity_type: ContactPage
+  page_type: CONTACT
+  page_level: PAGE
+  canonical_owner: Core
+  commercial_status: ACTIVE
+  publication_status: INDEX
+  indexability: index
+  url_candidate: PENDING
+  url_status: PENDING_URL_AUDIT
+  navigation: Main/Header/Footer
+  primary_role: Endpoint تماس/Lead
+  dominant_intent: Transactional
+  main_relations:
+  - All conversion routes
+  knowledge_relation: Knowledge links not primary
+  note: /contact یا /contact-us پس از Audit.
+- id: PROP-*
+  parent_id: CORE-001
+  layer: Private Sales
+  name_fa: پروپوزال اختصاصی
+  name_en: Proposal
+  entity_type: Proposal
+  page_type: PRIVATE_PAGE
+  page_level: PAGE
+  canonical_owner: Sales
+  commercial_status: ACTIVE
+  publication_status: PRIVATE
+  indexability: noindex
+  url_candidate: /proposals/{id}/
+  url_status: KEEP_PATTERN
+  navigation: Private only
+  primary_role: ابزار فروش خصوصی
+  dominant_intent: Private
+  main_relations:
+  - Client/Project
+  knowledge_relation: —
+  note: همیشه noindex/private.
