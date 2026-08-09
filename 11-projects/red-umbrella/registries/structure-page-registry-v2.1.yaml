@@ -1,0 +1,150 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-structure-pages-v2.1
+project_id: red-umbrella
+status: locked
+canonical_parent: /structures/
+page_pattern: /structures/{structure-slug}/
+source_of_truth: structure_registry
+
+rules:
+  - every_registered_structure_has_explicit_structure_detail_page
+  - structure_page_is_master_knowledge_and_data_source
+  - purchase_investment_rental_and_project_pages_consume_structure_data
+  - face_count_lighting_and_technical_attributes_are_variants_unless_explicitly_registered_as_product_pages
+  - no_generic_others_page_when_a_known_structure_has_its_own_record
+
+records:
+  - id: STR-001
+    name_fa: بیلبورد عمودی ۵×۱۰
+    family: بیلبورد
+    context: outdoor
+    orientation: vertical
+    dimensions: 5x10
+    url: /structures/billboard-vertical-5x10/
+    route: outdoor_purchase
+  - id: STR-002
+    name_fa: بیلبورد افقی ۶×۱۲
+    family: بیلبورد
+    context: outdoor
+    orientation: horizontal
+    dimensions: 6x12
+    url: /structures/billboard-horizontal-6x12/
+    route: outdoor_purchase
+  - id: STR-003
+    name_fa: استرابورد افقی ۵×۳
+    family: استرابورد
+    context: outdoor
+    orientation: horizontal
+    dimensions: 5x3
+    face_count: one_or_two
+    url: /structures/straboard-horizontal-5x3/
+    route: outdoor_purchase
+  - id: STR-004
+    name_fa: استرابورد عمودی ۴×۳
+    family: استرابورد
+    context: outdoor
+    orientation: vertical
+    dimensions: 4x3
+    face_count: one_or_two
+    url: /structures/straboard-vertical-4x3/
+    route: outdoor_purchase
+  - id: STR-005
+    name_fa: لایت‌باکس افقی ۳×۲
+    family: لایت‌باکس
+    context: outdoor
+    orientation: horizontal
+    dimensions: 3x2
+    face_count: one_or_two
+    url: /structures/lightbox-horizontal-3x2/
+    route: outdoor_purchase
+  - id: STR-006
+    name_fa: لایت‌باکس عمودی ۱۸۰×۱۲۰
+    family: لایت‌باکس
+    context: outdoor
+    orientation: vertical
+    dimensions: 180x120cm
+    face_count: one_or_two
+    url: /structures/lightbox-vertical-180x120/
+    route: outdoor_purchase
+  - id: STR-007
+    name_fa: لایت‌برد
+    family: لایت‌برد
+    context: outdoor
+    face_count: one_or_two
+    url: /structures/lightboard/
+    route: outdoor_purchase
+  - id: STR-008
+    name_fa: برایت‌بورد عمودی ۳×۲
+    family: برایت‌بورد
+    context: outdoor
+    orientation: vertical
+    dimensions: 3x2
+    face_count: one_or_two
+    url: /structures/brightboard-vertical-3x2/
+    route: outdoor_purchase
+  - id: STR-009
+    name_fa: برایت‌بورد افقی ۵×۳
+    family: برایت‌بورد
+    context: outdoor
+    orientation: horizontal
+    dimensions: 5x3
+    face_count: one_or_two
+    url: /structures/brightboard-horizontal-5x3/
+    route: outdoor_purchase
+  - id: STR-010
+    name_fa: برایت‌بورد افقی ۷×۳
+    family: برایت‌بورد
+    context: outdoor
+    orientation: horizontal
+    dimensions: 7x3
+    face_count: one_or_two
+    url: /structures/brightboard-horizontal-7x3/
+    route: outdoor_purchase
+  - id: STR-011
+    name_fa: فلاور بورد
+    family: فلاور بورد
+    context: outdoor
+    url: /structures/flower-board/
+    route: outdoor_purchase
+  - id: STR-012
+    name_fa: پایه بنر / پرتابل ۴×۳
+    family: سازه سازمانی
+    context: outdoor_organizational
+    dimensions: 4x3
+    face_count: one_or_two
+    url: /structures/banner-stand-portable-4x3/
+    route: organizational_outdoor_purchase
+  - id: STR-013
+    name_fa: تیر بورد
+    family: سازه سازمانی
+    context: outdoor_organizational
+    url: /structures/tir-board/
+    route: organizational_outdoor_purchase
+  - id: STR-014
+    name_fa: لایت‌باکس عکس شهدا
+    family: سازه سازمانی
+    context: outdoor_organizational
+    url: /structures/martyrs-photo-lightbox/
+    route: organizational_outdoor_purchase
+  - id: STR-015
+    name_fa: لایت‌باکس دیواری ایندور
+    family: لایت‌باکس ایندور
+    context: indoor
+    mounting: wall
+    url: /structures/indoor-wall-lightbox/
+    route: indoor_purchase
+  - id: STR-016
+    name_fa: لایت‌باکس استند ایستاده ایندور
+    family: لایت‌باکس ایندور
+    context: indoor
+    mounting: standing
+    url: /structures/indoor-standing-lightbox/
+    route: indoor_purchase
+  - id: STR-017
+    name_fa: عرشه پل عابر
+    family: عرشه پل
+    context: outdoor
+    orientation: horizontal
+    url: /structures/pedestrian-bridge-deck/
+    route: outdoor_purchase
+    source_note: migrated_from_previously_approved_structure_registry
