@@ -7,7 +7,10 @@ stated reason, rather than guessed into existence:
 
 - no concrete URL yet (still "PENDING" pending owner/audit decision)
 - a URL template (``{slug}``) with no locked sub-registry to expand it
-- a spec already exists for that page under ``pages/``
+- the page has already been generated (output exists under the build
+  output directory) — a page with an authored content spec but no
+  output yet is still a candidate, and ranks just as high; an authored
+  spec means it is ready to compose, not that it is done
 
 Within the surviving candidates, pages already covered by a
 ``url_status`` the owner has locked (``KEEP``, ``KEEP_PATTERN``,
@@ -68,9 +71,8 @@ def _slug_from_url(url: str) -> str:
     return trimmed.rsplit("/", 1)[-1]
 
 
-def _has_spec(project_root: Path, slug: str) -> bool:
-    return (project_root / "pages" / f"{slug}.json").is_file() or \
-        (project_root / "pages" / "blocks" / f"{slug}.json").is_file()
+def _already_generated(project_root: Path, output_root: str, slug: str) -> bool:
+    return (project_root / output_root / slug / "index.html").is_file()
 
 
 def _is_eligible(entity: EntityRecord) -> str | None:
@@ -111,6 +113,7 @@ def _expand_structure_template(entity: EntityRecord, structures: tuple[Structure
 def select_candidates(
     project_root: Path | None = None,
     registry_root: Path | None = None,
+    output_root: str = "dist",
 ) -> tuple[tuple[PageCandidate, ...], tuple[SkippedEntity, ...]]:
     """Rank every buildable page, best-first, and report why the rest were skipped."""
     project_root = project_root or DEFAULT_PROJECT_ROOT
@@ -158,10 +161,13 @@ def select_candidates(
             reason=f"entity registry record ({entity.id}), url_status={entity.url_status}",
         ))
 
-    already_built = [c for c in candidates if _has_spec(project_root, c.slug)]
+    already_built = [c for c in candidates if _already_generated(project_root, output_root, c.slug)]
     for built in already_built:
-        skipped.append(SkippedEntity(built.source_id, built.slug, f"pages/ already has a spec for slug '{built.slug}'"))
-    buildable = [c for c in candidates if not _has_spec(project_root, c.slug)]
+        skipped.append(SkippedEntity(
+            built.source_id, built.slug,
+            f"already generated at {output_root}/{built.slug}/index.html",
+        ))
+    buildable = [c for c in candidates if not _already_generated(project_root, output_root, c.slug)]
 
     buildable.sort(key=lambda c: (c.priority_rank, c.source_id))
     return tuple(buildable), tuple(skipped)
@@ -170,6 +176,7 @@ def select_candidates(
 def select_next(
     project_root: Path | None = None,
     registry_root: Path | None = None,
+    output_root: str = "dist",
 ) -> PageCandidate | None:
-    candidates, _ = select_candidates(project_root, registry_root)
+    candidates, _ = select_candidates(project_root, registry_root, output_root)
     return candidates[0] if candidates else None

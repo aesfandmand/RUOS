@@ -81,14 +81,25 @@ def test_an_unexpandable_template_is_skipped_not_guessed(tmp_path: Path) -> None
     assert "template" in skipped[0].reason
 
 
-def test_a_page_that_already_has_a_spec_is_excluded(tmp_path: Path) -> None:
+def test_a_page_with_an_authored_spec_but_no_output_is_still_a_candidate(tmp_path: Path) -> None:
+    """An authored content spec means the page is ready to compose, not that it is done."""
     _write_registries(tmp_path, [_entity(url_candidate="/example/")])
-    pages_dir = tmp_path / "pages"
-    pages_dir.mkdir()
-    (pages_dir / "example.json").write_text("{}", encoding="utf-8")
+    spec_dir = tmp_path / "pages" / "blocks"
+    spec_dir.mkdir(parents=True)
+    (spec_dir / "example.json").write_text("{}", encoding="utf-8")
+    candidates, _ = select_candidates(tmp_path, tmp_path)
+    assert len(candidates) == 1
+    assert candidates[0].slug == "example"
+
+
+def test_a_page_that_has_already_been_generated_is_excluded(tmp_path: Path) -> None:
+    _write_registries(tmp_path, [_entity(url_candidate="/example/")])
+    output_dir = tmp_path / "dist" / "example"
+    output_dir.mkdir(parents=True)
+    (output_dir / "index.html").write_text("<html></html>", encoding="utf-8")
     candidates, skipped = select_candidates(tmp_path, tmp_path)
     assert candidates == ()
-    assert any("already has a spec" in s.reason for s in skipped)
+    assert any("already generated" in s.reason for s in skipped)
 
 
 def test_select_next_returns_none_when_nothing_is_buildable(tmp_path: Path) -> None:

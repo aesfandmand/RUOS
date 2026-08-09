@@ -24,6 +24,7 @@ from .open_source_registry import OpenSourceRegistryError
 from .open_source_registry_snapshot import write_registry
 from .architecture_registry import ArchitectureRegistryError
 from .design_approach import select_design_approach
+from .generate import CONTENT_NOT_YET_AUTHORED, COMPOSE_REJECTED, DESIGN_NOT_YET_DESIGNED, GENERATED, generate_next
 from .page_selector import select_candidates
 from .production_build import compile_production_page
 from .research_snapshot import build_snapshot, write_snapshot
@@ -56,6 +57,9 @@ def _parser() -> argparse.ArgumentParser:
     compose.add_argument("page"); compose.add_argument("--spec-root", default="pages/blocks"); compose.add_argument("--output", default="dist"); compose.add_argument("--library", default="blocks")
     next_page = sub.add_parser("next", help="Rank pages against the locked architecture registry and report what to build next")
     next_page.add_argument("--registry-root", default=None); next_page.add_argument("--list", action="store_true", help="Show the full ranked queue and every skipped entity, not just the top pick")
+    generate = sub.add_parser("generate", help="One command: select, match a design approach, and compose the first page that is actually ready")
+    generate.add_argument("--registry-root", default=None); generate.add_argument("--spec-root", default="pages/blocks")
+    generate.add_argument("--library", default="blocks"); generate.add_argument("--output", default="dist")
     registry = sub.add_parser("registry", help="Manage verified open-source assets")
     registry_sub = registry.add_subparsers(dest="registry_command", required=True)
     refresh = registry_sub.add_parser("refresh", help="Fetch and snapshot the curated production registry")
@@ -120,13 +124,7 @@ def _run_registry_refresh(args, project_root: Path) -> int:
     return 0
 
 
-def _run_compose(args, project_root: Path) -> int:
-    """Assemble one page out of the block library and write it to disk."""
-    library = load_library(project_root / args.library)
-    spec = load_block_spec(project_root / args.spec_root / f"{args.page}.json")
-    page = render_page(spec, library)
-
-    output_dir = project_root / args.output / page.slug
+def _write_composed_page(page, library, output_dir: Path) -> None:
     assets = output_dir / "assets"
     assets.mkdir(parents=True, exist_ok=True)
     (output_dir / "index.html").write_text(page.html, encoding="utf-8", newline="\n")
@@ -144,6 +142,16 @@ def _run_compose(args, project_root: Path) -> int:
         json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8", newline="\n",
     )
+
+
+def _run_compose(args, project_root: Path) -> int:
+    """Assemble one page out of the block library and write it to disk."""
+    library = load_library(project_root / args.library)
+    spec = load_block_spec(project_root / args.spec_root / f"{args.page}.json")
+    page = render_page(spec, library)
+
+    output_dir = project_root / args.output / page.slug
+    _write_composed_page(page, library, output_dir)
 
     print(f"RUOS COMPOSE PASSED: {output_dir}")
     print(f"RUOS BLOCKS: {' -> '.join(block.block_id for block in page.composed.blocks)}")
@@ -187,6 +195,49 @@ def _run_next(args, project_root: Path) -> int:
     return 0
 
 
+_GENERATE_STAGE_LABEL = {
+    DESIGN_NOT_YET_DESIGNED: "NO DESIGN APPROACH YET",
+    CONTENT_NOT_YET_AUTHORED: "CONTENT NOT AUTHORED YET",
+    COMPOSE_REJECTED: "COMPOSE REJECTED",
+    GENERATED: "GENERATED",
+}
+
+
+def _run_generate(args, project_root: Path) -> int:
+    registry_root = Path(args.registry_root) if args.registry_root else None
+    report = generate_next(
+        project_root=project_root,
+        registry_root=registry_root,
+        spec_root=args.spec_root,
+        library_root=args.library,
+        output_root=args.output,
+    )
+
+    for attempt in report.attempts:
+        label = _GENERATE_STAGE_LABEL[attempt.stage]
+        print(f"RUOS GENERATE ATTEMPT: {attempt.candidate.source_id} {attempt.candidate.slug} -> {label}")
+        print(f"RUOS GENERATE ATTEMPT REASON: {attempt.reason}")
+
+    if report.generated_page is None:
+        print(
+            "RUOS GENERATE: no page in the current build queue is ready end-to-end "
+            "(design approach + authored content + a composition the shape rules accept)",
+            file=sys.stderr,
+        )
+        return 2
+
+    page = report.generated_page
+    library = report.generated_library
+    output_dir = project_root / args.output / page.slug
+    _write_composed_page(page, library, output_dir)
+
+    print(f"RUOS GENERATE PASSED: {output_dir}")
+    print(f"RUOS BLOCKS: {' -> '.join(block.block_id for block in page.composed.blocks)}")
+    for name in ("index.html", "assets/styles.css", "assets/behavior.js", "compose-manifest.json"):
+        print(output_dir / name)
+    return 0
+
+
 def _run_3d_evidence(page, args, project_root: Path) -> int:
     source_map = load_json_mapping(project_root, Path(args.three_d_source_map), "3D source map")
     script = Path(args.blender_script); script = script if script.is_absolute() else project_root / script
@@ -208,6 +259,8 @@ def main(argv: list[str] | None = None) -> int:
             return _run_compose(args, project_root)
         if args.command == "next":
             return _run_next(args, project_root)
+        if args.command == "generate":
+            return _run_generate(args, project_root)
 
         spec_path = project_root / args.spec_root / f"{args.page}.json"
         page = load_page_spec(spec_path)
@@ -250,6 +303,7 @@ def main(argv: list[str] | None = None) -> int:
             BlockRegistryError, BlockPageError, BlockCompositionError, BlockRenderError,
             ArchitectureRegistryError) as exc:
         if args.command == "compose": label = "COMPOSE REJECTED"
+        elif args.command == "generate": label = "GENERATE FAILED"
         elif args.command == "next": label = "NEXT FAILED"
         elif args.command == "registry": label = "REGISTRY FAILED"
         elif args.command in {"research", "discover", "research-competitors"}: label = "RESEARCH FAILED"
