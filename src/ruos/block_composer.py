@@ -57,10 +57,12 @@ class ComposedPage:
     css: str
     script: str
     used_blocks: tuple[str, ...]
+    vendor: tuple[str, ...]
 
     def manifest(self) -> dict[str, Any]:
         return {
             "page_slug": self.slug,
+            "vendor": list(self.vendor),
             "sequence": [block.payload() for block in self.blocks],
             "used_blocks": list(self.used_blocks),
             "surfaces": [block.surface for block in self.blocks],
@@ -239,6 +241,7 @@ def compose_page(
     scripts = [library.get(block_id).script for block_id in used
                if library.get(block_id).behavior]
     script = "\n".join(part for part in scripts if part)
+    vendor = tuple(sorted({lib for block_id in used for lib in library.get(block_id).vendor}))
 
     # Document order: header, the page's own sections, then the shell furniture
     # that closes the page or overlays it.
@@ -260,4 +263,5 @@ def compose_page(
         css=css,
         script=script,
         used_blocks=tuple(used),
+        vendor=vendor,
     )

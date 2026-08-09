@@ -11,6 +11,7 @@
   "serves_intent": [],
   "position": "any",
   "behavior": true,
+  "vendor": ["motion"],
   "adjacency": {
     "not_after_same_family": false
   },

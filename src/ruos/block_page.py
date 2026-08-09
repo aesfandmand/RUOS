@@ -107,6 +107,15 @@ def render_page(spec: Mapping[str, Any], library: BlockLibrary | None = None) ->
     schema = json.dumps(_schema_graph(spec, composed), ensure_ascii=False)
     canonical = spec.get("canonical", "")
     canonical_tag = f'<link rel="canonical" href="{_esc(canonical)}">' if canonical else ""
+    # A page whose blocks import a vendored behaviour library (see
+    # block_registry.VENDOR_LIBRARIES) needs a module script so `import`
+    # statements in behavior.js resolve; a page with none keeps the plain
+    # classic script it always had.
+    script_tag = (
+        '<script type="module" src="assets/behavior.js"></script>\n'
+        if composed.vendor else
+        '<script src="assets/behavior.js" defer></script>\n'
+    )
 
     document = (
         "<!doctype html>\n"
@@ -124,7 +133,7 @@ def render_page(spec: Mapping[str, Any], library: BlockLibrary | None = None) ->
         "<body>\n"
         '<a class="skip-link" href="#main">پرش به محتوای اصلی</a>\n'
         f"{composed.body}\n"
-        '<script src="assets/behavior.js" defer></script>\n'
+        f"{script_tag}"
         "</body>\n"
         "</html>"
     )

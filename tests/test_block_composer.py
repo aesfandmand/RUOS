@@ -64,6 +64,14 @@ def test_composition_is_deterministic() -> None:
     assert first.body == second.body
 
 
+def test_the_foundations_vendor_library_is_reported_on_every_page() -> None:
+    """_foundation is always in used_blocks, so its vendor deps always surface."""
+    spec = _spec()
+    composed = compose_page(load_library(), spec["slug"], _passing_sequence(spec), spec["shell"])
+    assert composed.vendor == ("motion",)
+    assert composed.manifest()["vendor"] == ["motion"]
+
+
 def test_only_the_used_blocks_contribute_css() -> None:
     spec = _spec()
     sequence = [b for b in _passing_sequence(spec)

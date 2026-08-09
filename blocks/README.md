@@ -78,6 +78,30 @@ blocks/<id>/
 کوریوگرافی اسکرول V16 یک حلقهٔ واحد است که هیرو، فرصت‌ها و مسیرها را با هم
 می‌خواند؛ بنابراین سطح-صفحه است و در `_foundation` می‌ماند، نه در تک‌تک بلوک‌ها.
 
+## کتابخانه‌های واقعی رفتار (Vendor)
+
+سیاست موتور اجازه نمی‌دهد کتابخانهٔ متن‌باز جهت بصری برند را تعیین کند، اما
+اجازه می‌دهد رفتار/حرکت را از یک کتابخانهٔ واقعی و vetted بگیرد
+(`05-rules/website/professional-web-experience-policy-v0.1.md §9`). اولین و
+تنها نمونهٔ فعلی: **Motion** (`framer-motion` نسخهٔ DOM-only، بدون React).
+
+- کد واقعی در `blocks/_foundation/assets/motion.min.mjs` وندور شده — با
+  `esbuild` از `framer-motion/dom` ساخته شده، فقط `animate`/`scroll`/`inView`/
+  `stagger` را نگه داشته (۶۹.۵ کیلوبایت، صفر import حل‌نشده). منشأ کامل و
+  sha256 در `motion.LICENSE.md` کنارش.
+- یک بلوک با `"vendor": ["motion"]` در `block.json` اعلام می‌کند که به آن نیاز
+  دارد؛ `block_registry.py` نام کتابخانه را در برابر `VENDOR_LIBRARIES`
+  اعتبارسنجی می‌کند و اگر `behavior: true` نباشد رد می‌کند.
+- `block_composer.compose_page` وندورهای بلوک‌های استفاده‌شده را جمع و یکتا
+  می‌کند (`ComposedPage.vendor`)؛ `block_page.render_page` بر همان اساس
+  `<script type="module">` را به‌جای `<script defer>` می‌گذارد تا `import` در
+  `behavior.js` واقعاً resolve شود.
+- `_foundation/behavior.js` همین حالا `heroProgress` را دیگر با
+  `getBoundingClientRect` دستی حساب نمی‌کند؛ از `scroll()` واقعی Motion
+  می‌گیرد. با Playwright روی یک سرور HTTP واقعی تأیید شده که ماژول لود
+  می‌شود و `--hero-progress` واقعاً با اسکرول تغییر می‌کند (بارگذاری از
+  `file://` به‌خاطر CORS ماژول‌ها کار نمی‌کند — طبیعی مرورگر است، نه باگ).
+
 ## ساخت
 
 ```bash

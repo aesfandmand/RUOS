@@ -97,3 +97,39 @@ def test_library_requires_the_foundation_blocks(tmp_path) -> None:
     (block / "markup.html").write_text("<section></section>", encoding="utf-8")
     with pytest.raises(BlockRegistryError, match="_tokens"):
         load_library(tmp_path)
+
+
+def test_unknown_vendor_library_is_rejected(tmp_path) -> None:
+    block = tmp_path / "example"
+    block.mkdir()
+    (block / "block.json").write_text(json.dumps({
+        "id": "example", "name": {"fa": "x"}, "role": "content",
+        "family": "test", "surface": "light", "layout": "card-grid", "composition": "x",
+        "behavior": True, "vendor": ["not-a-real-library"],
+    }), encoding="utf-8")
+    (block / "style.css").write_text(".x{color:red}", encoding="utf-8")
+    (block / "markup.html").write_text("<section></section>", encoding="utf-8")
+    (block / "behavior.js").write_text("console.log(1);", encoding="utf-8")
+    with pytest.raises(BlockRegistryError, match="unknown vendor"):
+        load_library(tmp_path)
+
+
+def test_vendor_library_without_declared_behavior_is_rejected(tmp_path) -> None:
+    block = tmp_path / "example"
+    block.mkdir()
+    (block / "block.json").write_text(json.dumps({
+        "id": "example", "name": {"fa": "x"}, "role": "content",
+        "family": "test", "surface": "light", "layout": "card-grid", "composition": "x",
+        "vendor": ["motion"],
+    }), encoding="utf-8")
+    (block / "style.css").write_text(".x{color:red}", encoding="utf-8")
+    (block / "markup.html").write_text("<section></section>", encoding="utf-8")
+    with pytest.raises(BlockRegistryError, match="vendor libraries but no behavior"):
+        load_library(tmp_path)
+
+
+def test_foundation_declares_and_ships_the_motion_vendor_library() -> None:
+    foundation = load_library().get("_foundation")
+    assert foundation.vendor == ("motion",)
+    asset_names = {path.name for path in foundation.assets}
+    assert "motion.min.mjs" in asset_names

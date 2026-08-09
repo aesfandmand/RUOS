@@ -1,3 +1,4 @@
+import { scroll } from "./motion.min.mjs";
 
 (() => {
   const clamp = (value) => Math.min(1, Math.max(0, value));
@@ -7,6 +8,19 @@
   const paths = document.querySelector(".paths-scroll");
   const status = document.querySelector(".story-status > span:last-child");
   let frame = 0;
+
+  // The hero's scroll progress (0 at its top reaching the viewport top, 1 at
+  // its bottom reaching the viewport bottom) drives --hero-progress, which
+  // the rest of update() below reads. Motion's scroll() replaces the manual
+  // getBoundingClientRect() math this used to do on every rAF tick with a
+  // single scroll-linked subscription.
+  let heroProgress = 0;
+  if (hero) {
+    scroll((progress) => {
+      heroProgress = clamp(progress);
+      hero.style.setProperty("--hero-progress", String(heroProgress));
+    }, { target: hero, offset: ["start start", "end end"] });
+  }
 
   const setPath = (index) => {
     document.querySelectorAll(".path-card").forEach((card, cardIndex) => {
@@ -30,8 +44,6 @@
     if (!hero || !opportunity || !paths) return;
 
     const heroRect = hero.getBoundingClientRect();
-    const heroProgress = clamp(-heroRect.top / Math.max(1, heroRect.height - viewport));
-    hero.style.setProperty("--hero-progress", String(heroProgress));
     const starts = [0.08, 0.34, 0.62];
     let bornCount = 0;
     hero.querySelectorAll(".birth-structure").forEach((board, index) => {

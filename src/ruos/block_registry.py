@@ -35,6 +35,13 @@ LAYOUTS = frozenset({
     "band",         # full-bleed closing statement
 })
 
+# Third-party behaviour libraries a block's behavior.js is allowed to import.
+# Each entry here must have a real, vendored, MIT/permissively-licensed asset
+# under blocks/_foundation/assets/ (see blocks/README.md) — this is a
+# behaviour/interaction library, never a source of brand visual language
+# (see 05-rules/website professional-web-experience-policy-v0.1.md §9).
+VENDOR_LIBRARIES = frozenset({"motion"})
+
 
 class BlockRegistryError(ValueError):
     """Raised when the block library on disk is not internally consistent."""
@@ -61,6 +68,7 @@ class BlockContract:
     serves_intent: tuple[str, ...]
     position: str
     behavior: bool
+    vendor: tuple[str, ...]
     slots: tuple[Slot, ...]
     not_after_same_family: bool
     source: Mapping[str, str]
@@ -83,6 +91,7 @@ class BlockContract:
             "layout": self.layout,
             "surface": self.surface,
             "position": self.position,
+            "vendor": list(self.vendor),
             "slots": [(s.name, s.type, s.required, s.minimum, s.maximum) for s in self.slots],
             "style": hashlib.sha256(self.style.encode("utf-8")).hexdigest(),
             "script": hashlib.sha256(self.script.encode("utf-8")).hexdigest(),
@@ -201,6 +210,16 @@ def _load_contract(directory: Path) -> BlockContract:
         raise BlockRegistryError(f"Block '{block_id}' ships behavior.js without declaring behavior")
     script = script_path.read_text(encoding="utf-8").strip() if behavior else ""
 
+    vendor = tuple(str(item) for item in raw.get("vendor", []))
+    unknown_vendors = sorted(set(vendor) - VENDOR_LIBRARIES)
+    if unknown_vendors:
+        raise BlockRegistryError(
+            f"Block '{block_id}' declares unknown vendor librar{'y' if len(unknown_vendors) == 1 else 'ies'} "
+            f"{', '.join(unknown_vendors)}. Allowed: {', '.join(sorted(VENDOR_LIBRARIES))}"
+        )
+    if vendor and not behavior:
+        raise BlockRegistryError(f"Block '{block_id}' declares vendor libraries but no behavior")
+
     markup_path = directory / "markup.html"
     if role == "foundation":
         if markup_path.is_file():
@@ -232,6 +251,7 @@ def _load_contract(directory: Path) -> BlockContract:
         serves_intent=tuple(raw.get("serves_intent", [])),
         position=position,
         behavior=behavior,
+        vendor=vendor,
         slots=_parse_slots(raw.get("slots", {}), block_id),
         not_after_same_family=bool(adjacency.get("not_after_same_family", False)),
         source=MappingProxyType(dict(raw.get("source", {}))),
