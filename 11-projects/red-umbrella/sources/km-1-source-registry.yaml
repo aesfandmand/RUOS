@@ -2,7 +2,7 @@ uid: SRC-RU-000001
 type: source_registry
 name: Red Umbrella KM-1 Source Registry
 status: active
-version: 1.2.0
+version: 1.3.0
 source_language: fa
 project_uid: PRJ-000001
 
@@ -80,6 +80,18 @@ sources:
     path: 11-projects/red-umbrella/registries/url-audit-sitemap-v2-v1.md
     role: url_audit_and_deployment_gate
     priority: approved_supporting
+  - uid: SRC-RU-000018
+    path: 11-projects/red-umbrella/registries/chatreghermez-live-url-audit-v1.csv
+    role: live_http_audit_full_probe
+    priority: live_evidence
+  - uid: SRC-RU-000019
+    path: 11-projects/red-umbrella/registries/chatreghermez-live-url-audit-critical-v1.csv
+    role: live_http_audit_critical_long_timeout
+    priority: live_evidence
+  - uid: SRC-RU-000020
+    path: 11-projects/red-umbrella/registries/chatreghermez-current-internal-link-inventory-v1.csv
+    role: current_internal_route_inventory
+    priority: live_evidence
 
 conflict_rule:
-  rule: در تعارض میان منابع، تصمیم متاخر کاربر و سپس سند قفل‌شده متاخر حاکم است؛ تعارض حل‌نشده باید پیش از ثبت پرسیده شود.
+  rule: در تعارض میان منابع، تصمیم متاخر کاربر و سپس سند قفل‌شده متاخر حاکم است؛ برای migration وضعیت زنده URL و شواهد GSC/Backlink بر حدس معماری مقدم است؛ تعارض حل‌نشده باید پیش از ثبت پرسیده شود.
