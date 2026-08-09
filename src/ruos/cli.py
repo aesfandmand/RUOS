@@ -23,6 +23,7 @@ from .open_source_catalog import DEFAULT_REGISTRY_SEEDS, refresh_open_source_reg
 from .open_source_registry import OpenSourceRegistryError
 from .open_source_registry_snapshot import write_registry
 from .architecture_registry import ArchitectureRegistryError
+from .design_approach import select_design_approach
 from .page_selector import select_candidates
 from .production_build import compile_production_page
 from .research_snapshot import build_snapshot, write_snapshot
@@ -165,16 +166,22 @@ def _run_next(args, project_root: Path) -> int:
         return 2
 
     top = candidates[0]
+    top_design = select_design_approach(top.page_type)
     print(f"RUOS NEXT: {top.slug}")
     print(f"RUOS NEXT URL: {top.url}")
     print(f"RUOS NEXT SOURCE: {top.source_kind} {top.source_id}")
     print(f"RUOS NEXT PAGE TYPE: {top.page_type}")
     print(f"RUOS NEXT REASON: {top.reason}")
+    print(f"RUOS NEXT DESIGN APPROACH: {top_design.status}"
+          + (f" ({top_design.approach.id})" if top_design.approach else ""))
+    print(f"RUOS NEXT DESIGN REASON: {top_design.reason}")
 
     if args.list:
         print(f"RUOS NEXT QUEUE: {len(candidates)} buildable, {len(skipped)} skipped")
         for candidate in candidates:
-            print(f"RUOS NEXT CANDIDATE: {candidate.priority_rank} {candidate.source_id} {candidate.slug} {candidate.url}")
+            design = select_design_approach(candidate.page_type)
+            print(f"RUOS NEXT CANDIDATE: {candidate.priority_rank} {candidate.source_id} "
+                  f"{candidate.slug} {candidate.url} design={design.status}")
         for skip in skipped:
             print(f"RUOS NEXT SKIPPED: {skip.source_id} ({skip.name}) — {skip.reason}")
     return 0
