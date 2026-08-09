@@ -1,0 +1,39 @@
+name: Red Umbrella critical URL audit
+
+on:
+  push:
+    branches:
+      - feat/live-url-audit-v1
+    paths:
+      - 11-projects/red-umbrella/tools/critical_url_audit.py
+      - .github/workflows/red-umbrella-critical-url-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit-critical:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run critical URL audit
+        run: python3 11-projects/red-umbrella/tools/critical_url_audit.py
+      - name: Commit critical audit evidence
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 11-projects/red-umbrella/registries/chatreghermez-live-url-audit-critical-v1.csv
+          git add 11-projects/red-umbrella/registries/chatreghermez-live-url-audit-critical-v1.json
+          git add 11-projects/red-umbrella/registries/chatreghermez-live-url-audit-critical-v1.md
+          if git diff --cached --quiet; then
+            echo 'No critical audit changes.'
+          else
+            git commit -m 'data(architecture): capture critical live URL evidence'
+            git push origin HEAD:feat/live-url-audit-v1
+          fi
