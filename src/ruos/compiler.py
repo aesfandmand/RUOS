@@ -8,7 +8,9 @@ import tempfile
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any, Mapping
 
+from .cie_native_renderer import render_css_from_contract, render_document_from_contract, render_runtime_from_contract
 from .component_resolver import ComponentPlan, resolve_components
 from .content_composer import ContentPlan, compose_content
 from .creative_intelligence import CreativeIntelligencePlan, build_creative_intelligence
@@ -24,7 +26,7 @@ from .studio_artifacts import StudioArtifactBundle, build_studio_artifacts
 from .visual_dna import VisualDNA, resolve_visual_dna
 
 ENGINE_NAME = "ruos-engine"
-ENGINE_VERSION = "1.1.0"
+ENGINE_VERSION = "1.2.0"
 
 class BuildRejected(RuntimeError): pass
 class BuildFailure(RuntimeError): pass
@@ -50,12 +52,16 @@ const motionEffects={{'rise-fade':{{opacity:['0','1'],transform:['translateY(32p
 for(const cue of RUOS_MOTION.cues){{const section=document.getElementById(cue.section_id);if(!section)continue;const targets=[...section.querySelectorAll(cue.target)];if(!targets.length)continue;if(reduceMotion){{for(const target of targets){{target.style.opacity='1';target.style.transform='none';}}continue;}}const motionObserver=new IntersectionObserver(entries=>{{for(const entry of entries){{if(!entry.isIntersecting)continue;targets.forEach((target,index)=>target.animate(motionEffects[cue.effect],{{duration:cue.duration_ms,delay:cue.delay_ms+index*Number(cue.attributes.stagger||0),easing:cue.easing,fill:'both'}}));if(cue.once)motionObserver.disconnect();}}}},{{threshold:.2}});motionObserver.observe(section);}}
 '''.strip()
 
-def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan, patterns: PatternPlan, motion: MotionPlan, content: ContentPlan, intelligence: CreativeIntelligencePlan, quality: AgencyQualityScore, studio: StudioArtifactBundle, html: str, css: str, runtime: str) -> dict[str, object]:
+def _canonical_payload(page: PageSpec, dna: VisualDNA, components: ComponentPlan, patterns: PatternPlan, motion: MotionPlan, content: ContentPlan, intelligence: CreativeIntelligencePlan, quality: AgencyQualityScore, studio: StudioArtifactBundle, html: str, css: str, runtime: str, implementation_contract: Mapping[str, Any] | None = None) -> dict[str, object]:
     visual_payload = dict(dna.fingerprint_payload()); component_payload = _component_payload(components); pattern_payload = _pattern_payload(patterns); motion_payload = _motion_payload(motion); content_payload = _content_payload(content); intelligence_payload = _intelligence_payload(intelligence); quality_payload = _quality_payload(quality); studio_payload = _studio_payload(studio)
     motion_json = json.dumps(motion_payload, ensure_ascii=False, indent=2, sort_keys=True); intelligence_json = json.dumps(intelligence_payload, ensure_ascii=False, indent=2, sort_keys=True); quality_json = json.dumps(quality_payload, ensure_ascii=False, indent=2, sort_keys=True); studio_manifest_json = json.dumps(studio.manifest(), ensure_ascii=False, indent=2, sort_keys=True)
     artifacts = {"index.html": _digest(html), "assets/styles.css": _digest(css), "assets/runtime.js": _digest(runtime), "assets/motion-manifest.json": _digest(motion_json), "assets/creative-intelligence.json": _digest(intelligence_json), "agency-quality-report.json": _digest(quality_json), "studio/manifest.json": _digest(studio_manifest_json)}
     for artifact in studio.artifacts: artifacts[f"studio/{artifact.name}"] = _digest(json.dumps(dict(artifact.payload), ensure_ascii=False, indent=2, sort_keys=True))
-    return {"engine": ENGINE_NAME, "engine_version": ENGINE_VERSION, "page": page.slug, "visual_profile": dna.id, "visual_dna": visual_payload, "visual_dna_sha256": _hash_payload(visual_payload), "component_plan": component_payload, "component_plan_sha256": _hash_payload(component_payload), "pattern_plan": pattern_payload, "pattern_plan_sha256": _hash_payload(pattern_payload), "motion_plan": motion_payload, "motion_plan_sha256": _hash_payload(motion_payload), "content_plan": content_payload, "content_plan_sha256": _hash_payload(content_payload), "creative_intelligence": intelligence_payload, "creative_intelligence_sha256": _hash_payload(intelligence_payload), "agency_quality": quality_payload, "agency_quality_sha256": _hash_payload(quality_payload), "studio": studio_payload, "studio_sha256": _hash_payload(studio_payload), "spec": asdict(page), "artifacts": artifacts}
+    payload = {"engine": ENGINE_NAME, "engine_version": ENGINE_VERSION, "page": page.slug, "visual_profile": dna.id, "visual_dna": visual_payload, "visual_dna_sha256": _hash_payload(visual_payload), "component_plan": component_payload, "component_plan_sha256": _hash_payload(component_payload), "pattern_plan": pattern_payload, "pattern_plan_sha256": _hash_payload(pattern_payload), "motion_plan": motion_payload, "motion_plan_sha256": _hash_payload(motion_payload), "content_plan": content_payload, "content_plan_sha256": _hash_payload(content_payload), "creative_intelligence": intelligence_payload, "creative_intelligence_sha256": _hash_payload(intelligence_payload), "agency_quality": quality_payload, "agency_quality_sha256": _hash_payload(quality_payload), "studio": studio_payload, "studio_sha256": _hash_payload(studio_payload), "spec": asdict(page), "artifacts": artifacts}
+    if implementation_contract is not None:
+        payload["cie_native_renderer"] = {"status": "native", "contract_version": implementation_contract.get("version"), "execution_model": implementation_contract.get("execution_model"), "section_count": len(implementation_contract.get("sections", []))}
+        payload["cie_implementation_contract_sha256"] = _hash_payload(implementation_contract)
+    return payload
 
 def _atomic_publish(staging_dir: Path, output_dir: Path) -> None:
     output_dir.parent.mkdir(parents=True, exist_ok=True); backup_dir = output_dir.with_name(f".{output_dir.name}.previous")
@@ -68,10 +74,14 @@ def _atomic_publish(staging_dir: Path, output_dir: Path) -> None:
     else:
         if backup_dir.exists(): shutil.rmtree(backup_dir)
 
-def compile_page(page: PageSpec, context: BuildContext) -> BuildResult:
+def compile_page(page: PageSpec, context: BuildContext, implementation_contract: Mapping[str, Any] | None = None) -> BuildResult:
     output_dir = context.output_root / page.slug; context.output_root.mkdir(parents=True, exist_ok=True)
     dna = resolve_visual_dna(page.visual_profile); content = compose_content(page); intelligence = build_creative_intelligence(page, content); components = resolve_components(page); patterns = resolve_patterns(page, components); motion = compose_motion(patterns, components)
-    html = enhance_semantics(page, intelligence, render_document(page, components)).html; css = render_css(dna); runtime = render_runtime() + "\n" + _motion_runtime(motion); html, css, runtime = choreograph_page(page, html, css, runtime)
+    if implementation_contract is None:
+        html = enhance_semantics(page, intelligence, render_document(page, components)).html; css = render_css(dna); runtime = render_runtime() + "\n" + _motion_runtime(motion)
+    else:
+        html = enhance_semantics(page, intelligence, render_document_from_contract(page, components, implementation_contract)).html; css = render_css_from_contract(dna, implementation_contract); runtime = render_runtime_from_contract(implementation_contract) + "\n" + _motion_runtime(motion)
+    html, css, runtime = choreograph_page(page, html, css, runtime)
     gates = evaluate(page, html, css, runtime); quality = calculate_agency_quality(gates); studio = build_studio_artifacts(page, dna, components, patterns, motion, content, intelligence, gates, quality); studio_review = studio.by_name("agency-review.json").payload
     rejected = [gate for gate in gates if not gate.passed]; studio_publishable = bool(studio_review.get("publishable"))
     if context.strict and (rejected or not quality.publishable or not studio_publishable):
@@ -79,10 +89,12 @@ def compile_page(page: PageSpec, context: BuildContext) -> BuildResult:
         if not quality.publishable and not quality.blockers: details.append(f"agency-quality: score {quality.total} is below publish threshold 88")
         if not studio_publishable and not studio_review.get("blockers"): details.append("virtual-studio: specialist consensus was not reached")
         raise BuildRejected("; ".join(dict.fromkeys(details)))
-    payload = _canonical_payload(page, dna, components, patterns, motion, content, intelligence, quality, studio, html, css, runtime); build_id = _hash_payload(payload)[:16]; staging_root = Path(tempfile.mkdtemp(prefix=f".ruos-{page.slug}-", dir=str(context.output_root)))
+    payload = _canonical_payload(page, dna, components, patterns, motion, content, intelligence, quality, studio, html, css, runtime, implementation_contract); build_id = _hash_payload(payload)[:16]; staging_root = Path(tempfile.mkdtemp(prefix=f".ruos-{page.slug}-", dir=str(context.output_root)))
     try:
         assets_dir = staging_root / "assets"; studio_dir = staging_root / "studio"; motion_json = json.dumps(_motion_payload(motion), ensure_ascii=False, indent=2, sort_keys=True); intelligence_json = json.dumps(_intelligence_payload(intelligence), ensure_ascii=False, indent=2, sort_keys=True); quality_json = json.dumps(_quality_payload(quality), ensure_ascii=False, indent=2, sort_keys=True)
         files = [_write(staging_root / "index.html", html), _write(assets_dir / "styles.css", css), _write(assets_dir / "runtime.js", runtime), _write(assets_dir / "motion-manifest.json", motion_json), _write(assets_dir / "creative-intelligence.json", intelligence_json), _write(staging_root / "agency-quality-report.json", quality_json), _write(studio_dir / "manifest.json", json.dumps(studio.manifest(), ensure_ascii=False, indent=2, sort_keys=True))]
+        if implementation_contract is not None:
+            files.append(_write(assets_dir / "cie-implementation-contract.json", json.dumps(implementation_contract, ensure_ascii=False, indent=2, sort_keys=True)))
         for artifact in studio.artifacts: files.append(_write(studio_dir / artifact.name, json.dumps(dict(artifact.payload), ensure_ascii=False, indent=2, sort_keys=True)))
         manifest = {**payload, "build_id": build_id, "built_at": datetime.now(timezone.utc).isoformat(), "strict": context.strict, "passed": quality.publishable and studio_publishable, "files": [str(path.relative_to(staging_root)) for path in files], "sha256": {str(path.relative_to(staging_root)): hashlib.sha256(path.read_bytes()).hexdigest() for path in files}, "gates": [asdict(gate) for gate in gates]}
         manifest_path = _write(staging_root / "build-manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True)); qa_path = _write(staging_root / "qa-report.json", json.dumps([asdict(gate) for gate in gates], ensure_ascii=False, indent=2)); _write(staging_root / ".ruos-build", f"{build_id}\n"); _atomic_publish(staging_root, output_dir)

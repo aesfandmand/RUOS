@@ -7,10 +7,11 @@ name = "ruos-engine"
 version = "0.1.0"
 description = "Red Umbrella Operating System executable website compiler"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["Pillow>=11.3"]
 
 [project.scripts]
 ruos = "ruos.cli:main"
+ruos-cie = "ruos.cie_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

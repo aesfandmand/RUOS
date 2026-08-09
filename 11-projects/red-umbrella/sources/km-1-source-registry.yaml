@@ -2,12 +2,13 @@ uid: SRC-RU-000001
 type: source_registry
 name: Red Umbrella KM-1 Source Registry
 status: active
-version: 1.0.0
+version: 1.4.0
 source_language: fa
 project_uid: PRJ-000001
 
 priority_policy:
   - latest_user_decision
+  - active_locked_decision_index
   - live_change_index
   - locked_documents
   - approved_architecture_and_data_models
@@ -41,33 +42,57 @@ sources:
     role: page_redesign_contract
     priority: approved
   - uid: SRC-RU-000008
-    path: چتر_قرمز_معماری_سایت_v1.xlsx
-    role: site_architecture
-    priority: pending_full_extraction
+    path: 11-projects/red-umbrella/registries/چتر_قرمز_معماری_و_رجیستری_سایت_v2.1.xlsx
+    role: site_architecture_and_page_registry
+    priority: locked
   - uid: SRC-RU-000009
     path: چتر_قرمز_نالج‌گراف_و_مدل‌داده_v1.xlsx
-    role: knowledge_graph_and_data_model
-    priority: pending_full_extraction
+    role: legacy_knowledge_graph_pending_v2_migration
+    priority: deprecated
   - uid: SRC-RU-000010
     path: لیست خدمات آژانس تبلیغات چتر قرمز copy.docx
     role: service_catalog
-    priority: pending_full_extraction
+    priority: supporting_source
   - uid: SRC-RU-000011
     path: توضیحات لایه تبلیغات محیطی از لیست خدمات copy.docx
     role: outdoor_advertising_service_detail
-    priority: pending_full_extraction
+    priority: supporting_source
   - uid: SRC-RU-000012
     path: chatreghermez-home-desktop-v10-final.html
     role: approved_home_reference
     priority: approved_output
   - uid: SRC-RU-000013
     path: chatreghermez-architecture-map.html
-    role: architecture_visual_map
-    priority: approved_supporting
+    role: legacy_architecture_visual_map
+    priority: deprecated
   - uid: SRC-RU-000014
     path: project_conversations
     role: latest_decisions_and_corrections
     priority: highest_dynamic
+  - uid: SRC-RU-000015
+    path: 11-projects/red-umbrella/registries/chatreghermez-sitemap-v2-target-predeploy.xml
+    role: legacy_sitemap_v2_target
+    priority: deprecated
+  - uid: SRC-RU-000016
+    path: 11-projects/red-umbrella/registries/chatreghermez-redirect-map-v1.csv
+    role: redirect_map_v1
+    priority: approved_supporting
+  - uid: SRC-RU-000017
+    path: 11-projects/red-umbrella/registries/url-audit-sitemap-v2-v1.md
+    role: url_audit_and_deployment_gate
+    priority: approved_supporting
+  - uid: SRC-RU-000018
+    path: 11-projects/red-umbrella/registries/structure-page-registry-v2.1.yaml
+    role: explicit_structure_page_registry
+    priority: locked
+  - uid: SRC-RU-000019
+    path: 11-projects/red-umbrella/decisions/2026-08-09-explicit-structure-pages-and-graphic-design.yaml
+    role: latest_architecture_override
+    priority: critical
+  - uid: SRC-RU-000020
+    path: 11-projects/red-umbrella/registries/chatreghermez-sitemap-v5-target-predeploy.xml
+    role: current_target_sitemap
+    priority: locked
 
 conflict_rule:
-  rule: در تعارض میان منابع، تصمیم متاخر کاربر و سپس سند قفل‌شده متاخر حاکم است؛ تعارض حل‌نشده باید پیش از ثبت پرسیده شود.
+  rule: در تعارض میان منابع، تصمیم متاخر کاربر و سپس تصمیم فعال قفل‌شده و معماری v2.1 حاکم است؛ منابع deprecated حق Override ندارند و تعارض حل‌نشده باید پیش از ثبت پرسیده شود.

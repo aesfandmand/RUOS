@@ -75,12 +75,20 @@ def enhance_semantics(
     intelligence: CreativeIntelligencePlan,
     rendered_html: str,
 ) -> SemanticEnhancement:
-    if rendered_html.count("<h2") < 1:
+    h1_count = rendered_html.count("<h1")
+    h2_count = rendered_html.count("<h2")
+    if h1_count > 1:
+        raise SemanticEnhancementError("Rendered document contains more than one H1")
+    if h1_count == 0 and h2_count < 1:
         raise SemanticEnhancementError("Rendered document has no heading available for H1 promotion")
     if rendered_html.count('type="application/ld+json"') != 1:
         raise SemanticEnhancementError("Rendered document must contain exactly one JSON-LD script")
 
-    html = rendered_html.replace("<h2>", "<h1>", 1).replace("</h2>", "</h1>", 1)
+    if h1_count == 0:
+        html = rendered_html.replace("<h2>", "<h1>", 1).replace("</h2>", "</h1>", 1)
+    else:
+        html = rendered_html
+
     graph = _schema_graph(page, intelligence)
     schema = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
     script_start = html.index('<script type="application/ld+json">')

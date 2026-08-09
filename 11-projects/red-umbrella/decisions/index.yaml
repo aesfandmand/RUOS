@@ -1,6 +1,9 @@
 schema_version: 1.0.0
 project_id: red-umbrella
 active:
+  - id: decision-2026-08-09-explicit-structure-pages-and-graphic-design
+    path: 11-projects/red-umbrella/decisions/2026-08-09-explicit-structure-pages-and-graphic-design.yaml
+    status: locked
   - id: decision-2026-08-06-universal-living-repository
     path: 11-projects/red-umbrella/decisions/2026-08-06-universal-living-repository.yaml
     status: locked
@@ -9,5 +12,6 @@ active:
     status: locked
 rules:
   - only_approved_or_locked_records_are_active
+  - latest_owner_approved_decision_overrides_conflicting_older_records
   - superseded_records_must_remain_auditable
   - assistants_must_load_this_index_before_project_work

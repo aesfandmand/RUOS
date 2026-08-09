@@ -1,0 +1,57 @@
+contract_id: prebuild-intelligence-gate
+version: 1.0.0
+status: locked
+scope: core
+mission: >-
+  No marketing, product, structure or service page may be rendered before RUOS
+  produces a source-backed pre-build intelligence dossier covering Iranian search,
+  user intent, funnel role, editorial strategy, Discover strategy, knowledge graph,
+  capability evidence and technology selection.
+required_inputs:
+  - page_entity
+  - parent_entity
+  - project_profile
+  - target_market
+  - target_language
+  - primary_persona
+  - baseline_package
+required_outputs:
+  - iranian_query_set
+  - serp_landscape
+  - search_intent_map
+  - funnel_role
+  - conversion_goal
+  - pillar
+  - cluster
+  - title_strategy
+  - h1
+  - heading_architecture
+  - discover_hook
+  - faq_and_paa_plan
+  - entity_graph
+  - schema_plan
+  - capability_evidence_plan
+  - internal_linking_plan
+  - related_blog_and_video_plan
+  - writer_profile
+  - iranian_editor_profile
+  - voice_constraints
+  - live_library_research_report
+  - selected_technology_stack
+  - aspirational_reference_translation
+  - motion_direction
+  - conversion_instrumentation_plan
+blocking_gates:
+  live_iranian_search_present: true
+  intent_evidence_present: true
+  funnel_and_conversion_declared: true
+  title_and_heading_architecture_present: true
+  discover_strategy_present: true
+  editorial_profiles_loaded: true
+  knowledge_graph_present: true
+  capability_evidence_present: true
+  live_library_selection_completed: true
+  selected_libraries_bound_to_build: true
+  baseline_floor_verified: true
+  aspirational_references_present: true
+failure_policy: reject_build

@@ -1,0 +1,48 @@
+schema_version: 1.0.0
+id: decision-2026-08-09-explicit-structure-pages-and-graphic-design
+project_id: red-umbrella
+status: locked
+owner_approved_date: 2026-08-09
+scope:
+  - website_architecture
+  - structures
+  - service_ia
+  - sitemap
+
+rules:
+  - id: RU-ARCH-2026-08-09-001
+    statement: "خانواده «طراحی و برندینگ» در معماری جدید معتبر نیست؛ نام و مالک کانونیکال خانواده «طراحی گرافیک» است. استراتژی برند/مشاوره برند زیر Consulting و هویت بصری زیر Graphic Design قرار می‌گیرد."
+    status: locked
+  - id: RU-ARCH-2026-08-09-002
+    statement: "هر تابلو/سازه ثبت‌شده باید به‌صورت Structure Detail مستقل زیر /structures/ در رجیستری سازه ثبت شود؛ STR-DETAIL-* فقط Pattern است و جایگزین رجیستری صریح صفحات نیست."
+    status: locked
+  - id: RU-ARCH-2026-08-09-003
+    statement: "یک/دوطرفه، نوردهی و سایر ویژگی‌های فنی Variant/Data هستند مگر آنکه خودِ محصول در رجیستری تاییدشده به‌عنوان صفحه مستقل ثبت شده باشد."
+    status: locked
+  - id: RU-ARCH-2026-08-09-004
+    statement: "منابع قدیمی که با معماری v2/v2.1 تعارض دارند حق Override ندارند و باید deprecated تلقی شوند."
+    status: locked
+
+explicit_structure_pages:
+  - STR-001: بیلبورد عمودی ۵×۱۰
+  - STR-002: بیلبورد افقی ۶×۱۲
+  - STR-003: استرابورد افقی ۵×۳
+  - STR-004: استرابورد عمودی ۴×۳
+  - STR-005: لایت‌باکس افقی ۳×۲
+  - STR-006: لایت‌باکس عمودی ۱۸۰×۱۲۰
+  - STR-007: لایت‌برد
+  - STR-008: برایت‌بورد عمودی ۳×۲
+  - STR-009: برایت‌بورد افقی ۵×۳
+  - STR-010: برایت‌بورد افقی ۷×۳
+  - STR-011: فلاور بورد
+  - STR-012: پایه بنر / پرتابل ۴×۳
+  - STR-013: تیر بورد
+  - STR-014: لایت‌باکس عکس شهدا
+  - STR-015: لایت‌باکس دیواری ایندور
+  - STR-016: لایت‌باکس استند ایستاده ایندور
+  - STR-017: عرشه پل عابر
+
+supersedes_conflicts_in:
+  - chatreghermez-architecture-map.html
+  - چتر_قرمز_نالج‌گراف_و_مدل‌داده_v1.xlsx
+  - chatreghermez-sitemap-v2-target-predeploy.xml

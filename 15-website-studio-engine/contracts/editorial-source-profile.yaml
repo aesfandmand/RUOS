@@ -1,0 +1,52 @@
+contract_id: editorial-source-profile
+version: 1.0.0
+status: locked
+scope: core
+mission: >-
+  Persian page copy must be produced from an explicit, project-approved editorial
+  profile. The profile may reference books, authors, editors and linguistic sources,
+  but RUOS must extract transferable principles rather than imitate a living author's
+  distinctive voice. Missing source lists must block claims that the profile was applied.
+required_profile_fields:
+  - profile_id
+  - language
+  - market
+  - approved_sources
+  - transferable_principles
+  - prohibited_patterns
+  - brand_voice_rules
+  - editor_checks
+approved_source_record:
+  required:
+    - source_type
+    - title
+    - author_or_editor
+    - approval_status
+  optional:
+    - edition
+    - notes
+    - project_scope
+writer_output_requirements:
+  - sentence_rhythm
+  - vocabulary_policy
+  - metaphor_policy
+  - storytelling_policy
+  - claim_policy
+  - cta_policy
+  - terminology_policy
+editor_checks:
+  - persian_naturalness
+  - unnecessary_arabic_or_english_jargon
+  - inflated_marketing_claims
+  - cliche_density
+  - sentence_length_variation
+  - heading_body_consistency
+  - punctuation_and_half_space
+  - brand_voice_consistency
+blocking_gates:
+  approved_source_list_present: true
+  principles_traceable_to_sources: true
+  brand_voice_loaded: true
+  editor_pass_present: true
+  unsupported_style_claim_forbidden: true
+failure_policy: reject_content

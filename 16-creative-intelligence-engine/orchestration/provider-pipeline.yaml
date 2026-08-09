@@ -1,0 +1,117 @@
+version: 1
+pipeline: creative-intelligence-provider-pipeline
+
+execution:
+  strategy: parallel-where-independent
+  timeout_policy: fail-provider-not-whole-pipeline
+  minimum_successful_providers: 5
+  provenance_required: true
+
+providers:
+  - id: reference_visual_analyst
+    required: true
+    responsibilities:
+      - composition
+      - hierarchy
+      - typography
+      - color_and_materiality
+      - imagery_system
+      - spatial_depth
+      - reference_specific_principles
+    output_schema: ../schemas/provider-output.schema.json
+
+  - id: motion_interaction_analyst
+    required: true
+    responsibilities:
+      - scroll_choreography
+      - pinned_sequences
+      - transitions
+      - gesture_mapping
+      - interaction_states
+      - motion_semantics
+      - reduced_motion_equivalents
+    output_schema: ../schemas/provider-output.schema.json
+
+  - id: ux_journey_analyst
+    required: true
+    responsibilities:
+      - user_intent_fit
+      - information_sequence
+      - decision_friction
+      - cognitive_load
+      - cta_progression
+      - journey_continuity
+    output_schema: ../schemas/provider-output.schema.json
+
+  - id: industrial_product_analyst
+    required_when:
+      page_types:
+        - structure
+        - product
+        - catalog
+        - industrial-service
+        - investment-asset
+    responsibilities:
+      - anatomy_presentation
+      - technical_layers
+      - hotspots
+      - configuration_logic
+      - material_and_scale_communication
+      - virtual_tour_opportunities
+      - evidence_boundaries
+    output_schema: ../schemas/provider-output.schema.json
+
+  - id: brand_editorial_analyst
+    required: true
+    responsibilities:
+      - brand_fit
+      - customer_as_hero
+      - persuasion_logic
+      - voice_and_tone
+      - content_visual_pairing
+      - claim_specificity
+    output_schema: ../schemas/provider-output.schema.json
+
+  - id: performance_accessibility_analyst
+    required: true
+    responsibilities:
+      - mobile_viability
+      - touch_targets
+      - keyboard_path
+      - contrast
+      - reduced_motion
+      - progressive_enhancement
+      - loading_cost
+      - fallback_strategy
+    output_schema: ../schemas/provider-output.schema.json
+
+  - id: competitive_differentiation_analyst
+    required: false
+    responsibilities:
+      - category_patterns
+      - sameness_risk
+      - differentiation_opportunities
+      - visual_cliches
+      - interaction_cliches
+    output_schema: ../schemas/provider-output.schema.json
+
+aggregation:
+  reject_output_when:
+    - missing_provenance
+    - unsupported_assertions
+    - direct_copy_instruction
+    - no_page_specific_mapping
+  conflict_resolution:
+    priority:
+      - locked_project_rules
+      - user_and_business_goal
+      - evidence_and_truth
+      - accessibility_and_mobile
+      - brand_distinctiveness
+      - approved_reference_direction
+      - novelty
+  synthesis_requirements:
+    - at_least_one_page_specific_principle_per_required_provider
+    - explicit_mobile_translation_for_core_interactions
+    - explicit_anti_copy_note_for_each_major_reference
+    - fallback_for_each_essential_high_cost_interaction

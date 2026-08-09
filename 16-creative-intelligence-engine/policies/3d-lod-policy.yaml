@@ -1,0 +1,18 @@
+version: 1.0
+status: active
+algorithm: BLENDER_DECIMATE_COLLAPSE
+levels:
+  source:
+    ratio: 1.0
+  high:
+    ratio: 0.75
+    minimum_reduction: 0.15
+  medium:
+    ratio: 0.45
+    minimum_reduction: 0.35
+rules:
+  - medium MUST contain fewer triangles than high.
+  - generated LOD GLBs MUST be revalidated against the semantic GLB authoring contract.
+  - semantic groups, required animations, material variants, and hotspot anchors MUST survive optimization.
+  - a copied source GLB MUST NOT be reported as an optimized LOD.
+  - visual QA remains required before production approval because polygon reduction alone cannot prove acceptable appearance.
