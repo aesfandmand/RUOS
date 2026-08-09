@@ -1,0 +1,135 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-persona-journey-matrix-v1
+project_id: red-umbrella
+status: desk_validated_field_provisional
+source: persona-system-desk-research-v1.pdf
+note: >
+  Rows tie directly to Sitemap v5 routes and the v2.1 Structure Detail
+  pages. Hero message, evidence sequence and CTA per row are research
+  proposals, not final copy, and still need A/B and qualitative
+  validation (see persona-registry-v1.yaml#validation_gates). Where
+  entry_page does not yet exist as a materialized registry entity/service
+  record, that is a real, open gap between this content-strategy layer and
+  the architecture registry (see architecture-entity-registry-v2.1.yaml
+  and service-landing-registry-v2.1.yaml) — do not assume the page exists.
+
+records:
+  - persona_or_situation: PERSONA-001
+    query_or_intent: "آژانس تبلیغاتی برای کمپین"
+    entry_page: /services/
+    hero_message: "از هدف کمپین تا اجرا و گزارش؛ یک برنامه با مسئولیت روشن"
+    evidence: ["Relevant campaigns", process, capabilities]
+    conversion: "ارسال Brief"
+    next_page: ["/portfolio/", "/credentials/"]
+
+  - persona_or_situation: PERSONA-001
+    query_or_intent: "طراحی سایت شرکتی حرفه‌ای"
+    entry_page: /corporate-web-design/
+    hero_message: "سایتی که هم برای مخاطب روشن است، هم برای تیم شما قابل مدیریت و اندازه‌گیری"
+    evidence: [Case, scope, process, "technical competence"]
+    conversion: "Discovery call / Brief"
+    next_page: ["/portfolio/", "/website-services/"]
+
+  - persona_or_situation: PERSONA-001
+    query_or_intent: "سئو سایت / آژانس دیجیتال"
+    entry_page: ["/seo/", "/digital-marketing/"]
+    hero_message: "از Visibility تا Lead؛ با KPI و دامنه مسئولیت روشن"
+    evidence: [Baseline, methodology, reporting, case]
+    conversion: "Audit Proposal"
+    next_page: ["/seo-consulting/"]
+
+  - persona_or_situation: PERSONA-002
+    query_or_intent: "برای کسب‌وکارم چه تبلیغی مناسب است"
+    entry_page: /solutions/local-businesses/
+    hero_message: "اول مسئله را مشخص کنیم؛ بعد فقط خدماتی را انتخاب کنیم که لازم‌اند"
+    evidence: [Diagnostic, "starter paths", "local cases"]
+    conversion: "مشاوره تشخیصی"
+    next_page: ["relevant service"]
+
+  - persona_or_situation: PERSONA-003
+    query_or_intent: "نمونه کار شرکت تبلیغاتی"
+    entry_page: /portfolio/
+    hero_message: "پروژه‌ها را بر اساس مسئله و نوع خروجی مقایسه کنید"
+    evidence: [Scope, client, context, role, date]
+    conversion: "دریافت رزومه / RFQ"
+    next_page: ["/credentials/"]
+
+  - persona_or_situation: PERSONA-003
+    query_or_intent: "چاپ کاتالوگ / چاپ بنر"
+    entry_page: "exact Printing Page"
+    hero_message: "مشخصات، گزینه‌ها، زمان و عوامل قیمت را قبل از استعلام ببینید"
+    evidence: [material, spec, size, "lead time", samples]
+    conversion: "استعلام قیمت"
+    next_page: ["/printing/"]
+
+  - persona_or_situation: PERSONA-004
+    query_or_intent: "پیمانکار تبلیغات شهری"
+    entry_page: /solutions/municipalities/
+    hero_message: "اجرای پروژه شهری با مشخصات، سابقه و مدارک قابل ارزیابی"
+    evidence: [projects, credentials, capacity, process]
+    conversion: "استعلام سازمانی"
+    next_page: ["/structures/", "/credentials/"]
+
+  - persona_or_situation: "PERSONA-004 (Municipality Product Intent)"
+    query_or_intent: "بیلبورد عمودی ۵×۱۰"
+    entry_page: /structures/billboard-vertical-5x10/
+    hero_message: "بیلبورد عمودی ۵×۱۰؛ مشخصات فنی، کاربرد و مسیر اجرای پروژه"
+    evidence: [dimensions, variants, process, projects]
+    conversion: "RFQ فنی"
+    next_page: ["/outdoor-structures/", "/credentials/"]
+
+  - persona_or_situation: "PERSONA-004 (Municipality Product Intent)"
+    query_or_intent: "استرابورد ۳×۵"
+    entry_page: /structures/straboard-horizontal-5x3/
+    hero_message: "استرابورد افقی ۵×۳؛ آنچه برای ارزیابی و سفارش باید بدانید"
+    evidence: ["face variants", "technical details", install]
+    conversion: RFQ
+    next_page: ["/projects/"]
+
+  - persona_or_situation: PERSONA-005
+    query_or_intent: "طراحی سایت صنعتی"
+    entry_page: ["/solutions/industrial-b2b/", "/corporate-web-design/"]
+    hero_message: "محصول پیچیده‌تان را دقیق، حرفه‌ای و قابل‌فهم برای خریدار B2B ارائه کنید"
+    evidence: ["industrial case", discovery, method, team]
+    conversion: "جلسه کشف نیاز"
+    next_page: ["/industrial-photography/", "/catalog-design/"]
+
+  - persona_or_situation: "PERSONA-005 (Exhibition)"
+    query_or_intent: "طراحی برای نمایشگاه"
+    entry_page: /solutions/exhibition/
+    hero_message: "تا روز نمایشگاه، همه خروجی‌های ضروری را روی یک Critical Path ببرید"
+    evidence: [timeline, deliverables, "dependency map"]
+    conversion: "برنامه اجرایی"
+    next_page: ["/exhibition-stand-design/", "print/photo"]
+
+  - persona_or_situation: "PERSONA-005 (Content)"
+    query_or_intent: "عکاسی صنعتی کارخانه"
+    entry_page: /industrial-photography/
+    hero_message: "تصویری دقیق از محصول و فرایند، با برنامه‌ای متناسب با محیط صنعتی"
+    evidence: ["photography case", "shot plan", "safety process"]
+    conversion: "دریافت Shot Plan"
+    next_page: ["/industrial-video-production/"]
+
+  - persona_or_situation: "PERSONA-001 / PERSONA-002 (Brand Identity)"
+    query_or_intent: "طراحی هویت بصری شرکت"
+    entry_page: /visual-identity-design/
+    hero_message: "هویتی که در سایت، چاپ، محیط و فروش یکپارچه بماند"
+    evidence: ["identity case", "system deliverables"]
+    conversion: "دریافت Brief"
+    next_page: ["/logo-design/", "/brand-strategy/"]
+
+  - persona_or_situation: "OVERLAY-001 (Procurement, Vendor verification intent)"
+    query_or_intent: "اعتبارسنجی Vendor"
+    entry_page: /credentials/
+    hero_message: "مدارک، سابقه و اطلاعاتی که برای ارزیابی چتر قرمز لازم دارید"
+    evidence: ["legal company docs", references, QA, capabilities]
+    conversion: "درخواست پرونده Vendor"
+    next_page: ["/projects/"]
+
+  - persona_or_situation: PERSONA-006
+    query_or_intent: "سرمایه گذاری بیلبورد"
+    entry_page: /investment/
+    hero_message: "پیش از وعده درآمد، ظرفیت فنی و اقتصادی موقعیت را ارزیابی کنیم"
+    evidence: [assumptions, model, structures, cases]
+    conversion: "Asset Evaluation"
+    next_page: ["/structures/", "/projects/"]

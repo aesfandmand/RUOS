@@ -1,0 +1,72 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-behavioral-guardrails-v1
+project_id: red-umbrella
+status: desk_validated_field_provisional
+source: persona-system-desk-research-v1.pdf
+note: >
+  Neuromarketing/behavioral-economics principles this project is allowed
+  to use in copy and page structure, each paired with what it forbids.
+  This is a Measurement Layer, not a Magic Layer: the correct order is
+  behavioral problem → hypothesis → design → behavior test → biological/
+  eye-tracking tooling only if it adds value, never the reverse (never
+  pick a "brain trick" first). No copy generated for this project should
+  use a forbidden_use pattern below, even under time pressure.
+
+records:
+  - principle: Loss Aversion
+    research_basis: >
+      Prospect Theory models decisions around gain/loss relative to a
+      reference point.
+      https://www.jstor.org/stable/i332789
+    correct_use: >
+      نشان‌دادن هزینه واقعی تأخیر، دوباره‌کاری، انتخاب نامناسب، missed
+      deadline یا downtime — فقط وقتی قابل اثبات باشد.
+    forbidden_use: "ترساندن مصنوعی؛ «اگر امروز نخرید ضرر می‌کنید»"
+
+  - principle: Cognitive Processing / Fluency
+    research_basis: >
+      Reading difficulty can make a task feel harder to do; low fluency
+      has been associated with higher perceived risk in other experiments.
+      Song & Schwarz, 2008 — https://journals.sagepub.com/doi/10.1111/j.1467-9280.2008.02189.x
+    correct_use: "Hero روشن، اصطلاحات قابل فهم، visual hierarchy، جدول مقایسه، CTA مشخص"
+    forbidden_use: "متن تخصصی برای نمایش فضل؛ Menu overload"
+
+  - principle: Authority / Credibility
+    research_basis: "تحقیقات کلاسیک Source Credibility نشان می‌دهند اعتبار منبع بر پذیرش پیام اثر دارد."
+    correct_use: "مدارک، تخصص افراد، مجوز، پروژه واقعی، مشتری قابل‌تأیید، توضیح Method"
+    forbidden_use: "Badge و عنوان ساختگی"
+
+  - principle: Anchoring
+    research_basis: "Anchoring از heuristicهای کلاسیک judgment under uncertainty است."
+    correct_use: "Range و Package را با Scope واقعی و مفروضات روشن لنگر کنید"
+    forbidden_use: "قیمت خط‌خورده ساختگی و Anchor فریبنده"
+
+  - principle: Ambiguity Aversion
+    research_basis: "Ellsberg تمایز میان Risk و ambiguity/uncertainty را به مسئله تصمیم وارد کرد."
+    correct_use: "زمان، deliverable، مسئولیت، فازها، warranty، technical specification، assumptions"
+    forbidden_use: "«قیمت پس از تماس» بدون هیچ چارچوب"
+
+  - principle: Framing
+    research_basis: "مطالعات کلاسیک framing نشان می‌دهند شیوه بیان یک مسئله می‌تواند انتخاب را تغییر دهد."
+    correct_use: "Outcome و downside را هر دو، صادقانه و قابل‌اندازه‌گیری، نمایش دهید"
+    forbidden_use: "دستکاری framing برای مخفی‌کردن trade-off"
+
+  - principle: Mental Accounting
+    research_basis: >
+      Thaler budgeting و transaction utility را در Mental Accounting وارد
+      مدل انتخاب کرد.
+      https://pubsonline.informs.org/doi/10.1287/mksc.4.3.199
+    correct_use: "«Bundle» هم Proposal داشته باشد و هم breakdown: طراحی، تولید، رسانه، چاپ، نصب، پشتیبانی"
+    forbidden_use: "شکستن مصنوعی قیمت برای پنهان‌کردن Total Cost"
+
+  - principle: Social Proof
+    research_basis: "در Context ایران، سابقه و ارزیابی مشتریان قبلی مستقیماً در ارزیابی Vendor معنا دارد."
+    correct_use: "Case مرتبط با همان صنعت/شهر/مسئله + نتیجه + نقش چتر قرمز"
+    forbidden_use: "Logo wall بی‌توضیح یا لوگوی بدون اجازه"
+
+  - principle: Neuromarketing
+    research_basis: >
+      Nature Reviews Neuroscience warns against overclaiming neuroimaging
+      hype in business. https://doi.org/10.1038/NRN2795
+    correct_use: "→ Hypothesis → behavioral test؛ در صورت نیاز eye-tracking به‌عنوان ابزار تحقیق"
+    forbidden_use: "«مغز خزنده»، «رنگ قرمز فروش را زیاد می‌کند»، ادعای subconscious certainty"

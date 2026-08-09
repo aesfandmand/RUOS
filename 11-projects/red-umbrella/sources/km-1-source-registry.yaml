@@ -2,7 +2,7 @@ uid: SRC-RU-000001
 type: source_registry
 name: Red Umbrella KM-1 Source Registry
 status: active
-version: 1.5.0
+version: 1.6.0
 source_language: fa
 project_uid: PRJ-000001
 
@@ -128,6 +128,41 @@ sources:
     role: machine_readable_url_audit_priority_queue
     priority: approved_supporting
     materialized_from: SRC-RU-000008
+  - uid: SRC-RU-000028
+    path: 11-projects/red-umbrella/registries/persona-system-desk-research-v1.pdf
+    role: persona_and_buying_behavior_research
+    priority: approved_supporting
+    validation_status: desk_validated_field_provisional
+  - uid: SRC-RU-000029
+    path: 11-projects/red-umbrella/registries/persona-registry-v1.yaml
+    role: machine_readable_persona_registry
+    priority: approved_supporting
+    validation_status: desk_validated_field_provisional
+    materialized_from: SRC-RU-000028
+  - uid: SRC-RU-000030
+    path: 11-projects/red-umbrella/registries/persona-buying-situations-v1.yaml
+    role: machine_readable_buying_situations_cep
+    priority: approved_supporting
+    validation_status: desk_validated_field_provisional
+    materialized_from: SRC-RU-000028
+  - uid: SRC-RU-000031
+    path: 11-projects/red-umbrella/registries/persona-journey-matrix-v1.yaml
+    role: machine_readable_persona_journey_matrix
+    priority: approved_supporting
+    validation_status: desk_validated_field_provisional
+    materialized_from: SRC-RU-000028
+  - uid: SRC-RU-000032
+    path: 11-projects/red-umbrella/registries/behavioral-guardrails-v1.yaml
+    role: machine_readable_behavioral_economics_guardrails
+    priority: approved_supporting
+    validation_status: desk_validated_field_provisional
+    materialized_from: SRC-RU-000028
+  - uid: SRC-RU-000033
+    path: 11-projects/red-umbrella/registries/pricing-presentation-model-v1.yaml
+    role: machine_readable_pricing_presentation_model
+    priority: approved_supporting
+    validation_status: desk_validated_field_provisional
+    materialized_from: SRC-RU-000028
 
 conflict_rule:
   rule: در تعارض میان منابع، تصمیم متاخر کاربر و سپس تصمیم فعال قفل‌شده و معماری v2.1 حاکم است؛ منابع deprecated حق Override ندارند و تعارض حل‌نشده باید پیش از ثبت پرسیده شود.

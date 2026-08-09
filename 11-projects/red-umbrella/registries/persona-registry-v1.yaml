@@ -1,0 +1,289 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-persona-system-v1
+project_id: red-umbrella
+status: desk_validated_field_provisional
+source: persona-system-desk-research-v1.pdf
+validation_note: >
+  Desk-Validated / Field-Provisional. No direct interviews with real Red
+  Umbrella buyers, leads, lost customers or buying-committee members have
+  been run yet (no CRM/GA4/Search Console/respondent access at research
+  time). Built from architecture registry data, Iranian procurement
+  regulation, real Iranian job-role descriptions, agency market supply and
+  behavioral-economics literature. Do not treat any persona here as
+  final statistical truth; a persona only moves from provisional to
+  validated once it clears the evidence gates in `validation_gates` below.
+
+model: "Persona = Decision Pattern + Buying Role + Buying Situation + Context"
+
+design_principle: >
+  Personas are not built from the service list and must not multiply with
+  every Service/Solution/Structure page. Service type and buyer type are
+  two different layers. A Persona is not a Buying Situation ("نمایشگاه" is
+  not a Persona), not an SEO segment ("Persona" is not "SEO Persona"), and
+  not a Product Intent ("بیلبورد ۶×۱۲" is not a Persona, it is a Product
+  Intent handled by the structure detail page). If two personas need the
+  same message, the same Evidence, the same CTA and the same Journey, they
+  are probably one persona, not two.
+
+evidence_sequence_for_high_stakes_pages:
+  - Recognition   # user must see in seconds that this page is their problem
+  - Relevance     # what Red Umbrella actually offers
+  - Risk Reduction  # remove technical/timing/price unknowns
+  - Proof
+  - Comparison
+  - Action        # the heavy CTA comes last, not first
+
+north_star_metric:
+  name: Qualified Decision Progression
+  definition: >
+    Not raw CTR or form count. The share of users who, after entering,
+    consume relevant Evidence, Save/Share it, and complete a conversion
+    matched to their decision stage. A Vendor Scout's share/download is a
+    valid micro-conversion; a Procurement overlay's vendor-pack download;
+    an Investor's asset-detail submission; a Marketing Manager's brief
+    submission.
+
+core_personas:
+  - id: PERSONA-001
+    name_fa: مدیر بازاریابی/برند پاسخگوی نتیجه
+    name_en: Marketing Orchestrator
+    evidence_strength: strong
+    central_mental_statement: >
+      باید نتیجه بگیرم و بتوانم این انتخاب را به مدیریت دفاع کنم.
+    dominant_buying_role: [Initiator, Influencer, Economic Buyer (sometimes)]
+    contexts: [Corporate, Campaign, Digital, OOH, Web]
+    profile:
+      jtbd: >
+        وقتی یک هدف رشد، campaign، launch یا تحول برند دارم، یک شریک پیدا
+        کنم که چند تخصص را هماهنگ کند و خروجی آن قابل سنجش و قابل دفاع باشد.
+      trigger: [Launch, KPI پایین, بودجه جدید, کمپین فصلی, نمایشگاه, سایت قدیمی, تغییر هویت, درخواست مدیریت برای رشد]
+      problem: >
+        Vendorهای متعدد، نامشخص بودن ownership، فاصله میان Creative و
+        Business KPI، سختی دفاع از هزینه.
+      desired_outcome: >
+        یک برنامه روشن با مسئولیت مشخص، Deliverables، Timeline و معیار
+        موفقیت؛ کاهش coordination overhead.
+      fears: [اتلاف بودجه, تأخیر, "Creative زیبا ولی بی‌اثر", "Vendor غیرپاسخگو", گزارش ضعیف, "مورد سؤال قرارگرفتن انتخابش توسط CEO/CFO"]
+      perceived_risks: [strategic fit, execution risk, deadline risk, measurement risk, reputation risk, switching/rework cost]
+      objections: ["نمونه مرتبط با صنعت ما دارید؟", "چه کسی پروژه را مدیریت می‌کند؟", "چطور نتیجه را اندازه می‌گیرید؟", "چرا این ترکیب خدمات؟"]
+      selection_criteria: [فهم مسئله کسب‌وکار, تجربه مشابه, "PM قوی", Process, Quality, integration, responsiveness, realistic timeline, reporting]
+      price_sensitivity: >
+        متوسط و Contextual؛ ارزان‌ترین گزینه الزاماً مطلوب نیست، اما هزینه
+        باید به Scope و Outcome قابل دفاع وصل شود. فرضیه‌ای که باید با
+        مصاحبه اعتبارسنجی شود.
+      evidence_needed: ["Case Study: مسئله→راهکار→نتیجه", "Portfolio مرتبط", Team, Process, methodology, timeline, reference, "شفافیت Scope"]
+      pre_purchase_questions: ["چه چیزی را خودتان انجام می‌دهید؟", "چه مدت؟", "از ما چه می‌خواهید؟", "چه KPIای واقعاً قابل اندازه‌گیری است؟", "اگر Deadline عقب افتاد چه؟"]
+      search_queries: ["آژانس تبلیغاتی برای کمپین", "شرکت تبلیغات محیطی", "طراحی سایت شرکتی حرفه‌ای", "آژانس دیجیتال مارکتینگ B2B", "استراتژی برند شرکت"]
+      content_needs: ["Case Study", Service comparison, Campaign methodology, Process, FAQ قیمت, "brief template بر اساس industry", "portfolio filter"]
+      cta: ["دریافت طرح پیشنهادی و برآورد پروژه", "ارسال بریف برای بررسی"]
+      forbidden_messages: ["فروش شما را تضمین می‌کنیم", "بهترین آژانس ایران", "همه‌چیز را به ما بسپارید بدون Evidence/Process", "وعده ROI بدون baseline"]
+      cognitive_biases: ["Ambiguity aversion ↓ با Process", "Loss aversion با rework/deadline", "Authority با case مشابه", "Anchoring با Scope tiers", "Framing با outcome و downside"]
+      conversion_path: "Query/Referral/Social → Solution/Service → Relevant Case → Credentials/Process → Brief → Proposal → Internal Share → Meeting → Contract"
+      cta_note: >
+        برای این Persona، «تماس بگیرید» ضعیف‌تر از شروع یک فرایند حرفه‌ای
+        است. باید بتواند بدون تماس اولیه هم enough evidence جمع کند تا
+        چتر قرمز وارد shortlist شود.
+
+  - id: PERSONA-002
+    name_fa: مالک/مدیرعامل کسب‌وکار محلی
+    name_en: SME Outcome Buyer
+    evidence_strength: medium_needs_direct_interview
+    central_mental_statement: >
+      مسئله کسب‌وکارم را حل کن؛ مجبورم نکن خودم متخصص کانال شوم.
+    dominant_buying_role: [Initiator, Economic Buyer, Final Approver]
+    contexts: [Local business, SME, Growth]
+    profile:
+      jtbd: >
+        بدون آنکه متخصص Content/OOH/UX/SEO شوم، بفهمم برای رشد کسب‌وکارم
+        الان چه ترکیب کاری اولویت دارد.
+      trigger: [افتتاح/توسعه کسب‌وکار, فروش کم, رقابت جدید, نیاز به سایت, "ضعیف‌بودن Instagram", تغییر تابلو یا هویت]
+      problem: "بازار خدمات گیج‌کننده؛ تفاوت قیمت‌ها زیاد؛ نمی‌داند کدام کانال اولویت دارد"
+      desired_outcome: "Recommendation ساده، قابل‌فهم و مرحله‌ای که مستقیم به مسئله کسب‌وکار وصل شود"
+      fears: ["پول دادن برای چیزی که نمی‌فهمد", "Vendor disappearing", هزینه‌های پنهان, وابستگی دائمی]
+      perceived_risks: [price risk, scope creep, poor fit, jargon asymmetry, maintenance/support risk]
+      objections: ["چرا به سایت نیاز دارم؟", "اینستاگرام کافی نیست؟", "چقدر هزینه دارد؟", "چه زمانی نتیجه می‌گیرم؟"]
+      selection_criteria: [فهم سریع مسئله, "قیمت/دامنه روشن", نمونه مشابه, responsiveness, امکان شروع مرحله‌ای]
+      price_sensitivity: "نسبتاً بالا به‌عنوان Hypothesis؛ اما Total Cost و قابل‌فهم بودن ارزش احتمالاً مهم‌تر از فقط قیمت است."
+      evidence_needed: [Before/After, "کیس کسب‌وکار مشابه", "Scope ساده", مراحل, نمونه خروجی, هزینه نگهداری/پشتیبانی]
+      pre_purchase_questions: ["از کجا شروع کنم؟", "حداقل بودجه مؤثر چیست؟", "خودم چه کاری باید انجام دهم؟", "کدام خدمت الان لازم نیست؟"]
+      search_queries: ["طراحی سایت برای کسب و کار", "تبلیغات برای فروشگاه", "ادمین اینستاگرام", "طراحی لوگو و هویت بصری", "تبلیغات محلی"]
+      content_needs: ["Diagnostic content", "برای چه کسی مناسب است/نیست", "Starter roadmap", "FAQ قیمت", "local case"]
+      cta: ["مسئله کسب‌وکارم را بررسی کنید", "دریافت پیشنهاد مرحله اول"]
+      forbidden_messages: ["Acronym overload", "راهکار ۳۶۰ درجه بدون توضیح", "منوی ۳۰ خدمت در Hero", selling pressure]
+      cognitive_biases: ["Cognitive fluency", "loss aversion", "mental accounting", "honest anchoring", "social proof نزدیک به Context"]
+      conversion_path: "Search/Referral → Local Business Solution → Diagnostic/Case → Recommended Service → Range → Consultation → Proposal"
+      ux_principle: "مسئله را بفروشید، نه taxonomy آژانس را."
+
+  - id: PERSONA-003
+    name_fa: کارشناس مارکتینگ/روابط‌عمومی
+    name_en: Vendor Scout
+    evidence_strength: medium_to_strong
+    central_mental_statement: >
+      باید گزینه‌های قابل دفاعی پیدا کنم و سریع برای مدیرم بفرستم.
+    dominant_buying_role: [Researcher, Initiator, Influencer]
+    contexts: [تقریباً همه خدمات]
+    profile:
+      jtbd: "سریع چند Vendor مناسب پیدا کنم، مقایسه کنم و مدرکی جمع کنم که بتوانم برای مدیرم ارسال کنم."
+      trigger: ["تا فردا سه شرکت پیدا کن", RFQ, نمایشگاه, کمپین, درخواست رزومه, "نیاز ناگهانی به چاپ/طراحی/سازه"]
+      problem: "سایت‌های پر از ادعا و کم از اطلاعات؛ Portfolio بدون Context؛ نبود قیمت یا زمان؛ سختی مقایسه"
+      desired_outcome: "ظرف یک Session بفهمد چتر قرمز چه کاری انجام می‌دهد یا نه، چه سابقه‌ای دارد و قدم بعد چیست"
+      fears: ["پیشنهاد Vendor نامناسب", "سؤال مدیر که پاسخ ندارد", "دیررسیدن Quote", "ناقص‌بودن مدارک"]
+      perceived_risks: [personal recommendation risk, information gap, response latency, comparability]
+      objections: ["رزومه دارید؟", "نمونه همین کار را دارید؟", "قیمت تقریبی؟", "چقدر طول می‌کشد؟"]
+      selection_criteria: [Findability, clarity, relevant portfolio, response time, "shareable evidence"]
+      price_sensitivity: "نیازمند Comparability است، نه الزاماً Cheapest Option؛ باید گزینه‌ها را در یک format قابل ارائه جمع کند."
+      evidence_needed: ["Company profile", Credentials, "case links", "PDF/share page", "technical sheets", FAQ, "contact person"]
+      pre_purchase_questions: ["این فایل را می‌توانم برای مدیر بفرستم؟", "نمونه مشابه کجاست؟", "Quote چند ساعت/روز طول می‌کشد؟"]
+      search_queries: ["شرکت طراحی بیلبورد", "مجری لایت باکس", "نمونه کار طراحی کاتالوگ", "شرکت عکاسی صنعتی", "شرکت طراحی سایت شرکتی"]
+      content_needs: ["Shortlist-ready pages", "downloadable brief/credential", Filter, "comparison/spec table", "concise summaries"]
+      cta: ["دریافت رزومه و مدارک", "درخواست استعلام", "ارسال بریف"]
+      forbidden_messages: ["فرم طولانی قبل از دیدن Evidence", "اجبار به تماس برای اطلاعات پایه", "Portfolio بی‌نام/بی‌شرح"]
+      cognitive_biases: [Fluency, authority, "social proof", "ambiguity reduction", anchoring]
+      conversion_path: "Long-tail Query → Detail Page → Case/Specs → Credentials → Share/Save → RFQ → Manager Review"
+      ux_principle: >
+        برای این فرد «Shareability» باید بخشی از UX باشد: لینک تمیز، PDF،
+        summary یا Print-friendly view، نام پروژه، Scope، سال، Context،
+        نقش چتر قرمز و Evidence قابل انتقال.
+
+  - id: PERSONA-004
+    name_fa: مسئول پروژه/روابط‌عمومی سازمان عمومی و شهرداری
+    name_en: Public Project Steward
+    evidence_strength: very_strong
+    central_mental_statement: >
+      انتخاب باید هم اجرا شود، هم از نظر فنی و اداری قابل دفاع باشد.
+    dominant_buying_role: [Initiator, Researcher, Influencer, then Technical Committee, then Procurement, then Approver]
+    contexts: [Municipality, public OOH, structures, print]
+    profile:
+      jtbd: "Vendorی انتخاب کنم که هم پروژه را از نظر فنی/زمانی تحویل دهد و هم انتخاب آن در فرایند اداری، کمیته و حسابرسی قابل دفاع باشد."
+      trigger: ["پروژه شهری", "بودجه مصوب", مناسبت, فراخوان, "نصب سازه", "چاپ سازمانی", زیباسازی, "public campaign"]
+      problem: "Administrative + Technical complexity؛ Vendor qualification؛ deadline؛ چند امضایی بودن تصمیم"
+      desired_outcome: "اجرای مطابق Specification، زمان و قرارداد با Documentation کامل"
+      fears: ["اعتراض به انتخاب", تأخیر, "نقص فنی", "عدم انطباق", "مشکل تضمین", "Vendor بدون ظرفیت واقعی"]
+      perceived_risks: [Compliance, technical failure, procurement challenge, reputation, schedule, contractual risk]
+      objections: ["سابقه پروژه دولتی دارید؟", "مدارک شرکت؟", "توان اجرایی؟", "تضمین و خدمات؟", "مشخصات فنی؟"]
+      selection_criteria: [Experience, "good record", "financial/operational capacity", "technical fit", timeline, QA, references, documentation]
+      price_sensitivity: >
+        Procurement-constrained؛ قیمت مهم است اما انتخاب در بسیاری از
+        فرایندها فقط «کمترین عدد» نیست و Technical/Qualification
+        Evaluation پیش از تصمیم اقتصادی اهمیت دارد.
+      evidence_needed: [Credentials, "project sheets", "client references", "technical data", "equipment/capacity", warranty, QA, "legal company information"]
+      pre_purchase_questions: ["ابعاد/متریال/نوردهی؟", "ظرفیت تولید؟", "زمان ساخت/نصب؟", "مدارک ارزیابی؟", "تجربه مشابه؟"]
+      search_queries: ["سازه تبلیغاتی شهری", "بیلبورد ۶×۱۲", "استرابورد ۵×۳", "لایت باکس شهری", "پیمانکار تبلیغات محیطی", "استعلام ساخت تابلو"]
+      content_needs: ["Municipality solution", "exact structure detail", datasheet, process, "project portfolio", credentials, "RFQ-ready documents"]
+      cta: ["دریافت مشخصات فنی و مدارک استعلام", "ثبت درخواست سازمانی"]
+      forbidden_messages: ["ارزان‌ترین قیمت", "بهترین کیفیت بدون سند", "ادعای مجوز نامشخص", "CTA مصرفی مانند همین حالا سفارش بده"]
+      cognitive_biases: ["Ambiguity reduction بسیار بالا", "loss aversion", authority, "relevant social proof", "transparent anchoring"]
+      conversion_path: "Search/Tender Need → Municipality or Exact Structure → Technical Evidence → Projects → Credentials → RFQ → Technical Evaluation → Procurement/SETAD Approval"
+      ux_principle: >
+        برای این Persona باید Proof قبل از Persuasion باشد. Hero می‌تواند
+        جذاب باشد، اما بعد از Hero کاربر باید سریع به «مشخصات، سابقه و
+        فرآیند» برسد.
+
+  - id: PERSONA-005
+    name_fa: مدیر صنعتی/بازرگانی/مارکتینگ-فنی
+    name_en: Industrial Commercial-Technical Buyer
+    evidence_strength: strong
+    central_mental_statement: >
+      پیچیدگی محصول و صنعت من را درست بفهم؛ صرفاً چیزی زیبا نساز.
+    dominant_buying_role: [Initiator, Influencer, Economic Buyer; Technical Evaluator اغلب مستقل وارد می‌شود]
+    contexts: [Industrial B2B, exhibition, web catalog, photo/video]
+    profile:
+      jtbd: "محصول یا توان صنعتی پیچیده را به زبان دقیق و حرفه‌ای برای مشتری، نمایشگاه، بازار صادراتی یا فروش B2B قابل ارائه کنم."
+      trigger: [نمایشگاه, صادرات, "محصول جدید", "کاتالوگ قدیمی", "سایت قدیمی", "کارخانه جدید", "نیاز Sales به presentation"]
+      problem: "آژانس عمومی محصول فنی را سطحی می‌فهمد؛ خطای محتوایی پرهزینه است؛ هماهنگی کارخانه و تیم Creative سخت است"
+      desired_outcome: "Accuracy + credibility + professional presentation + reusable sales assets"
+      fears: ["Technical error", "عکس/فیلم غیرواقعی", "downtime در کارخانه", "deadline نمایشگاه", "طراحی نامتناسب با صنعت"]
+      perceived_risks: [Accuracy, "safety/access", "operational disruption", rework, "export credibility", schedule]
+      objections: ["صنعت ما را می‌شناسید؟", "تیم شما وارد کارخانه شده؟", "چه کسی متن فنی را verify می‌کند؟"]
+      selection_criteria: ["industry understanding", discovery, "technical interviewing", "production quality", PM, "integrated deliverables"]
+      price_sensitivity: >
+        متوسط؛ Rework و deadline exhibition missed می‌تواند قیمت پایین
+        اولیه را بی‌معنا کند. باید با مصاحبه مستقیم سنجیده شود.
+      evidence_needed: ["same-industry cases", "raw/finished examples", "shot plan", "technical content", process, timeline, "safety/site workflow"]
+      pre_purchase_questions: ["برای عکاسی چند ساعت توقف لازم است؟", "چه تجهیزاتی؟", "متن فنی را چه کسی می‌نویسد؟", "کاتالوگ و سایت همزمان؟"]
+      search_queries: ["طراحی سایت صنعتی", "عکاسی صنعتی کارخانه", "ساخت فیلم صنعتی", "طراحی کاتالوگ صنعتی", "سئو B2B", "طراحی غرفه نمایشگاهی"]
+      content_needs: ["Industrial solution hub", "technical case study", process, "bundled roadmap", "industrial photo/video portfolio"]
+      cta: ["جلسه کشف نیاز پروژه صنعتی", "دریافت برنامه اجرایی نمایشگاه/محتوا"]
+      forbidden_messages: ["فقط ظاهر برندتان را زیبا می‌کنیم", "jargon خلاقه بی‌ارتباط", "guarantee Lead بدون understanding sales cycle"]
+      cognitive_biases: [Authority, "ambiguity reduction", "relevant social proof", "loss aversion", "fluency برای ساده‌کردن موضوع پیچیده"]
+      conversion_path: "Industrial Query → Industrial Solution → Specialized Service/Case → Process Discovery → Technical/Commercial Proposal → Approval"
+      ux_principle: "این Persona به صفحه‌ای نیاز دارد که نشان دهد چتر قرمز می‌تواند پیچیدگی را بفهمد، نه فقط complexity را زیبا کند."
+
+  - id: PERSONA-006
+    name_fa: مالک دارایی/فضا یا شریک سرمایه‌گذاری
+    name_en: Asset & Investment Partner
+    evidence_strength: medium_to_strong
+    central_mental_statement: >
+      این دارایی چگونه با ریسک کنترل‌شده به جریان درآمد تبدیل می‌شود؟
+    dominant_buying_role: [Initiator, Economic Buyer, Final Approver; گاهی شریک عمومی/حقوقی/فنی نیز وارد می‌شود]
+    contexts: [Investment, OOH assets]
+    profile:
+      jtbd: "ظرفیت اقتصادی یک دارایی/موقعیت را بفهمم و با شریک اجرایی قابل‌اعتماد آن را به درآمد تبلیغاتی تبدیل کنم."
+      trigger: ["فضای بلااستفاده", "موقعیت پرتردد", "امکان نصب سازه", "پیشنهاد مشارکت", "دارایی شهری/تجاری"]
+      problem: "عدم قطعیت درآمد، مجوز، CAPEX، نگهداری، نرخ اشغال، مسئولیت طرفین"
+      desired_outcome: "Business model روشن + technical feasibility + risk allocation + reporting"
+      fears: ["سرمایه‌گذاری بلااستفاده", "تخمین درآمد اغراق‌آمیز", "مشکل مجوز", "هزینه نگهداری", "شریک ضعیف"]
+      perceived_risks: [demand_risk, regulatory_risk, construction_risk, occupancy_risk, counterparty_risk]
+      objections: ["واقعاً چقدر درآمد؟", "چه کسی سرمایه می‌گذارد؟", "مجوز با کیست؟", "اگر فضای تبلیغاتی فروش نرفت؟"]
+      selection_criteria: ["transparent assumptions", feasibility, "track record", "operating model", "legal clarity", maintenance, reporting]
+      price_sensitivity: "قیمت‌محور نیست؛ Risk/Return حساس است."
+      evidence_needed: ["نمونه feasibility", "سناریوهای upside/base/conservative", "پروژه مشابه", "cashflow assumptions", responsibilities, "technical concept"]
+      pre_purchase_questions: ["این موقعیت مناسب چه سازه‌ای است؟", "CAPEX؟", "دوره بازگشت؟", "چه مجوزهایی؟", "مدل تقسیم درآمد؟"]
+      search_queries: ["سرمایه گذاری سازه تبلیغاتی", "درآمد بیلبورد", "اجاره فضای تبلیغاتی", "سرمایه گذاری تبلیغات محیطی"]
+      content_needs: ["investment methodology", "asset evaluation", structures, cases, "FAQ legal/technical", "scenario model"]
+      cta: ["ارزیابی اولیه ظرفیت درآمدی موقعیت", "ارسال مشخصات دارایی"]
+      forbidden_messages: ["بازده تضمینی", "revenue number بدون assumptions", "مخفی‌کردن OPEX/CAPEX", "success-only cases"]
+      cognitive_biases: ["Ambiguity aversion", "loss aversion", anchoring, framing, "mental accounting"]
+      conversion_path: "Investment Query/Referral → /investment/ → Suitable Structure → Feasibility Form → Assessment → Method/Case → Due Diligence → Proposal → Agreement"
+      ux_principle: >
+        برای این Persona، «فرم تماس» باید به Asset Intake تبدیل شود:
+        موقعیت، نوع مالکیت، تصویر، ابعاد، رفت‌وآمد تقریبی، محدودیت، هدف
+        مالک و وضعیت مجوز.
+
+overlays:
+  - id: OVERLAY-001
+    name_fa: خرید/تدارکات/قراردادها
+    name_en: Procurement / Contracts
+    evidence_strength: very_strong
+    central_question: "آیا این Vendor قابل مقایسه، قرارداد و پیگیری است؟"
+    site_must_provide: [Scope, شرایط, مدارک, Warranty, SLA, "اطلاعات حقوقی", "فرآیند استعلام"]
+    entry_page: /credentials/
+    hero_message: "مدارک، سابقه و اطلاعاتی که برای ارزیابی چتر قرمز لازم دارید"
+    evidence: ["company docs", "legal", references, QA, capabilities]
+    conversion: "درخواست پرونده Vendor"
+    next_page: /projects/
+    note: >
+      واحد Purchasing در بازار ایران Supplier را بر اساس price، quality،
+      service، supply security، availability، reputation، innovation و
+      after-sales مقایسه می‌کند؛ پنهان‌کردن اطلاعات پایه می‌تواند حتی بعد
+      از متقاعدشدن Marketing، Journey را متوقف کند.
+
+  - id: OVERLAY-002
+    name_fa: ارزیاب فنی
+    name_en: Technical Evaluator
+    evidence_strength: service_dependent
+    central_question: "آیا خروجی از نظر فنی درست و اجرایی است؟"
+    site_must_provide: [Datasheet, "روش اجرا", "Stack/Material", ابعاد, QA, محدودیت‌ها, "نمونه فنی"]
+
+  - id: OVERLAY-003
+    name_fa: Economic Buyer / Final Approver
+    name_en: Economic Buyer / Final Approver
+    evidence_strength: dependent_on_org_structure
+    central_question: "آیا این هزینه و ریسک ارزش دارد؟"
+    site_must_provide: ["Business case", Range, "trade-off Summary", سابقه, "risk reduction قابل ارائه"]
+
+validation_gates:
+  - name: Architecture Fit
+    criterion: "Journey واقعی در Site Map برای آن وجود داشته باشد یا نیاز به ایجاد آن ثابت شود"
+  - name: Interview Evidence
+    criterion: "حداقل چند Purchase Episode از چند سازمان مستقل، نه فقط یک مصاحبه خوب"
+  - name: Role Evidence
+    criterion: "مشخص باشد در Buying Committee چه نقشی دارد و چه چیزی را کنترل می‌کند"
+  - name: Behavioral Evidence
+    criterion: "حداقل دو CEP/Trigger و چند Objection/Risk تکرارشونده دیده شود"
+  - name: Digital Evidence
+    criterion: "Query، landing page یا lead source در داده واقعی دیده شود"
+  - name: Contradiction Test
+    criterion: "داده مخالف Persona ثبت و توضیح داده شود؛ فقط evidence تأییدکننده جمع نشود"
+  - name: Conversion Distinction
+    criterion: "Journey/Evidence/CTA آن به‌اندازه کافی با Persona دیگر فرق داشته باشد؛ وگرنه ادغام شود"

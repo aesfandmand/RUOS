@@ -1,0 +1,50 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-pricing-presentation-model-v1
+project_id: red-umbrella
+status: desk_validated_field_provisional
+source: persona-system-desk-research-v1.pdf
+note: >
+  How to *present* price per purchase type — not the prices themselves.
+  A single "show price / hide price" rule is explicitly not recommended;
+  the approach must match the purchase type. Anchoring must tie to real
+  Scope (e.g. "corporate website / website with content production and
+  photography / integrated project"), never a fake struck-through price.
+
+records:
+  - purchase_type: خدمات استانداردتر
+    approach: "Starting Point، Range یا Package روشن"
+  - purchase_type: پروژه سفارشی
+    approach: "«عوامل تعیین‌کننده قیمت» + Example Scope"
+  - purchase_type: سازه
+    approach: "Specification + عوامل قیمت + RFQ"
+  - purchase_type: سازمان عمومی
+    approach: "Structured RFQ و اسناد مقایسه"
+  - purchase_type: سرمایه‌گذاری
+    approach: "Assumptions/Scenario، نه یک عدد وعده‌ای"
+  - purchase_type: SME
+    approach: "Package یا مرحله‌بندی برای کاهش ambiguity"
+  - purchase_type: Enterprise
+    approach: "Scope bands + proposal-based pricing"
+
+mental_accounting_note: >
+  Proposal باید هم Total Project را نشان دهد و هم اجزا را تفکیک کند:
+  Strategy، Design، Production، Media، Print/Installation، Support.
+  کاربرد آن در B2B ایران یک Hypothesis طراحی است که باید با رفتار واقعی
+  کمیته‌های مالی آزمایش شود.
+
+website_to_social_journey_model:
+  description: >
+    Website باید Owned Evidence Hub باشد و به هیچ Instagram یا پلتفرم
+    خارجی واحدی وابسته نباشد — به‌ویژه پس از اختلالات اینترنت ایران در
+    ۲۰۲۶ (Cloudflare گزارش افت ترافیک به کمتر از ۱٪ سطوح قبلی در ۲۸ فوریه
+    ۲۰۲۶؛ AP از بازگشت تدریجی اما ناپایدار در اواخر مه ۲۰۲۶ خبر داد).
+  entry_channels: [Google / AI Search, Instagram, Telegram, LinkedIn, "Referral / WhatsApp / معرفی"]
+  flow:
+    - Website Evidence Hub
+    - Service / Solution / Structure
+    - Case + Specs + Credentials
+    - Save / Share internally
+    - Buying Committee
+    - RFQ / Brief / Asset Evaluation
+    - Meeting / Proposal
+    - Decision

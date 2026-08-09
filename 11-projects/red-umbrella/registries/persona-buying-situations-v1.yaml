@@ -1,0 +1,66 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-buying-situations-v1
+project_id: red-umbrella
+status: desk_validated_field_provisional
+source: persona-system-desk-research-v1.pdf
+note: >
+  Buying Situations / Category Entry Points (CEPs) are recorded separately
+  from Persona in the data model — a situation can pair with more than one
+  persona. Search volume/market share per CEP has not been measured yet;
+  the example query phrases below are illustrative, not confirmed keyword
+  volume.
+
+records:
+  - id: CEP-001
+    name_fa: Deadline نمایشگاه
+    entry_signal: "سه/شش هفته تا نمایشگاه مانده"
+    likely_personas: [PERSONA-001, PERSONA-003, PERSONA-005, PERSONA-002]
+    natural_pages: ["/solutions/exhibition/", "صفحات طراحی/چاپ/عکاسی"]
+
+  - id: CEP-002
+    name_fa: Launch / Campaign
+    entry_signal: "محصول، فصل فروش، افتتاحیه، کمپین"
+    likely_personas: [PERSONA-001]
+    natural_pages: [OOH, Digital, "Graphic Design", Video]
+
+  - id: CEP-003
+    name_fa: افت KPI یا Lead
+    entry_signal: "ترافیک/فروش/Lead ناکافی"
+    likely_personas: [PERSONA-001, PERSONA-002]
+    natural_pages: ["/seo/", "/digital-marketing/", "/website-services/"]
+
+  - id: CEP-004
+    name_fa: سایت قدیمی یا نامناسب
+    entry_signal: "کندی، ظاهر قدیمی، conversion پایین، نیاز سازمانی"
+    likely_personas: [PERSONA-001, PERSONA-005, PERSONA-002]
+    natural_pages: ["/website-redesign/", "/corporate-web-design/"]
+
+  - id: CEP-005
+    name_fa: هویت پراکنده
+    entry_signal: "لوگو/کاتالوگ/سایت/تابلو ناسازگار"
+    likely_personas: [PERSONA-001, PERSONA-002]
+    natural_pages: ["Graphic Design", Consulting]
+
+  - id: CEP-006
+    name_fa: استعلام/مناقصه
+    entry_signal: "درخواست رسمی، shortlist، بودجه سازمانی"
+    likely_personas: [PERSONA-004, PERSONA-003, OVERLAY-001]
+    natural_pages: ["/solutions/municipalities/", Credentials, Specs]
+
+  - id: CEP-007
+    name_fa: نیاز به سازه مشخص
+    entry_signal: "بیلبورد ۶×۱۲، استرابورد ۳×۵"
+    likely_personas: [PERSONA-004, OVERLAY-001, OVERLAY-002]
+    natural_pages: ["Exact Structure Detail"]
+
+  - id: CEP-008
+    name_fa: توسعه بازار صنعتی
+    entry_signal: "نمایشگاه، صادرات، کاتالوگ، سایت"
+    likely_personas: [PERSONA-005]
+    natural_pages: ["/solutions/industrial-b2b/", "Sales enablement"]
+
+  - id: CEP-009
+    name_fa: Monetize دارایی
+    entry_signal: "زمین، پل، فضای شهری/تجاری، سازه"
+    likely_personas: [PERSONA-006]
+    natural_pages: ["/structures/ → /investment/", Projects]
