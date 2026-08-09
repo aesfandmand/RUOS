@@ -12,10 +12,10 @@ REFERENCE_SPEC = Path("pages/blocks/urban-investment.json")
 
 
 def test_a_page_type_with_no_reference_is_reported_honestly() -> None:
-    result = select_design_approach("STRUCTURE_DETAIL")
+    result = select_design_approach("KNOWLEDGE_HUB")
     assert result.status == NOT_YET_DESIGNED
     assert result.approach is None
-    assert "STRUCTURE_DETAIL" in result.reason
+    assert "KNOWLEDGE_HUB" in result.reason
 
 
 def test_missing_page_type_is_reported_honestly() -> None:
@@ -44,3 +44,19 @@ def test_the_matched_sequence_still_fails_composition_as_documented() -> None:
     spec = load_page_spec(REFERENCE_SPEC)
     with pytest.raises(BlockCompositionError, match="repeated pattern"):
         compose_page(load_library(), spec["slug"], spec["blocks"], spec["shell"])
+
+
+def test_structure_detail_matches_and_actually_composes() -> None:
+    from ruos.structure_detail_spec import build_structure_detail_spec
+    from ruos.architecture_registry import load_structures
+    from ruos.block_page import render_page
+
+    result = select_design_approach("STRUCTURE_DETAIL")
+    assert result.status == MATCHED
+    assert result.approach.block_sequence == ("structure-hero", "structure-specs", "review-gate")
+
+    shell = load_page_spec(REFERENCE_SPEC)["shell"]
+    billboard = next(s for s in load_structures() if s.id == "STR-001")
+    spec = build_structure_detail_spec(billboard, shell)
+    page = render_page(spec, load_library())
+    assert [b.block_id for b in page.composed.blocks] == list(result.approach.block_sequence)

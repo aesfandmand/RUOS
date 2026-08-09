@@ -1,0 +1,200 @@
+{
+  "blocks": [
+    {
+      "block": "structure-hero",
+      "data": {
+        "diagram": {
+          "aria_label": "نمودار مقیاس 180 در 120 سانتی‌متر",
+          "height_label": "120 سانتی‌متر",
+          "ratio": "180.0 / 120.0",
+          "width_label": "180 سانتی‌متر"
+        },
+        "dimension_label": "180×120 سانتی‌متر",
+        "eyebrow": "لایت‌باکس",
+        "lead": "",
+        "primary": {
+          "href": "#review",
+          "label": "درخواست بررسی فنی و قیمت"
+        },
+        "title": "لایت‌باکس عمودی ۱۸۰×۱۲۰"
+      },
+      "id": "top"
+    },
+    {
+      "block": "structure-specs",
+      "data": {
+        "eyebrow": "مشخصات",
+        "specs": [
+          {
+            "label": "خانواده سازه",
+            "value": "لایت‌باکس"
+          },
+          {
+            "label": "محیط نصب",
+            "value": "محیط شهری (بیرون)"
+          },
+          {
+            "label": "جهت",
+            "value": "عمودی"
+          },
+          {
+            "label": "ابعاد",
+            "value": "180×120 سانتی‌متر"
+          },
+          {
+            "label": "تعداد رو",
+            "value": "یک یا دو رو، بسته به موقعیت"
+          }
+        ],
+        "title": "مشخصات فنی لایت‌باکس عمودی ۱۸۰×۱۲۰"
+      },
+      "id": "specs"
+    },
+    {
+      "block": "review-gate",
+      "data": {
+        "body": "ابعاد، محل نصب و شرایط پروژه را بگویید تا بررسی فنی و برآورد اجرا برایتان آماده شود.",
+        "eyebrow": "قدم بعدی",
+        "primary": {
+          "label": "درخواست استعلام فنی"
+        },
+        "secondary": {
+          "href": "#top",
+          "label": "دیدن دوبارهٔ مشخصات ↑"
+        },
+        "title": "برای این سازه استعلام فنی و قیمت بگیرید."
+      },
+      "id": "review"
+    }
+  ],
+  "canonical": "https://chatreghermez.ir/structures/lightbox-vertical-180x120/",
+  "description": "لایت‌باکس عمودی ۱۸۰×۱۲۰: مشخصات فنی، ابعاد و مسیر اجرای پروژه از چتر قرمز.",
+  "direction": "rtl",
+  "lang": "fa",
+  "shell": {
+    "bottom-nav": {
+      "entries": [
+        {
+          "href": "#top",
+          "icon": "nav-home",
+          "label": "خانه"
+        },
+        {
+          "href": "#assessment",
+          "icon": "nav-services",
+          "label": "ارزیابی"
+        },
+        {
+          "href": "#structures",
+          "icon": "nav-work",
+          "label": "سازه‌ها"
+        }
+      ]
+    },
+    "site-footer": {
+      "brand": {
+        "name": "چتر قرمز",
+        "tagline": "به آسمان سلام کن"
+      },
+      "columns": [
+        {
+          "links": [
+            {
+              "href": "#structures",
+              "label": "سازه‌ها و تابلوها"
+            },
+            {
+              "href": "#model",
+              "label": "مدل همکاری"
+            },
+            {
+              "href": "#assessment",
+              "label": "ارزیابی موقعیت"
+            }
+          ],
+          "title": "راهکارها"
+        },
+        {
+          "links": [
+            {
+              "href": "#process",
+              "label": "فرایند همکاری"
+            },
+            {
+              "href": "#faq",
+              "label": "پرسش‌ها"
+            },
+            {
+              "href": "#structures",
+              "label": "مسیر محصولات"
+            }
+          ],
+          "title": "دسترسی سریع"
+        }
+      ],
+      "contact": {
+        "label": "درخواست بررسی موقعیت ←",
+        "title": "شروع گفت‌وگو"
+      },
+      "copyright": "© چتر قرمز؛ همه حقوق محفوظ است.",
+      "summary": "از امکان‌سنجی و سرمایه‌گذاری تا تولید، نصب و بهره‌برداری رسانه‌های محیطی."
+    },
+    "site-header": {
+      "brand": {
+        "aria": "چتر قرمز، ابتدای صفحه",
+        "logo_alt": "نشان چتر قرمز",
+        "name": "چتر قرمز",
+        "tagline": "به آسمان سلام کن"
+      },
+      "cta": {
+        "label": "درخواست بررسی"
+      },
+      "nav": [
+        {
+          "children": [
+            {
+              "href": "#opportunity",
+              "label": "فرصت‌های شهری",
+              "note": "از مسئله شروع کنید"
+            },
+            {
+              "href": "#paths",
+              "label": "مسیر همکاری",
+              "note": "سه انتخاب روشن"
+            },
+            {
+              "href": "#structures",
+              "label": "سازه‌ها و تابلوها",
+              "note": "تصویر، کاربرد و هدف"
+            },
+            {
+              "href": "#structures",
+              "label": "همهٔ محصولات",
+              "note": "منبع واحد محصولات"
+            }
+          ],
+          "href": "#opportunity",
+          "label": "راهکارها"
+        },
+        {
+          "href": "#model",
+          "label": "مدل قرارداد"
+        },
+        {
+          "href": "#assessment",
+          "label": "ارزیابی موقعیت"
+        },
+        {
+          "href": "#process",
+          "label": "فرایند"
+        },
+        {
+          "href": "#faq",
+          "label": "پرسش‌ها"
+        }
+      ]
+    }
+  },
+  "slug": "lightbox-vertical-180x120",
+  "title": "لایت‌باکس عمودی ۱۸۰×۱۲۰ | مشخصات فنی و اجرا | چتر قرمز"
+}

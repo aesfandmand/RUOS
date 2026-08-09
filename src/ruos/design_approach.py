@@ -70,14 +70,32 @@ _SALES_LANDING_V16 = DesignApproach(
          "actually compose — see blocks/README.md.",
 )
 
+_STRUCTURE_DETAIL_V1 = DesignApproach(
+    id="structure-detail-v1",
+    name="Structure Detail product page (hero + registry-sourced spec sheet)",
+    block_sequence=("structure-hero", "structure-specs", "review-gate"),
+    source_reference="blocks/structure-hero, blocks/structure-specs — new blocks built on the "
+                      "V16 design tokens (not extracted from a V16 selector), spec data pulled "
+                      "live from structure-page-registry-v2.1.yaml via structure_detail_spec.py",
+    note="Deliberately does not include manufacturing-process or FAQ sections: no verified copy "
+         "for either exists yet, and this archetype refuses to pad a page with invented content. "
+         "Only structures whose registry record has at least three real attributes (family, "
+         "context, orientation, dimensions, face_count, mounting) can build a spec sheet; see "
+         "structure_detail_spec.StructureDetailSpecError for the ones that can't yet.",
+)
+
 # Page Type -> DesignApproach.id. Every Page Type not listed here has no
 # owner-approved reference yet and must be reported as NOT_YET_DESIGNED,
 # never guessed.
 _PAGE_TYPE_APPROACH: dict[str, str] = {
     "INVESTMENT_HUB": _SALES_LANDING_V16.id,
+    "STRUCTURE_DETAIL": _STRUCTURE_DETAIL_V1.id,
 }
 
-_CATALOG: dict[str, DesignApproach] = {_SALES_LANDING_V16.id: _SALES_LANDING_V16}
+_CATALOG: dict[str, DesignApproach] = {
+    _SALES_LANDING_V16.id: _SALES_LANDING_V16,
+    _STRUCTURE_DETAIL_V1.id: _STRUCTURE_DETAIL_V1,
+}
 
 
 def select_design_approach(page_type: str | None) -> DesignApproachResult:

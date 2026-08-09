@@ -90,6 +90,10 @@ class StructureRecord:
     context: str | None
     url: str
     route: str | None
+    orientation: str | None
+    dimensions: str | None
+    face_count: str | None
+    mounting: str | None
 
 
 def _entity_from_row(row: Mapping[str, Any]) -> EntityRecord:
@@ -152,6 +156,10 @@ def _structure_from_row(row: Mapping[str, Any]) -> StructureRecord:
         context=row.get("context"),
         url=str(url),
         route=row.get("route"),
+        orientation=row.get("orientation"),
+        dimensions=row.get("dimensions"),
+        face_count=row.get("face_count"),
+        mounting=row.get("mounting"),
     )
 
 

@@ -2,7 +2,7 @@ uid: SRC-RU-000001
 type: source_registry
 name: Red Umbrella KM-1 Source Registry
 status: active
-version: 1.6.0
+version: 1.7.0
 source_language: fa
 project_uid: PRJ-000001
 
@@ -163,6 +163,21 @@ sources:
     priority: approved_supporting
     validation_status: desk_validated_field_provisional
     materialized_from: SRC-RU-000028
+  - uid: SRC-RU-000034
+    path: 11-projects/red-umbrella/registries/visual-direction-external-report-v1.md
+    role: external_visual_direction_report_partially_rejected
+    priority: supporting_source
+    validation_status: >-
+      stack recommendation (Next.js/React/GSAP/Three.js/Sanity) and cited
+      color token rejected as contradicting locked no-framework policy and
+      the approved V16 baseline; only the framework-agnostic archetype and
+      QC content was adopted, see SRC-RU-000035
+  - uid: SRC-RU-000035
+    path: 11-projects/red-umbrella/registries/page-archetype-registry-v1.yaml
+    role: machine_readable_page_archetype_and_qc_gates
+    priority: approved_supporting
+    validation_status: partial_adoption_from_external_report
+    materialized_from: SRC-RU-000034
 
 conflict_rule:
   rule: در تعارض میان منابع، تصمیم متاخر کاربر و سپس تصمیم فعال قفل‌شده و معماری v2.1 حاکم است؛ منابع deprecated حق Override ندارند و تعارض حل‌نشده باید پیش از ثبت پرسیده شود.

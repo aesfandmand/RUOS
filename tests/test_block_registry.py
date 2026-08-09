@@ -32,10 +32,14 @@ def test_every_declared_slot_is_actually_used_by_the_template() -> None:
             assert slot.name in used, f"{block.id} declares unused slot '{slot.name}'"
 
 
-def test_exactly_one_opening_and_one_closing_block_exist() -> None:
+def test_opening_and_closing_blocks_exist_for_every_archetype() -> None:
+    """Different page archetypes open/close with their own blocks; the composer
+    still enforces exactly one of each per composed page (see block_composer)."""
     content = load_library().content_blocks()
-    assert [b.id for b in content if b.position == "first"] == ["hero-scroll-scene"]
-    assert [b.id for b in content if b.position == "last"] == ["review-gate"]
+    openers = {b.id for b in content if b.position == "first"}
+    closers = {b.id for b in content if b.position == "last"}
+    assert openers == {"hero-scroll-scene", "structure-hero"}
+    assert closers == {"review-gate"}
 
 
 def test_the_brand_font_is_embedded_in_the_token_block() -> None:

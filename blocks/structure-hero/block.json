@@ -1,0 +1,55 @@
+{
+  "id": "structure-hero",
+  "name": {
+    "fa": "structure-hero",
+    "en": "structure-hero"
+  },
+  "role": "content",
+  "family": "hero",
+  "surface": "dark",
+  "composition": "Product-stage hero for a single structure. Shows a real photo when one exists; otherwise renders a true-to-scale dimension diagram built from the structure's own registry data, never a stock or invented photo.",
+  "serves_intent": [
+    "orient",
+    "identify"
+  ],
+  "position": "first",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": false
+  },
+  "source": {
+    "page": "new for the Structure Detail archetype; visual language (tokens, type scale, spacing) reused from the approved V16 baseline — not extracted from any V16 selector",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "dimension_label": {
+      "type": "text",
+      "required": false
+    },
+    "image": {
+      "type": "object",
+      "required": false
+    },
+    "diagram": {
+      "type": "object",
+      "required": false
+    },
+    "primary": {
+      "type": "object",
+      "required": false
+    }
+  },
+  "layout": "scene"
+}

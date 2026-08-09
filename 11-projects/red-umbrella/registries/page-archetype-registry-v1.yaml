@@ -1,0 +1,85 @@
+schema_version: 1.0.0
+registry_id: red-umbrella-page-archetype-registry-v1
+project_id: red-umbrella
+status: partial_adoption_from_external_report
+source: deepresearchreport.md (external "Visual Design & Experience Direction" report, ChatGPT session)
+adoption_note: >
+  This report proposed a Next.js/React/TypeScript/GSAP/Three.js/Sanity stack.
+  That is rejected: it directly contradicts the locked
+  professional-web-experience-policy-v0.1.md §9 no-framework-by-default rule,
+  and the engine already has a working, tested vanilla HTML/CSS/JS block
+  library with a real vendored motion library (see blocks/README.md). The
+  report's cited "current repo palette" (red #D21E2B) is also wrong — that is
+  the old, unapproved baseline that caused a real incident before, not the
+  approved V16 tokens (red #da1e49) already in blocks/_tokens. Neither the
+  stack nor the color claim from this report is used anywhere in this engine.
+  What IS adopted below is the framework-agnostic content: the eight page
+  archetypes' mission and section flow, and the QC hard-fail / weighted-score
+  discipline, both of which are implementable on the existing vanilla engine
+  and align with rules the engine was already enforcing (block_composer's
+  anti-repetition rules already reject "Card Soup"; design_approach.py
+  already refuses to fabricate a design or content it can't source).
+  None of the report's actual deliverable files (tokens.json,
+  page-archetypes.json, mockup SVGs, GSAP/R3F samples) were ever received —
+  only this prose summary — so nothing below is copied from a machine-
+  readable source; it is transcribed from the report's own descriptions.
+
+archetypes:
+  - id: HOME
+    mission: اثبات توان یکپارچه و هدایت به مسئله/پروژه
+  - id: SERVICE_HUB
+    mission: کشف Capability بدون Card Grid
+  - id: SERVICE_LANDING
+    mission: Scope + Evidence + Quote
+  - id: STRUCTURE_DETAIL
+    mission: Product Stage + Specs + Datasheet
+    section_flow_as_proposed: >
+      3D Product Stage → Key Specs → Exploded/Material View → Use
+      Environments → Real Installations → Variant Comparison →
+      Manufacturing/Installation → Datasheet → FAQ → Quote
+    engine_implementation_note: >
+      Implemented as design_approach.py's structure-detail-v1: Hero
+      (real photo when available, else a true-to-scale dimension diagram
+      built from real registry data — no live 3D/WebGL) → Key Specs
+      (sourced directly from structure-page-registry-v2.1.yaml) → Quote
+      (review-gate). Exploded/Material View, Use Environments, Real
+      Installations, Variant Comparison, Manufacturing/Installation and FAQ
+      are deliberately not built yet: none of them have verified real
+      content (photography, process copy, FAQ answers) to source from, and
+      this engine does not pad pages with invented content to look complete.
+  - id: INVESTMENT
+    mission: Risk Allocation + BOLT Story + Qualification
+  - id: PROJECT_PORTFOLIO
+    mission: Context → Constraint → Execution → Result
+  - id: SOLUTION
+    mission: Problem/Industry → Solution Architecture
+  - id: KNOWLEDGE
+    mission: Answer-first + Evidence + Assisted Conversion
+
+quality_gates:
+  hard_fail_rules:
+    - Card Soup (repeated equal card rows as the dominant page grammar) — already enforced by block_composer's anti-repetition rules
+    - Fabricated proof (metric, client, testimonial, certification, dimension without provenance)
+    - 3D or motion with no reduced-motion fallback
+    - An unresolved reference (e.g. a link the engine could not fetch) used as a source of visual detail
+    - Primary CTA not keyboard/screen-reader accessible
+    - AI-generated or stock imagery presented as real project evidence
+  weighted_score:
+    visual_hierarchy: 15
+    evidence_and_risk_reduction: 15
+    archetype_jtbd_fit: 15
+    originality: 10
+    motion_purpose: 10
+    responsive_recomposition: 10
+    performance: 10
+    accessibility: 10
+    token_compliance: 5
+    passing_threshold: 85
+    hard_fail_overrides_score: true
+  target_web_vitals:
+    lcp_p75_ms: 2500
+    inp_p75_ms: 200
+    cls_p75: 0.10
+  planning_order: >
+    Archetype → Buying Situation → Trigger/CEP → JTBD → Evidence Inventory →
+    Conversion Goal → Spatial Level → Tokens → Layout → Motion → Mobile → QC

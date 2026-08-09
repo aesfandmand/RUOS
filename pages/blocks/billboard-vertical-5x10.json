@@ -1,0 +1,196 @@
+{
+  "blocks": [
+    {
+      "block": "structure-hero",
+      "data": {
+        "diagram": {
+          "aria_label": "نمودار مقیاس 5 در 10 متر",
+          "height_label": "10 متر",
+          "ratio": "5.0 / 10.0",
+          "width_label": "5 متر"
+        },
+        "dimension_label": "5×10 متر",
+        "eyebrow": "بیلبورد",
+        "lead": "بیلبورد عمودی ۵×۱۰؛ مشخصات فنی، کاربرد و مسیر اجرای پروژه",
+        "primary": {
+          "href": "#review",
+          "label": "درخواست بررسی فنی و قیمت"
+        },
+        "title": "بیلبورد عمودی ۵×۱۰"
+      },
+      "id": "top"
+    },
+    {
+      "block": "structure-specs",
+      "data": {
+        "eyebrow": "مشخصات",
+        "specs": [
+          {
+            "label": "خانواده سازه",
+            "value": "بیلبورد"
+          },
+          {
+            "label": "محیط نصب",
+            "value": "محیط شهری (بیرون)"
+          },
+          {
+            "label": "جهت",
+            "value": "عمودی"
+          },
+          {
+            "label": "ابعاد",
+            "value": "5×10 متر"
+          }
+        ],
+        "title": "مشخصات فنی بیلبورد عمودی ۵×۱۰"
+      },
+      "id": "specs"
+    },
+    {
+      "block": "review-gate",
+      "data": {
+        "body": "ابعاد، محل نصب و شرایط پروژه را بگویید تا بررسی فنی و برآورد اجرا برایتان آماده شود.",
+        "eyebrow": "قدم بعدی",
+        "primary": {
+          "label": "RFQ فنی"
+        },
+        "secondary": {
+          "href": "#top",
+          "label": "دیدن دوبارهٔ مشخصات ↑"
+        },
+        "title": "برای این سازه استعلام فنی و قیمت بگیرید."
+      },
+      "id": "review"
+    }
+  ],
+  "canonical": "https://chatreghermez.ir/structures/billboard-vertical-5x10/",
+  "description": "بیلبورد عمودی ۵×۱۰: مشخصات فنی، ابعاد و مسیر اجرای پروژه از چتر قرمز.",
+  "direction": "rtl",
+  "lang": "fa",
+  "shell": {
+    "bottom-nav": {
+      "entries": [
+        {
+          "href": "#top",
+          "icon": "nav-home",
+          "label": "خانه"
+        },
+        {
+          "href": "#assessment",
+          "icon": "nav-services",
+          "label": "ارزیابی"
+        },
+        {
+          "href": "#structures",
+          "icon": "nav-work",
+          "label": "سازه‌ها"
+        }
+      ]
+    },
+    "site-footer": {
+      "brand": {
+        "name": "چتر قرمز",
+        "tagline": "به آسمان سلام کن"
+      },
+      "columns": [
+        {
+          "links": [
+            {
+              "href": "#structures",
+              "label": "سازه‌ها و تابلوها"
+            },
+            {
+              "href": "#model",
+              "label": "مدل همکاری"
+            },
+            {
+              "href": "#assessment",
+              "label": "ارزیابی موقعیت"
+            }
+          ],
+          "title": "راهکارها"
+        },
+        {
+          "links": [
+            {
+              "href": "#process",
+              "label": "فرایند همکاری"
+            },
+            {
+              "href": "#faq",
+              "label": "پرسش‌ها"
+            },
+            {
+              "href": "#structures",
+              "label": "مسیر محصولات"
+            }
+          ],
+          "title": "دسترسی سریع"
+        }
+      ],
+      "contact": {
+        "label": "درخواست بررسی موقعیت ←",
+        "title": "شروع گفت‌وگو"
+      },
+      "copyright": "© چتر قرمز؛ همه حقوق محفوظ است.",
+      "summary": "از امکان‌سنجی و سرمایه‌گذاری تا تولید، نصب و بهره‌برداری رسانه‌های محیطی."
+    },
+    "site-header": {
+      "brand": {
+        "aria": "چتر قرمز، ابتدای صفحه",
+        "logo_alt": "نشان چتر قرمز",
+        "name": "چتر قرمز",
+        "tagline": "به آسمان سلام کن"
+      },
+      "cta": {
+        "label": "درخواست بررسی"
+      },
+      "nav": [
+        {
+          "children": [
+            {
+              "href": "#opportunity",
+              "label": "فرصت‌های شهری",
+              "note": "از مسئله شروع کنید"
+            },
+            {
+              "href": "#paths",
+              "label": "مسیر همکاری",
+              "note": "سه انتخاب روشن"
+            },
+            {
+              "href": "#structures",
+              "label": "سازه‌ها و تابلوها",
+              "note": "تصویر، کاربرد و هدف"
+            },
+            {
+              "href": "#structures",
+              "label": "همهٔ محصولات",
+              "note": "منبع واحد محصولات"
+            }
+          ],
+          "href": "#opportunity",
+          "label": "راهکارها"
+        },
+        {
+          "href": "#model",
+          "label": "مدل قرارداد"
+        },
+        {
+          "href": "#assessment",
+          "label": "ارزیابی موقعیت"
+        },
+        {
+          "href": "#process",
+          "label": "فرایند"
+        },
+        {
+          "href": "#faq",
+          "label": "پرسش‌ها"
+        }
+      ]
+    }
+  },
+  "slug": "billboard-vertical-5x10",
+  "title": "بیلبورد عمودی ۵×۱۰ | مشخصات فنی و اجرا | چتر قرمز"
+}
