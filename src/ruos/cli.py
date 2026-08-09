@@ -22,6 +22,8 @@ from .models import BuildContext
 from .open_source_catalog import DEFAULT_REGISTRY_SEEDS, refresh_open_source_registry
 from .open_source_registry import OpenSourceRegistryError
 from .open_source_registry_snapshot import write_registry
+from .architecture_registry import ArchitectureRegistryError
+from .page_selector import select_candidates
 from .production_build import compile_production_page
 from .research_snapshot import build_snapshot, write_snapshot
 from .search_discovery import create_provider, discover_search
@@ -51,6 +53,8 @@ def _parser() -> argparse.ArgumentParser:
     competitors = sub.add_parser("research-competitors", help="Fetch pages from verified discovery results"); competitors.add_argument("page"); competitors.add_argument("--spec-root", default="pages"); competitors.add_argument("--discovery-root", default=".ruos/discovery"); competitors.add_argument("--output-root", default=".ruos/competitors"); competitors.add_argument("--limit", type=int, default=5); competitors.add_argument("--minimum-success", type=int, default=3)
     compose = sub.add_parser("compose", help="Build one page from the block library")
     compose.add_argument("page"); compose.add_argument("--spec-root", default="pages/blocks"); compose.add_argument("--output", default="dist"); compose.add_argument("--library", default="blocks")
+    next_page = sub.add_parser("next", help="Rank pages against the locked architecture registry and report what to build next")
+    next_page.add_argument("--registry-root", default=None); next_page.add_argument("--list", action="store_true", help="Show the full ranked queue and every skipped entity, not just the top pick")
     registry = sub.add_parser("registry", help="Manage verified open-source assets")
     registry_sub = registry.add_subparsers(dest="registry_command", required=True)
     refresh = registry_sub.add_parser("refresh", help="Fetch and snapshot the curated production registry")
@@ -148,6 +152,34 @@ def _run_compose(args, project_root: Path) -> int:
     return 0
 
 
+def _run_next(args, project_root: Path) -> int:
+    registry_root = Path(args.registry_root) if args.registry_root else None
+    candidates, skipped = select_candidates(project_root, registry_root)
+
+    if not candidates:
+        print("RUOS NEXT: no buildable page found — every eligible entity already has a spec, "
+              "or is blocked on a URL/audit decision", file=sys.stderr)
+        if args.list:
+            for skip in skipped:
+                print(f"RUOS NEXT SKIPPED: {skip.source_id} ({skip.name}) — {skip.reason}")
+        return 2
+
+    top = candidates[0]
+    print(f"RUOS NEXT: {top.slug}")
+    print(f"RUOS NEXT URL: {top.url}")
+    print(f"RUOS NEXT SOURCE: {top.source_kind} {top.source_id}")
+    print(f"RUOS NEXT PAGE TYPE: {top.page_type}")
+    print(f"RUOS NEXT REASON: {top.reason}")
+
+    if args.list:
+        print(f"RUOS NEXT QUEUE: {len(candidates)} buildable, {len(skipped)} skipped")
+        for candidate in candidates:
+            print(f"RUOS NEXT CANDIDATE: {candidate.priority_rank} {candidate.source_id} {candidate.slug} {candidate.url}")
+        for skip in skipped:
+            print(f"RUOS NEXT SKIPPED: {skip.source_id} ({skip.name}) — {skip.reason}")
+    return 0
+
+
 def _run_3d_evidence(page, args, project_root: Path) -> int:
     source_map = load_json_mapping(project_root, Path(args.three_d_source_map), "3D source map")
     script = Path(args.blender_script); script = script if script.is_absolute() else project_root / script
@@ -167,6 +199,8 @@ def main(argv: list[str] | None = None) -> int:
             return _run_registry_refresh(args, project_root)
         if args.command == "compose":
             return _run_compose(args, project_root)
+        if args.command == "next":
+            return _run_next(args, project_root)
 
         spec_path = project_root / args.spec_root / f"{args.page}.json"
         page = load_page_spec(spec_path)
@@ -206,8 +240,10 @@ def main(argv: list[str] | None = None) -> int:
             if isinstance(competitor, dict): print(f"RUOS COMPETITOR EVIDENCE VERIFIED: {competitor.get('evidence_count')} pages snapshot={competitor.get('snapshot_sha256')}")
         else: result = compile_page_with_cie(page, context)
     except (SpecError, BuildRejected, LiveResearchError, OpenSourceRegistryError, ValueError,
-            BlockRegistryError, BlockPageError, BlockCompositionError, BlockRenderError) as exc:
+            BlockRegistryError, BlockPageError, BlockCompositionError, BlockRenderError,
+            ArchitectureRegistryError) as exc:
         if args.command == "compose": label = "COMPOSE REJECTED"
+        elif args.command == "next": label = "NEXT FAILED"
         elif args.command == "registry": label = "REGISTRY FAILED"
         elif args.command in {"research", "discover", "research-competitors"}: label = "RESEARCH FAILED"
         else: label = "BUILD REJECTED"
