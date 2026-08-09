@@ -1,0 +1,38 @@
+name: Red Umbrella internal link inventory
+
+on:
+  push:
+    branches:
+      - feat/live-url-audit-v1
+    paths:
+      - 11-projects/red-umbrella/tools/internal_link_inventory.py
+      - .github/workflows/red-umbrella-internal-link-inventory.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inventory:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Extract current internal links
+        run: python3 11-projects/red-umbrella/tools/internal_link_inventory.py
+      - name: Commit inventory
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 11-projects/red-umbrella/registries/chatreghermez-current-internal-link-inventory-v1.csv
+          git add 11-projects/red-umbrella/registries/chatreghermez-current-internal-link-inventory-v1.md
+          if git diff --cached --quiet; then
+            echo 'No inventory changes.'
+          else
+            git commit -m 'data(architecture): capture current internal link inventory'
+            git push origin HEAD:feat/live-url-audit-v1
+          fi
