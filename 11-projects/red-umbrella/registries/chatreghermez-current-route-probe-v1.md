@@ -1,6 +1,6 @@
 # Red Umbrella — Current Route Probe v1
 
-URLs tested: 26
+URLs tested: 49
 
 ## Results
 
@@ -19,6 +19,29 @@ URLs tested: 26
 - `/advertising-consulting/` → `404` `https://chatreghermez.com/advertising-consulting/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
 - `/marketing-consulting/` → `404` `https://chatreghermez.com/marketing-consulting/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
 - `/business-consulting/` → `200` `https://chatreghermez.com` | canonical `https://chatreghermez.com/` | title `آژانس تبلیغاتی چتر‌قرمز - شرکت تبلیغات در اصفهان` | H1 `-` | error `-`
+- `/graphic-design-services/` → `200` `https://chatreghermez.com/graphic-design-services/` | canonical `https://chatreghermez.com/graphic-design-services/` | title `خدمات طراحی گرافیک` | H1 `عکاسی صنعتی و تبلیغاتی در اصفهان` | error `-`
+- `/printed-advertisement/` → `200` `https://chatreghermez.com/printed-advertisement/` | canonical `https://chatreghermez.com/printed-advertisement/` | title `تبلیغات چاپی چیست؟ هنوز هم برای تبلیغات روش خوبی است! - چترقرمز` | H1 `تبلیغات چاپی چیست؟` | error `-`
+- `/poster-design/` → `200` `https://chatreghermez.com/poster-design/` | canonical `https://chatreghermez.com/poster-design/` | title `طراحی پوستر و راه های ساخت یک پوستر استاندارد - چترقرمز` | H1 `طراحی پوستر و راه های ساخت یک پوستر استاندارد` | error `-`
+- `/instagram-page-management-in-isfahan/` → `200` `https://chatreghermez.com/instagram-page-management-in-isfahan/` | canonical `https://chatreghermez.com/instagram-page-management-in-isfahan/` | title `مدیریت اینستاگرام` | H1 `مدیریت پیج اینستاگرام در اصفهان` | error `-`
+- `/advertising-photography-in-isfahan/` → `404` `https://chatreghermez.com/advertising-photography-in-isfahan/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
+- `/advertising-teaser-design-in-isfahan/` → `404` `https://chatreghermez.com/advertising-teaser-design-in-isfahan/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
+- `/advertising-video-and-teaser/` → `200` `https://chatreghermez.com/advertising-video-and-teaser/` | canonical `https://chatreghermez.com/advertising-video-and-teaser/` | title `ویدئو و تیزر تبلیغاتی` | H1 `-` | error `-`
+- `/video-marketing-in-isfahan/` → `200` `https://chatreghermez.com/video-marketing-in-isfahan-old/` | canonical `https://chatreghermez.com/video-marketing-in-isfahan-old/` | title `ویدیو مارکتینگ در اصفهان - چترقرمز` | H1 `ویدیو مارکتینگ در اصفهان | ویدیو مارکتینگ در اصفهان` | error `-`
+- `/website-design-in-isfahan/` → `200` `https://chatreghermez.com/website-design-in-isfahan/` | canonical `https://chatreghermez.com/website-design-in-isfahan/` | title `طراحی سایت وردپرس و اختصاصی | قیمت، نمونه‌کار` | H1 `طراحی سایت وردپرس و اختصاصی` | error `-`
+- `/website-support-in-isfahan/` → `404` `https://chatreghermez.com/website-support-in-isfahan/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
+- `/logo-design-in-isfahan/` → `404` `https://chatreghermez.com/logo-design-in-isfahan/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
+- `/office-set-design-in-isfahan/` → `404` `https://chatreghermez.com/office-set-design-in-isfahan/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
+- `/catalog-design-and-printing-in-isfahan/` → `404` `https://chatreghermez.com/catalog-design-and-printing-in-isfahan/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
+- `/brochure-design-in-isfahan/` → `404` `https://chatreghermez.com/brochure-design-in-isfahan/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
+- `/business-card-design-in-isfahan/` → `200` `https://chatreghermez.com/business-card-design-in-isfahan/` | canonical `https://chatreghermez.com/business-card-design-in-isfahan/` | title `طراحی و چاپ کارت ویزیت در اصفهان - چترقرمز` | H1 `-` | error `-`
+- `/advertising-campaign-design/` → `404` `https://chatreghermez.com/advertising-campaign-design/` | canonical `-` | title `صفحه پیدا نشد - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
+- `/advertising-campaign/` → `200` `https://chatreghermez.com/advertising-campaign/` | canonical `https://chatreghermez.com/advertising-campaign/` | title `چگونه یک کمپین تبلیغاتی طراحی کنیم؟ - چترقرمز` | H1 `طراحی تبلیغات کمپین پربازده` | error `-`
+- `/advertising-media/` → `200` `https://chatreghermez.com/advertising-media/` | canonical `https://chatreghermez.com/advertising-media/` | title `رسانه تبلیغاتی چیست؟ نکات کلیدی تبلیغات` | H1 `رسانه تبلیغاتی چیست؟` | error `-`
+- `/billboard/` → `200` `https://chatreghermez.com/billboard/` | canonical `https://chatreghermez.com/billboard/` | title `بیلبورد چیست؟ تاریخچه یکی مهم ترین ابزار های تبلیغاتی جهان! - چترقرمز` | H1 `بیلبورد چیست؟ تاریخچه یکی مهم ترین ابزار های تبلیغاتی جهان!` | error `-`
+- `/advertising/` → `200` `https://chatreghermez.com/advertising/` | canonical `https://chatreghermez.com/advertising/` | title `تبلیغات چیست و چه کار می کند؟ افزایش فروش و دیده شدن` | H1 `تبلیغات چیست؟ روش های افزایش فروش و دیده شدن` | error `-`
+- `/portfolios/` → `200` `https://chatreghermez.com/portfolios/` | canonical `https://chatreghermez.com/portfolios/` | title `پورتفولیو - آژانس تبلیغاتی چتر‌قرمز` | H1 `-` | error `-`
+- `/social-networks/` → `200` `https://chatreghermez.com/social-networks/` | canonical `https://chatreghermez.com/social-networks/` | title `13 شبکه اجتماعی برتر دنیا - تعداد کاربران شبکه های اجتماعی - چترقرمز` | H1 `13 شبکه اجتماعی برتر دنیا – تعداد کاربران شبکه های اجتماعی` | error `-`
+- `/instagram-admin-tasks/` → `200` `https://chatreghermez.com/instagram-admin-tasks/` | canonical `https://chatreghermez.com/instagram-admin-tasks/` | title `وظایف و مهارت های ادمین اینستاگرام چیست؟ + شرح آن - چترقرمز` | H1 `وظایف و مهارت های ادمین اینستاگرام چیست؟` | error `-`
 - `/تبلیغات-محیطی/` → `200` `https://chatreghermez.com/%D8%AA%D8%A8%D9%84%DB%8C%D8%BA%D8%A7%D8%AA-%D9%85%D8%AD%DB%8C%D8%B7%DB%8C/` | canonical `https://chatreghermez.com/%d8%aa%d8%a8%d9%84%db%8c%d8%ba%d8%a7%d8%aa-%d9%85%d8%ad%db%8c%d8%b7%db%8c/` | title `تبلیغات محیطی و تمامی اطلاعات و مبانی - چترقرمز` | H1 `تبلیغات محیطی و تمامی اطلاعات و مبانی` | error `-`
 - `/طراحی-سایت-در-اصفهان/` → `200` `https://chatreghermez.com/%D8%B7%D8%B1%D8%A7%D8%AD%DB%8C-%D8%B3%D8%A7%DB%8C%D8%AA-%D8%AF%D8%B1-%D8%A7%D8%B5%D9%81%D9%87%D8%A7%D9%86/` | canonical `https://chatreghermez.com/%d8%b7%d8%b1%d8%a7%d8%ad%db%8c-%d8%b3%d8%a7%db%8c%d8%aa-%d8%af%d8%b1-%d8%a7%d8%b5%d9%81%d9%87%d8%a7%d9%86/` | title `طراحی سایت در اصفهان - آژانس تبلیغاتی چتر‌قرمز` | H1 `طراحی سایت در اصفهان` | error `-`
 - `/خدمات-سئو-در-اصفهان/` → `200` `https://chatreghermez.com/%D8%AE%D8%AF%D9%85%D8%A7%D8%AA-%D8%B3%D8%A6%D9%88-%D8%AF%D8%B1-%D8%A7%D8%B5%D9%81%D9%87%D8%A7%D9%86/` | canonical `https://chatreghermez.com/%d8%ae%d8%af%d9%85%d8%a7%d8%aa-%d8%b3%d8%a6%d9%88-%d8%af%d8%b1-%d8%a7%d8%b5%d9%81%d9%87%d8%a7%d9%86/` | title `خدمات سئو در اصفهان - آژانس تبلیغاتی چتر‌قرمز` | H1 `خدمات سئو در اصفهان` | error `-`
@@ -33,4 +56,4 @@ URLs tested: 26
 
 ## Truth rule
 
-HTTP evidence only. Migration decisions for live/high-value URLs still require GSC query/performance and backlink evidence.
+HTTP evidence only. WordPress may canonical-redirect a non-existing guess to a semantically similar post; a 200 final response after such a redirect does not prove the requested route is a valid canonical target. Migration decisions for live/high-value URLs still require current-route matching plus GSC query/performance and backlink evidence.
