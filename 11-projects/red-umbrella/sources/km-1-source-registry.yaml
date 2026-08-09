@@ -2,7 +2,7 @@ uid: SRC-RU-000001
 type: source_registry
 name: Red Umbrella KM-1 Source Registry
 status: active
-version: 1.0.0
+version: 1.1.0
 source_language: fa
 project_uid: PRJ-000001
 
@@ -41,9 +41,9 @@ sources:
     role: page_redesign_contract
     priority: approved
   - uid: SRC-RU-000008
-    path: چتر_قرمز_معماری_سایت_v1.xlsx
-    role: site_architecture
-    priority: pending_full_extraction
+    path: 11-projects/red-umbrella/registries/چتر_قرمز_معماری_و_رجیستری_سایت_v2.xlsx
+    role: site_architecture_and_page_registry
+    priority: approved
   - uid: SRC-RU-000009
     path: چتر_قرمز_نالج‌گراف_و_مدل‌داده_v1.xlsx
     role: knowledge_graph_and_data_model
