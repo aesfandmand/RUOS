@@ -1,0 +1,39 @@
+name: Red Umbrella current route probe
+
+on:
+  push:
+    branches:
+      - feat/live-url-audit-v1
+    paths:
+      - 11-projects/red-umbrella/tools/current_route_probe.py
+      - .github/workflows/red-umbrella-current-route-probe.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Probe current and target routes
+        run: python3 11-projects/red-umbrella/tools/current_route_probe.py
+      - name: Commit route probe evidence
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 11-projects/red-umbrella/registries/chatreghermez-current-route-probe-v1.csv
+          git add 11-projects/red-umbrella/registries/chatreghermez-current-route-probe-v1.json
+          git add 11-projects/red-umbrella/registries/chatreghermez-current-route-probe-v1.md
+          if git diff --cached --quiet; then
+            echo 'No route probe changes.'
+          else
+            git commit -m 'data(architecture): capture current route probe evidence'
+            git push origin HEAD:feat/live-url-audit-v1
+          fi
