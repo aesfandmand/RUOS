@@ -29,6 +29,7 @@ jobs:
           cat .ruos-upload/architecture-v2/part-* | tr -d '\r\n' | base64 --decode > "$target"
           actual="$(sha256sum "$target" | awk '{print $1}')"
           expected='4d0ca7fccedfb994a3ad4c25bd7853fa79109e50685b997af5213f1b0ca0a414'
+          echo "actual_sha256=$actual"
           test "$actual" = "$expected"
           unzip -t "$target"
           test "$(stat -c %s "$target")" -eq 38999
