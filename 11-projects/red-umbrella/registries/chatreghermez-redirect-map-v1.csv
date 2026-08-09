@@ -1,0 +1,23 @@
+ID,Target Model,Legacy URL,Target / Rule,Action,Gate,Confidence,SEO/UX Rationale,Source Architecture Reason
+1,CORE-001 Home,/,/,KEEP,READY,High,Root canonical remains.,صفحه ریشه کانونیکال باقی می‌ماند.
+2,SRV-OOH تبلیغات محیطی,/environmental-advertising,/environmental-advertising/,KEEP/CANONICAL_SLASH,READY,Medium,Preserve known legacy service path; do not rename for architecture aesthetics.,مفهوم حفظ؛ URL براساس وضعیت واقعی سایت تصمیم می‌گیرد.
+3,INV-000 Investment Hub,/municipality-investment,/investment/,301,READY_IF_SOURCE_EXISTS,High,Investment is now a standalone canonical hub.,سرمایه‌گذاری از Services جدا و هاب مستقل شده است.
+4,SRV-OOH-RENT + Local layer,/billboard-rental-isfahan,PENDING: /billboard-rental/ OR /cities/isfahan/,HOLD,CONTENT_MATCH_REQUIRED,Low,Choose service vs city destination based on dominant legacy intent/content.,خدمت اجاره حفظ؛ City-specific page پیش‌فرض حذف و Local Hub چندخدمتی جایگزین.
+5,CITY-DETAIL مبارکه + Projects + Rental context,/billboard-mobarakeh,/cities/mobarakeh/,301,EVIDENCE_GATED,Medium,Only if a real multi-service city page with evidence is published.,صفحه شهر باید چندخدمتی و Evidence-based باشد.
+6,CITY-DETAIL فولادشهر,/advertising-foladshahr,/cities/foladshahr/,301,EVIDENCE_GATED,Medium,Only if a real multi-service city page with evidence is published.,Local hub چندخدمتی.
+7,CITY-DETAIL-*,/advertising-[city],/cities/{city-slug}/,PATTERN_301,EVIDENCE_GATED,Medium,Do not mass-create city pages; only real evidence-backed cities.,فقط شهرهای دارای شواهد واقعی.
+8,STR-000 /structures/,/billboard-types,/structures/,301,READY_IF_SOURCE_EXISTS,High,Old 'types' concept consolidates into Structures master knowledge source.,انواع سازه به دانشنامه Structures منتقل شده.
+9,SRV-000 Services,/services,/services/,KEEP/CANONICAL_SLASH,READY,High,Services hub remains.,هاب خدمات حفظ.
+10,WEB-001 + Local layer,/web-design-isfahan,/web-design/,HOLD/301,GSC_AND_BACKLINK_GATE,Low,"Generic canonical is architecturally cleaner, but move only after traffic/backlink review.",طراحی سایت Landing اصلی؛ Local modifier در لایه شهر/SEO Audit بررسی می‌شود.
+11,SRV-GD طراحی گرافیک,/graphic-design,/graphic-design/,KEEP/CANONICAL_SLASH,READY,High,Family remains canonical.,نام خانواده با v2 سازگار است.
+12,SRV-PRN چاپ و تولید,/printing,/printing/,KEEP/CANONICAL_SLASH,READY,High,Family remains canonical.,نام نمایشی توسعه یافته؛ URL ممکن است چاپ بماند.
+13,PF-004 ساخت تیزر + SRV-PHOTO,/video-marketing-isfahan,/advertising-video-production/,301,CONTENT_MATCH_REQUIRED,Medium,Corrects entity ownership from 'marketing' to production; preserve signals via 301 if content matches.,Video Marketing خانواده تولید نیست؛ عکاسی و فیلم‌برداری مالک تولید است.
+14,PF-003 عکاسی محصول,/product-photography,/product-photography/,KEEP/CANONICAL_SLASH,READY,High,Direct entity retained.,Entity مستقیم و مستقل حفظ.
+15,SOC-001/SOC-002,/social-media-management,/social-media-management/,KEEP/CANONICAL_SLASH,READY,High,Exact canonical service retained.,Social Media hub و Instagram management تفکیک منطقی دارند.
+16,SRV-CONS مشاوره,/consulting,/consulting/,KEEP/CANONICAL_SLASH,READY,High,Independent consulting family retained.,خانواده مستقل مشاوره قطعی است.
+17,PRT-000 Portfolio,/portfolio,/portfolio/,KEEP/CANONICAL_SLASH,READY,High,Portfolio remains showcase collection.,Portfolio ویترین WorkSample/Project است.
+18,ABT-000 About,/about,PENDING: live /about/ or /about-us/,HOLD,LIVE_CANONICAL_REQUIRED,Low,Pick the already-signaled live canonical; preferred target is /about/ only if safe.,/about vs /about-us باید با Live URL Audit حل شود.
+19,CNT-000 Contact,/contact,PENDING: live /contact/ or /contact-us/,HOLD,LIVE_CANONICAL_REQUIRED,Low,Pick the already-signaled live canonical; preferred target is /contact/ only if safe.,/contact vs /contact-us Audit.
+20,LIC-000 Credentials,/credentials,/credentials/,KEEP/CANONICAL_SLASH,READY,High,Trust page retained.,Trust page مستقل حفظ.
+21,KNW-000 Knowledge,/blog,/blog/,KEEP/CANONICAL_SLASH,READY,High,Rename display to Knowledge Center without changing URL unless evidence supports a move.,Knowledge شامل Article + Video است؛ URL ممکن است /blog بماند.
+22,CONTENT_AUDIT_QUEUE,Multiple legacy blog URLs,MERGE to closest relevant article OR 404/410,MERGE_OR_REMOVE,CONTENT_AUDIT_REQUIRED,Medium,Do not redirect irrelevant removed URLs to home; match intent or return true 404/410.,
