@@ -2,7 +2,7 @@ uid: SRC-RU-000001
 type: source_registry
 name: Red Umbrella KM-1 Source Registry
 status: active
-version: 1.1.0
+version: 1.2.0
 source_language: fa
 project_uid: PRJ-000001
 
@@ -68,6 +68,18 @@ sources:
     path: project_conversations
     role: latest_decisions_and_corrections
     priority: highest_dynamic
+  - uid: SRC-RU-000015
+    path: 11-projects/red-umbrella/registries/chatreghermez-sitemap-v2-target-predeploy.xml
+    role: sitemap_v2_target_predeploy
+    priority: approved_supporting
+  - uid: SRC-RU-000016
+    path: 11-projects/red-umbrella/registries/chatreghermez-redirect-map-v1.csv
+    role: redirect_map_v1
+    priority: approved_supporting
+  - uid: SRC-RU-000017
+    path: 11-projects/red-umbrella/registries/url-audit-sitemap-v2-v1.md
+    role: url_audit_and_deployment_gate
+    priority: approved_supporting
 
 conflict_rule:
   rule: در تعارض میان منابع، تصمیم متاخر کاربر و سپس سند قفل‌شده متاخر حاکم است؛ تعارض حل‌نشده باید پیش از ثبت پرسیده شود.
