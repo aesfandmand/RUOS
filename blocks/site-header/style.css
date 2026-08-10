@@ -32,7 +32,7 @@
 .mega-cards{grid-template-columns:1fr 1fr;gap:4px;display:grid;max-height:340px;overflow-y:auto}
 .mega-card{border-radius:13px;align-items:center;gap:12px;padding:11px 12px;display:flex;transition:background .2s}
 .mega-card:hover{background:var(--paper-2)}
-.mega-card-ico{background:var(--red-soft);color:var(--red);border-radius:10px;width:36px;height:36px;align-items:center;justify-content:center;display:flex;flex:none}
+.mega-card-ico{background:var(--paper-2);color:var(--red);border-radius:10px;width:36px;height:36px;align-items:center;justify-content:center;display:flex;flex:none}
 .mega-card-ico svg{width:18px;height:18px}
 .mega-card-copy{display:flex;flex-direction:column;min-width:0}
 .mega-card-copy strong{color:var(--ink);font-size:.8rem;font-weight:800}
@@ -65,7 +65,7 @@
   .m-cards{flex-direction:column;gap:6px;display:flex}
   .m-card{background:var(--white);border-radius:13px;align-items:center;gap:12px;padding:12px;display:flex}
   .m-card:active{background:var(--paper-2)}
-  .m-card-ico{background:var(--red-soft);color:var(--red);border-radius:10px;width:38px;height:38px;align-items:center;justify-content:center;display:flex;flex:none}
+  .m-card-ico{background:var(--paper-2);color:var(--red);border-radius:10px;width:38px;height:38px;align-items:center;justify-content:center;display:flex;flex:none}
   .m-card-ico svg{width:19px;height:19px}
   .m-card-copy{display:flex;flex-direction:column;min-width:0}
   .m-card-copy strong{color:var(--ink);font-size:.84rem;font-weight:800}

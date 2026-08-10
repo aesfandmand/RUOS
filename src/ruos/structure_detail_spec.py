@@ -305,8 +305,7 @@ def _gallery_items(structure: StructureRecord, media_root: Path | None = None) -
             continue
         items.append({
             "src": f"assets/{path.name}",
-            "alt": f"نمونهٔ نصب واقعی {structure.name_fa}",
-            "caption": "نمونه نصب واقعی — دیده‌شو",
+            "alt": structure.name_fa,
         })
     return items
 

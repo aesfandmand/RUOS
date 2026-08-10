@@ -10,7 +10,7 @@
      indicator from the reference. Its geometry is set by behavior.js so
      it works for any number of entries. */
   .bn-bubble{
-    position:absolute;top:6px;bottom:6px;border-radius:17px;background:var(--red-soft);
+    position:absolute;top:6px;bottom:6px;border-radius:17px;background:var(--paper-2);
     transition:transform .42s cubic-bezier(.34,1.4,.44,1),width .42s cubic-bezier(.34,1.4,.44,1);
     will-change:transform,width;pointer-events:none;
   }

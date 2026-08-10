@@ -25,7 +25,6 @@ Palette is unchanged from `blocks/_tokens/style.css`. The rules are about
 | `--muted` | `#68646a` | Secondary text, the soft half of a two-tone heading. |
 | `--ink-soft` | `#29282b` | A charcoal emphasis band — **at most once per page**. |
 | `--ink` | `#171719` | Body text and headings. |
-| `--red-soft` | `#fff0f3` | Backing for a red icon badge. |
 | `--red` | `#da1e49` | Primary CTA, accent marks, active state. |
 | `--red-deep` | `#b9123a` | Hover/pressed state of the above. |
 
@@ -39,6 +38,13 @@ Rules:
   conversion band.
 - Contrast between a background and the cards on it comes from the cream
   tones (`--paper` / `--paper-2`), which is what the owner asked for.
+- **`--red-soft` (`#fff0f3`, a pink tint) is removed from the palette —
+  the owner does not want it anywhere.** A red icon badge sits on
+  `--paper-2` instead. Fixed so far in the nav (mega-menu cards, mobile
+  drawer cards, bottom-nav bubble); `structure-hero` and
+  `structure-services` still reference it and are pending a fix when page
+  work resumes, since page files are out of scope while the nav is
+  unlocked.
 
 ## 2. Typography
 

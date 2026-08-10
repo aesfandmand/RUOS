@@ -120,7 +120,10 @@ def test_a_structure_with_two_real_photos_uses_both_in_the_gallery_not_the_hero(
     gallery = next(entry for entry in spec["blocks"] if entry["block"] == "structure-gallery")
     assert [item["src"] for item in gallery["data"]["items"]] == ["assets/a.jpg", "assets/b.jpg"]
     for item in gallery["data"]["items"]:
-        assert item["caption"] == "نمونه نصب واقعی — دیده‌شو"
+        # Owner-supplied photography needs no provenance/credit caption —
+        # see 05-rules/website/red-umbrella-design-model-v1.md §4.
+        assert "caption" not in item
+        assert item["alt"] == _structure().name_fa
 
 
 def test_a_structure_with_three_real_photos_reserves_one_for_the_hero(tmp_path: Path) -> None:
