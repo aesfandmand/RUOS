@@ -55,36 +55,54 @@
   .desktop-nav{display:none}
   .menu-button{display:flex}
   .contact-link{display:none}
-  .mobile-menu{display:block;position:fixed;z-index:105;inset:var(--header) 0 0;background:var(--white);overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .28s cubic-bezier(.16,1,.3,1),transform .28s cubic-bezier(.16,1,.3,1),visibility .28s}
+  /* Half-width glass drawer. It sits on the inline-start edge — physically
+     the right in this RTL layout, which is why the closed transform slides
+     it out to the physical right. The page stays visible (and readable)
+     through the blur beside it, which is the point of the glass. */
+  .mobile-menu{
+    display:block;position:fixed;z-index:105;
+    top:var(--header);bottom:0;inset-inline-start:0;width:min(50vw,260px);
+    background:linear-gradient(165deg,#ffffffb0,#ffffff70);
+    -webkit-backdrop-filter:blur(26px) saturate(1.8);backdrop-filter:blur(26px) saturate(1.8);
+    border-inline-end:1px solid #ffffffd9;
+    border-start-end-radius:22px;border-end-end-radius:22px;
+    box-shadow:-24px 0 60px #1717192e,inset 1px 0 0 #ffffffb3;
+    overflow-y:auto;opacity:0;visibility:hidden;transform:translateX(100%);
+    transition:opacity .34s cubic-bezier(.16,1,.3,1),transform .42s cubic-bezier(.16,1,.3,1),visibility .42s;
+  }
   .mobile-menu[hidden]{display:block}
-  .mobile-menu.is-open{opacity:1;visibility:visible;transform:translateY(0)}
-  .mobile-menu-inner{padding:18px 16px calc(96px + env(safe-area-inset-bottom));flex-direction:column;gap:12px;display:flex}
-  .m-group{background:var(--paper);border-radius:18px;padding:16px}
-  .m-group-title{color:var(--ink);align-items:center;gap:9px;margin:0 0 12px;font-size:.84rem;font-weight:900;display:flex}
-  .m-group-title svg{width:17px;height:17px;color:var(--red)}
-  .m-cards{flex-direction:column;gap:6px;display:flex}
-  .m-card{background:var(--white);border-radius:13px;align-items:center;gap:12px;padding:12px;display:flex;transition:background .2s}
-  .m-card:active{background:var(--paper-2)}
-  .m-card-ico{background:var(--paper-2);color:var(--red);border-radius:10px;width:38px;height:38px;align-items:center;justify-content:center;display:flex;flex:none;position:relative;transition:transform .3s cubic-bezier(.34,1.4,.44,1)}
-  .m-card-ico svg{width:19px;height:19px;transition:transform .3s cubic-bezier(.34,1.4,.44,1)}
+  .mobile-menu.is-open{opacity:1;visibility:visible;transform:translateX(0)}
+  .mobile-menu-inner{padding:12px 10px calc(88px + env(safe-area-inset-bottom));flex-direction:column;gap:8px;display:flex}
+  .m-group{background:#ffffff4d;border:1px solid #ffffff8c;border-radius:15px;padding:10px}
+  .m-group-title{color:var(--ink);align-items:center;gap:7px;margin:0 0 8px;font-size:.68rem;font-weight:900;display:flex}
+  .m-group-title svg{width:14px;height:14px;color:var(--red);flex:none}
+  .m-cards{flex-direction:column;gap:4px;display:flex}
+  .m-card{background:#ffffff8c;border:1px solid #ffffffa6;border-radius:11px;align-items:center;gap:8px;padding:7px 8px;display:flex;transition:background .2s}
+  .m-card:active{background:#fff}
+  .m-card-ico{background:var(--paper-2);color:var(--red);border-radius:8px;width:28px;height:28px;align-items:center;justify-content:center;display:flex;flex:none;position:relative;transition:transform .3s cubic-bezier(.34,1.4,.44,1)}
+  .m-card-ico svg{width:15px;height:15px;transition:transform .3s cubic-bezier(.34,1.4,.44,1)}
   .m-card:active .m-card-ico{transform:scale(.88) rotate(-4deg)}
   .m-card:active .m-card-ico svg{transform:scale(1.1)}
   /* each icon badge pops in with a brief neon-red ring as its row enters,
      so the drawer reads as alive rather than a static list */
-  @keyframes m-ico-in{0%{transform:scale(.5) rotate(-8deg);box-shadow:0 0 0 8px #da1e4926}55%{transform:scale(1.08) rotate(2deg);box-shadow:0 0 0 3px #da1e4914}100%{transform:scale(1) rotate(0);box-shadow:0 0 0 0 #da1e4900}}
+  @keyframes m-ico-in{0%{transform:scale(.5) rotate(-8deg);box-shadow:0 0 0 6px #da1e4966,0 0 12px 2px #da1e4959}55%{transform:scale(1.08) rotate(2deg);box-shadow:0 0 0 2px #da1e4959,0 0 9px 1px #da1e4940}100%{transform:scale(1) rotate(0);box-shadow:0 0 0 0 #da1e4900,0 0 0 0 #da1e4900}}
   .mobile-menu.is-open .m-card-ico{animation:m-ico-in .55s cubic-bezier(.34,1.4,.44,1) both}
   .mobile-menu.is-open .mobile-menu-inner>:nth-child(1) .m-card-ico{animation-delay:.2s}
   .mobile-menu.is-open .mobile-menu-inner>:nth-child(2) .m-card-ico{animation-delay:.3s}
   .mobile-menu.is-open .mobile-menu-inner>:nth-child(3) .m-card-ico{animation-delay:.4s}
   .mobile-menu.is-open .mobile-menu-inner>:nth-child(4) .m-card-ico{animation-delay:.5s}
   .mobile-menu.is-open .mobile-menu-inner>:nth-child(5) .m-card-ico{animation-delay:.6s}
-  .m-card-copy{display:flex;flex-direction:column;min-width:0}
-  .m-card-copy strong{color:var(--ink);font-size:.84rem;font-weight:800}
-  .m-card-copy small{color:var(--muted);font-size:.68rem}
-  .m-all{color:var(--red);margin-top:12px;font-size:.76rem;font-weight:800;display:inline-block}
-  .m-link{background:var(--paper);border-radius:16px;align-items:center;gap:11px;padding:17px 16px;font-size:.88rem;font-weight:800;color:var(--ink);display:flex}
-  .m-link svg{width:19px;height:19px;color:var(--red)}
-  .m-cta{color:#fff;background:var(--red);border:0;border-radius:14px;min-height:54px;margin-top:6px;font-family:inherit;font-size:.86rem;font-weight:900;display:block;width:100%;cursor:pointer}
+  .m-card-copy{display:flex;flex-direction:column;min-width:0;gap:1px}
+  .m-card-copy strong{color:var(--ink);font-size:.7rem;font-weight:800;line-height:1.35}
+  /* Half a phone's width leaves no room for the context/dimension note
+     without truncating it mid-number, and the owner's glass references are
+     all single-label rows — so the note is desktop-only. It still ships in
+     the markup for the mega-menu and for assistive tech. */
+  .m-card-copy small{display:none}
+  .m-all{color:var(--red);margin-top:8px;font-size:.62rem;font-weight:800;display:inline-block}
+  .m-link{background:#ffffff4d;border:1px solid #ffffff8c;border-radius:13px;align-items:center;gap:8px;padding:11px 10px;font-size:.72rem;font-weight:800;color:var(--ink);display:flex}
+  .m-link svg{width:15px;height:15px;color:var(--red);flex:none}
+  .m-cta{color:#fff;background:var(--red);border:0;border-radius:12px;min-height:40px;margin-top:2px;font-family:inherit;font-size:.72rem;font-weight:900;display:block;width:100%;cursor:pointer;box-shadow:0 8px 20px #da1e4938}
   /* the drawer's staggered entrance — each row eases in behind the one above */
   .mobile-menu-inner>*{opacity:0;transform:translateY(12px);transition:opacity .4s cubic-bezier(.16,1,.3,1),transform .4s cubic-bezier(.16,1,.3,1)}
   .mobile-menu.is-open .mobile-menu-inner>*{opacity:1;transform:translateY(0)}
