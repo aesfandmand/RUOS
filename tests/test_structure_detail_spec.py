@@ -137,6 +137,26 @@ def test_a_structure_with_three_real_photos_reserves_one_for_the_hero(tmp_path: 
     assert "structure-gallery" in [b.block_id for b in page.composed.blocks]
 
 
+def test_default_shell_mega_menu_has_real_identical_family_cards_on_every_page() -> None:
+    """The owner asked for the mega-menu's category cards to look the same
+    on every page — not a page-specific subset, and never an in-page
+    anchor that only makes sense on the page that defines it."""
+    from ruos.architecture_registry import load_structures
+
+    billboard = next(s for s in load_structures() if s.id == "STR-001")
+    lightbox = next(s for s in load_structures() if s.id == "STR-015")
+    spec_a = build_structure_detail_spec(billboard)  # uses the default shell
+    spec_b = build_structure_detail_spec(lightbox)
+    nav_a = spec_a["shell"]["site-header"]["nav"]
+    nav_b = spec_b["shell"]["site-header"]["nav"]
+    cards_a = next(item["children"] for item in nav_a if "children" in item)
+    cards_b = next(item["children"] for item in nav_b if "children" in item)
+    assert cards_a == cards_b
+    assert len(cards_a) >= 2
+    for card in cards_a:
+        assert card["href"].startswith("/"), f"mega-menu card must be a real path, not an anchor: {card}"
+
+
 def test_all_fourteen_composable_real_structures_actually_compose() -> None:
     from ruos.architecture_registry import load_structures
 

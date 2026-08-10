@@ -128,7 +128,33 @@ def _specs(structure: StructureRecord) -> list[dict[str, str]]:
     return rows
 
 
-def _real_shell() -> dict[str, Any]:
+def _family_nav_cards(registry_root=None) -> list[dict[str, str]]:
+    """Real category cards for the header mega-menu: one representative,
+    already-buildable structure per family, with a real context/dimension
+    note — never an invented description. Same card set on every page, per
+    the owner's request that the mega-menu look identical everywhere."""
+    seen: dict[str, StructureRecord] = {}
+    for structure in load_structures(registry_root):
+        if structure.family in seen or len(_specs(structure)) < 3:
+            continue
+        seen[structure.family] = structure
+    cards = []
+    for family, structure in seen.items():
+        note_parts = [
+            part for part in (
+                _CONTEXT_FA.get(structure.context, structure.context),
+                _dimension_label(structure.dimensions),
+            ) if part
+        ]
+        cards.append({
+            "label": family,
+            "href": structure.url,
+            "note": " · ".join(note_parts) if note_parts else "مشاهده مشخصات",
+        })
+    return cards
+
+
+def _real_shell(registry_root=None) -> dict[str, Any]:
     """Site chrome with real, working site-wide URLs — not the page-specific
     in-page anchors urban-investment.json's shell uses (#structures, #model...),
     which only make sense on that one page and are broken everywhere else."""
@@ -144,7 +170,11 @@ def _real_shell() -> dict[str, Any]:
             "cta": {"label": "درخواست بررسی", "href": "#review"},
             "nav": [
                 {"label": "خانه", "href": "/"},
-                {"label": "سازه‌ها و تابلوها", "href": _STRUCTURES_HUB_URL},
+                {
+                    "label": "سازه‌ها و تابلوها",
+                    "href": _STRUCTURES_HUB_URL,
+                    "children": _family_nav_cards(registry_root),
+                },
                 {"label": "سرمایه‌گذاری", "href": "/investment/"},
             ],
         },
@@ -406,6 +436,6 @@ def build_structure_detail_spec(
         "title": f"{structure.name_fa} | مشخصات فنی و اجرا | چتر قرمز",
         "description": f"{structure.name_fa}: مشخصات فنی، ابعاد و مسیر اجرای پروژه از چتر قرمز.",
         "canonical": f"https://chatreghermez.ir{structure.url}",
-        "shell": dict(shell) if shell else _real_shell(),
+        "shell": dict(shell) if shell else _real_shell(registry_root),
         "blocks": blocks,
     }
