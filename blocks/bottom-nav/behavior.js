@@ -1,6 +1,6 @@
-// Mobile bottom nav: position the sliding "liquid" pill under whichever
+// Mobile bottom nav: position the floating "liquid" bubble above whichever
 // item is active. Geometry is measured rather than hard-coded so the bar
-// works with any number of entries and any label width.
+// works with any number of entries and any bar width.
 
 const bar = document.querySelector(".bottom-nav");
 if (bar) {
@@ -12,12 +12,14 @@ if (bar) {
     if (!animate) bubble.style.transition = "none";
     const barBox = bar.getBoundingClientRect();
     const box = item.getBoundingClientRect();
-    // RTL-safe: translate from the bar's inline-start edge, whichever
-    // physical side that is.
-    const rtl = getComputedStyle(bar).direction === "rtl";
-    const offset = rtl ? barBox.right - box.right : box.left - barBox.left;
-    bubble.style.width = `${box.width}px`;
-    bubble.style.transform = `translateX(${rtl ? -offset : offset}px)`;
+    const radius = bubble.offsetWidth / 2;
+    // getBoundingClientRect is always physical/viewport space, so this
+    // needs no RTL branch: the bubble's untransformed rest position is
+    // pinned to the bar's physical left edge (`left:0`), and translating
+    // it by (item's physical center − bar's physical left − radius)
+    // lands it centered under the item regardless of text direction.
+    const offset = box.left + box.width / 2 - barBox.left - radius;
+    bubble.style.transform = `translateX(${offset}px)`;
     if (!animate) {
       void bubble.offsetWidth; // flush, then restore the transition
       bubble.style.transition = "";
@@ -50,7 +52,7 @@ if (bar) {
   items.forEach((item) =>
     item.addEventListener("click", () => {
       // Move immediately on tap; the navigation that follows re-renders
-      // the bar anyway, but the pill should not wait for it.
+      // the bar anyway, but the bubble should not wait for it.
       setActive(item);
     }),
   );
