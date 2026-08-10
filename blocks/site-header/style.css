@@ -63,10 +63,21 @@
   .m-group-title{color:var(--ink);align-items:center;gap:9px;margin:0 0 12px;font-size:.84rem;font-weight:900;display:flex}
   .m-group-title svg{width:17px;height:17px;color:var(--red)}
   .m-cards{flex-direction:column;gap:6px;display:flex}
-  .m-card{background:var(--white);border-radius:13px;align-items:center;gap:12px;padding:12px;display:flex}
+  .m-card{background:var(--white);border-radius:13px;align-items:center;gap:12px;padding:12px;display:flex;transition:background .2s}
   .m-card:active{background:var(--paper-2)}
-  .m-card-ico{background:var(--paper-2);color:var(--red);border-radius:10px;width:38px;height:38px;align-items:center;justify-content:center;display:flex;flex:none}
-  .m-card-ico svg{width:19px;height:19px}
+  .m-card-ico{background:var(--paper-2);color:var(--red);border-radius:10px;width:38px;height:38px;align-items:center;justify-content:center;display:flex;flex:none;position:relative;transition:transform .3s cubic-bezier(.34,1.4,.44,1)}
+  .m-card-ico svg{width:19px;height:19px;transition:transform .3s cubic-bezier(.34,1.4,.44,1)}
+  .m-card:active .m-card-ico{transform:scale(.88) rotate(-4deg)}
+  .m-card:active .m-card-ico svg{transform:scale(1.1)}
+  /* each icon badge pops in with a brief neon-red ring as its row enters,
+     so the drawer reads as alive rather than a static list */
+  @keyframes m-ico-in{0%{transform:scale(.5) rotate(-8deg);box-shadow:0 0 0 8px #da1e4926}55%{transform:scale(1.08) rotate(2deg);box-shadow:0 0 0 3px #da1e4914}100%{transform:scale(1) rotate(0);box-shadow:0 0 0 0 #da1e4900}}
+  .mobile-menu.is-open .m-card-ico{animation:m-ico-in .55s cubic-bezier(.34,1.4,.44,1) both}
+  .mobile-menu.is-open .mobile-menu-inner>:nth-child(1) .m-card-ico{animation-delay:.2s}
+  .mobile-menu.is-open .mobile-menu-inner>:nth-child(2) .m-card-ico{animation-delay:.3s}
+  .mobile-menu.is-open .mobile-menu-inner>:nth-child(3) .m-card-ico{animation-delay:.4s}
+  .mobile-menu.is-open .mobile-menu-inner>:nth-child(4) .m-card-ico{animation-delay:.5s}
+  .mobile-menu.is-open .mobile-menu-inner>:nth-child(5) .m-card-ico{animation-delay:.6s}
   .m-card-copy{display:flex;flex-direction:column;min-width:0}
   .m-card-copy strong{color:var(--ink);font-size:.84rem;font-weight:800}
   .m-card-copy small{color:var(--muted);font-size:.68rem}
@@ -84,5 +95,6 @@
   .mobile-menu.is-open .mobile-menu-inner>:nth-child(5){transition-delay:.25s}
 }
 @media (prefers-reduced-motion:reduce){
-  .mega-panel,.mobile-menu,.mobile-menu-inner>*,.menu-button svg,.mega-caret{transition-duration:.01ms}
+  .mega-panel,.mobile-menu,.mobile-menu-inner>*,.menu-button svg,.mega-caret,.m-card-ico,.m-card-ico svg{transition-duration:.01ms}
+  .mobile-menu.is-open .m-card-ico{animation:none}
 }

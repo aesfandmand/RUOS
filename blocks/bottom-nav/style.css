@@ -1,39 +1,55 @@
 .bottom-nav{display:none}
 @media (width<=980px){
+  /* A compact floating glass pill, not a bar spanning the screen — width
+     is capped and it sits centered, so the page underneath stays legible
+     through the blur. */
   .bottom-nav{
-    position:fixed;z-index:150;inset-inline:12px;bottom:max(12px,env(safe-area-inset-bottom));
-    height:66px;padding:6px;display:flex;align-items:stretch;
-    background:#fffffff5;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
-    border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 44px #17171922;
+    position:fixed;z-index:150;left:50%;transform:translateX(-50%);
+    bottom:max(14px,env(safe-area-inset-bottom));
+    width:min(336px,88vw);height:58px;padding:5px;display:flex;align-items:stretch;
+    background:#ffffffb3;-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);
+    border:1px solid #ffffff8c;border-radius:20px;
+    box-shadow:0 18px 40px #17171930,inset 0 1px 0 #ffffffb0;
   }
   /* the moving pill that slides under the active item — the "liquid"
      indicator from the reference. Its geometry is set by behavior.js so
-     it works for any number of entries. */
+     it works for any number of entries. Glassy on top of glassy: a
+     lighter, softer fill than the bar itself, with its own hairline. */
   .bn-bubble{
-    position:absolute;top:6px;bottom:6px;border-radius:17px;background:var(--paper-2);
+    position:absolute;top:5px;bottom:5px;border-radius:15px;background:#ffffffb8;
+    border:1px solid #ffffff;box-shadow:0 6px 16px #17171914;
     transition:transform .42s cubic-bezier(.34,1.4,.44,1),width .42s cubic-bezier(.34,1.4,.44,1);
     will-change:transform,width;pointer-events:none;
   }
   .bn-item{
     position:relative;z-index:1;flex:1;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;gap:3px;
-    color:var(--muted);border-radius:17px;text-decoration:none;
+    align-items:center;justify-content:center;gap:2px;
+    color:var(--muted);border-radius:15px;text-decoration:none;
     transition:color .3s cubic-bezier(.16,1,.3,1);
   }
   .bn-item.is-active{color:var(--red)}
-  .bn-ico{position:relative;width:22px;height:22px;display:block}
+  .bn-ico{position:relative;width:19px;height:19px;display:block}
+  /* the neon-ish glow ring behind the active icon — a soft, slowly
+     breathing red halo, not a static badge. */
+  .bn-ico:before{
+    content:"";position:absolute;inset:-7px;border-radius:50%;
+    background:radial-gradient(circle,#da1e4933 0%,#da1e4900 70%);
+    opacity:0;transform:scale(.6);transition:opacity .3s,transform .3s;
+  }
+  .bn-item.is-active .bn-ico:before{opacity:1;transform:scale(1);animation:bn-glow 2.2s ease-in-out infinite}
   .bn-ico svg{
-    position:absolute;inset:0;width:22px;height:22px;
+    position:absolute;inset:0;width:19px;height:19px;
     transition:opacity .3s cubic-bezier(.16,1,.3,1),transform .42s cubic-bezier(.34,1.4,.44,1);
   }
   .bn-ico-on{opacity:0;transform:scale(.7)}
   .bn-item.is-active .bn-ico-idle{opacity:0;transform:scale(.7)}
   .bn-item.is-active .bn-ico-on{opacity:1;transform:scale(1)}
   .bn-item.is-active .bn-ico{animation:bn-pop .42s cubic-bezier(.34,1.4,.44,1)}
-  .bn-label{font-size:.6rem;font-weight:800;letter-spacing:.01em}
+  .bn-label{font-size:.54rem;font-weight:800;letter-spacing:.01em;white-space:nowrap}
   @keyframes bn-pop{0%{transform:translateY(0)}45%{transform:translateY(-3px)}100%{transform:translateY(0)}}
+  @keyframes bn-glow{0%,100%{opacity:.65;transform:scale(.92)}50%{opacity:1;transform:scale(1.08)}}
 }
 @media (prefers-reduced-motion:reduce){
-  .bn-bubble,.bn-item,.bn-ico svg{transition-duration:.01ms}
-  .bn-item.is-active .bn-ico{animation:none}
+  .bn-bubble,.bn-item,.bn-ico svg,.bn-ico:before{transition-duration:.01ms}
+  .bn-item.is-active .bn-ico,.bn-item.is-active .bn-ico:before{animation:none}
 }
