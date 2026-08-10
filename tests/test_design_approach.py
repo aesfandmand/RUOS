@@ -53,10 +53,20 @@ def test_structure_detail_matches_and_actually_composes() -> None:
 
     result = select_design_approach("STRUCTURE_DETAIL")
     assert result.status == MATCHED
-    assert result.approach.block_sequence == ("structure-hero", "structure-specs", "review-gate")
+    assert result.approach.block_sequence == (
+        "structure-hero", "structure-specs", "faq-section-final", "review-gate",
+    )
 
     shell = load_page_spec(REFERENCE_SPEC)["shell"]
     billboard = next(s for s in load_structures() if s.id == "STR-001")
     spec = build_structure_detail_spec(billboard, shell)
     page = render_page(spec, load_library())
-    assert [b.block_id for b in page.composed.blocks] == list(result.approach.block_sequence)
+    composed_ids = [b.block_id for b in page.composed.blocks]
+    # The fixed spine must appear, in order; any blocks in between are the
+    # conditional cross-reference/cross-sell ones structure_detail_spec adds
+    # only when the registry has real data for them.
+    spine_positions = [composed_ids.index(block_id) for block_id in result.approach.block_sequence]
+    assert spine_positions == sorted(spine_positions)
+    assert set(composed_ids) - set(result.approach.block_sequence) <= {
+        "structure-gallery", "structure-related", "structure-services",
+    }

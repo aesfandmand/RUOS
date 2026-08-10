@@ -1,0 +1,50 @@
+{
+  "id": "structure-related",
+  "name": {
+    "fa": "structure-related",
+    "en": "structure-related"
+  },
+  "role": "content",
+  "family": "cross-reference",
+  "surface": "light",
+  "composition": "A swipeable carousel of other structures in the same registry family — real records, not invented ones.",
+  "serves_intent": [
+    "compare",
+    "discover"
+  ],
+  "position": "any",
+  "behavior": true,
+  "vendor": ["swiper"],
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "new for the Structure Detail archetype; visual language (tokens, type scale, spacing) reused from the approved V16 baseline — not extracted from any V16 selector",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "all_link": {
+      "type": "object",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 8
+    }
+  },
+  "layout": "carousel"
+}

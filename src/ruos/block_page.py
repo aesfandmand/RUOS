@@ -93,6 +93,18 @@ def _schema_graph(spec: Mapping[str, Any], composed: ComposedPage) -> dict[str, 
     return {"@context": "https://schema.org", "@graph": graph}
 
 
+def _icon_sprite(library: BlockLibrary) -> str:
+    """Inline the vendored icon sprite (see blocks/_foundation/assets/icon-sprite.svg)
+    once per page so blocks can reference icons with <use href="#icon-name">."""
+    foundation = library.blocks.get("_foundation")
+    if foundation is None:
+        return ""
+    for asset in foundation.assets:
+        if asset.name == "icon-sprite.svg":
+            return asset.read_text(encoding="utf-8").strip() + "\n"
+    return ""
+
+
 def render_page(spec: Mapping[str, Any], library: BlockLibrary | None = None) -> RenderedPage:
     library = library or load_library()
     composed = compose_page(
@@ -116,6 +128,7 @@ def render_page(spec: Mapping[str, Any], library: BlockLibrary | None = None) ->
         if composed.vendor else
         '<script src="assets/behavior.js" defer></script>\n'
     )
+    icon_sprite = _icon_sprite(library)
 
     document = (
         "<!doctype html>\n"
@@ -132,6 +145,7 @@ def render_page(spec: Mapping[str, Any], library: BlockLibrary | None = None) ->
         "</head>\n"
         "<body>\n"
         '<a class="skip-link" href="#main">پرش به محتوای اصلی</a>\n'
+        f"{icon_sprite}"
         f"{composed.body}\n"
         f"{script_tag}"
         "</body>\n"

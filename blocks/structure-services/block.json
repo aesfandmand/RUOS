@@ -1,0 +1,44 @@
+{
+  "id": "structure-services",
+  "name": {
+    "fa": "structure-services",
+    "en": "structure-services"
+  },
+  "role": "content",
+  "family": "cross-sell",
+  "surface": "paper",
+  "composition": "Real, registry-sourced services that pair with this structure (design, print, planning) — curated by family, never invented.",
+  "serves_intent": [
+    "cross-sell"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "new for the Structure Detail archetype; visual language (tokens, type scale, spacing) reused from the approved V16 baseline — not extracted from any V16 selector",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "services": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 6
+    }
+  },
+  "layout": "editorial"
+}

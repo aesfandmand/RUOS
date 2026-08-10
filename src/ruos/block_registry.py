@@ -33,14 +33,17 @@ LAYOUTS = frozenset({
     "console",      # interactive controls with live output
     "disclosure",   # expandable question list
     "band",         # full-bleed closing statement
+    "carousel",     # single-row, swipeable, partially-visible-next-item
+    "gallery",      # full-bleed media stage, 3D-perspective swipeable cards
 })
 
 # Third-party behaviour libraries a block's behavior.js is allowed to import.
-# Each entry here must have a real, vendored, MIT/permissively-licensed asset
-# under blocks/_foundation/assets/ (see blocks/README.md) — this is a
+# Each entry here must have a real, vendored asset under
+# blocks/_foundation/assets/ with a verified, free-for-commercial-use
+# license (see the matching <lib>.LICENSE.md there) — this is a
 # behaviour/interaction library, never a source of brand visual language
 # (see 05-rules/website professional-web-experience-policy-v0.1.md §9).
-VENDOR_LIBRARIES = frozenset({"motion"})
+VENDOR_LIBRARIES = frozenset({"motion", "swiper", "gsap"})
 
 
 class BlockRegistryError(ValueError):

@@ -1,0 +1,48 @@
+{
+  "id": "structure-gallery",
+  "name": {
+    "fa": "structure-gallery",
+    "en": "structure-gallery"
+  },
+  "role": "content",
+  "family": "media-gallery",
+  "surface": "dark",
+  "composition": "Real installation photos of this structure family, shown full-bleed on a dark stage in a 3D coverflow carousel (Swiper's effect-coverflow module — CSS 3D perspective, not a WebGL 3D model). Only real, provenance-tracked photography — never a stock or AI-generated image — captioned as a real installation sample, never implied to be Chatreghermez's own client work when the photo's source company differs.",
+  "serves_intent": [
+    "build-trust",
+    "explore"
+  ],
+  "position": "any",
+  "behavior": true,
+  "vendor": [
+    "swiper"
+  ],
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "new for the Structure Detail archetype, built in response to the owner's request for a photography-led, 3D-perspective structure gallery instead of the flat V16 red/black hero-only treatment; visual language (dark stage, glass card) inspired by owner-supplied reference imagery, not extracted from any V16 selector",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 8
+    }
+  },
+  "layout": "gallery"
+}
