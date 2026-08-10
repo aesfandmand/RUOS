@@ -1,4 +1,4 @@
-.structure-specs{background:var(--paper-2);padding:110px 0}
+.structure-specs{background:var(--white);padding:110px 0}
 .structure-specs .section-intro--right{margin-inline:0;max-width:640px}
 .structure-spec-list{border-top:1px solid var(--line);margin:55px 0 0;padding:0;display:block}
 .structure-spec-row{grid-template-columns:220px 1fr;border-bottom:1px solid var(--line);padding:22px 0 22px 18px;gap:24px;position:relative;display:grid}
