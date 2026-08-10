@@ -6,17 +6,17 @@
   },
   "role": "shell",
   "family": "shell",
-  "surface": "dark",
-  "composition": "V16 shell: bottom-nav",
+  "surface": "light",
+  "composition": "Site-wide navigation chrome, identical on every page and locked before page design continued (see 05-rules/website/red-umbrella-design-model-v1.md §5). Fixed mobile tab bar with a sliding 'liquid' active indicator and filled/outline icon states.",
   "serves_intent": [],
   "position": "any",
-  "behavior": false,
+  "behavior": true,
   "adjacency": {
     "not_after_same_family": false
   },
   "source": {
-    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
-    "selector": ".bottom-nav"
+    "page": "rebuilt from the owner-supplied navigation references (icon rail + labelled panel, liquid bottom-bar); V16 supplied only the original slot names",
+    "selector": "n/a"
   },
   "slots": {
     "entries": {

@@ -128,6 +128,22 @@ def _specs(structure: StructureRecord) -> list[dict[str, str]]:
     return rows
 
 
+# One Phosphor sprite id per real structure family, so every mega-menu
+# card carries an icon that actually means something for that family
+# rather than a repeated generic glyph. Families are the real registry
+# values; a new family falls back to the generic structures icon.
+_FAMILY_ICONS: dict[str, str] = {
+    "بیلبورد": "icon-fam-billboard",
+    "استرابورد": "icon-fam-straboard",
+    "لایت‌باکس": "icon-fam-lightbox",
+    "لایت‌برد": "icon-fam-lightboard",
+    "برایت‌بورد": "icon-fam-brightboard",
+    "سازه سازمانی": "icon-fam-org",
+    "لایت‌باکس ایندور": "icon-fam-indoor",
+    "عرشه پل": "icon-fam-bridge",
+}
+
+
 def _family_nav_cards(registry_root=None) -> list[dict[str, str]]:
     """Real category cards for the header mega-menu: one representative,
     already-buildable structure per family, with a real context/dimension
@@ -149,6 +165,7 @@ def _family_nav_cards(registry_root=None) -> list[dict[str, str]]:
         cards.append({
             "label": family,
             "href": structure.url,
+            "icon": _FAMILY_ICONS.get(family, "icon-structures"),
             "note": " · ".join(note_parts) if note_parts else "مشاهده مشخصات",
         })
     return cards
@@ -169,13 +186,17 @@ def _real_shell(registry_root=None) -> dict[str, Any]:
             "brand": brand,
             "cta": {"label": "درخواست بررسی", "href": "#review"},
             "nav": [
-                {"label": "خانه", "href": "/"},
+                {"label": "خانه", "href": "/", "icon": "icon-home"},
                 {
                     "label": "سازه‌ها و تابلوها",
                     "href": _STRUCTURES_HUB_URL,
+                    "icon": "icon-structures",
+                    "note": "هر خانواده سازه با ابعاد، محیط نصب و کاربرد خودش. "
+                            "برای دیدن مشخصات فنی کامل، یکی را باز کنید.",
+                    "all_label": "دیدن همهٔ سازه‌ها",
                     "children": _family_nav_cards(registry_root),
                 },
-                {"label": "سرمایه‌گذاری", "href": "/investment/"},
+                {"label": "سرمایه‌گذاری", "href": "/investment/", "icon": "icon-investment"},
             ],
         },
         "site-footer": {
@@ -195,9 +216,14 @@ def _real_shell(registry_root=None) -> dict[str, Any]:
         },
         "bottom-nav": {
             "entries": [
-                {"href": "/", "icon": "nav-home", "label": "خانه"},
-                {"href": _STRUCTURES_HUB_URL, "icon": "nav-work", "label": "سازه‌ها"},
-                {"href": "#review", "icon": "nav-services", "label": "استعلام"},
+                {"href": "/", "icon": "icon-home", "icon_active": "icon-home-active",
+                 "label": "خانه"},
+                {"href": _STRUCTURES_HUB_URL, "icon": "icon-structures",
+                 "icon_active": "icon-structures-active", "label": "سازه‌ها", "active": True},
+                {"href": "/investment/", "icon": "icon-investment",
+                 "icon_active": "icon-investment-active", "label": "سرمایه‌گذاری"},
+                {"href": "#review", "icon": "icon-rfq", "icon_active": "icon-rfq-active",
+                 "label": "استعلام"},
             ]
         },
     }

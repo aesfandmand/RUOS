@@ -43,7 +43,7 @@ LAYOUTS = frozenset({
 # license (see the matching <lib>.LICENSE.md there) — this is a
 # behaviour/interaction library, never a source of brand visual language
 # (see 05-rules/website professional-web-experience-policy-v0.1.md §9).
-VENDOR_LIBRARIES = frozenset({"motion", "swiper", "gsap"})
+VENDOR_LIBRARIES = frozenset({"motion", "swiper", "gsap", "lenis"})
 
 
 class BlockRegistryError(ValueError):

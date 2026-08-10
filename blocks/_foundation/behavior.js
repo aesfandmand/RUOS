@@ -89,17 +89,9 @@ import { scroll } from "./motion.min.mjs";
   addEventListener("resize", requestUpdate);
   update();
 
-  const menuButton = document.querySelector(".menu-button");
-  const mobileMenu = document.querySelector(".mobile-menu");
-  menuButton?.addEventListener("click", () => {
-    const open = !mobileMenu?.classList.contains("is-open");
-    mobileMenu?.classList.toggle("is-open", open);
-    menuButton.setAttribute("aria-expanded", String(open));
-  });
-  mobileMenu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
-    mobileMenu.classList.remove("is-open");
-    menuButton?.setAttribute("aria-expanded", "false");
-  }));
+  // The mobile drawer is owned by blocks/site-header/behavior.js — it has
+  // to manage the `hidden` attribute and the open/close transition together,
+  // which a second handler here would fight over.
 
   document.querySelectorAll(".path-stepper button").forEach((button, index) => button.addEventListener("click", () => {
     const top = scrollY + paths.getBoundingClientRect().top;

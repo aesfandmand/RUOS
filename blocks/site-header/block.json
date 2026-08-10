@@ -6,17 +6,17 @@
   },
   "role": "shell",
   "family": "shell",
-  "surface": "paper",
-  "composition": "V16 shell: site-header",
+  "surface": "light",
+  "composition": "Site-wide navigation chrome, identical on every page and locked before page design continued (see 05-rules/website/red-umbrella-design-model-v1.md §5). Desktop mega-menu with real per-family cards plus a full-screen mobile drawer.",
   "serves_intent": [],
   "position": "any",
-  "behavior": false,
+  "behavior": true,
   "adjacency": {
     "not_after_same_family": false
   },
   "source": {
-    "page": "red-umbrella-website/services-urban-investment-final-v16.html",
-    "selector": ".site-header"
+    "page": "rebuilt from the owner-supplied navigation references (icon rail + labelled panel, liquid bottom-bar); V16 supplied only the original slot names",
+    "selector": "n/a"
   },
   "slots": {
     "brand": {
