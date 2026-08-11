@@ -1,25 +1,42 @@
+/* The bubble's X and its vertical dip are registered custom properties so
+   they can be transitioned/animated. Everything downstream — the notch cut
+   into the bar, the bubble itself and the raised active icon — reads the
+   same two values, so they can never drift out of sync. */
+@property --bn-x{syntax:"<length>";inherits:true;initial-value:0px}
+@property --bn-dip{syntax:"<length>";inherits:true;initial-value:0px}
+
 .bottom-nav{display:none}
 .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media (width<=980px){
-  /* Liquid/goo bottom bar, built exactly to the owner-supplied reference:
-     a flat white bar edge-to-edge, with a circular bubble that floats
-     above the active item and fuses into the bar through an SVG goo
-     filter (blur + contrast threshold), not a border-radius trick. */
+  /* Liquid bottom bar, built to the owner-supplied reference: a white bar
+     with a circular notch cut out of it at the active position — the page
+     shows through that gap — and a white bubble floating in the notch.
+     Travelling between items, the bubble dips down into the bar and the
+     goo filter fuses the two into one liquid shape, then it rises back out
+     at its destination. */
   .bottom-nav{
     position:fixed;z-index:150;inset:auto 0 0 0;height:74px;display:block;
     padding-bottom:env(safe-area-inset-bottom);
+    --bn-x:0px;--bn-dip:0px;
+    transition:--bn-x .55s cubic-bezier(.5,0,.2,1);
   }
+  /* one animation on the bar drives the dip for the bubble and the icon
+     alike, so they sink and surface together */
+  .bottom-nav.is-moving{animation:bn-dip .55s cubic-bezier(.45,0,.25,1)}
+  @keyframes bn-dip{0%,100%{--bn-dip:0px}50%{--bn-dip:34px}}
+
   .bn-goo-defs{position:absolute;width:0;height:0}
   .bn-goo{position:absolute;inset:0;overflow:visible;filter:url(#bn-goo);pointer-events:none}
   .bn-bar{
     position:absolute;inset:0;background:var(--white);
-    box-shadow:0 -10px 26px #17171924;
+    -webkit-mask-image:radial-gradient(circle 35px at var(--bn-x) -3px,#0000 98%,#000 100%);
+    mask-image:radial-gradient(circle 35px at var(--bn-x) -3px,#0000 98%,#000 100%);
+    -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
   }
   .bn-bubble{
-    position:absolute;top:-30px;left:0;width:58px;height:58px;border-radius:50%;
-    background:var(--white);transform:translateX(0);
-    transition:transform .5s cubic-bezier(.5,-0.3,.35,1.3);
-    will-change:transform;
+    position:absolute;top:-46px;left:0;width:56px;height:56px;border-radius:50%;
+    background:var(--white);
+    transform:translate(calc(var(--bn-x) - 28px),var(--bn-dip));
   }
   .bn-items{
     position:relative;z-index:1;height:100%;display:flex;align-items:center;
@@ -30,15 +47,18 @@
     text-decoration:none;
   }
   .bn-ico{
-    position:relative;width:23px;height:23px;color:#cbc6be;
-    transform:translateY(0);
-    transition:transform .5s cubic-bezier(.5,-0.3,.35,1.3),color .3s;
+    position:relative;width:23px;height:23px;color:#cbc6be;transform:translateY(0);
+    transition:transform .55s cubic-bezier(.5,0,.2,1),color .3s;
   }
   .bn-ico svg{width:100%;height:100%;display:block}
-  /* the active icon rides up inside the bubble; behavior.js keeps the
-     bubble's X in sync with whichever item carries .is-active */
-  .bn-item.is-active .bn-ico{color:var(--ink);transform:translateY(-41px)}
+  /* the active icon rides up into the bubble and shares its dip */
+  .bn-item.is-active .bn-ico{color:var(--ink);transform:translateY(calc(-53px + var(--bn-dip)))}
+  /* …and tumbles while it travels, rather than sliding across rigidly */
+  .bottom-nav.is-moving .bn-item.is-active .bn-ico svg{animation:bn-tumble .55s cubic-bezier(.45,0,.25,1)}
+  @keyframes bn-tumble{0%{transform:rotate(0) scale(1)}45%{transform:rotate(-16deg) scale(.78)}100%{transform:rotate(0) scale(1)}}
 }
 @media (prefers-reduced-motion:reduce){
-  .bn-bubble,.bn-ico{transition-duration:.01ms}
+  .bottom-nav{transition-duration:.01ms}
+  .bn-ico{transition-duration:.01ms}
+  .bottom-nav.is-moving,.bottom-nav.is-moving .bn-item.is-active .bn-ico svg{animation:none}
 }
