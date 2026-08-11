@@ -105,21 +105,49 @@ values it contains.
   that requirement is withdrawn. Attribution and final imagery are
   handled at WordPress upload time.
 
-## 5. Navigation — designed first, then locked
+## 5. Navigation — LOCKED (2026-08-11)
 
-The mega-menu (desktop **and** mobile) and the mobile bottom nav are
-built and approved **before** any page design continues, and are then
-identical site-wide, with no per-page variation.
+Designed first, reviewed on a real phone, approved, and now **frozen for
+the rest of the project**. The full specification and the procedure for
+changing it live in **`05-rules/website/navigation-lock.md`** — read that
+file, not this summary, before going near the nav.
 
-- Both follow the owner's supplied references: an icon rail opening into
-  a labelled panel, grouped sections, a highlighted active item, soft
-  motion between states.
-- Each entry uses an icon that actually matches its section, from the one
-  approved family (Phosphor).
-- Bottom nav is always `position: fixed` to the viewport bottom on
-  mobile, with the liquid-bubble active indicator from the reference.
-- Locked by `tests/test_structure_detail_spec.py::
+- Identical on every page. No per-page variation, ever.
+- Enforced by `tests/test_navigation_lock.py` (sha256 of all six files,
+  plus a check that no other stylesheet targets a nav class, plus a check
+  that every composed page gets the same shell data). **A failure there is
+  a change to revert, not a test to update.**
+- Also still covered by `tests/test_structure_detail_spec.py::
   test_default_shell_mega_menu_has_real_identical_family_cards_on_every_page`.
+- Review with `python3 tools/build_nav_preview.py out.html`.
+
+### What that build taught us — keep these
+
+- **Judge glass against a vivid dark backdrop.** On a white-dominant page
+  correct glass is nearly invisible and reads as broken. The preview tool
+  paints a saturated backdrop for exactly this reason. It is a measuring
+  rig, not a design.
+- **Hover and click must not both be bound** on a mega-menu trigger for
+  mouse users: the pointer opens the panel and the click that follows
+  closes it again. Branch on
+  `matchMedia("(hover: hover) and (pointer: fine)")`.
+- **One handler per interactive element.** A legacy drawer handler left in
+  `_foundation/behavior.js` fought the header's own and the drawer never
+  visibly opened.
+- **`@property` for anything two elements must share.** The bottom nav's
+  `--bn-x` / `--bn-dip` drive the bar's notch, the bubble and the raised
+  icon from one pair of values, so they cannot drift apart mid-animation.
+- **`getBoundingClientRect` is physical space** — positioning maths off it
+  needs no RTL branch. An RTL branch there was a bug.
+- **A goo/metaball filter's blur sets its bridging distance.** At
+  `stdDeviation` 9 it welded shut the gap that was supposed to show the
+  page through the bar; 7 keeps the hole and still fuses on contact.
+- **Stagger by class, not by hand.** Per-item `--step` custom properties
+  feeding `transition-delay` and `animation-delay` keep sequenced entrances
+  readable and easy to retune.
+- **Verify with measurements, not screenshots.** Reading computed opacity
+  per row is what proved the stagger; the screenshot looked simultaneous
+  because of capture latency.
 
 ## 6. Mobile layout
 
@@ -155,16 +183,29 @@ Every page is still judged against them:
 
 ## 10. Libraries
 
-Vendored, real, licence-verified, no CDN:
+Vendored, real, licence-verified, no CDN. Public CDNs are blocked in the
+build sandbox and the production site should not depend on one either.
 
-| Library | Purpose | Licence |
-|---|---|---|
-| Vazirmatn | Persian variable font | SIL OFL |
-| Phosphor Icons | The single icon family (owner-approved) | MIT |
-| Motion | Entrance + scroll animation | MIT |
-| Swiper (+ coverflow) | Carousels, 3D gallery | MIT |
-| GSAP + ScrollTrigger + SplitText | Scroll storytelling, per-character headings | Free commercial (Webflow-sponsored) |
-| Lenis | Smooth scroll | MIT |
+| Library | Version | Purpose | Licence | Vendored at |
+|---|---|---|---|---|
+| Vazirmatn | variable 100–900 | Persian type | SIL OFL | `blocks/_tokens/style.css` (base64 `@font-face`) |
+| Phosphor Icons | core | The single icon family | MIT | `blocks/_foundation/assets/icon-sprite.svg` |
+| Motion | — | Entrance + scroll animation | MIT | `blocks/_foundation/assets/motion.min.mjs` |
+| Swiper (+ coverflow, pagination) | 14.1.0 | Carousels, 3D gallery | MIT | `blocks/structure-gallery/assets/` |
+| GSAP + ScrollTrigger + SplitText | — | Scroll storytelling, per-character headings | Free commercial (Webflow-sponsored) | `blocks/_foundation/assets/gsap.min.mjs` |
+| Lenis | 1.3.26 | Smooth scroll | MIT | `blocks/_foundation/assets/lenis.min.mjs` |
+
+Each ships a `<lib>.LICENSE.md` beside it recording origin and terms.
+Registered in `VENDOR_LIBRARIES` in `src/ruos/block_registry.py`; a page
+importing one is emitted with `<script type="module">`.
+
+**How to vendor another one.** `npm install <pkg>` in a scratch dir →
+read the licence → `esbuild --bundle --format=esm --minify --target=es2020`
+→ confirm zero unresolved imports → copy into the owning block's `assets/`
+→ write the `LICENSE.md`. Match the bundle's export shape to the import in
+`behavior.js`: a default-vs-named mismatch throws at module load, and since
+every block's script is concatenated into one module, that one error kills
+the whole page's JavaScript, including unrelated blocks.
 
 Rejected, with reason: Tailwind (conflicts with the token-based CSS
 architecture this project is built on), Animate.css (redundant against
@@ -173,3 +214,35 @@ rejected), Bootstrap, HTML5 Boilerplate (a skeleton template, not a
 library; the engine emits its own document).
 
 All motion respects `prefers-reduced-motion: reduce`.
+
+## 11. Tooling and working practice
+
+Repeatable scripts live in `tools/` — never as one-off scratch files, so
+the next session can rerun them:
+
+| Tool | What it does |
+|---|---|
+| `tools/build_icon_sprite.py` | Rebuilds the Phosphor sprite from an npm checkout; `ICONS` maps sprite ids to `(name, weight)` |
+| `tools/build_nav_preview.py` | Standalone preview of the locked nav on a vivid dark backdrop, for review |
+| `tools/build_designspec.py` | Regenerates the design-model spec page from real repo assets |
+
+**Browser verification.** Chromium is preinstalled at
+`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`; never run `playwright install`.
+Check both breakpoints, use `pw.devices["iPhone 13"]` for mobile, capture
+`pageerror` and console errors, and **measure computed values** — a
+screenshot alone will not tell you whether a staggered animation is
+staggered.
+
+**Commit as you go.** The owner's standing instruction, and the sandbox has
+already been reset mid-session once, silently reverting local work. Anything
+not pushed can vanish. Branch: `claude/block-library`.
+
+**Skills used on this project:** the `xlsx` skill for the owner's registry
+spreadsheet, and `pdf` for the persona-system document. Both are Claude
+Code skills, not runtime dependencies of the site.
+
+**On "UI/UX PROMAX":** repeatedly asked about. It is a design-reasoning
+skill/plugin for the assistant, not a JS or CSS library, and it is not
+present in this environment's plugin catalogue — it adds nothing to the
+page and cannot be installed into the repo. Say so plainly rather than
+implying it is in use.
