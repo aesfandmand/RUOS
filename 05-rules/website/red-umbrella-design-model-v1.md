@@ -397,3 +397,47 @@ should declare its own layout rather than reusing `card-grid`.
 - **§4 images.** Each row's image slot is reserved even when the photo is
   missing — the asymmetry is in the layout, so it must not depend on the
   file existing.
+
+## 15. Motion — what "soft" means
+
+Source: `reference/motion-references/`, two recordings the owner sent on
+2026-08-12 asking for **موشن نرم** (soft motion). This is the definition of
+record; §8 still governs *where* motion is allowed, this governs *how* it
+moves.
+
+### The rules
+
+1. **Long and eased, never bouncy.** 400–700ms on entrances and panel
+   transitions, `cubic-bezier(.16,1,.3,1)` or similar ease-out. Springy
+   overshoot is reserved for the locked bottom-nav bubble, which the owner
+   approved specifically; it is not the house default.
+2. **The panel and the type move separately.** In the slider reference the
+   photo panel slides vertically while the headline and data block clear
+   out and re-enter on their own timing. One animation dragging a whole
+   section around is the thing to avoid.
+3. **Reveal in reading order, staggered.** Grid cells, list rows and cards
+   arrive one behind another — already how the locked nav does it, via
+   per-item `--step` custom properties (§5).
+4. **Direction carries meaning.** The slider moves its panel vertically
+   because the slide is a change of subject; small entrances rise a few
+   pixels. Do not mix six directions in one section.
+5. **Depth by overlap, not by 3D.** The reference gets its depth from a
+   small photo overlapping the big panel's corner. Cheap, robust, and it
+   survives at any width.
+6. **Always preview what is next.** The slider keeps a bar naming the next
+   item and its number on screen. Anything paged should do the same rather
+   than leaving the visitor to guess there is more.
+7. `prefers-reduced-motion: reduce` collapses every one of these.
+
+### Confirmed again by these references
+
+- **Two-tone headings** (§2) appear in the second reference independently —
+  ink for the clause that carries the claim, muted for the rest. Treat this
+  as settled house style, not a per-page choice.
+- **Asymmetric splits** (§14) — the testimonial is an unequal two-cell row.
+
+### Libraries for this
+
+All already vendored (§10): Swiper for the paged panel, Motion or GSAP
+ScrollTrigger for staggered reveals, Lenis for scroll feel. Do not add a
+new animation library for any of the above.
