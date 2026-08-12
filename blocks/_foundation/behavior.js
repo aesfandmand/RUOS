@@ -1,4 +1,4 @@
-import { scroll, inView } from "./motion.min.mjs";
+import { scroll } from "./motion.min.mjs";
 
 (() => {
   const clamp = (value) => Math.min(1, Math.max(0, value));
@@ -89,11 +89,55 @@ import { scroll, inView } from "./motion.min.mjs";
   addEventListener("resize", requestUpdate);
   update();
 
-  // Signature motion D (design model §15): every [data-reveal] element eases
-  // in once, as it enters. Staggering is per-section, via --reveal-step.
-  document.querySelectorAll("[data-reveal]").forEach((element) => {
-    inView(element, () => { element.classList.add("is-in"); }, { margin: "0px 0px -12% 0px" });
+  // Scroll reveal. Every [data-reveal] eases in once as it enters; anything
+  // inside a [data-reveal-group] gets an incrementing --reveal-i so a row of
+  // cards arrives one behind another instead of all at once.
+  //
+  // This must FAIL OPEN. A hidden element that never gets its class is
+  // invisible content, not a missing animation, so alongside the observer
+  // there is a sweep that reveals anything the viewport has already reached.
+  // A fast flick outruns IntersectionObserver's delivery and would otherwise
+  // leave whole sections blank.
+  const pending = new Set(document.querySelectorAll("[data-reveal]"));
+  document.querySelectorAll("[data-reveal-group]").forEach((group) => {
+    group.querySelectorAll("[data-reveal]").forEach((child, index) => {
+      child.style.setProperty("--reveal-i", String(index));
+    });
   });
+  const reveal = (element) => {
+    element.classList.add("is-in");
+    pending.delete(element);
+    revealer.unobserve(element);
+  };
+  const revealer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => { if (entry.isIntersecting) reveal(entry.target); });
+  }, { rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
+  pending.forEach((element) => revealer.observe(element));
+
+  let sweeping = 0;
+  const sweep = () => {
+    sweeping = 0;
+    pending.forEach((element) => {
+      // anything whose top edge the viewport has already passed is overdue
+      if (element.getBoundingClientRect().top < innerHeight) reveal(element);
+    });
+  };
+  addEventListener("scroll", () => { if (!sweeping) sweeping = requestAnimationFrame(sweep); }, { passive: true });
+  addEventListener("resize", sweep);
+
+  // Depth on scroll: the hero image drifts a little slower than the page.
+  const heroShot = document.querySelector(".p-hero-stage");
+  if (heroShot) {
+    let ticking = 0;
+    const drift = () => {
+      ticking = 0;
+      const offset = Math.min(window.scrollY, 420);
+      heroShot.style.setProperty("--drift", `${offset * 0.12}px`);
+      heroShot.style.setProperty("--zoom", String(1 + Math.min(offset, 300) * 0.00016));
+    };
+    addEventListener("scroll", () => { if (!ticking) ticking = requestAnimationFrame(drift); }, { passive: true });
+    drift();
+  }
 
   // The mobile drawer is owned by blocks/site-header/behavior.js — it has
   // to manage the `hidden` attribute and the open/close transition together,

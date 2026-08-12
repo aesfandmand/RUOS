@@ -1,8 +1,8 @@
 <section class="num-feat" id="{{anchor}}" aria-labelledby="{{anchor}}-title" data-block="numbered-features">
 <div class="content-shell">
-{{?eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/}}
-<h2 id="{{anchor}}-title">{{title}}</h2>
+{{?eyebrow}}<p class="eyebrow" data-reveal>{{eyebrow}}</p>{{/}}
+<h2 id="{{anchor}}-title" data-reveal>{{title}}</h2>
 {{?lead}}<p class="num-lead">{{lead}}</p>{{/}}
-<ol class="num-list">{{#items}}<li data-reveal><span class="num-mark" aria-hidden="true">{{index}}</span><div class="num-copy"><h3>{{title}}</h3><p>{{body}}</p></div></li>{{/}}</ol>
+<ol class="num-list" data-reveal-group>{{#items}}<li data-reveal><span class="num-mark" aria-hidden="true">{{index}}</span><div class="num-copy"><h3>{{title}}</h3><p>{{body}}</p></div></li>{{/}}</ol>
 </div>
 </section>

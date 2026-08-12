@@ -43,5 +43,7 @@ def test_the_written_script_actually_imports_the_vendored_library() -> None:
     assert page_script.startswith("import {")
     assert '} from "./motion.min.mjs";' in page_script.split("\n", 1)[0]
     # the names actually used downstream, so a bundle swap that drops one fails here
-    for name in ("scroll", "inView"):
-        assert name in page_script
+    assert "scroll" in page_script
+    # the reveal runs on the platform's IntersectionObserver, not the bundle:
+    # Motion's inView silently never fired and left content at opacity 0
+    assert "IntersectionObserver" in page_script

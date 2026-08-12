@@ -45,6 +45,10 @@
     "secondary": {
       "type": "object",
       "required": false
+    },
+    "stats": {
+      "type": "list",
+      "required": false
     }
   },
   "layout": "scene"

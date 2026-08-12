@@ -441,3 +441,39 @@ moves.
 All already vendored (§10): Swiper for the paged panel, Motion or GSAP
 ScrollTrigger for staggered reveals, Lenis for scroll feel. Do not add a
 new animation library for any of the above.
+
+## 16. Motion must fail open — and it must be measured
+
+Learned the hard way on the straboard page, where the first build shipped
+with **50 elements stuck at `opacity: 0`**. Whole paragraphs were invisible.
+The page looked empty and motionless and the owner rejected it.
+
+1. **A reveal that does not fire is missing content, not a missing
+   animation.** Any pattern that starts an element hidden must have a
+   fallback that reveals it: alongside the observer, sweep on scroll and
+   reveal anything the viewport has already passed. A fast flick outruns
+   `IntersectionObserver`'s delivery, and without the sweep those sections
+   stay blank forever.
+2. **Prefer the platform.** Motion's `inView` silently never fired in our
+   vendored bundle. `IntersectionObserver` is native, has no bundle to go
+   wrong, and is what the foundation now uses.
+3. **Verify motion by measuring, never by screenshot.** The check is:
+   count `[data-reveal]` elements, scroll the whole page, count how many
+   carry `is-in`. It must reach 100%. A screenshot of a page whose text is
+   invisible looks like a page with generous whitespace.
+4. **Translucent red is pink.** `var(--red)` at 14–34% opacity over white
+   renders as the one colour the owner banned. Use a full-opacity red
+   accent or a cream token — never a faded red.
+
+### The motion floor for any page
+
+A page with only scroll-fade is "خواب‌آور". Every page carries, at minimum:
+
+- staggered reveal in reading order (`--reveal-i`, ~90ms apart),
+- one masked image reveal (`data-reveal="mask"`, clip-path wipe),
+- rows in a zigzag arriving from alternating sides
+  (`data-reveal="start"` / `"end"`),
+- depth on any card rail — the centred card dominant, neighbours scaled
+  back and turned, driven from scroll position,
+- parallax on the hero image,
+- micro-interaction on every pressable thing.

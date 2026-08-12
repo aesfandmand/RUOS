@@ -5,8 +5,8 @@
 .num-list li{display:flex;gap:14px;align-items:flex-start;padding:18px 0;border-top:1px solid var(--line)}
 .num-list li:first-child{border-top:0}
 .num-list li:nth-child(2n){padding-inline-start:26px}
-.num-mark{flex:none;min-width:2.1rem;color:var(--line);font-size:2.1rem;font-weight:900;line-height:1.15;font-variant-numeric:tabular-nums}
-.num-list li:nth-child(2n) .num-mark{color:var(--red);opacity:.34}
+.num-mark{flex:none;min-width:2.1rem;color:#c7c0b6;font-size:2.1rem;font-weight:900;line-height:1.15;font-variant-numeric:tabular-nums}
+.num-list li:nth-child(2n) .num-mark{color:var(--red)}
 .num-copy h3{margin:6px 0 7px;color:var(--ink);font-size:clamp(1.32rem,4.5vw,1.5rem);font-weight:800;line-height:1.45}
 .num-copy p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.95}
 @media (width>=760px){

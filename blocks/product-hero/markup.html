@@ -5,8 +5,9 @@
 <div class="p-hero-stage" aria-label="تصاویر {{title}}">{{#slides}}<figure class="img-slot p-hero-slide">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}</figure>{{/}}</div>
 <div class="content-shell">
 <div class="p-hero-dots">{{#slides}}<button type="button" aria-label="تصویر {{@n}}"></button>{{/}}</div>
-<h1>{{title}}</h1>
-{{?lead}}<p class="p-hero-lead">{{lead}}</p>{{/}}
-<div class="p-hero-actions">{{?primary}}<a class="primary-button" href="{{primary.href}}">{{primary.label}}</a>{{/}}{{?secondary}}<a class="p-ghost" href="{{secondary.href}}">{{secondary.label}}</a>{{/}}</div>
+<h1 data-reveal>{{title}}</h1>
+{{?lead}}<p class="p-hero-lead" data-reveal>{{lead}}</p>{{/}}
+<div class="p-hero-actions" data-reveal>{{?primary}}<a class="primary-button" href="{{primary.href}}">{{primary.label}}</a>{{/}}{{?secondary}}<a class="p-ghost" href="{{secondary.href}}">{{secondary.label}}</a>{{/}}</div>
+{{?stats}}<dl class="p-stats" data-reveal-group>{{#stats}}<div data-reveal><dt>{{value}}</dt><dd>{{label}}</dd></div>{{/}}</dl>{{/}}
 </div>
 </header>

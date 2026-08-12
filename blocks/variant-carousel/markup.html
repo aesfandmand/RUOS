@@ -1,9 +1,9 @@
 <section class="var-rail" id="{{anchor}}" aria-labelledby="{{anchor}}-title" data-block="variant-carousel">
 <div class="content-shell">
-{{?eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/}}
-<h2 id="{{anchor}}-title">{{title}}</h2>
-{{?lead}}<p class="var-lead">{{lead}}</p>{{/}}
+{{?eyebrow}}<p class="eyebrow" data-reveal>{{eyebrow}}</p>{{/}}
+<h2 id="{{anchor}}-title" data-reveal>{{title}}</h2>
+{{?lead}}<p class="var-lead" data-reveal>{{lead}}</p>{{/}}
 </div>
-<ul class="var-track" aria-label="{{title}}">{{#items}}<li class="var-card"><figure class="img-slot var-shot">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}</figure><h3>{{title}}</h3>{{?meta}}<p class="var-meta">{{meta}}</p>{{/}}{{?note}}<p class="placeholder-chip" data-placeholder="price">{{note}}</p>{{/}}</li>{{/}}</ul>
-{{?guides}}<div class="content-shell var-guides">{{#guides}}<article data-reveal><h3>{{title}}</h3><p>{{body}}</p></article>{{/}}</div>{{/}}
+<ul class="var-track" aria-label="{{title}}">{{#items}}<li class="var-card"><figure class="var-shot img-slot">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}{{?meta}}<span class="var-tag">{{meta}}</span>{{/}}</figure><div class="var-body"><h3>{{title}}</h3>{{?note}}<span class="placeholder-chip" data-placeholder="price">{{note}}</span>{{/}}<a class="var-cta" href="#quote"><span>استعلام این مدل</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></li>{{/}}</ul>
+{{?guides}}<div class="content-shell var-guides" data-reveal-group>{{#guides}}<article data-reveal><h3>{{title}}</h3><p>{{body}}</p></article>{{/}}</div>{{/}}
 </section>

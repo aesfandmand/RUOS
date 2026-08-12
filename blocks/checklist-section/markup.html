@@ -1,9 +1,9 @@
 <section class="chk" id="{{anchor}}" aria-labelledby="{{anchor}}-title" data-block="checklist-section">
 <div class="content-shell">
-{{?eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/}}
-<h2 id="{{anchor}}-title">{{title}}</h2>
+{{?eyebrow}}<p class="eyebrow" data-reveal>{{eyebrow}}</p>{{/}}
+<h2 id="{{anchor}}-title" data-reveal>{{title}}</h2>
 {{?lead}}<p class="chk-lead">{{lead}}</p>{{/}}
-<ul class="chk-list">{{#items}}<li data-reveal>{{value}}</li>{{/}}</ul>
+<ul class="chk-list" data-reveal-group>{{#items}}<li data-reveal>{{value}}</li>{{/}}</ul>
 {{?note}}<aside class="chk-note" data-reveal><strong>{{note.title}}</strong><p>{{note.body}}</p></aside>{{/}}
 </div>
 </section>

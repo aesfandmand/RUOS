@@ -4,9 +4,9 @@
 .p-crumb a:after{content:"/";margin-inline-start:6px;color:#c9c2b8}
 .p-crumb span[aria-current]{color:var(--ink)}
 /* native swipe, snapped — design model §7/§8.2 */
-.p-hero-stage{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-inline:max(16px,calc(50vw - 620px))}
+.p-hero-stage{display:flex;transform:translateY(calc(var(--drift,0px) * -1));gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-inline:max(16px,calc(50vw - 620px))}
 .p-hero-stage::-webkit-scrollbar{display:none}
-.p-hero-slide{flex:0 0 100%;scroll-snap-align:center;margin:0;aspect-ratio:1/.88;border-radius:24px;min-height:0}
+.p-hero-slide{flex:0 0 100%;scale:var(--zoom,1);scroll-snap-align:center;margin:0;aspect-ratio:1/.88;border-radius:24px;min-height:0}
 .p-hero-dots{display:flex;justify-content:center;gap:6px;margin-top:14px}
 .p-hero-dots button{width:6px;height:6px;padding:0;border:0;border-radius:999px;background:var(--line);cursor:pointer;transition:width .4s cubic-bezier(.16,1,.3,1),background .4s}
 .p-hero-dots button.is-active{width:22px;background:var(--red)}
@@ -23,3 +23,8 @@
   .p-hero-actions{max-width:430px}
 }
 @media (prefers-reduced-motion:reduce){.p-hero-stage{scroll-behavior:auto}.p-hero-dots button{transition:none}}
+/* value-over-label stat strip — the wide-card reference's data row (§13) */
+.p-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:26px 0 0;padding-top:20px;border-top:1px solid var(--line)}
+.p-stats div{display:flex;flex-direction:column;gap:3px}
+.p-stats dt{color:var(--ink);font-size:.95rem;font-weight:900;line-height:1.35;font-variant-numeric:tabular-nums}
+.p-stats dd{margin:0;color:var(--muted);font-size:.62rem;line-height:1.6}

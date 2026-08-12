@@ -1,8 +1,8 @@
 <section class="cmp" id="{{anchor}}" aria-labelledby="{{anchor}}-title" data-block="compare-cards">
 <div class="content-shell">
-{{?eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/}}
-<h2 id="{{anchor}}-title">{{title}}</h2>
+{{?eyebrow}}<p class="eyebrow" data-reveal>{{eyebrow}}</p>{{/}}
+<h2 id="{{anchor}}-title" data-reveal>{{title}}</h2>
 {{?lead}}<p class="cmp-lead">{{lead}}</p>{{/}}
-<div class="cmp-stack">{{#items}}<article data-reveal>{{?index}}<span class="cmp-index" aria-hidden="true">{{index}}</span>{{/}}<h3>{{title}}</h3><p>{{body}}</p>{{?cta}}<a class="cmp-cta" href="{{cta.href}}">{{cta.label}}</a>{{/}}</article>{{/}}</div>
+<div class="cmp-stack" data-reveal-group>{{#items}}<article data-reveal>{{?index}}<span class="cmp-index" aria-hidden="true">{{index}}</span>{{/}}<h3>{{title}}</h3><p>{{body}}</p>{{?cta}}<a class="cmp-cta" href="{{cta.href}}">{{cta.label}}</a>{{/}}</article>{{/}}</div>
 </div>
 </section>
