@@ -40,11 +40,11 @@ Rules:
   tones (`--paper` / `--paper-2`), which is what the owner asked for.
 - **`--red-soft` (`#fff0f3`, a pink tint) is removed from the palette —
   the owner does not want it anywhere.** A red icon badge sits on
-  `--paper-2` instead. Fixed so far in the nav (mega-menu cards, mobile
-  drawer cards, bottom-nav bubble); `structure-hero` and
-  `structure-services` still reference it and are pending a fix when page
-  work resumes, since page files are out of scope while the nav is
-  unlocked.
+  `--paper-2` instead. Done in the nav (mega-menu cards, mobile drawer
+  cards, bottom-nav bubble). **Still outstanding:** `structure-hero`,
+  `structure-services` and `assessment-section` reference it. Those are
+  page blocks, deliberately untouched while the nav was awaiting approval —
+  clear them out as part of the next page pass.
 
 ## 2. Typography
 
@@ -246,3 +246,55 @@ skill/plugin for the assistant, not a JS or CSS library, and it is not
 present in this environment's plugin catalogue — it adds nothing to the
 page and cannot be installed into the repo. Say so plainly rather than
 implying it is in use.
+
+## 12. Mobile card system
+
+Source: `reference/mobile-card-references/` — three screens the owner sent
+on 2026-08-12 as the model for cards on mobile. **Look at the images**
+before designing a card; §6 says mobile composition comes from the owner's
+references, not from taste, and this is the reference set for cards.
+
+### The shape language
+
+- Card radius **20–28px**. Chips, pills and avatars fully round.
+- **Photos bleed to the card's rounded edge.** Never a photo in a padded
+  frame inside a card.
+- **Rows are asymmetric**: two cells of different widths, or text beside
+  image. A uniform grid repeated down the page is the failure mode these
+  references exist to prevent — it is the same "list, not a designed page"
+  problem `block_composer`'s card-grid cap already guards against.
+- **Badges sit over the photo**, not in the text area.
+- Text stack under a photo: **title → subtitle → meta**, each smaller and
+  lighter than the last.
+- **Section header = title on one side, link on the other**
+  ("سازه‌های مرتبط" / "دیدن همه ←").
+- **The card carries its own action** — a pill inside the card.
+- **Category rows scroll horizontally**, icon + label per cell, clipped at
+  the edge so more is obviously available.
+
+### Applied to real Red Umbrella content
+
+| Reference element | Our real equivalent | Data source |
+|---|---|---|
+| Category chip / icon row | Structure families, with their Phosphor icon | `_FAMILY_ICONS` + structure registry |
+| 2-up photo card | One structure: real Didanshow photo, family name, context · dimensions meta | structure registry + `media/structures/<ID>/` |
+| Badge over the photo | Dimensions, or the install context | registry `dimensions` / `context` |
+| Text-left / photo-right split card | A related service beside a real photo | service registry |
+| Stats flanking an avatar | **Do not use.** We have no verified follower/student counts and will not invent them | — |
+
+### Rules that override the references
+
+The references are travel and coaching apps. The composition transfers;
+their look does not.
+
+- **§1 wins on colour.** These screens are dark-card or warm-beige. Ours
+  stays white-dominant, cream for contrast, red only as accent and the
+  closing CTA. Do not import a dark card theme from reference 01.
+- **§3 wins on content.** A card with no real data gets a tagged
+  placeholder, never an invented number. The follower-count pattern in
+  reference 01 has no honest equivalent here.
+- **§4 wins on images.** Reserve the image slot even when the photo is
+  missing, and describe it with `alt` plus a short prompt.
+- **The navigation is locked.** References 01–03 all show a bottom bar;
+  ours is already built and frozen. Take card composition from these
+  screens, nothing else.
