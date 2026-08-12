@@ -38,8 +38,8 @@ def test_opening_and_closing_blocks_exist_for_every_archetype() -> None:
     content = load_library().content_blocks()
     openers = {b.id for b in content if b.position == "first"}
     closers = {b.id for b in content if b.position == "last"}
-    assert openers == {"hero-scroll-scene", "structure-hero"}
-    assert closers == {"review-gate"}
+    assert openers == {"hero-scroll-scene", "structure-hero", "product-hero"}
+    assert closers == {"review-gate", "lead-form"}
 
 
 def test_the_brand_font_is_embedded_in_the_token_block() -> None:

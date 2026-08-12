@@ -1,0 +1,51 @@
+{
+  "id": "product-hero",
+  "name": {
+    "fa": "product-hero",
+    "en": "product-hero"
+  },
+  "role": "content",
+  "family": "hero",
+  "surface": "light",
+  "composition": "Opening scene for a product page: breadcrumb, an image-first slider, then the H1 and the short definition. Design model §7 — the image has visual precedence over the text and the hero carries no badges.",
+  "serves_intent": [
+    "orient",
+    "identify"
+  ],
+  "position": "first",
+  "behavior": true,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "Straboard product archetype, built to the owner's design model v1.1 and the supplied content brief",
+    "selector": "n/a"
+  },
+  "slots": {
+    "breadcrumb": {
+      "type": "list",
+      "required": false
+    },
+    "slides": {
+      "type": "list",
+      "required": true
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "primary": {
+      "type": "object",
+      "required": false
+    },
+    "secondary": {
+      "type": "object",
+      "required": false
+    }
+  },
+  "layout": "scene"
+}

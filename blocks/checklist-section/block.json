@@ -1,0 +1,47 @@
+{
+  "id": "checklist-section",
+  "name": {
+    "fa": "checklist-section",
+    "en": "checklist-section"
+  },
+  "role": "content",
+  "family": "narrative",
+  "surface": "light",
+  "composition": "A scannable list of criteria — what moves a price, or when this product fits — with an optional callout underneath. Deliberately not cards: these are things to read down, not units to compare.",
+  "serves_intent": [
+    "evaluate",
+    "choose"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": false
+  },
+  "source": {
+    "page": "Straboard product archetype, built to the owner's design model v1.1 and the supplied content brief",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true
+    },
+    "note": {
+      "type": "object",
+      "required": false
+    }
+  },
+  "layout": "checklist"
+}

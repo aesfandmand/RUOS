@@ -1,0 +1,21 @@
+.zz{background:var(--white);padding:44px 0}
+.zz h2{margin:0 0 14px;color:var(--ink);font-size:clamp(1.65rem,6.5vw,2.1rem);font-weight:900;line-height:1.45;text-wrap:balance}
+.zz-lead{margin:0;color:var(--muted);font-size:.98rem;line-height:1.95}
+.zz-rows{display:flex;flex-direction:column;gap:16px;margin-top:26px}
+/* Two real, unequal cells — kept side by side at phone width (design model §14). */
+.zz-row{display:grid;grid-template-columns:46fr 54fr;gap:12px;align-items:center}
+.zz-row:nth-child(2n){grid-template-columns:54fr 46fr}
+.zz-row:nth-child(2n) .zz-shot{order:2}
+.zz-shot{margin:0;aspect-ratio:1/1;border-radius:18px;min-height:0}
+.zz-row:nth-child(3n) .zz-shot{aspect-ratio:4/5}
+.zz-copy h3{margin:0 0 6px;color:var(--ink);font-size:1.05rem;font-weight:800;line-height:1.5}
+.zz-copy p{margin:0;color:var(--muted);font-size:.85rem;line-height:1.9}
+@media (width>=760px){
+  .zz{padding:88px 0}
+  .zz-rows{gap:34px;margin-top:40px}
+  .zz-row{grid-template-columns:52fr 48fr;gap:36px}
+  .zz-row:nth-child(2n){grid-template-columns:44fr 56fr}
+  .zz-shot,.zz-row:nth-child(3n) .zz-shot{aspect-ratio:16/10}
+  .zz-copy h3{font-size:1.35rem}
+  .zz-copy p{font-size:.95rem;line-height:1.95}
+}

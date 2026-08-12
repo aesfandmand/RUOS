@@ -1,0 +1,43 @@
+{
+  "id": "parts-zigzag",
+  "name": {
+    "fa": "parts-zigzag",
+    "en": "parts-zigzag"
+  },
+  "role": "content",
+  "family": "process",
+  "surface": "light",
+  "composition": "The engineering parts of a structure, one per row, image and copy swapping sides down the list. Design model §11 and §14 — each row explains exactly one part, and the two cells stay unequal side-by-side even at phone width rather than collapsing into a single stacked column.",
+  "serves_intent": [
+    "understand",
+    "evaluate"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": false
+  },
+  "source": {
+    "page": "Straboard product archetype, built to the owner's design model v1.1 and the supplied content brief",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true
+    }
+  },
+  "layout": "editorial"
+}

@@ -1,4 +1,4 @@
-import { scroll } from "./motion.min.mjs";
+import { scroll, inView } from "./motion.min.mjs";
 
 (() => {
   const clamp = (value) => Math.min(1, Math.max(0, value));
@@ -88,6 +88,12 @@ import { scroll } from "./motion.min.mjs";
   addEventListener("scroll", requestUpdate, { passive: true });
   addEventListener("resize", requestUpdate);
   update();
+
+  // Signature motion D (design model §15): every [data-reveal] element eases
+  // in once, as it enters. Staggering is per-section, via --reveal-step.
+  document.querySelectorAll("[data-reveal]").forEach((element) => {
+    inView(element, () => { element.classList.add("is-in"); }, { margin: "0px 0px -12% 0px" });
+  });
 
   // The mobile drawer is owned by blocks/site-header/behavior.js — it has
   // to manage the `hidden` attribute and the open/close transition together,

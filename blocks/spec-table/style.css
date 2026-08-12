@@ -1,0 +1,15 @@
+.spec{background:var(--white);padding:44px 0}
+.spec h2{margin:0 0 14px;color:var(--ink);font-size:clamp(1.65rem,6.5vw,2.1rem);font-weight:900;line-height:1.45;text-wrap:balance}
+.spec-lead{margin:0 0 22px;color:var(--muted);font-size:.98rem;line-height:1.95}
+.spec-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:18px;-webkit-overflow-scrolling:touch}
+.spec-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);font-size:.88rem}
+.spec-table th,.spec-table td{padding:14px 13px;text-align:start;vertical-align:top;line-height:1.8;border-bottom:1px solid var(--line);white-space:nowrap}
+.spec-table thead th{background:var(--paper-2);color:var(--ink);font-weight:900;font-size:.8rem}
+/* the attribute column stays put while the variants scroll */
+.spec-table th[scope=row]{position:sticky;inset-inline-start:0;z-index:1;background:var(--white);color:var(--ink);font-weight:800;white-space:normal;min-width:9.5rem;box-shadow:1px 0 0 var(--line)}
+.spec-table thead th:first-child{position:sticky;inset-inline-start:0;z-index:2;background:var(--paper-2);box-shadow:1px 0 0 var(--line)}
+.spec-table td{color:var(--muted);font-variant-numeric:tabular-nums}
+.spec-table td[data-placeholder]{color:#9a938a}
+.spec-table tr:last-child th,.spec-table tr:last-child td{border-bottom:0}
+.spec-foot{margin:12px 0 0;color:var(--muted);font-size:.76rem;line-height:1.85}
+@media (width>=760px){.spec{padding:88px 0}.spec-table th,.spec-table td{white-space:normal}}

@@ -1,0 +1,12 @@
+<header class="p-hero" id="{{anchor}}" data-block="product-hero">
+<div class="content-shell">
+{{?breadcrumb}}<nav class="p-crumb" aria-label="مسیر صفحه">{{#breadcrumb}}<a href="{{href}}">{{label}}</a>{{/}}<span aria-current="page">{{title}}</span></nav>{{/}}
+</div>
+<div class="p-hero-stage" aria-label="تصاویر {{title}}">{{#slides}}<figure class="img-slot p-hero-slide">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}</figure>{{/}}</div>
+<div class="content-shell">
+<div class="p-hero-dots">{{#slides}}<button type="button" aria-label="تصویر {{@n}}"></button>{{/}}</div>
+<h1>{{title}}</h1>
+{{?lead}}<p class="p-hero-lead">{{lead}}</p>{{/}}
+<div class="p-hero-actions">{{?primary}}<a class="primary-button" href="{{primary.href}}">{{primary.label}}</a>{{/}}{{?secondary}}<a class="p-ghost" href="{{secondary.href}}">{{secondary.label}}</a>{{/}}</div>
+</div>
+</header>

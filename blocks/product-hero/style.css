@@ -1,0 +1,25 @@
+.p-hero{background:var(--white);padding:calc(var(--header) + 14px) 0 40px}
+.p-crumb{display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:var(--muted);font-size:.66rem;font-weight:700;margin-bottom:14px}
+.p-crumb a{color:var(--muted)}
+.p-crumb a:after{content:"/";margin-inline-start:6px;color:#c9c2b8}
+.p-crumb span[aria-current]{color:var(--ink)}
+/* native swipe, snapped — design model §7/§8.2 */
+.p-hero-stage{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-inline:max(16px,calc(50vw - 620px))}
+.p-hero-stage::-webkit-scrollbar{display:none}
+.p-hero-slide{flex:0 0 100%;scroll-snap-align:center;margin:0;aspect-ratio:1/.88;border-radius:24px;min-height:0}
+.p-hero-dots{display:flex;justify-content:center;gap:6px;margin-top:14px}
+.p-hero-dots button{width:6px;height:6px;padding:0;border:0;border-radius:999px;background:var(--line);cursor:pointer;transition:width .4s cubic-bezier(.16,1,.3,1),background .4s}
+.p-hero-dots button.is-active{width:22px;background:var(--red)}
+.p-hero h1{margin:18px 0 0;color:var(--ink);font-size:clamp(2.15rem,9vw,2.75rem);font-weight:900;line-height:1.4;letter-spacing:-.02em;text-wrap:balance}
+.p-hero-lead{margin:14px 0 0;color:var(--muted);font-size:1rem;line-height:1.95}
+.p-hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.p-hero-actions .primary-button{flex:1 1 auto;justify-content:center;gap:0}
+.p-ghost{display:inline-flex;align-items:center;justify-content:center;flex:1 1 auto;min-height:48px;padding:0 18px;border-radius:13px;border:1px solid var(--line);background:var(--white);color:var(--ink);font-size:.78rem;font-weight:800;transition:background .22s}
+.p-ghost:active{background:var(--paper-2)}
+@media (width>=760px){
+  .p-hero{padding:calc(var(--header) + 22px) 0 72px}
+  .p-hero-slide{flex-basis:72%;aspect-ratio:16/10}
+  .p-hero h1{font-size:clamp(2.6rem,5vw,3.4rem)}
+  .p-hero-actions{max-width:430px}
+}
+@media (prefers-reduced-motion:reduce){.p-hero-stage{scroll-behavior:auto}.p-hero-dots button{transition:none}}

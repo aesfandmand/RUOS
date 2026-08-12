@@ -40,4 +40,8 @@ def test_a_page_that_pulls_in_a_vendor_library_gets_a_module_script() -> None:
 
 def test_the_written_script_actually_imports_the_vendored_library() -> None:
     page_script = load_library().get("_foundation").script
-    assert page_script.startswith('import { scroll } from "./motion.min.mjs";')
+    assert page_script.startswith("import {")
+    assert '} from "./motion.min.mjs";' in page_script.split("\n", 1)[0]
+    # the names actually used downstream, so a bundle swap that drops one fails here
+    for name in ("scroll", "inView"):
+        assert name in page_script

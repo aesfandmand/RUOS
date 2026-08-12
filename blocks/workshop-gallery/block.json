@@ -1,0 +1,43 @@
+{
+  "id": "workshop-gallery",
+  "name": {
+    "fa": "workshop-gallery",
+    "en": "workshop-gallery"
+  },
+  "role": "content",
+  "family": "media-gallery",
+  "surface": "light",
+  "composition": "Proof of craft: real workshop photography in an uneven gallery where some cells run twice the height. Design model §10 — this section exists to earn trust with evidence, so it never carries stock imagery or a claim without a picture behind it.",
+  "serves_intent": [
+    "verify",
+    "trust"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "Straboard product archetype, built to the owner's design model v1.1 and the supplied content brief",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true
+    }
+  },
+  "layout": "masonry"
+}

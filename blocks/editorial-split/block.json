@@ -1,0 +1,47 @@
+{
+  "id": "editorial-split",
+  "name": {
+    "fa": "editorial-split",
+    "en": "editorial-split"
+  },
+  "role": "content",
+  "family": "narrative",
+  "surface": "paper",
+  "composition": "Editorial row: heading and prose beside one supporting image, with the image side flippable. Design model §6 — on mobile the image keeps a controlled offset rather than going full width, so consecutive rows never read the same.",
+  "serves_intent": [
+    "orient",
+    "evaluate"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": false
+  },
+  "source": {
+    "page": "Straboard product archetype, built to the owner's design model v1.1 and the supplied content brief",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "body": {
+      "type": "list",
+      "required": false
+    },
+    "image": {
+      "type": "object",
+      "required": false
+    },
+    "flip": {
+      "type": "text",
+      "required": false
+    }
+  },
+  "layout": "editorial"
+}

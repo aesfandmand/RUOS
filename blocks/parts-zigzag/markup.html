@@ -1,0 +1,8 @@
+<section class="zz" id="{{anchor}}" aria-labelledby="{{anchor}}-title" data-block="parts-zigzag">
+<div class="content-shell">
+{{?eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/}}
+<h2 id="{{anchor}}-title">{{title}}</h2>
+{{?lead}}<p class="zz-lead">{{lead}}</p>{{/}}
+<div class="zz-rows">{{#items}}<article class="zz-row" data-reveal><figure class="img-slot zz-shot">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}</figure><div class="zz-copy"><h3>{{title}}</h3><p>{{body}}</p></div></article>{{/}}</div>
+</div>
+</section>

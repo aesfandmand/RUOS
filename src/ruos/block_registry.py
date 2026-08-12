@@ -35,6 +35,9 @@ LAYOUTS = frozenset({
     "band",         # full-bleed closing statement
     "carousel",     # single-row, swipeable, partially-visible-next-item
     "gallery",      # full-bleed media stage, 3D-perspective swipeable cards
+    "data-table",   # comparison table of one product's variants
+    "checklist",    # a scannable list of criteria, not repeated cards
+    "masonry",      # uneven proof gallery, some cells twice the height
 })
 
 # Third-party behaviour libraries a block's behavior.js is allowed to import.

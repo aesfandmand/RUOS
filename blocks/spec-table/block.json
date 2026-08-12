@@ -1,0 +1,50 @@
+{
+  "id": "spec-table",
+  "name": {
+    "fa": "spec-table",
+    "en": "spec-table"
+  },
+  "role": "content",
+  "family": "specification",
+  "surface": "light",
+  "composition": "The product datasheet as a real table of its variants. Design model §13 — on mobile it scrolls horizontally with the attribute column pinned, and the type is never shrunk to force a fit.",
+  "serves_intent": [
+    "verify"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "Straboard product archetype, built to the owner's design model v1.1 and the supplied content brief",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "columns": {
+      "type": "list",
+      "required": true
+    },
+    "rows": {
+      "type": "list",
+      "required": true
+    },
+    "footnote": {
+      "type": "text",
+      "required": false
+    }
+  },
+  "layout": "data-table"
+}

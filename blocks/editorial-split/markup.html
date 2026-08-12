@@ -1,0 +1,6 @@
+<section class="ed-split{{?flip}} is-flipped{{/}}" id="{{anchor}}" aria-labelledby="{{anchor}}-title" data-block="editorial-split">
+<div class="content-shell ed-split-inner">
+<div class="ed-copy">{{?eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/}}<h2 id="{{anchor}}-title">{{title}}</h2>{{#body}}<p data-reveal>{{value}}</p>{{/}}</div>
+{{?image}}<figure class="img-slot ed-shot" data-reveal>{{?image.src}}<img src="{{image.src}}" alt="{{image.alt}}">{{/}}{{^image.src}}<span class="img-slot-copy"><strong>{{image.label}}</strong><span>{{image.alt}}</span></span>{{/}}</figure>{{/}}
+</div>
+</section>

@@ -1,0 +1,17 @@
+.num-feat{background:var(--white);padding:44px 0}
+.num-feat h2{margin:0 0 14px;color:var(--ink);font-size:clamp(1.65rem,6.5vw,2.1rem);font-weight:900;line-height:1.45;text-wrap:balance}
+.num-lead{margin:0 0 8px;color:var(--muted);font-size:.98rem;line-height:1.95}
+.num-list{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}
+.num-list li{display:flex;gap:14px;align-items:flex-start;padding:18px 0;border-top:1px solid var(--line)}
+.num-list li:first-child{border-top:0}
+.num-list li:nth-child(2n){padding-inline-start:26px}
+.num-mark{flex:none;min-width:2.1rem;color:var(--line);font-size:2.1rem;font-weight:900;line-height:1.15;font-variant-numeric:tabular-nums}
+.num-list li:nth-child(2n) .num-mark{color:var(--red);opacity:.34}
+.num-copy h3{margin:6px 0 7px;color:var(--ink);font-size:clamp(1.32rem,4.5vw,1.5rem);font-weight:800;line-height:1.45}
+.num-copy p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.95}
+@media (width>=760px){
+  .num-feat{padding:88px 0}
+  .num-list{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+  .num-list li:nth-child(2n){padding-inline-start:0}
+  .num-mark{font-size:3.2rem}
+}

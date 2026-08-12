@@ -1,0 +1,43 @@
+{
+  "id": "compare-cards",
+  "name": {
+    "fa": "compare-cards",
+    "en": "compare-cards"
+  },
+  "role": "content",
+  "family": "cross-reference",
+  "surface": "paper",
+  "composition": "A short stack of comparison or decision cards, offset alternately so the stack keeps a rhythm instead of reading as identical repeated tiles. Optionally each card carries its own action, which is what turns it into the decision gateway.",
+  "serves_intent": [
+    "compare",
+    "choose"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "Straboard product archetype, built to the owner's design model v1.1 and the supplied content brief",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true
+    }
+  },
+  "layout": "card-grid"
+}

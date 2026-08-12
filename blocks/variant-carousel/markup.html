@@ -1,0 +1,9 @@
+<section class="var-rail" id="{{anchor}}" aria-labelledby="{{anchor}}-title" data-block="variant-carousel">
+<div class="content-shell">
+{{?eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/}}
+<h2 id="{{anchor}}-title">{{title}}</h2>
+{{?lead}}<p class="var-lead">{{lead}}</p>{{/}}
+</div>
+<ul class="var-track" aria-label="{{title}}">{{#items}}<li class="var-card"><figure class="img-slot var-shot">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}</figure><h3>{{title}}</h3>{{?meta}}<p class="var-meta">{{meta}}</p>{{/}}{{?note}}<p class="placeholder-chip" data-placeholder="price">{{note}}</p>{{/}}</li>{{/}}</ul>
+{{?guides}}<div class="content-shell var-guides">{{#guides}}<article data-reveal><h3>{{title}}</h3><p>{{body}}</p></article>{{/}}</div>{{/}}
+</section>

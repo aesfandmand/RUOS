@@ -1,0 +1,42 @@
+{
+  "id": "numbered-features",
+  "name": {
+    "fa": "numbered-features",
+    "en": "numbered-features"
+  },
+  "role": "content",
+  "family": "process",
+  "surface": "light",
+  "composition": "An ordered set of reasons, each anchored by its own large numeral. Not cards — the numeral carries the rhythm and consecutive rows step alternately, so the section never reads as a repeated grid.",
+  "serves_intent": [
+    "evaluate"
+  ],
+  "position": "any",
+  "behavior": false,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "Straboard product archetype, built to the owner's design model v1.1 and the supplied content brief",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true
+    }
+  },
+  "layout": "timeline"
+}

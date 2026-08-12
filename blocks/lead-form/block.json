@@ -1,0 +1,50 @@
+{
+  "id": "lead-form",
+  "name": {
+    "fa": "lead-form",
+    "en": "lead-form"
+  },
+  "role": "content",
+  "family": "conversion",
+  "surface": "paper",
+  "composition": "The compact lead form that closes a product page. Design model §14 — three fields, a verb for a CTA, and no price shown unless the real figure exists.",
+  "serves_intent": [
+    "convert"
+  ],
+  "position": "last",
+  "behavior": true,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "source": {
+    "page": "Straboard product archetype, built to the owner's design model v1.1 and the supplied content brief",
+    "selector": "n/a"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "fields": {
+      "type": "list",
+      "required": true
+    },
+    "submit": {
+      "type": "text",
+      "required": true
+    },
+    "aside": {
+      "type": "object",
+      "required": false
+    }
+  },
+  "layout": "console"
+}

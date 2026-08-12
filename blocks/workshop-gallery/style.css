@@ -1,0 +1,15 @@
+.wk{background:var(--white);padding:44px 0}
+.wk h2{margin:0 0 14px;color:var(--ink);font-size:clamp(1.65rem,6.5vw,2.1rem);font-weight:900;line-height:1.45;text-wrap:balance}
+.wk-lead{margin:0;color:var(--muted);font-size:.98rem;line-height:1.95}
+.wk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:26px}
+.wk-cell{margin:0;aspect-ratio:1/1;border-radius:16px;min-height:0}
+/* uneven on purpose — the 1st and 6th cells run tall (design model §10) */
+.wk-cell:nth-child(1),.wk-cell:nth-child(6){aspect-ratio:1/1.6}
+.wk-cell:nth-child(4){aspect-ratio:1/1.25}
+@media (width>=760px){
+  .wk{padding:88px 0}
+  .wk-grid{grid-template-columns:repeat(3,1fr);gap:14px}
+  .wk-cell{aspect-ratio:4/3}
+  .wk-cell:nth-child(1),.wk-cell:nth-child(6){aspect-ratio:4/5;grid-row:span 2}
+  .wk-cell:nth-child(4){aspect-ratio:4/3}
+}
