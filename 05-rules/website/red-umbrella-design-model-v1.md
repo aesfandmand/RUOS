@@ -344,3 +344,56 @@ Not every card needs all seven; the order never changes.
 - Stats come from `_specs()` — ابعاد, جهت, محیط نصب. A missing one gets a
   tagged placeholder (§3), never an invented value. **There is no star
   rating**; we have no verified ratings and will not fabricate them.
+
+## 14. Asymmetric row rhythm — and it must survive on mobile
+
+Source: `reference/asymmetric-layout-references/`, sent 2026-08-12. This
+supersedes the one-line version in §7 and extends it to mobile, which the
+owner called out explicitly.
+
+### The rules
+
+1. **Alternate the side.** Consecutive rows never put the image on the same
+   side: image-start, image-end, image-start.
+2. **Cells are unequal, by a different amount each row** — 45/55, then
+   55/40, then 47/53. A repeated 50/50 is the thing being avoided.
+3. **Row heights vary.** Equal blocks in a level grid read as a list.
+4. **A large numeral may anchor a row** (۰۱ / ۰۲ / ۰۳) above its heading,
+   in `--ink`, sized well past the heading. Persian numerals, tabular.
+5. **A card row may be staggered** — different heights and widths across
+   the row, controls sitting inside the row rather than above it.
+6. **Closing banner**: full width, heading on one side, pill action on the
+   far side.
+7. Grounds alternate white / `--paper` (§1), which these references already
+   do with white and cream.
+
+### On mobile the rhythm stays
+
+The default failure is that every row collapses to one full-width stacked
+column at the phone breakpoint and the asymmetry disappears. **That is not
+acceptable here.** At phone width rows remain two unequal cells side by
+side, alternating which side is wide — exactly what the coach screen in
+`reference/mobile-card-references/` shows.
+
+Collapsing a row to a single column is a per-row exception for content that
+genuinely cannot survive the narrower cell, and it needs a reason. It is
+never the blanket mobile treatment.
+
+### Where the engine already helps
+
+`block_composer` caps card grids per page (`MAX_CARD_GRIDS_PER_PAGE`) and
+blocks runs of the same surface — the same instinct as these references.
+The `layout` field in `block.json` is the hook: an alternating row block
+should declare its own layout rather than reusing `card-grid`.
+
+### What overrides these references
+
+- **§1 colour.** Reference 02 is a dark/cream store and reference 01 is
+  cool grey. Ours stays white-dominant with `--paper` for contrast and red
+  as accent only.
+- **§3 content.** Prices, ratings and product counts in these references
+  have no verified equivalent here; a row with no real data gets a tagged
+  placeholder, never an invented figure.
+- **§4 images.** Each row's image slot is reserved even when the photo is
+  missing — the asymmetry is in the layout, so it must not depend on the
+  file existing.
