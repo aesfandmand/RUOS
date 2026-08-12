@@ -250,7 +250,8 @@ implying it is in use.
 ## 12. Mobile card system
 
 Source: `reference/mobile-card-references/` — three screens the owner sent
-on 2026-08-12 as the model for cards on mobile. **Look at the images**
+on 2026-08-12 as the model for the **compact 2-up cards** in a mobile grid.
+For the desktop card and the full-width card on mobile see §13 instead. **Look at the images**
 before designing a card; §6 says mobile composition comes from the owner's
 references, not from taste, and this is the reference set for cards.
 
@@ -298,3 +299,48 @@ their look does not.
 - **The navigation is locked.** References 01–03 all show a bottom bar;
   ours is already built and frozen. Take card composition from these
   screens, nothing else.
+
+## 13. Wide card system — desktop, and full-width on mobile
+
+Source: `reference/wide-card-references/` — three cards the owner sent on
+2026-08-12. §12 governs the compact 2-up card; this governs the big one.
+**Look at the images.**
+
+### Two photo treatments — pick one per row, never both
+
+- **Inset.** The photo sits inside the card's padding with its own smaller
+  radius, floating on white. Quiet, editorial. Use where the card is
+  mostly words.
+- **Full-bleed with a scrim.** The photo runs to the card's rounded edge
+  and carries chrome over a bottom gradient. Use where the card is
+  mostly the thing itself — a structure.
+
+### The parts, in order
+
+1. **Chrome on the photo**: tag chips and any rating/marker in the top
+   corners; carousel dots at the photo's bottom edge; the title, subtitle
+   and primary action pill over a bottom scrim.
+2. **A qualifier line** under the photo (family, install context).
+3. **A hairline rule** separating identity from numbers.
+4. **A stat row**: three cells, `value` over `label`. Value in `--ink` at
+   roughly twice the label; label `--muted`, small. Optionally a square
+   thumbnail parked at the far end — our dimension diagram belongs there.
+5. **Description**, at most three lines.
+6. **A meta line**, small and muted.
+7. **The action**: either the overlay pill on the photo, or a full-width
+   pill at the bottom. Never a bare text link.
+
+Not every card needs all seven; the order never changes.
+
+### House adjustments
+
+- The reference CTA pills are black. Ours are `--red`.
+- A dark scrim **over a photo** is fine — it is not a flat-black section
+  and does not count against §1's charcoal budget. A dark *card body*
+  does, and is not allowed.
+- The two-tone sentence in reference 01 is already the house heading
+  signature (§2): muted sentence, ink-dark emphasis on the words carrying
+  the claim.
+- Stats come from `_specs()` — ابعاد, جهت, محیط نصب. A missing one gets a
+  tagged placeholder (§3), never an invented value. **There is no star
+  rating**; we have no verified ratings and will not fabricate them.
