@@ -25,6 +25,7 @@ from .open_source_registry_snapshot import write_registry
 from .architecture_registry import ArchitectureRegistryError
 from .design_approach import select_design_approach
 from .generate import CONTENT_NOT_YET_AUTHORED, COMPOSE_REJECTED, DESIGN_NOT_YET_DESIGNED, GENERATED, generate_next
+from .page_critic import PageCriticError, critique_page
 from .page_selector import select_candidates
 from .production_build import compile_production_page
 from .research_snapshot import build_snapshot, write_snapshot
@@ -55,6 +56,9 @@ def _parser() -> argparse.ArgumentParser:
     competitors = sub.add_parser("research-competitors", help="Fetch pages from verified discovery results"); competitors.add_argument("page"); competitors.add_argument("--spec-root", default="pages"); competitors.add_argument("--discovery-root", default=".ruos/discovery"); competitors.add_argument("--output-root", default=".ruos/competitors"); competitors.add_argument("--limit", type=int, default=5); competitors.add_argument("--minimum-success", type=int, default=3)
     compose = sub.add_parser("compose", help="Build one page from the block library")
     compose.add_argument("page"); compose.add_argument("--spec-root", default="pages/blocks"); compose.add_argument("--output", default="dist"); compose.add_argument("--library", default="blocks")
+    critique = sub.add_parser("critique", help="Run the automated art/creative-director review over one composed page")
+    critique.add_argument("page"); critique.add_argument("--spec-root", default="pages/blocks"); critique.add_argument("--library", default="blocks")
+    critique.add_argument("--json", action="store_true", help="Print the full machine-readable payload instead of the short report")
     next_page = sub.add_parser("next", help="Rank pages against the locked architecture registry and report what to build next")
     next_page.add_argument("--registry-root", default=None); next_page.add_argument("--list", action="store_true", help="Show the full ranked queue and every skipped entity, not just the top pick")
     generate = sub.add_parser("generate", help="One command: select, match a design approach, and compose the first page that is actually ready")
@@ -161,6 +165,20 @@ def _run_compose(args, project_root: Path) -> int:
     return 0
 
 
+def _run_critique(args, project_root: Path) -> int:
+    """Run the art/creative-director pass over one already-buildable page."""
+    library = load_library(project_root / args.library)
+    spec = load_block_spec(project_root / args.spec_root / f"{args.page}.json")
+    rendered = render_page(spec, library)
+    critique = critique_page(rendered, spec, library)
+
+    if args.json:
+        print(json.dumps(critique.payload(), ensure_ascii=False, indent=2))
+    else:
+        print(critique.report())
+    return 2 if critique.release_recommendation == "reject" else 0
+
+
 def _run_next(args, project_root: Path) -> int:
     registry_root = Path(args.registry_root) if args.registry_root else None
     candidates, skipped = select_candidates(project_root, registry_root)
@@ -257,6 +275,8 @@ def main(argv: list[str] | None = None) -> int:
             return _run_registry_refresh(args, project_root)
         if args.command == "compose":
             return _run_compose(args, project_root)
+        if args.command == "critique":
+            return _run_critique(args, project_root)
         if args.command == "next":
             return _run_next(args, project_root)
         if args.command == "generate":
@@ -301,8 +321,9 @@ def main(argv: list[str] | None = None) -> int:
         else: result = compile_page_with_cie(page, context)
     except (SpecError, BuildRejected, LiveResearchError, OpenSourceRegistryError, ValueError,
             BlockRegistryError, BlockPageError, BlockCompositionError, BlockRenderError,
-            ArchitectureRegistryError) as exc:
+            ArchitectureRegistryError, PageCriticError) as exc:
         if args.command == "compose": label = "COMPOSE REJECTED"
+        elif args.command == "critique": label = "CRITIQUE FAILED"
         elif args.command == "generate": label = "GENERATE FAILED"
         elif args.command == "next": label = "NEXT FAILED"
         elif args.command == "registry": label = "REGISTRY FAILED"

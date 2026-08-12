@@ -25,7 +25,7 @@
 .p-hero-next:active{filter:brightness(.92);gap:12px}
 .p-hero-dots{display:flex;justify-content:center;gap:6px;margin-top:14px}
 .p-hero-dots button{width:6px;height:6px;padding:0;border:0;border-radius:999px;background:var(--line);cursor:pointer;transition:width .4s cubic-bezier(.16,1,.3,1),background .4s}
-.p-hero-dots button.is-active{width:22px;background:var(--red)}
+.p-hero-dots button.is-active{width:22px;background:var(--red-gloss)}
 /* the headline arrives word by word (§15) */
 .p-hero h1{margin:18px 0 0;color:var(--ink);font-size:clamp(2.15rem,9vw,2.75rem);font-weight:900;line-height:1.4;letter-spacing:-.02em;text-wrap:balance}
 .p-hero h1 .w{display:inline-block;opacity:0;transform:translateY(28px) rotate(2deg)}

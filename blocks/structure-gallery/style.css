@@ -18,7 +18,7 @@
 .structure-gallery{background:var(--white);color:var(--ink);padding:110px 0 96px;overflow:hidden}
 .structure-gallery-head{text-align:center;max-width:640px;margin:0 auto 54px}
 .structure-gallery-head .eyebrow{color:var(--red);justify-content:center;align-items:center;gap:9px;display:flex}
-.structure-gallery-head .eyebrow:before{content:"";background:var(--red);width:7px;height:7px;display:inline-block}
+.structure-gallery-head .eyebrow:before{content:"";background:var(--red-gloss);width:7px;height:7px;display:inline-block}
 .structure-gallery-head h2{letter-spacing:-.03em;margin:14px 0 0;font-size:clamp(1.6rem,2.6vw,2.4rem);font-weight:900;color:var(--ink)}
 .structure-gallery-head p{color:var(--muted);margin:14px 0 0;font-size:.92rem;line-height:1.75}
 .structure-gallery-stage{max-width:1100px;margin:0 auto;position:relative}

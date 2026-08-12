@@ -48,14 +48,25 @@ The three that get violated most often:
   refuse to build, and do not silently invent a number and present it as
   verified.
 
-## 3. Layout comes from the owner's references
+## 3. Review every page with the critic before calling it done
+
+`python3 -m ruos.cli critique <slug> --spec-root pages/blocks` runs an
+automated art/creative-director pass — ten real, code-based checks against
+the actually-rendered page (colour, navigation, motion, icons, content
+honesty, images, rhythm, accessibility, SEO/schema, performance). See design
+model §17 for what each checks and why it is not the older
+`design_critic.py`/`virtual_studio.py`/`qa.py` stack. A `reject` means a
+locked-nav violation; anything else is a real, actionable finding, not
+noise — it does not grade a page down for no reason, so trust what it says.
+
+## 4. Layout comes from the owner's references
 
 Mobile and desktop composition follow the reference images and videos the
 owner supplied, not the assistant's taste. When a reference exists, match it
 — go and look at the frames rather than approximating from memory. Ask for
 the reference if you cannot find it.
 
-## 4. Verify in a real browser
+## 5. Verify in a real browser
 
 Every visual or motion change is checked with Playwright before it is
 reported as done — both breakpoints, console errors captured, and the actual
@@ -65,12 +76,12 @@ is preinstalled; do not run `playwright install`.
 "It should work" is not a result. Neither is a screenshot that you did not
 read.
 
-## 5. Commit as you go
+## 6. Commit as you go
 
 The owner's standing instruction: commit and push each decision as it lands,
 so a lost container never costs the work twice. Branch: `claude/block-library`.
 
-## 6. Scope
+## 7. Scope
 
 Do what was asked. Do not rebuild or regenerate pages while working on a
 component, and do not widen the task because something nearby looks

@@ -17,7 +17,7 @@
 .assessment-options button span{font-size:.7rem;font-weight:900}
 .assessment-options button small{color:var(--muted);margin-top:5px;font-size:.58rem}
 .assessment-options button i{border:1px solid #bcb4ae;border-radius:50%;width:16px;height:16px;position:absolute;top:17px;right:13px}
-.assessment-options button.is-selected{border-color:var(--red);background:var(--red-soft)}
+.assessment-options button.is-selected{border-color:var(--red);background:var(--paper-2)}
 .assessment-options button.is-selected i{border:5px solid var(--red);background:#fff}
 .assessment-result{top:calc(var(--header) + 28px);border:1px solid var(--line);background:var(--ink);color:#fff;box-shadow:var(--shadow);border-radius:20px;padding:28px;position:sticky}
 .assessment-result>small{color:var(--red);font-weight:900}

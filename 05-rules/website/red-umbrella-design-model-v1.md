@@ -501,3 +501,64 @@ A page with only scroll-fade is "خواب‌آور". Every page carries, at mini
   back and turned, driven from scroll position,
 - parallax on the hero image,
 - micro-interaction on every pressable thing.
+
+## 17. The page critic — an automated art/creative-director pass
+
+Source: `src/ruos/page_critic.py`, `tests/test_page_critic.py`. Built
+2026-08-12 at the owner's request for an assistant that reviews every
+generated page — section by section, icon by icon if needed — the way a
+creative director and an art director would, before the owner has to.
+
+```
+python3 -m ruos.cli critique <slug> --spec-root pages/blocks
+```
+
+Ten disciplines, each a real code check against the actually-rendered page
+(HTML, CSS, script, the source spec, the block registry) — never a model's
+subjective opinion, which design model §3 would forbid as an unverifiable
+claim: **colour** (no pink, no flat black, no flat `var(--red)` fill where
+`--red-gloss` belongs — checked per block, so it can name which one),
+**navigation** (the locked shell is present and hash-matches — any failure
+here is a hard blocker, not graded), **motion** (every section reveals,
+driven by a real observer, with a reduced-motion fallback), **icons** (every
+`#icon-*` reference resolves in the sprite, content is not carrying zero
+icons), **content-honesty** (placeholders are counted and must render a
+visible marker — §3), **images** (no collapsed slot), **rhythm** (surfaces
+the composer's own anti-repetition proof), **accessibility** (one H1, every
+image/button has a real accessible name), **seo-schema** (JSON-LD, canonical,
+a description sized for a real snippet), **performance** (byte budgets).
+
+A finding's severity depends only on whether it found something — a check
+with zero failures is a **strength**, full stop, never graded down by an
+arbitrary baseline. A critic that reports "96/100, needs work" on a page
+with nothing wrong trains people to stop reading it.
+
+### Not the old `design_critic.py` / `virtual_studio.py` / `qa.py` stack
+
+That stack already existed in the repository and is real, deterministic
+code — but its `qa.py::evaluate()` gate is hard-wired to exactly one legacy
+page: a fixed five-section kind sequence
+(`hero, story, knowledge, interaction, conversion`), literal strings from
+the old static compiler's output (`"ruos-bottom-nav"`,
+`"data-component-variant"`), and `PageSpec.metadata` keys nothing in the
+block-library pipeline populates. Bridging it would have meant rewriting its
+internals anyway, so `page_critic.py` is a clean rebuild against what the
+block pipeline actually produces, reusing only the reporting shape that
+stack got right (a finding per discipline, with severity, a concrete action
+and evidence — never a bare pass/fail). Do not try to wire the old stack in
+later without rereading this section; it was a deliberate, considered choice
+the first time.
+
+### What it found, the first time it ran
+
+Proof it is a real check and not a rubber stamp: run cold against the three
+pages that existed before it, it caught genuine, previously-undetected
+leftovers — `--red-soft` (pink) still in `structure-hero`,
+`structure-services` and `assessment-section`, and four flat `var(--red)`
+fills (`.structure-diagram-box:before/:after`, `.structure-spec-row:before`,
+two `.eyebrow:before` dashes) that should have been `--red-gloss` per §1.
+All fixed the same session, verified clean by rerunning the critic
+afterward. The two billboard pages still carry one honest, unresolved
+finding — no `[data-reveal]` motion, since they predate the motion system
+built for straboard — left as backlog rather than silently fixed, since that
+is page work outside this task's scope.
