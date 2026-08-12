@@ -1,7 +1,7 @@
 <section class="wk" id="{{anchor}}" aria-labelledby="{{anchor}}-title" data-block="workshop-gallery">
 <div class="content-shell">
 {{?eyebrow}}<p class="eyebrow">{{eyebrow}}</p>{{/}}
-<h2 id="{{anchor}}-title" data-reveal>{{title}}</h2>
+<h2 id="{{anchor}}-title" data-reveal><svg class="h-ico" aria-hidden="true"><use href="#icon-factory"></use></svg>{{title}}</h2>
 {{?lead}}<p class="wk-lead" data-reveal>{{lead}}</p>{{/}}
 <div class="wk-grid" data-reveal-group>{{#items}}<figure class="wk-cell img-slot" data-reveal="mask">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}<figcaption>{{label}}</figcaption></figure>{{/}}</div>
 </div>

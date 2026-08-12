@@ -13,3 +13,7 @@
   .chk-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .chk-note{margin-top:22px}
 }
+.chk-list li{display:flex;align-items:flex-start;gap:11px;padding:14px 16px}
+.chk-list li:before,.chk-list li:after{display:none}
+.chk-tick{flex:none;width:19px;height:19px;margin-top:3px;padding:3px;border-radius:7px;background:var(--paper-2);color:var(--red);box-sizing:border-box}
+.chk-list li.is-in .chk-tick{animation:icon-pop .5s cubic-bezier(.34,1.4,.44,1) both;animation-delay:calc(var(--reveal-i,0)*90ms + 100ms)}

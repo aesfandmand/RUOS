@@ -36,6 +36,10 @@
     "items": {
       "type": "list",
       "required": true
+    },
+    "icon": {
+      "type": "text",
+      "required": false
     }
   },
   "layout": "timeline"

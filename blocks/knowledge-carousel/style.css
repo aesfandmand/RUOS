@@ -16,3 +16,6 @@
 .kn-play:after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-style:solid;border-width:7px 0 7px 11px;border-color:transparent transparent transparent var(--ink)}
 .kn-dur{position:absolute;bottom:10px;inset-inline-end:10px;padding:4px 9px;border-radius:999px;background:#171719c7;color:#fff;font-size:.62rem;font-weight:800;font-variant-numeric:tabular-nums}
 @media (width>=760px){.kn{padding:88px 0}.kn-card{flex-basis:30%}}
+.kn-play:after{display:none}
+.kn-play svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:17px;height:17px;color:var(--ink)}
+.kn-head h3{display:flex;align-items:center;gap:8px}

@@ -37,6 +37,27 @@ ICONS: dict[str, tuple[str, str]] = {
     "icon-external": ("arrow-square-out", "regular"),
     "icon-datasheet": ("file-text", "regular"),
 
+    # --- product-page content icons (straboard archetype) ---
+    "icon-tension": ("arrows-out-line-horizontal", "regular"),
+    "icon-cost": ("currency-circle-dollar", "regular"),
+    "icon-transport": ("truck", "regular"),
+    "icon-repair": ("wrench", "regular"),
+    "icon-city": ("buildings", "regular"),
+    "icon-clean-view": ("eye", "regular"),
+    "icon-check": ("check", "bold"),
+    "icon-play": ("play", "fill"),
+    "icon-arrow-left": ("arrow-left", "regular"),
+    "icon-compare": ("scales", "regular"),
+    "icon-factory": ("factory", "regular"),
+    "icon-palette": ("palette", "regular"),
+    "icon-article": ("article", "regular"),
+    "icon-user": ("user", "regular"),
+    "icon-phone": ("phone", "regular"),
+    "icon-pin-area": ("map-trifold", "regular"),
+    "icon-lightbulb": ("lightbulb", "regular"),
+    "icon-orientation": ("frame-corners", "regular"),
+    "icon-faces": ("copy", "regular"),
+
     # --- navigation chrome ---
     "icon-menu": ("list", "regular"),
     "icon-close": ("x", "regular"),

@@ -49,6 +49,14 @@
     "stats": {
       "type": "list",
       "required": false
+    },
+    "count": {
+      "type": "text",
+      "required": false
+    },
+    "icon": {
+      "type": "text",
+      "required": false
     }
   },
   "layout": "scene"

@@ -166,3 +166,18 @@ body{background:var(--white)}
 /* The mobile bottom nav is fixed; every page needs room under it. The nav
    itself is locked and untouched. */
 @media (width<=980px){body{padding-bottom:calc(88px + env(safe-area-inset-bottom))}}
+
+/* ── icon badges (§10 Phosphor only) ─────────────────────────────────────
+   One badge treatment for the whole site, matching the locked nav's icon
+   language: the glyph pops in behind a brief red ring as its row arrives,
+   and reacts to a press. */
+.icon-badge{position:relative;flex:none;display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:13px;background:var(--paper-2);color:var(--red)}
+.icon-badge svg{width:20px;height:20px;transition:transform .3s cubic-bezier(.34,1.4,.44,1)}
+@keyframes icon-pop{0%{transform:scale(.5) rotate(-10deg);box-shadow:0 0 0 7px #da1e4959,0 0 14px 2px #da1e4947}
+  55%{transform:scale(1.09) rotate(2deg);box-shadow:0 0 0 2px #da1e4952,0 0 10px 1px #da1e4936}
+  100%{transform:scale(1) rotate(0);box-shadow:0 0 0 0 #da1e4900,0 0 0 0 #da1e4900}}
+[data-reveal].is-in .icon-badge,.is-in.icon-badge{animation:icon-pop .55s cubic-bezier(.34,1.4,.44,1) both;
+  animation-delay:calc(var(--reveal-i,0)*90ms + 120ms)}
+a:active .icon-badge svg,button:active .icon-badge svg,li:active .icon-badge svg{transform:scale(1.14) rotate(-6deg)}
+@media (prefers-reduced-motion:reduce){[data-reveal].is-in .icon-badge,.is-in.icon-badge{animation:none}}

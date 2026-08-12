@@ -21,3 +21,5 @@
   .lead .eyebrow,.lead h2,.lead-intro{grid-column:1/-1}
   .lead-aside{margin-top:0}
 }
+.lead-field label{display:flex;align-items:center;gap:7px}
+.lead-field label svg{width:15px;height:15px;color:var(--red)}

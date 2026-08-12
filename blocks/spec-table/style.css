@@ -13,3 +13,5 @@
 .spec-table tr:last-child th,.spec-table tr:last-child td{border-bottom:0}
 .spec-foot{margin:12px 0 0;color:var(--muted);font-size:.76rem;line-height:1.85}
 @media (width>=760px){.spec{padding:88px 0}.spec-table th,.spec-table td{white-space:normal}}
+.spec h2{display:flex;align-items:center;gap:11px}
+.spec .h-ico{flex:none;width:26px;height:26px;color:var(--red)}

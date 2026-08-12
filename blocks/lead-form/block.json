@@ -44,6 +44,10 @@
     "aside": {
       "type": "object",
       "required": false
+    },
+    "icon": {
+      "type": "text",
+      "required": false
     }
   },
   "layout": "console"

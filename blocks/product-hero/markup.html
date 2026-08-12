@@ -2,12 +2,16 @@
 <div class="content-shell">
 {{?breadcrumb}}<nav class="p-crumb" aria-label="مسیر صفحه">{{#breadcrumb}}<a href="{{href}}">{{label}}</a>{{/}}<span aria-current="page">{{title}}</span></nav>{{/}}
 </div>
-<div class="p-hero-stage" aria-label="تصاویر {{title}}">{{#slides}}<figure class="img-slot p-hero-slide">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}</figure>{{/}}</div>
+<div class="p-hero-frame">
+<div class="p-hero-stage" aria-label="تصاویر {{title}}">{{#slides}}<figure class="p-hero-slide img-slot" data-caption="{{caption}}">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}</figure>{{/}}</div>
+<span class="p-hero-index" aria-hidden="true"><b>۰۱</b><i>/</i><s>{{count}}</s></span>
+<button class="p-hero-next" type="button" aria-label="تصویر بعدی"><span class="p-hero-next-label"></span><svg aria-hidden="true"><use href="#icon-chevron-left"></use></svg></button>
+</div>
 <div class="content-shell">
 <div class="p-hero-dots">{{#slides}}<button type="button" aria-label="تصویر {{@n}}"></button>{{/}}</div>
-<h1 data-reveal>{{title}}</h1>
+<h1 data-split>{{title}}</h1>
 {{?lead}}<p class="p-hero-lead" data-reveal>{{lead}}</p>{{/}}
-<div class="p-hero-actions" data-reveal>{{?primary}}<a class="primary-button" href="{{primary.href}}">{{primary.label}}</a>{{/}}{{?secondary}}<a class="p-ghost" href="{{secondary.href}}">{{secondary.label}}</a>{{/}}</div>
-{{?stats}}<dl class="p-stats" data-reveal-group>{{#stats}}<div data-reveal><dt>{{value}}</dt><dd>{{label}}</dd></div>{{/}}</dl>{{/}}
+<div class="p-hero-actions" data-reveal>{{?primary}}<a class="primary-button" href="{{primary.href}}"><span>{{primary.label}}</span><svg class="p-arrow" aria-hidden="true"><use href="#icon-arrow-left"></use></svg></a>{{/}}{{?secondary}}<a class="p-ghost" href="{{secondary.href}}">{{secondary.label}}</a>{{/}}</div>
+{{?stats}}<dl class="p-stats" data-reveal-group>{{#stats}}<div data-reveal><span class="icon-badge"><svg aria-hidden="true"><use href="#{{icon}}"></use></svg></span><dt>{{value}}</dt><dd>{{label}}</dd></div>{{/}}</dl>{{/}}
 </div>
 </header>

@@ -15,3 +15,5 @@
   .cmp-stack article{flex:1}
   .cmp-stack article:nth-child(2n){margin-inline-start:0;margin-top:26px}
 }
+.cmp-head{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.cmp-index{margin:0}

@@ -4,5 +4,5 @@
 <h2 id="{{anchor}}-title" data-reveal>{{title}}</h2>
 </div>
 {{#groups}}<div class="kn-group"><div class="content-shell kn-head"><h3>{{title}}</h3>{{?all}}<a href="{{all.href}}">{{all.label}}</a>{{/}}</div>
-<ul class="kn-track" data-reveal-group aria-label="{{title}}">{{#items}}<li class="kn-card{{?duration}} is-video{{/}}"><figure class="kn-shot img-slot">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}{{?duration}}<span class="kn-play" aria-hidden="true"></span><span class="kn-dur">{{duration}}</span>{{/}}</figure><div class="kn-body"><h4>{{title}}</h4><p>{{meta}}</p></div></li>{{/}}</ul></div>{{/}}
+<ul class="kn-track" data-reveal-group aria-label="{{title}}">{{#items}}<li class="kn-card{{?duration}} is-video{{/}}"><figure class="kn-shot img-slot">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}{{?duration}}<span class="kn-play" aria-hidden="true"><svg><use href="#icon-play"></use></svg></span><span class="kn-dur">{{duration}}</span>{{/}}</figure><div class="kn-body"><h4>{{title}}</h4><p>{{meta}}</p></div></li>{{/}}</ul></div>{{/}}
 </section>
