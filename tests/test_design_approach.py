@@ -47,19 +47,19 @@ def test_the_matched_sequence_still_fails_composition_as_documented() -> None:
 
 
 def test_structure_detail_matches_and_actually_composes() -> None:
-    from ruos.structure_detail_spec import build_structure_detail_spec
+    from ruos.structure_detail_spec import build_product_page_spec
     from ruos.architecture_registry import load_structures
     from ruos.block_page import render_page
 
     result = select_design_approach("STRUCTURE_DETAIL")
     assert result.status == MATCHED
     assert result.approach.block_sequence == (
-        "structure-hero", "structure-specs", "faq-section-final", "review-gate",
+        "product-hero", "structure-specs", "faq-section-final", "lead-form",
     )
 
     shell = load_page_spec(REFERENCE_SPEC)["shell"]
     billboard = next(s for s in load_structures() if s.id == "STR-001")
-    spec = build_structure_detail_spec(billboard, shell)
+    spec = build_product_page_spec(billboard, shell)
     page = render_page(spec, load_library())
     composed_ids = [b.block_id for b in page.composed.blocks]
     # The fixed spine must appear, in order; any blocks in between are the

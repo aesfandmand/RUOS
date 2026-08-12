@@ -4,6 +4,7 @@ from pathlib import Path
 import yaml
 
 from ruos import generate as generate_module
+from ruos.architecture_registry import StructureRecord
 from ruos.design_approach import MATCHED, DesignApproach, DesignApproachResult
 from ruos.generate import (
     COMPOSE_REJECTED,
@@ -12,6 +13,7 @@ from ruos.generate import (
     GENERATED,
     generate_next,
 )
+from ruos.page_selector import PageCandidate
 
 REAL_PROJECT_ROOT = Path(".")
 REAL_SPEC = json.loads(Path("pages/blocks/urban-investment.json").read_text(encoding="utf-8"))
@@ -151,3 +153,94 @@ def test_generate_walks_past_a_blocked_candidate_to_a_ready_one(tmp_path: Path, 
     assert report.attempts[0].stage == DESIGN_NOT_YET_DESIGNED
     assert report.attempts[-1].candidate.source_id == "READY-001"
     assert report.attempts[-1].stage == GENERATED
+
+
+_TEST_STRUCTURE = StructureRecord(
+    id="STR-TEST", name_fa="سازه آزمایشی", family="بیلبورد", context="outdoor",
+    url="/structures/test-structure/", route="outdoor_purchase",
+    orientation="vertical", dimensions="5x10", face_count=None, mounting=None,
+)
+
+_TEST_STRUCTURE_CANDIDATE = PageCandidate(
+    slug="test-structure", url=_TEST_STRUCTURE.url, source_id="STR-TEST", source_kind="structure",
+    page_type="STRUCTURE_DETAIL", page_level="SECTION/ENTITY", priority_rank=(0, 5),
+    reason="test structure candidate",
+)
+
+
+def test_a_structure_candidate_with_no_authored_spec_auto_builds_from_the_registry(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    """The gap this closes: 'build the billboard page' must not require an
+    owner to hand-author a JSON spec first — the Structure Detail spine
+    (product-hero, spec sheet, FAQ, lead form, real conditional sections)
+    builds straight from the structure registry, per
+    structure_detail_spec.build_product_page_spec."""
+    monkeypatch.setattr(generate_module, "select_candidates",
+                         lambda *a, **k: ((_TEST_STRUCTURE_CANDIDATE,), ()))
+    monkeypatch.setattr(generate_module, "load_structures", lambda registry_root: (_TEST_STRUCTURE,))
+
+    # registry_root is left at its real default (not tmp_path): the fake
+    # structure's URL matches no row in the real persona journey matrix, so
+    # this still exercises the real "no journey row -> generic CTA" path
+    # rather than needing a second fake registry just for that lookup.
+    report = generate_next(project_root=REAL_PROJECT_ROOT,
+                            spec_root=str(tmp_path / "pages" / "blocks"))
+
+    assert report.generated_page is not None
+    assert report.generated_page.slug == "test-structure"
+    assert report.attempts[-1].stage == GENERATED
+    composed_ids = [b.block_id for b in report.generated_page.composed.blocks]
+    assert composed_ids[0] == "product-hero"
+    assert composed_ids[-1] == "lead-form"
+
+
+def test_a_structure_candidate_too_thin_for_a_spec_sheet_is_reported_not_padded(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    sparse = StructureRecord(
+        id="STR-SPARSE", name_fa="سازه کم‌داده", family="بیلبورد", context=None,
+        url="/structures/sparse-structure/", route=None,
+        orientation=None, dimensions=None, face_count=None, mounting=None,
+    )
+    candidate = PageCandidate(
+        slug="sparse-structure", url=sparse.url, source_id="STR-SPARSE", source_kind="structure",
+        page_type="STRUCTURE_DETAIL", page_level="SECTION/ENTITY", priority_rank=(0, 5),
+        reason="test sparse structure candidate",
+    )
+    monkeypatch.setattr(generate_module, "select_candidates", lambda *a, **k: ((candidate,), ()))
+    monkeypatch.setattr(generate_module, "load_structures", lambda registry_root: (sparse,))
+
+    report = generate_next(project_root=REAL_PROJECT_ROOT, registry_root=tmp_path,
+                            spec_root=str(tmp_path / "pages" / "blocks"))
+
+    assert report.generated_page is None
+    assert report.attempts[0].stage == CONTENT_NOT_YET_AUTHORED
+    assert "not enough" in report.attempts[0].reason
+
+
+def test_a_hand_authored_structure_spec_still_wins_over_auto_build(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    """A structure with an owner-supplied content brief (e.g. straboard's
+    numbered-features/parts-zigzag sections) must still be used as-is —
+    auto-build is a fallback for structures nobody has written a brief for
+    yet, never a silent replacement for one that already exists."""
+    spec_dir = tmp_path / "pages" / "blocks"
+    spec_dir.mkdir(parents=True)
+    (spec_dir / "test-structure.json").write_text(
+        json.dumps(_mini_composable_spec("test-structure")), encoding="utf-8")
+
+    monkeypatch.setattr(generate_module, "select_candidates",
+                         lambda *a, **k: ((_TEST_STRUCTURE_CANDIDATE,), ()))
+
+    def _fail_if_called(*a, **k):
+        raise AssertionError("auto-build must not run when a hand-authored spec exists")
+
+    monkeypatch.setattr(generate_module, "load_structures", _fail_if_called)
+    monkeypatch.setattr(generate_module, "build_product_page_spec", _fail_if_called)
+
+    report = generate_next(project_root=REAL_PROJECT_ROOT, registry_root=tmp_path, spec_root=str(spec_dir))
+
+    assert report.generated_page is not None
+    assert [b.block_id for b in report.generated_page.composed.blocks] == ["hero-scroll-scene", "review-gate"]

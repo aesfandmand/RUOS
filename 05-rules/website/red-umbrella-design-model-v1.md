@@ -562,3 +562,55 @@ afterward. The two billboard pages still carry one honest, unresolved
 finding — no `[data-reveal]` motion, since they predate the motion system
 built for straboard — left as backlog rather than silently fixed, since that
 is page work outside this task's scope.
+
+## 18. Automatic page generation — "build the billboard page" has to work
+
+Source: `src/ruos/structure_detail_spec.py::build_product_page_spec`,
+`src/ruos/generate.py`, `tests/test_structure_detail_spec.py`,
+`tests/test_generate.py`. Built 2026-08-12, answering the owner's own
+verification question directly: if the command is "build the billboard
+page" again from scratch, does the engine produce it without a person
+hand-typing a JSON content file first, using only real data?
+
+For any structure in `structure-page-registry-v2.1.yaml`, `ruos generate`
+now composes a full page on this archetype's fixed spine —
+`product-hero → structure-specs → faq-section-final → lead-form` — with up
+to three real conditional sections in between (`structure-gallery`,
+`structure-related`, `structure-services`), the same real-data helpers
+`build_structure_detail_spec` already used (dimensions, orientation, face
+count, mounting, real Didanshow installation photography, real sibling
+structures, real cross-sell services, real researched FAQ). A structure
+whose registry record has fewer than three real attributes is still
+rejected, not padded — `StructureDetailSpecError`, same rule as §3.
+
+**What this does not do**, on purpose: the rich, owner-authored sections
+that make straboard read as a real product page —
+`numbered-features` ("چرا این سازه"), `parts-zigzag` ("اجزای سازه"),
+`checklist-section` ("چه زمانی مناسب است" / price-factor guides),
+`workshop-gallery`, `knowledge-carousel` — never get auto-generated,
+because there is no registry field that honestly fills them; fabricating
+that copy to make a page feel fuller would break §3. Those sections only
+ever appear when an owner supplies a real content brief for that structure
+and someone hand-authors `pages/blocks/<slug>.json` against it, the way
+straboard was built. `generate_next` checks for a hand-authored spec file
+first and always prefers it — the registry-only build is a fallback for a
+structure nobody has written a brief for yet, never a silent downgrade of
+one that already exists.
+
+Hero stats and slides are derived the same honest way: up to 3 real
+installation photos fill the opening slider (any more overflow into
+`structure-gallery` when at least 2 are left over); zero real photos means
+one placeholder slide with no `src`, same as every other reserved image
+slot in this document (§4) — never a stock or generated image. Hero stats
+never repeat the family/title and never fabricate an attribute the
+registry doesn't have; each one traces to a real `structure-specs` row.
+
+Verified against three structures spanning different data shapes —
+a billboard (no photos, no siblings), a برایت‌بورد variant (no photos, two
+real siblings), an indoor lightbox (real photos, no siblings) — each
+rendered and run through the §17 critic cold, each scoring 100/100,
+`publish`. See `tests/test_structure_detail_spec.py` for the full unit
+suite (composability, honest rejection, stat/slide/gallery derivation, the
+two-sibling threshold) and `tests/test_generate.py` for the `generate_next`
+wiring (auto-build path, thin-registry rejection, and proof a
+hand-authored spec always wins over the auto-build).

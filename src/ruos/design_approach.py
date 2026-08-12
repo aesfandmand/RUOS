@@ -72,28 +72,36 @@ _SALES_LANDING_V16 = DesignApproach(
 
 _STRUCTURE_DETAIL_V1 = DesignApproach(
     id="structure-detail-v1",
-    name="Structure Detail product page (hero + registry-sourced spec sheet)",
-    block_sequence=("structure-hero", "structure-specs", "faq-section-final", "review-gate"),
-    source_reference="blocks/structure-hero, blocks/structure-specs, blocks/structure-gallery, "
-                      "blocks/structure-related, blocks/structure-services — new blocks built on "
-                      "the V16 design tokens (not extracted from a V16 selector), spec/photo/"
-                      "cross-reference/cross-sell/FAQ data pulled live from "
+    name="Structure Detail product page (product-hero + registry-sourced spec sheet)",
+    block_sequence=("product-hero", "structure-specs", "faq-section-final", "lead-form"),
+    source_reference="blocks/product-hero, blocks/structure-specs, blocks/structure-gallery, "
+                      "blocks/structure-related, blocks/structure-services, blocks/lead-form — "
+                      "built on the owner-approved design model v1.1 (mobile-first product "
+                      "archetype, see 05-rules/website/red-umbrella-design-model-v1.md), spec/"
+                      "photo/cross-reference/cross-sell/FAQ data pulled live from "
                       "structure-page-registry-v2.1.yaml, media/structures/ (real Didanshow "
                       "installation photography), the service registry and the persona registry "
-                      "via structure_detail_spec.py",
-    note="block_sequence is the fixed spine every Structure Detail page carries: hero, spec "
-         "sheet, FAQ, review gate. structure_detail_spec.build_structure_detail_spec also "
-         "inserts up to three conditional blocks between the spec sheet and the FAQ — "
-         "'structure-gallery' (a 3D-coverflow carousel of the structure's own real installation "
-         "photos, when media/structures/<id>/ has at least two after reserving one for the hero "
-         "photo), 'structure-related' (other real structures in the same family) and "
-         "'structure-services' (real cross-sell services curated per family) — but only when "
-         "the registry/media actually has at least two real items for that structure; a "
-         "structure with fewer never gets a padded, fabricated version of that section. Only "
-         "structures whose registry record has at least three real attributes (family, context, "
-         "whose registry record has at least three real attributes (family, context, "
-         "orientation, dimensions, face_count, mounting) can build a spec sheet at all; see "
-         "structure_detail_spec.StructureDetailSpecError for the ones that can't yet.",
+                      "via structure_detail_spec.build_product_page_spec",
+    note="block_sequence is the fixed spine every Structure Detail page carries: opening scene, "
+         "spec sheet, FAQ, lead form. structure_detail_spec.build_product_page_spec also inserts "
+         "up to three conditional blocks between the spec sheet and the FAQ — 'structure-gallery' "
+         "(the structure's own real installation photos left over after the hero scene's slider "
+         "takes its first three), 'structure-related' (other real structures in the same family, "
+         "needs at least two siblings) and 'structure-services' (real cross-sell services curated "
+         "per family) — but only when the registry/media actually has at least two real items for "
+         "that structure; a structure with fewer never gets a padded, fabricated version of that "
+         "section. Only structures whose registry record has at least three real attributes "
+         "(family, context, orientation, dimensions, face_count, mounting) can build a spec sheet "
+         "at all; see structure_detail_spec.StructureDetailSpecError for the ones that can't yet. "
+         "generate_next calls build_product_page_spec automatically for any Structure Detail "
+         "candidate with no hand-authored pages/blocks/<slug>.json — a richer, owner-supplied "
+         "content brief (numbered-features, parts-zigzag, checklist-section, workshop-gallery, "
+         "knowledge-carousel — see the straboard page) still has to be authored by hand, since "
+         "those sections carry marketing/engineering prose this module will never invent, but "
+         "the registry-sourced spine ships on its own without one. "
+         "structure_detail_spec.build_structure_detail_spec (older spine: structure-hero, "
+         "review-gate) still exists for pages already authored against it; it is not used by "
+         "new auto-generation.",
 )
 
 # Page Type -> DesignApproach.id. Every Page Type not listed here has no

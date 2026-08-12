@@ -48,7 +48,18 @@ The three that get violated most often:
   refuse to build, and do not silently invent a number and present it as
   verified.
 
-## 3. Review every page with the critic before calling it done
+## 3. Structure pages build themselves from the registry
+
+`ruos generate` composes any Structure Detail page — hero, spec sheet, FAQ,
+lead form, plus real photos/siblings/services when the registry has them —
+straight from `structure-page-registry-v2.1.yaml`, no hand-authored JSON
+required. See design model §18. A hand-authored `pages/blocks/<slug>.json`
+(a real owner content brief, like straboard's) still always wins over the
+auto-build; this only fills the gap for structures nobody has written one
+for yet. It never fabricates the rich marketing/engineering sections a
+brief would carry — see §18 for exactly which sections that means.
+
+## 4. Review every page with the critic before calling it done
 
 `python3 -m ruos.cli critique <slug> --spec-root pages/blocks` runs an
 automated art/creative-director pass — ten real, code-based checks against
@@ -59,14 +70,14 @@ model §17 for what each checks and why it is not the older
 locked-nav violation; anything else is a real, actionable finding, not
 noise — it does not grade a page down for no reason, so trust what it says.
 
-## 4. Layout comes from the owner's references
+## 5. Layout comes from the owner's references
 
 Mobile and desktop composition follow the reference images and videos the
 owner supplied, not the assistant's taste. When a reference exists, match it
 — go and look at the frames rather than approximating from memory. Ask for
 the reference if you cannot find it.
 
-## 5. Verify in a real browser
+## 6. Verify in a real browser
 
 Every visual or motion change is checked with Playwright before it is
 reported as done — both breakpoints, console errors captured, and the actual
@@ -76,12 +87,12 @@ is preinstalled; do not run `playwright install`.
 "It should work" is not a result. Neither is a screenshot that you did not
 read.
 
-## 6. Commit as you go
+## 7. Commit as you go
 
 The owner's standing instruction: commit and push each decision as it lands,
 so a lost container never costs the work twice. Branch: `claude/block-library`.
 
-## 7. Scope
+## 8. Scope
 
 Do what was asked. Do not rebuild or regenerate pages while working on a
 component, and do not widen the task because something nearby looks

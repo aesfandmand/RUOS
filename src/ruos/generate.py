@@ -14,7 +14,14 @@ Three ways a candidate can be blocked, in the order they are checked:
 2. ``CONTENT_NOT_YET_AUTHORED`` — a design approach matched, but no
    content spec (real slot data — copy, products, proof, images) has been
    authored for this page yet. This module never fabricates that content;
-   authoring it is a separate, content-specific step.
+   authoring it is a separate, content-specific step. The one exception:
+   a Structure Detail candidate (``source_kind == "structure"``) with no
+   hand-authored spec file is built automatically from the structure
+   registry via ``structure_detail_spec.build_product_page_spec`` — every
+   field there already traces to a real source, so there is nothing to
+   author by hand. It still stops here if the registry record itself is
+   too thin (``StructureDetailSpecError``) or the structure id is not on
+   file at all.
 3. ``COMPOSE_REJECTED`` — a spec exists and was rendered, but the
    composer rejected the sequence (e.g. the repeated card-grid rule).
 
@@ -26,13 +33,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .architecture_registry import DEFAULT_REGISTRY_ROOT
+from .architecture_registry import DEFAULT_REGISTRY_ROOT, load_structures
 from .block_composer import BlockCompositionError
 from .block_library import BlockRenderError
 from .block_page import BlockPageError, load_page_spec, render_page
 from .block_registry import BlockRegistryError, load_library
 from .design_approach import MATCHED, select_design_approach
 from .page_selector import DEFAULT_PROJECT_ROOT, PageCandidate, select_candidates
+from .structure_detail_spec import StructureDetailSpecError, build_product_page_spec
 
 DESIGN_NOT_YET_DESIGNED = "design_not_yet_designed"
 CONTENT_NOT_YET_AUTHORED = "content_not_yet_authored"
@@ -67,6 +75,7 @@ def generate_next(
 
     attempts: list[GenerateAttempt] = []
     library = None
+    structures_by_id = None
 
     for candidate in candidates:
         design = select_design_approach(candidate.page_type)
@@ -75,7 +84,30 @@ def generate_next(
             continue
 
         spec_path = project_root / spec_root / f"{candidate.slug}.json"
-        if not spec_path.is_file():
+        if spec_path.is_file():
+            spec = load_page_spec(spec_path)
+        elif candidate.source_kind == "structure":
+            # No hand-authored brief for this structure yet — that only blocks
+            # the rich, owner-authored sections (see build_product_page_spec);
+            # everything that traces to the registry itself still builds, so
+            # this is not a CONTENT_NOT_YET_AUTHORED stop the way an entity
+            # page with no spec file at all is.
+            if structures_by_id is None:
+                structures_by_id = {s.id: s for s in load_structures(registry_root)}
+            structure = structures_by_id.get(candidate.source_id)
+            if structure is None:
+                attempts.append(GenerateAttempt(
+                    candidate, CONTENT_NOT_YET_AUTHORED,
+                    f"'{candidate.source_id}' matched design approach '{design.approach.id}' "
+                    "but is not in the structure registry",
+                ))
+                continue
+            try:
+                spec = build_product_page_spec(structure, registry_root=registry_root)
+            except StructureDetailSpecError as exc:
+                attempts.append(GenerateAttempt(candidate, CONTENT_NOT_YET_AUTHORED, str(exc)))
+                continue
+        else:
             attempts.append(GenerateAttempt(
                 candidate, CONTENT_NOT_YET_AUTHORED,
                 f"design approach '{design.approach.id}' matched, but no authored content "
@@ -85,7 +117,6 @@ def generate_next(
 
         if library is None:
             library = load_library(project_root / library_root)
-        spec = load_page_spec(spec_path)
         try:
             page = render_page(spec, library)
         except (BlockCompositionError, BlockRenderError, BlockPageError, BlockRegistryError) as exc:

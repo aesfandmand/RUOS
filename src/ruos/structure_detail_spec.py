@@ -330,6 +330,206 @@ def copy_structure_media(structure: StructureRecord, output_dir: Path, media_roo
     return written
 
 
+_PERSIAN_DIGIT_MAP = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
+
+
+def _persian_digits(value: int) -> str:
+    return str(value).translate(_PERSIAN_DIGIT_MAP)
+
+
+# One hero-stat icon per real spec row, keyed on the same labels `_specs()`
+# emits — so a stat only ever appears when the registry actually carries
+# that attribute. Ordered by how much a hero stat strip actually needs to
+# say, not by `_specs()`'s own row order: "خانواده سازه" and "محیط نصب"
+# are skipped entirely because both are already carried by the title and
+# the eyebrow, so repeating them as a stat would waste one of only three
+# slots on something the reader already read a second ago.
+_HERO_STAT_PRIORITY: tuple[tuple[str, str], ...] = (
+    ("ابعاد", "icon-ruler"),
+    ("جهت", "icon-orientation"),
+    ("تعداد رو", "icon-faces"),
+    ("نوع نصب", "icon-structures"),
+    ("محیط نصب", "icon-location"),
+)
+_MAX_HERO_SLIDES = 3
+
+
+def _hero_stats(specs: list[dict[str, str]]) -> list[dict[str, str]]:
+    by_label = {row["label"]: row["value"] for row in specs}
+    stats = []
+    for label, icon in _HERO_STAT_PRIORITY:
+        value = by_label.get(label)
+        if value is None:
+            continue
+        stats.append({"value": value, "label": label, "icon": icon})
+        if len(stats) == 3:
+            break
+    return stats
+
+
+def build_product_page_spec(
+    structure: StructureRecord,
+    shell: Mapping[str, Any] | None = None,
+    registry_root=None,
+    media_root: Path | None = None,
+) -> dict[str, Any]:
+    """Build a full product-archetype page (design model v1.1, the straboard
+    shape) for ANY structure that has enough real registry data — not just
+    the ones an owner has hand-authored a content brief for.
+
+    Sections that need owner-supplied engineering/marketing prose
+    (numbered-features, parts-zigzag, checklist-section, workshop-gallery,
+    knowledge-carousel) are never fabricated here; they simply don't run
+    for a structure without a brief. What always ships is the part that
+    traces to the registry: an opening scene, the real spec sheet, real
+    installation photos when they exist, real sibling models, real
+    cross-sell services, real FAQ, and the lead form. See
+    ``build_structure_detail_spec`` for the older, narrower version of the
+    same idea and ``05-rules/website/red-umbrella-design-model-v1.md`` for
+    why the richer sections are conditional rather than padded.
+    """
+    specs = _specs(structure)
+    if len(specs) < 3:
+        raise StructureDetailSpecError(
+            f"{structure.id} ({structure.name_fa}) only has {len(specs)} registry attribute(s) "
+            "recorded — not enough for a real spec sheet yet. Needs richer registry data, not "
+            "invented specs."
+        )
+
+    slug = structure.url.strip("/").rsplit("/", 1)[-1]
+    journey_rows = journey_rows_for_entry_page(structure.url, registry_root)
+    journey = journey_rows[0] if journey_rows else None
+
+    all_structures = load_structures(registry_root)
+    buildable_ids = {other.id for other in all_structures if len(_specs(other)) >= 3}
+    related = _related_structures(structure, all_structures, buildable_ids)
+
+    services_by_id = {s.id: s for s in load_services(registry_root)}
+    cross_sell = _cross_sell_services(structure, services_by_id)
+
+    all_photos = _gallery_items(structure, media_root)
+    hero_photos, gallery_photos = all_photos[:_MAX_HERO_SLIDES], all_photos[_MAX_HERO_SLIDES:]
+
+    if hero_photos:
+        slides = [
+            {"label": f"اسلاید {_persian_digits(i)}", "alt": photo["alt"], "src": photo["src"],
+             "caption": structure.family}
+            for i, photo in enumerate(hero_photos, start=1)
+        ]
+    else:
+        # No confirmed real photo yet: one honest placeholder slide, never a
+        # stock or generated image (design model §4).
+        slides = [{"label": "تصویر سازه", "alt": structure.name_fa}]
+
+    blocks = [
+        {
+            "block": "product-hero",
+            "id": "top",
+            "data": {
+                "breadcrumb": [
+                    {"label": "خانه", "href": "/"},
+                    {"label": "سازه‌های تبلیغات محیطی", "href": _STRUCTURES_HUB_URL},
+                ],
+                "title": structure.name_fa,
+                "lead": journey["hero_message"] if journey else "",
+                "slides": slides,
+                "primary": {"label": "استعلام قیمت", "href": "#quote"},
+                "secondary": {"label": "دیدن مشخصات فنی", "href": "#specs"},
+                "stats": _hero_stats(specs),
+                "count": _persian_digits(len(slides)),
+            },
+        },
+        {
+            "block": "structure-specs",
+            "id": "specs",
+            "data": {
+                "eyebrow": "مشخصات",
+                "title": f"مشخصات فنی {structure.name_fa}",
+                "specs": specs,
+            },
+        },
+    ]
+
+    if len(gallery_photos) >= 2:
+        blocks.append({
+            "block": "structure-gallery",
+            "id": "gallery",
+            "data": {
+                "eyebrow": "نمونهٔ نصب واقعی",
+                "title": f"{structure.name_fa} در محیط واقعی",
+                "lead": "چند نمونه از نصب واقعی این خانواده سازه در فضای شهری — آرشیو دیده‌شو.",
+                "items": gallery_photos,
+            },
+        })
+
+    if len(related) >= 2:
+        blocks.append({
+            "block": "structure-related",
+            "id": "related",
+            "data": {
+                "eyebrow": "سازه‌های مرتبط",
+                "title": f"سایر مدل‌های خانواده «{structure.family}»",
+                "lead": "ابعاد و کاربرد جایگزین را ببینید.",
+                "all_link": {"label": "دیدن همهٔ سازه‌ها", "href": _STRUCTURES_HUB_URL},
+                "items": related,
+            },
+        })
+
+    if len(cross_sell) >= 2:
+        blocks.append({
+            "block": "structure-services",
+            "id": "services",
+            "data": {
+                "eyebrow": "خدمات مرتبط",
+                "title": "کنار این سازه چه خدماتی لازم دارید؟",
+                "lead": "طراحی، چاپ و برنامه‌ریزی رسانه — هرکدام لازم بود، جدا سفارش بدهید.",
+                "services": cross_sell,
+            },
+        })
+
+    blocks.append({
+        "block": "faq-section-final",
+        "id": "faq",
+        "data": {
+            "eyebrow": "سؤالات متداول",
+            "title": f"سؤالات متداول {structure.name_fa}",
+            "lead": "این سؤالات از پژوهش رفتار خرید سازمانی/شهرداری چتر قرمز جمع‌آوری شده‌اند.",
+            "questions": _faq(structure, registry_root),
+        },
+    })
+
+    blocks.append({
+        "block": "lead-form",
+        "id": "quote",
+        "data": {
+            "eyebrow": "استعلام و مشاوره",
+            "title": f"برای پروژه شما {structure.name_fa} مناسب است؟",
+            "lead": "برای شروع بررسی، همین سه مورد کافی است. بعد از دریافت اطلاعات، جزئیات فنی، قیمت و شرایط اجرا بررسی می‌شود.",
+            "fields": [
+                {"name": "name", "label": "نام", "type": "text", "inputmode": "text",
+                 "autocomplete": "name", "placeholder": "مثلاً علی", "icon": "icon-user"},
+                {"name": "phone", "label": "شماره تماس", "type": "tel", "inputmode": "tel",
+                 "autocomplete": "tel", "placeholder": "۰۹۱۲۳۴۵۶۷۸۹", "icon": "icon-phone"},
+                {"name": "project", "label": "محل یا نوع پروژه", "multiline": True,
+                 "placeholder": "مثلاً شهرک صنعتی، مجتمع تجاری، پروژه شهری یا نام شهر",
+                 "icon": "icon-pin-area"},
+            ],
+            "submit": "ثبت درخواست بررسی",
+        },
+    })
+
+    return {
+        "slug": slug,
+        "lang": "fa",
+        "direction": "rtl",
+        "title": f"{structure.name_fa} | مشخصات فنی و اجرا | چتر قرمز",
+        "description": f"{structure.name_fa}: مشخصات فنی، ابعاد و مسیر اجرای پروژه از چتر قرمز.",
+        "canonical": f"https://chatreghermez.ir{structure.url}",
+        "shell": dict(shell) if shell else _real_shell(registry_root),
+        "blocks": blocks,
+    }
+
+
 def build_structure_detail_spec(
     structure: StructureRecord,
     shell: Mapping[str, Any] | None = None,
