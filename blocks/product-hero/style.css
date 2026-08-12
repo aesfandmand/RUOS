@@ -20,9 +20,9 @@
 .p-hero-index b{font-size:1.9rem;font-weight:900;line-height:1}
 .p-hero-index i{font-style:normal;opacity:.6}
 .p-hero-index s{text-decoration:none;font-size:.8rem;font-weight:800;opacity:.75}
-.p-hero-next{position:absolute;z-index:2;bottom:16px;inset-inline-start:calc(max(16px,50vw - 620px) + 14px);display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 13px;border:0;border-radius:999px;background:var(--red);color:#fff;font-family:inherit;font-size:.68rem;font-weight:800;cursor:pointer;transition:gap .25s,background .25s}
+.p-hero-next{position:absolute;z-index:2;bottom:16px;inset-inline-start:calc(max(16px,50vw - 620px) + 14px);display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 13px;border:0;border-radius:999px;background:var(--red-gloss);color:#fff;font-family:inherit;font-size:.68rem;font-weight:800;cursor:pointer;transition:gap .25s,filter .25s;box-shadow:var(--red-gloss-shadow)}
 .p-hero-next svg{width:12px;height:12px}
-.p-hero-next:active{background:var(--red-deep);gap:12px}
+.p-hero-next:active{filter:brightness(.92);gap:12px}
 .p-hero-dots{display:flex;justify-content:center;gap:6px;margin-top:14px}
 .p-hero-dots button{width:6px;height:6px;padding:0;border:0;border-radius:999px;background:var(--line);cursor:pointer;transition:width .4s cubic-bezier(.16,1,.3,1),background .4s}
 .p-hero-dots button.is-active{width:22px;background:var(--red)}

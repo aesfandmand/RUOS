@@ -19,7 +19,7 @@
 .var-body h3{margin:0;color:var(--ink);font-size:clamp(1.32rem,4.5vw,1.45rem);font-weight:800;line-height:1.45}
 .var-cta{display:inline-flex;align-items:center;gap:7px;margin-top:2px;min-height:42px;padding:0 16px;border-radius:12px;background:var(--ink);color:#fff;font-size:.74rem;font-weight:800;transition:background .25s,gap .25s}
 .var-cta svg{width:13px;height:13px}
-.var-cta:active{background:var(--red);gap:11px}
+.var-cta:active{background:var(--red-gloss);gap:11px}
 .var-guides{display:flex;flex-direction:column;gap:12px;margin-top:26px}
 .var-guides article{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:20px}
 .var-guides article:nth-child(2n){background:var(--paper-2);border-color:transparent}

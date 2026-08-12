@@ -1,5 +1,5 @@
 .contact-link{color:#fff;background:0 0;border:1px solid #fff3;border-radius:12px;min-height:43px;padding:0 18px;font-size:.76rem;font-weight:800}
-.contact-link:hover{border-color:var(--red);background:var(--red)}
+.contact-link:hover{border-color:var(--red);background:var(--red-gloss)}
 .contact-sheet h2{letter-spacing:-.055em;text-wrap:balance;margin:0;font-weight:900;line-height:1.42}
 .contact-backdrop{z-index:200;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);background:#090708b8;place-items:center;padding:20px;display:grid;position:fixed;inset:0}
 .contact-sheet{background:var(--white);border-radius:28px;width:min(520px,100%);max-height:calc(100svh - 40px);padding:42px;position:relative;overflow:auto;box-shadow:0 45px 120px #0006}
@@ -16,7 +16,7 @@
 @media (width<=980px){.contact-sheet{width:100%;max-height:calc(100svh - 18px);padding:36px 20px calc(95px + env(safe-area-inset-bottom));border-radius:26px 26px 0 0}}
 @media (width<=980px){.contact-sheet h2{font-size:1.9rem}}
 .contact-link{border-color:var(--red);color:var(--red);background:0 0;border-radius:10px}
-.contact-link:hover{border-color:var(--red-deep);background:var(--red);color:#fff}
+.contact-link:hover{border-color:var(--red-deep);background:var(--red-gloss);color:#fff}
 .contact-sheet{color:var(--ink);background:#fff;border-radius:24px;box-shadow:0 40px 100px #0000004d}
 .sheet-close{border-color:var(--line);color:var(--ink);background:#fff}
 .contact-sheet>p:not(.eyebrow){color:var(--muted)}

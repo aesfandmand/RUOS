@@ -46,6 +46,30 @@ Rules:
   page blocks, deliberately untouched while the nav was awaiting approval —
   clear them out as part of the next page pass.
 
+### Red surface finish — glossy and textured, never flat (2026-08-12)
+
+Source: `reference/red-surface-reference/`. **Every filled red surface**
+(a button, the closing CTA band, a pill) uses `--red-gloss` /
+`--red-gloss-shadow` (`blocks/_tokens/style.css`), never a flat `var(--red)`
+fill. Not matte, not flat — sharp, glossy, with a real texture: a soft
+highlight bloom top-left, a tight repeating diagonal for a ribbed texture,
+and a light-to-deep vertical tone shift for dimension. CSS gradients only,
+no image asset, so it stays deterministic.
+
+**This does not reopen the "never a red gradient" rule above.** That rule
+bans red/black used as a whole section's dramatic mood backdrop — the flat,
+staged look the owner rejected early in the project. `--red-gloss` is a
+surface finish for an actual UI element (a button, a badge, the one closing
+band §1 already allows full red). Both hold at once: red stays an accent
+and the single closing conversion band, and wherever it fills a surface, it
+now uses this finish instead of a flat hex.
+
+Applied to (non-nav only — the locked nav is never touched for this or any
+other reason): `.primary-button` and `.honest-no` (`_foundation`),
+`.review-gate`, `.products-route-cta`, `.cmp-cta`, `.var-cta:active`,
+`.p-hero-next`, `.contact-link:hover` (`contact-sheet`). Small accent marks
+(a 6px dot, a 3px bar) are exempt — texture is invisible at that size.
+
 ## 2. Typography
 
 Vazirmatn variable (100–900), self-hosted as a base64 `@font-face` in
