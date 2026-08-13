@@ -62,6 +62,7 @@ class LiveEvidence:
     observations: tuple[str, ...]
     inferences: tuple[str, ...]
     manual_claims: tuple[str, ...]
+    full_text: str = ""
 
     def payload(self) -> dict[str, object]:
         return {
@@ -76,6 +77,7 @@ class LiveEvidence:
             "byte_length": self.byte_length,
             "title": self.title,
             "excerpt": self.excerpt,
+            "full_text": self.full_text,
             "observations": list(self.observations),
             "inferences": list(self.inferences),
             "manual_claims": list(self.manual_claims),
@@ -216,16 +218,23 @@ def _decode_body(body: bytes, content_type: str) -> str:
         return body.decode("utf-8", errors="replace")
 
 
-def _extract_text(body: bytes, content_type: str) -> tuple[str, str]:
+# The short `excerpt` (700 chars) is a quick provenance/identity check; a
+# real drafting pass needs enough of the page to actually quote or
+# paraphrase from with a citation, hence the much larger `full_text` cap —
+# still well under FetchPolicy.max_bytes, so it costs nothing extra to fetch.
+_MAX_FULL_TEXT_CHARS = 20_000
+
+
+def _extract_text(body: bytes, content_type: str) -> tuple[str, str, str]:
     text = _decode_body(body, content_type)
     if "html" not in content_type.lower():
         compact = " ".join(text.split())
-        return "", compact[:700]
+        return "", compact[:700], compact[:_MAX_FULL_TEXT_CHARS]
     parser = _TextExtractor()
     parser.feed(text)
     title = " ".join(parser.title_parts).strip()[:240]
-    excerpt = " ".join(parser.text_parts).strip()[:700]
-    return title, excerpt
+    body_text = " ".join(parser.text_parts).strip()
+    return title, body_text[:700], body_text[:_MAX_FULL_TEXT_CHARS]
 
 
 class LiveResearchAdapter:
@@ -260,7 +269,7 @@ class LiveResearchAdapter:
             raise LiveResearchError(
                 f"Research response content type is not allowed: {media_type or '<missing>'}"
             )
-        title, excerpt = _extract_text(response.body, content_type)
+        title, excerpt, full_text = _extract_text(response.body, content_type)
         if not excerpt:
             raise LiveResearchError("Research source did not yield extractable evidence")
         fetched_at = self.clock().astimezone(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
@@ -276,6 +285,7 @@ class LiveResearchAdapter:
             byte_length=len(response.body),
             title=title,
             excerpt=excerpt,
+            full_text=full_text,
             observations=tuple(item.strip() for item in observations if item.strip()),
             inferences=tuple(item.strip() for item in inferences if item.strip()),
             manual_claims=tuple(item.strip() for item in manual_claims if item.strip()),

@@ -93,6 +93,7 @@ def load_snapshot(path: Path) -> ResearchSnapshot:
                     byte_length=int(item["byte_length"]),
                     title=str(item.get("title", "")),
                     excerpt=str(item["excerpt"]),
+                    full_text=str(item.get("full_text", "")),
                     observations=tuple(str(value) for value in item.get("observations", [])),
                     inferences=tuple(str(value) for value in item.get("inferences", [])),
                     manual_claims=tuple(str(value) for value in item.get("manual_claims", [])),

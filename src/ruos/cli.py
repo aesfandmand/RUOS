@@ -14,8 +14,11 @@ from .cie_3d_visual_evidence import capture_visual_evidence
 from .cie_build import compile_page_with_cie, generate_cie_blueprint
 from .cie_lod_compile import load_json_mapping
 from .compiler import BuildRejected
+from .architecture_registry import load_structures
 from .competitor_page_research import fetch_competitor_pages
 from .competitor_snapshot import build_competitor_snapshot, write_competitor_snapshot
+from .content_brief import build_content_brief, write_content_brief
+from .content_draft import fill_draft_gaps, validate_draft
 from .discovery_snapshot import load_discovery, write_discovery
 from .live_research import LiveResearchAdapter, LiveResearchError
 from .models import BuildContext
@@ -28,7 +31,7 @@ from .generate import CONTENT_NOT_YET_AUTHORED, COMPOSE_REJECTED, DESIGN_NOT_YET
 from .page_critic import PageCriticError, critique_page
 from .page_selector import select_candidates
 from .production_build import compile_production_page
-from .research_snapshot import build_snapshot, write_snapshot
+from .research_snapshot import build_snapshot, load_snapshot, write_snapshot
 from .search_discovery import create_provider, discover_search
 from .spec_loader import SpecError, load_page_spec
 
@@ -64,6 +67,20 @@ def _parser() -> argparse.ArgumentParser:
     generate = sub.add_parser("generate", help="One command: select, match a design approach, and compose the first page that is actually ready")
     generate.add_argument("--registry-root", default=None); generate.add_argument("--spec-root", default="pages/blocks")
     generate.add_argument("--library", default="blocks"); generate.add_argument("--output", default="dist")
+    content_brief = sub.add_parser("content-brief", help="Run real search + fetch for one structure's rich-section content draft")
+    content_brief.add_argument("structure", help="Structure id (e.g. STR-003) or url slug")
+    content_brief.add_argument("--provider", choices=("brave", "serper"), default="brave")
+    content_brief.add_argument("--registry-root", default=None)
+    content_brief.add_argument("--output-root", default=".ruos/content-briefs")
+    content_brief.add_argument("--results-per-query", type=int, default=5)
+    content_brief.add_argument("--fetch-per-query", type=int, default=3)
+    content_review = sub.add_parser("content-review", help="Validate a drafted rich-section content file against its research brief")
+    content_review.add_argument("draft", help="Path to a pages/blocks/<slug>.json-shaped draft file")
+    content_review.add_argument("--snapshot", default=None, help="Path to the matching snapshot.json (defaults to .ruos/content-briefs/<slug>/snapshot.json)")
+    content_review.add_argument("--library", default="blocks")
+    content_review.add_argument("--fill-gaps", action="store_true", help="Fill empty slots with a tagged Lorem Ipsum placeholder before validating")
+    content_review.add_argument("--output", default=None, help="Where to write the filled draft (defaults to overwriting the input, only used with --fill-gaps)")
+    content_review.add_argument("--json", action="store_true")
     registry = sub.add_parser("registry", help="Manage verified open-source assets")
     registry_sub = registry.add_subparsers(dest="registry_command", required=True)
     refresh = registry_sub.add_parser("refresh", help="Fetch and snapshot the curated production registry")
@@ -256,6 +273,52 @@ def _run_generate(args, project_root: Path) -> int:
     return 0
 
 
+def _run_content_brief(args, project_root: Path) -> int:
+    registry_root = Path(args.registry_root) if args.registry_root else None
+    structures = load_structures(registry_root)
+    structure = next(
+        (s for s in structures if s.id == args.structure or s.url.strip("/").rsplit("/", 1)[-1] == args.structure),
+        None,
+    )
+    if structure is None:
+        print(f"RUOS CONTENT BRIEF: no structure matches '{args.structure}'", file=sys.stderr)
+        return 2
+    provider = create_provider(args.provider)
+    brief = build_content_brief(
+        structure, provider,
+        results_per_query=args.results_per_query, fetch_per_query=args.fetch_per_query,
+    )
+    output_dir = project_root / args.output_root / brief.slug
+    snapshot_path, brief_path = write_content_brief(brief, output_dir)
+    print(f"RUOS CONTENT BRIEF: {brief_path}")
+    print(f"RUOS CONTENT BRIEF SNAPSHOT: {snapshot_path}")
+    print(f"RUOS CONTENT BRIEF SOURCES: {brief.verified.source_count}")
+    return 0
+
+
+def _run_content_review(args, project_root: Path) -> int:
+    draft_path = Path(args.draft)
+    draft = json.loads(draft_path.read_text(encoding="utf-8"))
+    slug = str(draft.get("slug") or draft_path.stem)
+    blocks = draft.get("blocks", [])
+
+    if args.fill_gaps:
+        blocks = fill_draft_gaps(blocks)
+        draft["blocks"] = blocks
+        output_path = Path(args.output) if args.output else draft_path
+        output_path.write_text(json.dumps(draft, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"RUOS CONTENT DRAFT FILLED: {output_path}")
+
+    snapshot_path = Path(args.snapshot) if args.snapshot else project_root / ".ruos" / "content-briefs" / slug / "snapshot.json"
+    snapshot = load_snapshot(snapshot_path)
+    library = load_library(project_root / args.library)
+    report = validate_draft(blocks, snapshot, library)
+    print(report.report())
+    if args.json:
+        print(json.dumps(report.payload(), ensure_ascii=False, indent=2))
+    return 0 if report.release_recommendation != "rejected" else 1
+
+
 def _run_3d_evidence(page, args, project_root: Path) -> int:
     source_map = load_json_mapping(project_root, Path(args.three_d_source_map), "3D source map")
     script = Path(args.blender_script); script = script if script.is_absolute() else project_root / script
@@ -281,6 +344,10 @@ def main(argv: list[str] | None = None) -> int:
             return _run_next(args, project_root)
         if args.command == "generate":
             return _run_generate(args, project_root)
+        if args.command == "content-brief":
+            return _run_content_brief(args, project_root)
+        if args.command == "content-review":
+            return _run_content_review(args, project_root)
 
         spec_path = project_root / args.spec_root / f"{args.page}.json"
         page = load_page_spec(spec_path)
@@ -321,12 +388,14 @@ def main(argv: list[str] | None = None) -> int:
         else: result = compile_page_with_cie(page, context)
     except (SpecError, BuildRejected, LiveResearchError, OpenSourceRegistryError, ValueError,
             BlockRegistryError, BlockPageError, BlockCompositionError, BlockRenderError,
-            ArchitectureRegistryError, PageCriticError) as exc:
+            ArchitectureRegistryError, PageCriticError, OSError, json.JSONDecodeError) as exc:
         if args.command == "compose": label = "COMPOSE REJECTED"
         elif args.command == "critique": label = "CRITIQUE FAILED"
         elif args.command == "generate": label = "GENERATE FAILED"
         elif args.command == "next": label = "NEXT FAILED"
         elif args.command == "registry": label = "REGISTRY FAILED"
+        elif args.command == "content-brief": label = "CONTENT BRIEF FAILED"
+        elif args.command == "content-review": label = "CONTENT REVIEW FAILED"
         elif args.command in {"research", "discover", "research-competitors"}: label = "RESEARCH FAILED"
         else: label = "BUILD REJECTED"
         print(f"RUOS {label}: {exc}", file=sys.stderr); return 2

@@ -614,3 +614,68 @@ suite (composability, honest rejection, stat/slide/gallery derivation, the
 two-sibling threshold) and `tests/test_generate.py` for the `generate_next`
 wiring (auto-build path, thin-registry rejection, and proof a
 hand-authored spec always wins over the auto-build).
+
+## 19. Research-backed drafting for the rich sections
+
+Source: `src/ruos/content_brief.py`, `src/ruos/content_draft.py`,
+`05-rules/website/content-voice-v1.md`, `tests/test_content_brief.py`,
+`tests/test_content_draft.py`. Built 2026-08-13, closing the gap the owner
+asked about directly: §18's auto-build only ever produces the
+registry-sourced spine; `numbered-features`, `parts-zigzag` and
+`checklist-section` still needed either an owner brief (straboard) or
+nothing at all. This pipeline drafts them from **real search evidence**
+instead — Iranian and international OOH-industry sources, via the same
+live search/fetch machinery `ruos research`/`ruos discover` already used
+for the older printing-hub pipeline (`search_discovery.py`'s Brave/Serper
+providers, `live_research.py`'s real HTTPS fetch — extended this session
+with a much longer `full_text` capture, not just a 700-char excerpt, so
+there is enough real material to actually draft a paragraph from).
+
+```
+python3 -m ruos.cli content-brief STR-003 --provider brave
+python3 -m ruos.cli content-review pages/blocks/drafts/straboard-horizontal-5x3.json --fill-gaps
+```
+
+`content-brief` runs two real search passes per structure (market `ir`/
+language `fa`, and market `us`/language `en`), fetches the real bodies of
+the top results, and writes a verified `ResearchSnapshot` plus a
+`brief.md` a drafter (an assistant, same authorship model as straboard —
+this codebase has no generative step of its own) reads real, cited
+material from. `content-review` then validates a hand/assistant-written
+draft against that snapshot: every real claim needs a `source_id` that
+resolves inside the verified evidence, or the run is `rejected`.
+
+**Where research genuinely can't fill a slot, the owner's explicit
+instruction (2026-08-13) governs, not a stricter rule invented here: fill
+it with real Lorem Ipsum, tag it `"placeholder": true`, ship the complete
+page anyway.** `--fill-gaps` does this automatically and deterministically
+— no judgment call, just "empty slot gets sized filler text." The block
+markup (`numbered-features`/`parts-zigzag`/`checklist-section`) renders any
+placeholder-tagged text in the same muted `#9a938a` tone `spec-table`
+already uses for its own placeholder cells — one consistent "not final"
+signal, not a new one per block. See `content-voice-v1.md` for exactly why
+this is the no-fabrication rule applied to prose, not a relaxation of it:
+Lorem Ipsum can never be mistaken for a real claim, which is the entire
+point. The human edit pass that replaces every placeholder with real,
+owner-supplied copy happens **before the page is uploaded to WordPress** —
+that boundary is the actual publish gate, not `ruos generate`.
+
+Two things stay structurally out of this pipeline's scope, not by a
+content-depth choice but because no search can produce them: `workshop-gallery`
+(real workshop photography) and `knowledge-carousel` (Red Umbrella's own
+published articles/videos) point at owned assets. They stay owner-supplied.
+Also out of scope, per `content-voice-v1.md` §1: any claim about Red
+Umbrella's *own* proprietary engineering specifics (an exact part
+dimension, a wattage, an internal process) — no external source can
+honestly attest to those, so they come from the owner or stay a
+placeholder, never inferred from a competitor's page.
+
+Verified this session with a fake provider/transport end to end (no
+`BRAVE_SEARCH_API_KEY`/`SERPER_API_KEY` configured in this environment
+yet): real query construction → discovery → fetch → verified snapshot →
+`fill_draft_gaps` → `validate_draft` → a clean `ready-for-owner-review`
+report → the filled block renders real HTML with the placeholder correctly
+marked. Once a real API key is set, `content-brief` runs against real
+Iranian and international sources with no code change — the provider is
+already swappable; this session just can't prove that last mile without
+one.

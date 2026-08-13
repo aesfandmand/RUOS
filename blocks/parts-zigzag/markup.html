@@ -3,6 +3,6 @@
 {{?eyebrow}}<p class="eyebrow" data-reveal>{{eyebrow}}</p>{{/}}
 <h2 id="{{anchor}}-title" data-reveal>{{title}}</h2>
 {{?lead}}<p class="zz-lead">{{lead}}</p>{{/}}
-<div class="zz-rows">{{#items}}<article class="zz-row" data-reveal="{{side}}"><figure class="zz-shot img-slot">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}</figure><div class="zz-copy">{{?icon}}<span class="icon-badge zz-ico"><svg aria-hidden="true"><use href="#{{icon}}"></use></svg></span>{{/}}<h3>{{title}}</h3><p>{{body}}</p></div></article>{{/}}</div>
+<div class="zz-rows">{{#items}}<article class="zz-row" data-reveal="{{side}}"><figure class="zz-shot img-slot">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}</figure><div class="zz-copy">{{?icon}}<span class="icon-badge zz-ico"><svg aria-hidden="true"><use href="#{{icon}}"></use></svg></span>{{/}}<h3>{{title}}</h3><p{{?placeholder}} data-placeholder="part"{{/}}>{{body}}</p></div></article>{{/}}</div>
 </div>
 </section>

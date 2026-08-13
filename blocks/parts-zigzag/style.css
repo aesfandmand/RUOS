@@ -10,6 +10,7 @@
 .zz-row:nth-child(3n) .zz-shot{aspect-ratio:4/5}
 .zz-copy h3{margin:0 0 6px;color:var(--ink);font-size:1.05rem;font-weight:800;line-height:1.5}
 .zz-copy p{margin:0;color:var(--muted);font-size:.85rem;line-height:1.9}
+.zz-copy p[data-placeholder]{color:#9a938a}
 @media (width>=760px){
   .zz{padding:88px 0}
   .zz-rows{gap:34px;margin-top:40px}
