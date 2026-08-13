@@ -14,6 +14,7 @@ before a page is ever considered done.
 from __future__ import annotations
 
 import http.server
+import re
 import socketserver
 import sys
 import threading
@@ -29,7 +30,7 @@ from ruos.cli import _write_composed_page  # noqa: E402
 from ruos.structure_detail_spec import build_complete_draft_spec  # noqa: E402
 
 
-def build_preview(structure_id: str, output_dir: Path) -> Path:
+def _find_structure(structure_id: str):
     structure = next(
         (s for s in load_structures()
          if s.id == structure_id or s.url.strip("/").rsplit("/", 1)[-1] == structure_id),
@@ -37,11 +38,57 @@ def build_preview(structure_id: str, output_dir: Path) -> Path:
     )
     if structure is None:
         raise SystemExit(f"No structure matches '{structure_id}'")
+    return structure
+
+
+def build_preview(structure_id: str, output_dir: Path) -> Path:
+    structure = _find_structure(structure_id)
     library = load_library()
     spec = build_complete_draft_spec(structure)
     page = render_page(spec, library)
     _write_composed_page(page, library, output_dir)
     return output_dir
+
+
+def build_standalone_html(structure_id: str, out_path: Path) -> Path:
+    """One self-contained .html file -- CSS, script, vendor imports and the
+    header logo all inlined -- so it opens directly in a real browser over
+    file:// and the owner can resize it, scroll it and actually interact
+    with it. Per the owner's explicit instruction (2026-08-13): approval
+    needs the real page, not a screenshot of it."""
+    import base64
+
+    structure = _find_structure(structure_id)
+    library = load_library()
+    spec = build_complete_draft_spec(structure)
+    page = render_page(spec, library)
+
+    html = page.html.replace(
+        '<link rel="stylesheet" href="assets/styles.css">', f"<style>{page.css}</style>",
+    )
+
+    script = page.script
+    for match in re.findall(r'from\s+["\'](\./[^"\']+\.mjs)["\']', script):
+        name = match.split("/")[-1]
+        vendor_path = next(ROOT.glob(f"blocks/*/assets/{name}"), None)
+        if vendor_path is None:
+            raise SystemExit(f"Vendor asset referenced in behavior.js not found: {name}")
+        vendor_uri = "data:text/javascript;base64," + base64.b64encode(vendor_path.read_bytes()).decode("ascii")
+        script = script.replace(f'"{match}"', f'"{vendor_uri}"')
+    html = html.replace(
+        '<script type="module" src="assets/behavior.js"></script>', f'<script type="module">{script}</script>',
+    )
+    html = html.replace(
+        '<script src="assets/behavior.js" defer></script>', f'<script type="module">{script}</script>',
+    )
+
+    logo_path = ROOT / "blocks" / "site-header" / "assets" / "logo.png"
+    logo_uri = "data:image/png;base64," + base64.b64encode(logo_path.read_bytes()).decode("ascii")
+    html = html.replace('src="assets/logo.png"', f'src="{logo_uri}"')
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(html, encoding="utf-8")
+    return out_path
 
 
 def _reveal_everything(page) -> None:
@@ -129,11 +176,15 @@ def screenshot(output_dir: Path, shots_dir: Path, slug: str) -> tuple[Path, Path
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        raise SystemExit("usage: python3 tools/build_draft_preview.py <structure-id> [output-dir]")
+        raise SystemExit("usage: python3 tools/build_draft_preview.py <structure-id> [output-dir] [--screenshots]")
     target = sys.argv[1]
-    out_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / ".ruos" / "drafts" / target
-    build_preview(target, out_dir)
-    mobile_shot, desktop_shot = screenshot(out_dir, out_dir, target)
-    print(f"DRAFT: {out_dir / 'index.html'}")
-    print(f"MOBILE SCREENSHOT: {mobile_shot}")
-    print(f"DESKTOP SCREENSHOT: {desktop_shot}")
+    out_dir = Path(sys.argv[2]) if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else ROOT / ".ruos" / "drafts" / target
+
+    standalone_path = build_standalone_html(target, out_dir / f"{target}.html")
+    print(f"STANDALONE: {standalone_path}")
+
+    if "--screenshots" in sys.argv:
+        build_preview(target, out_dir)
+        mobile_shot, desktop_shot = screenshot(out_dir, out_dir, target)
+        print(f"MOBILE SCREENSHOT: {mobile_shot}")
+        print(f"DESKTOP SCREENSHOT: {desktop_shot}")

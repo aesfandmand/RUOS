@@ -1,0 +1,461 @@
+<!--
+==========================================================
+  چتر قرمز — سبک‌نامهٔ نگارش فارسی
+  فایل: 05-سبک‌نامه-نگارش-v1.html
+  نسخه: v1 | تاریخ: ۲۳ تیر ۱۴۰۵
+  وضعیت: قفل‌شده — هر متنی، از هر کسی، باید از این عبور کند
+  مبنا: اگیلوی (کتابخانه) + هشدار StoryBrand دربارهٔ ساده‌سازی افراطی در B2B ایران
+==========================================================
+-->
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>سبک‌نامهٔ نگارش فارسی | چتر قرمز</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#17161B;--ink-2:#26242C;--ink-3:#34323C;--red:#D21E2B;--red-deep:#A21420;
+--red-tint:#FBEBEB;--paper:#F6F4F0;--white:#fff;--muted:#74727A;--line:#E7E3DC;--gold:#C9A227;
+--green:#2E7D5B;--green-tint:#E4F2EB;--blue:#2B5F8C;--blue-tint:#E5EFF7;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Vazirmatn',Tahoma,sans-serif;background:var(--paper);color:var(--ink);
+line-height:1.85;font-size:15.5px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+h1,h2,h3{line-height:1.35;font-weight:800;letter-spacing:-.015em}
+a{color:inherit}
+.top{background:var(--ink);color:#fff;padding:40px 0 34px}
+.top h1{font-size:clamp(1.6rem,3.2vw,2.2rem)}
+.top p{color:#b3b1ba;margin-top:.4rem;max-width:80ch}
+.badge{display:inline-block;background:var(--gold);color:#1c1600;font-size:.7rem;font-weight:800;
+padding:.22rem .65rem;border-radius:100px;margin-bottom:.6rem}
+.meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:.84rem;color:#c9c7cf}
+.meta b{color:#fff}
+.tabs{position:sticky;top:0;z-index:50;background:rgba(246,244,240,.96);backdrop-filter:blur(10px);
+border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:3px;overflow-x:auto}
+.tab{padding:14px 14px;font-weight:700;font-size:.87rem;color:var(--muted);cursor:pointer;
+border:0;background:none;font-family:inherit;white-space:nowrap;border-bottom:3px solid transparent}
+.tab.on{color:var(--red);border-color:var(--red)}
+.pane{display:none;padding:32px 0 70px}
+.pane.on{display:block}
+.sh{margin-bottom:20px}
+.sh h2{font-size:1.4rem}
+.sh p{color:var(--muted);font-size:.92rem;margin-top:.25rem;max-width:80ch}
+.sh h3{font-size:1.1rem;margin-top:28px;margin-bottom:10px}
+
+.note{background:var(--red-tint);border-inline-start:4px solid var(--red);border-radius:10px;
+padding:14px 18px;font-size:.9rem;margin:16px 0}
+.note b{color:var(--red-deep)}
+.note.g{background:var(--green-tint);border-color:var(--green)}.note.g b{color:var(--green)}
+.note.d{background:var(--ink);color:#fff;border-color:var(--gold)}.note.d b{color:var(--gold)}
+
+/* rule rows */
+.rl{background:var(--white);border:1px solid var(--line);border-radius:13px;margin-bottom:11px;overflow:hidden}
+.rl-h{padding:13px 18px;background:#FAF9F7;border-bottom:1px solid var(--line);
+display:flex;align-items:center;gap:.6rem}
+.rl-h .n{width:24px;height:24px;border-radius:6px;background:var(--red);color:#fff;
+display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:900;flex:none}
+.rl-h b{font-size:1rem}
+.rl-b{padding:14px 18px;font-size:.9rem;color:var(--ink-2)}
+.rl-b .why{color:var(--muted);font-size:.85rem;margin-top:.4rem}
+
+/* bad/good */
+.bg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:.7rem}
+.bx{border-radius:10px;padding:12px 14px;font-size:.88rem}
+.bad{background:#FBEBEB;border:1px solid #F3D0D3}
+.good{background:var(--green-tint);border:1px solid #C5E2D4}
+.bx .lb{font-size:.68rem;font-weight:800;display:block;margin-bottom:.3rem}
+.bad .lb{color:var(--red-deep)}.good .lb{color:var(--green)}
+.bx p{color:var(--ink)}
+
+/* word table */
+table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--line);
+border-radius:12px;overflow:hidden;font-size:.87rem}
+th{background:var(--ink);color:#fff;text-align:right;padding:11px 13px;font-weight:700;font-size:.79rem}
+td{padding:9px 13px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#FAF9F7}
+.x{color:var(--red);font-weight:900}
+.v{color:var(--green);font-weight:900}
+
+/* rhythm viz */
+.rhy{background:var(--white);border:1px solid var(--line);border-radius:13px;padding:20px;margin-bottom:12px}
+.rhy b{display:block;font-size:.98rem;margin-bottom:.6rem}
+.bars{display:flex;gap:4px;align-items:flex-end;height:56px;margin-bottom:.5rem}
+.bars i{flex:1;background:var(--red);border-radius:3px 3px 0 0;display:block}
+.bars.flat i{background:#B8B3A8}
+.rhy p{font-size:.86rem;color:var(--muted)}
+
+/* persona voice */
+.pv{background:var(--white);border:1px solid var(--line);border-radius:13px;padding:20px 22px;margin-bottom:12px}
+.pv-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:.6rem}
+.pv-h b{font-size:1.04rem}
+.tg{font-size:.68rem;font-weight:800;padding:.1rem .45rem;border-radius:5px;white-space:nowrap;display:inline-block}
+.t-r{background:var(--red-tint);color:var(--red-deep)}
+.t-b{background:var(--blue-tint);color:var(--blue)}
+.t-g{background:var(--green-tint);color:var(--green)}
+.t-y{background:#FFF3D6;color:#8A6A00}
+.pv-g{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.88rem}
+.pv-g div b{display:block;font-size:.76rem;color:var(--red);font-weight:800;margin-bottom:.15rem}
+
+/* checklist */
+.chk{background:var(--white);border:1px solid var(--line);border-radius:13px;margin-bottom:12px;overflow:hidden}
+.chk h3{padding:13px 20px;font-size:1rem;border-bottom:1px solid var(--line);background:#FAF9F7;margin:0}
+.chk .row{display:flex;gap:.6rem;padding:9px 20px;border-bottom:1px solid #F4F2EE;align-items:flex-start;font-size:.89rem}
+.chk .row:last-child{border:0}
+.box{width:14px;height:14px;border:2px solid var(--line);border-radius:4px;flex:none;margin-top:5px}
+.chk .row i{font-style:normal;color:var(--muted);font-size:.82rem;display:block}
+
+@media(max-width:820px){.bg,.pv-g{grid-template-columns:1fr}table{font-size:.79rem}}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <span class="badge">سند قفل‌شده · قانون دائمی</span>
+  <h1>سبک‌نامهٔ نگارش فارسی</h1>
+  <p>هر متنی که برای چتر قرمز نوشته می‌شود — سایت، پیج، پروپوزال، ایمیل — باید از این قوانین عبور کند. فرقی نمی‌کند نویسنده‌اش کیست: آدم، دستیار هوش مصنوعی، یا کپی‌رایتر بیرونی.</p>
+  <div class="meta">
+    <span>نسخه: <b>v1</b></span><span>تاریخ: <b>۲۳ تیر ۱۴۰۵</b></span>
+    <span>مبنا: <b>اگیلوی + هشدار StoryBrand دربارهٔ B2B ایران</b></span>
+  </div>
+</div></div>
+
+<div class="tabs"><div class="wrap">
+  <button class="tab on" data-p="a">۱· قوانین سخت</button>
+  <button class="tab" data-p="b">۲· امضای فارسی</button>
+  <button class="tab" data-p="c">۳· ریتم و ضرباهنگ</button>
+  <button class="tab" data-p="d">۴· واژه‌نامه</button>
+  <button class="tab" data-p="e">۵· زبان هر پرسونا</button>
+  <button class="tab" data-p="f">۶· قبل و بعد</button>
+  <button class="tab" data-p="g">۷· تست نهایی</button>
+</div></div>
+
+<!-- ============ 1 HARD RULES ============ -->
+<div class="pane on" id="a"><div class="wrap">
+  <div class="sh"><h2>دوازده قانون سخت</h2>
+    <p>این‌ها سلیقه نیستند. اگر متنی یکی از این‌ها را نقض کند، منتشر نمی‌شود — حتی اگر مفهومش درست باشد.</p></div>
+
+  <div class="note d"><b>اول از همه، یک صداقت:</b> ابزارهای تشخیص هوش مصنوعی غیرقابل‌اتکا هستند و بازی‌کردن با آن‌ها بازیِ بازنده است. ولی خبر خوب: چیزی که آن‌ها را رد می‌کند، دقیقاً همان چیزی است که خواننده را نگه می‌دارد — تنوع طول جمله، جزئیات مشخص، اصطلاح بومی و نامتقارن بودن. <b>پس هدف را می‌گذاریم روی نوشتنِ خوب؛ تیک انسانی، نتیجهٔ فرعی‌اش است.</b></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۱</span><b>خط تیرهٔ بلند (—) ممنوع</b></div>
+    <div class="rl-b">این علامت انگلیسی است و در فارسی طبیعی تقریباً دیده نمی‌شود. حضورش، امضای ترجمه است.
+      <div class="why">به‌جایش: نقطه، یا ویرگول، یا سمی‌کالن فارسی «؛» که خیلی فارسی‌تر است.</div>
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕ ترجمه‌ای</span><p>تبلیغات یا دارایی می‌سازد، یا هزینه است — تفاوت در انسجام است.</p></div>
+        <div class="bx good"><span class="lb">✓ فارسی</span><p>تبلیغات یا برایتان سرمایه می‌شود، یا دود می‌شود می‌رود هوا. فرقش یک چیز است: اینکه همه‌اش یک حرف بزند.</p></div>
+      </div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۲</span><b>«ما می‌دانیم که…» و خانواده‌اش ممنوع</b></div>
+    <div class="rl-b">ترجمهٔ مستقیم «We know that…». فارسی‌زبان این‌طور حرف نمی‌زند و این جمله بوی کتابِ بازاریابیِ ترجمه‌شده می‌دهد.
+      <div class="why">همچنین ممنوع: «این بدان معناست که»، «اجازه دهید»، «ما اینجاییم تا»، «نه تنها… بلکه»، «به شما کمک می‌کنیم تا».</div>
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕</span><p>ما می‌دانیم که بودجهٔ تبلیغات را با نگرانی خرج می‌کنید.</p></div>
+        <div class="bx good"><span class="lb">✓</span><p>خیلی‌ها قبل از شما پول داده‌اند و چیزی گیرشان نیامده.</p></div>
+      </div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۳</span><b>سه‌تاییِ متقارنِ همیشگی ممنوع</b></div>
+    <div class="rl-b">اگر هر بخش دقیقاً سه آیتم داشته باشد و هر آیتم دقیقاً هم‌وزن باشد، خواننده ناخودآگاه حس ماشین می‌گیرد. آدم‌ها نامنظم می‌نویسند.
+      <div class="why">قاعده: در هر صفحه، حداقل یک فهرست باید ۲ یا ۴ یا ۵ آیتمی باشد. و آیتم‌ها هم‌طول نباشند.</div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۴</span><b>هر بخش با یک قصارِ باهوش تمام نشود</b></div>
+    <div class="rl-b">عادت بدِ متن ماشینی: هر پاراگراف با یک جملهٔ قصار و متقارن بسته می‌شود. یکی دو تا در کل صفحه کافی است؛ بیشتر، خسته‌کننده و مصنوعی است.</div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۵</span><b>صفت بدون مدرک ممنوع</b></div>
+    <div class="rl-b">«بهترین»، «برترین»، «بی‌نظیر»، «منحصربه‌فرد»، «انقلابی»، «پیشرو». اگیلوی: مصرف‌کننده احمق نیست. در بازار بی‌اعتمادِ ایران، این کلمات دقیقاً برعکس عمل می‌کنند و گارد مخاطب را بالا می‌برند.
+      <div class="why">به‌جایش عدد و اسم بگذار: «۶ پروژه با ۴ شهرداری» به‌جای «سابقهٔ درخشان».</div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۶</span><b>«فول‌سرویس» و کلیشه‌های صنفی ممنوع</b></div>
+    <div class="rl-b">«راهکار جامع»، «تیم متخصص و مجرب»، «رضایت مشتری اولویت ماست»، «همراه شما»، «تجربه‌ای متفاوت»، «در دنیای امروز». این‌ها را هزار شرکت دیگر هم نوشته‌اند؛ یعنی هیچ نمی‌گویند.</div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۷</span><b>انتزاع ممنوع، تصویر واجب</b></div>
+    <div class="rl-b">به‌جای مفهوم، صحنه بساز. مغز، تصویر را نگه می‌دارد نه مفهوم را.
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕ انتزاعی</span><p>عدم نورپردازی مناسب، اثربخشی تابلو را در ساعات شب کاهش می‌دهد.</p></div>
+        <div class="bx good"><span class="lb">✓ تصویری</span><p>ساعت ۹ شب، خیابان شلوغ است و مغازهٔ شما تاریک.</p></div>
+      </div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۸</span><b>زنجیرهٔ اضافهٔ بلند ممنوع</b></div>
+    <div class="rl-b">بیش از سه اضافهٔ پشت‌سرهم، نثر را اداری و خفه می‌کند.
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕</span><p>بهبود کیفیت خدمات تبلیغاتی مشتریان سازمان‌های دولتی استان</p></div>
+        <div class="bx good"><span class="lb">✓</span><p>خدمات بهتر به سازمان‌های دولتی استان</p></div>
+      </div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۹</span><b>مجهولِ ترجمه‌ای ممنوع</b></div>
+    <div class="rl-b">«انجام می‌شود»، «صورت می‌گیرد»، «قرار داده می‌شود». فارسی زبانِ فعلِ فعال است. مجهول فقط وقتی مجاز است که فاعل واقعاً مهم نباشد.
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕</span><p>نصب سازه توسط تیم فنی انجام می‌پذیرد.</p></div>
+        <div class="bx good"><span class="lb">✓</span><p>تیم خودمان نصبش می‌کند.</p></div>
+      </div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۱۰</span><b>«شما»ی اضافه ممنوع</b></div>
+    <div class="rl-b">در فارسی، شناسهٔ فعل خودش مخاطب را می‌رساند. «شما» را فقط وقتی بیاور که تأکید لازم باشد.
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕</span><p>شما می‌توانید با ما تماس بگیرید تا شما را راهنمایی کنیم.</p></div>
+        <div class="bx good"><span class="lb">✓</span><p>یک زنگ بزنید، راهنمایی‌تان می‌کنیم.</p></div>
+      </div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۱۱</span><b>سادگی بله، ولی بدون خالی‌کردنِ جزئیات فنی</b></div>
+    <div class="rl-b">این قانون از هشدار خودِ کتابخانه می‌آید: در B2B ایران، اقتدار از <b>سابقه و جزئیات فنی دقیق</b> می‌آید، نه فقط از قصه. اگر همه‌چیز را احساسی و ساده کنیم، مهندس و مدیر فنی حس می‌کند سطحی‌ایم.
+      <div class="why"><b>فرمول درست:</b> زبانِ ساده + جزئیاتِ سخت. یعنی «دستگاه یووی داریم؛ یعنی تکستایل را خودمان چاپ می‌کنیم» — نه «تجهیزات مدرن» و نه «چاپ دیجیتال با تکنولوژی UV Curing».</div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۱۲</span><b>عدد گرد ممنوع، عدد واقعی واجب</b></div>
+    <div class="rl-b">«بیش از ۱۰۰ پروژه» بوی گزافه می‌دهد. «۶ پروژه با ۴ شهرداری» باور می‌شود، چون کسی برای دروغ‌گفتن، عدد کوچک نمی‌سازد.
+      <div class="why">اگر عدد واقعی را نمی‌دانی، عدد ننویس. جای خالی بگذار و از مالک بپرس.</div></div></div>
+</div></div>
+
+<!-- ============ 2 SIGNATURE ============ -->
+<div class="pane" id="b"><div class="wrap">
+  <div class="sh"><h2>امضای فارسی — چه چیزی متن را بومی می‌کند</h2>
+    <p>قوانین تب ۱ می‌گویند چه نکنیم. این‌ها می‌گویند چه بکنیم تا متن، بوی آدمِ ایرانی بدهد.</p></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۱</span><b>کنایه و اصطلاح بومی</b></div>
+    <div class="rl-b">مهم‌ترین امضا. هیچ ترجمه‌ای اصطلاح فارسی تولید نمی‌کند.
+      <div class="why"><b>بانک اصطلاح ما:</b> آب شدن (پول) · دود شدن و رفتن هوا · لنگ زدن (کار) · به دل نشستن · سنگ تمام گذاشتن · از این ستون به آن ستون · انگار نه انگار · آب از آب تکان نخورد · دستش به جایی بند نیست · توی صف ماندن · چقدر آب می‌خورد (هزینه) · جا خالی کردن · سرِ جایش · حرف حساب.</div>
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕</span><p>بودجهٔ تبلیغات بدون بازدهی مصرف می‌شود.</p></div>
+        <div class="bx good"><span class="lb">✓</span><p>پول تبلیغات بی‌سروصدا آب می‌شود.</p></div>
+      </div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۲</span><b>پرسش بلاغی</b></div>
+    <div class="rl-b">فارسی زبانِ پرسش است. یک پرسش خوب، خواننده را وارد متن می‌کند؛ کاری که هیچ جملهٔ خبری نمی‌کند.
+      <div class="why">مثال: «شهر پر از تبلیغ است. چند تا یادتان مانده؟» — ولی در هر صفحه دو تا بس است، وگرنه لوس می‌شود.</div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۳</span><b>ذرات گفتاری</b></div>
+    <div class="rl-b">«که»، «هم»، «دیگر»، «تازه»، «حالا»، «خب»، «اصلاً». این‌ها نثر را نفس‌دار می‌کنند. متن ماشینی تقریباً هیچ‌کدام را ندارد.
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕</span><p>تابلوی فرسوده درآمدی ندارد و به اعتبار مجموعه آسیب می‌زند.</p></div>
+        <div class="bx good"><span class="lb">✓</span><p>تابلوی فرسوده نه‌تنها پولی نمی‌دهد، تازه آبروی مجموعه را هم می‌برد.</p></div>
+      </div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۴</span><b>شروع با صحنه، نه با تز</b></div>
+    <div class="rl-b">داستان‌سرای ایرانی اول صحنه می‌سازد، بعد نتیجه می‌گیرد. متن ماشینی برعکس عمل می‌کند: اول ادعا، بعد توضیح.
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕ تز اول</span><p>عدم انسجام در تبلیغات، مانع برندسازی می‌شود.</p></div>
+        <div class="bx good"><span class="lb">✓ صحنه اول</span><p>لوگو دست یکی، سایت دست یکی، بنر دست یکی. آخرش می‌بینید سه تا برند دارید و هیچ‌کدام آن چیزی نیست که می‌خواستید.</p></div>
+      </div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۵</span><b>فروتنیِ ایرانی</b></div>
+    <div class="rl-b">در فرهنگ ما، کسی که کم می‌گوید بیشتر باور می‌شود. ادعای بزرگ، بدگمانی می‌آورد.
+      <div class="why">تکنیک: به‌جای «ما بهترینیم»، بگو «این کار را کرده‌ایم؛ خودتان بپرسید». به‌جای «تضمین می‌کنیم»، بگو «اگر کاری از دستمان برنیاید، همان را می‌گوییم».</div></div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۶</span><b>سمی‌کالن فارسی «؛»</b></div>
+    <div class="rl-b">علامتی که در فارسی زیاد استفاده می‌شود و در انگلیسی کم. حضورش، امضای نویسندهٔ فارسی است. جانشین طبیعی خط تیره.</div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۷</span><b>جزئیاتِ فقط-اهلِ‌فن</b></div>
+    <div class="rl-b">«دستگاه یووی»، «۱۸۰×۱۲۰»، «عرشهٔ پل اتوبان ذوب‌آهن»، «زرین‌شهر ۹۹ تا ۱۴۰۳». هیچ هوش مصنوعی‌ای این‌ها را از خودش نمی‌سازد و هیچ رقیبی هم نمی‌تواند کپی کند.
+      <div class="why">این تنها چیزی است که هم‌زمان: اقتدار می‌سازد، انسانی به نظر می‌رسد، و کپی‌ناپذیر است. <b>هرچه بیشتر، بهتر.</b></div></div></div>
+</div></div>
+
+<!-- ============ 3 RHYTHM ============ -->
+<div class="pane" id="c"><div class="wrap">
+  <div class="sh"><h2>ریتم و ضرباهنگ</h2>
+    <p>مهم‌ترین تفاوت متن آدم و ماشین، اینجاست. ماشین یکنواخت می‌نویسد؛ آدم بالا و پایین دارد.</p></div>
+
+  <div class="rhy">
+    <b>✕ ریتم ماشینی — همهٔ جمله‌ها هم‌اندازه</b>
+    <div class="bars flat"><i style="height:60%"></i><i style="height:62%"></i><i style="height:58%"></i><i style="height:64%"></i><i style="height:60%"></i><i style="height:61%"></i><i style="height:59%"></i><i style="height:63%"></i></div>
+    <p>هر جمله بین ۱۵ تا ۲۰ کلمه. خواننده بعد از سه پاراگراف خسته می‌شود و اسکرول می‌کند. ابزارهای تشخیص هم دقیقاً همین را می‌بینند.</p>
+  </div>
+
+  <div class="rhy">
+    <b>✓ ریتم انسانی — بالا و پایین</b>
+    <div class="bars"><i style="height:22%"></i><i style="height:88%"></i><i style="height:38%"></i><i style="height:15%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:28%"></i><i style="height:52%"></i></div>
+    <p>یک جملهٔ سه کلمه‌ای کنار یک جملهٔ بیست‌وپنج کلمه‌ای. جملهٔ کوتاه، ضربه می‌زند. جملهٔ بلند، توضیح می‌دهد. این تناوب، همان چیزی است که خواندن را لذت‌بخش می‌کند.</p>
+  </div>
+
+  <div class="sh"><h3>قواعد عملی ریتم</h3></div>
+  <table>
+    <tr><th>قاعده</th><th>توضیح</th></tr>
+    <tr><td>هر پاراگراف، حداقل یک جملهٔ زیر ۶ کلمه</td><td>«حق دارید.» · «همین.» · «و می‌مانیم.» — این‌ها نفسِ متن‌اند.</td></tr>
+    <tr><td>هیچ پاراگرافی بیش از ۴ جمله</td><td>روی موبایل، پاراگراف ۶ جمله‌ای یعنی دیوار. خواننده ردش می‌کند.</td></tr>
+    <tr><td>هر ۳ پاراگراف، یک تغییر ضرباهنگ</td><td>بعد از دو پاراگراف توضیحی، یک جملهٔ تک‌خطی بگذار.</td></tr>
+    <tr><td>فهرست‌ها هم‌طول نباشند</td><td>اگر هر سه آیتم دقیقاً یک خط باشند، مصنوعی است. یکی کوتاه، یکی دو خطی.</td></tr>
+    <tr><td>جملهٔ اول هر بخش، کوتاه</td><td>ورودی باید سبک باشد تا خواننده وارد شود.</td></tr>
+    <tr><td>در هر صفحه، یک بار قاعده را بشکن</td><td>یک پاراگراف تک‌جمله‌ای، یا یک جملهٔ عمداً بلند. نظمِ کامل، مشکوک است.</td></tr>
+  </table>
+
+  <div class="note g"><b>تمرین سنجش:</b> متن را بلند بخوان. اگر نفست جایی نگرفت یا صدایت یکنواخت ماند، ریتم خراب است. نثری که بلند خوانده نشود، در ذهن هم خوانده نمی‌شود.</div>
+</div></div>
+
+<!-- ============ 4 GLOSSARY ============ -->
+<div class="pane" id="d"><div class="wrap">
+  <div class="sh"><h2>واژه‌نامهٔ ممنوع و جایگزین</h2>
+    <p>ستون چپ را جست‌وجو کن و حذف کن. ستون راست جایگزین است.</p></div>
+
+  <table>
+    <tr><th>✕ ممنوع</th><th>✓ جایگزین</th><th>چرا</th></tr>
+    <tr><td class="x">— (خط تیرهٔ بلند)</td><td class="v">؛ یا . یا ،</td><td>علامت انگلیسی</td></tr>
+    <tr><td class="x">ما می‌دانیم که…</td><td class="v">حذفش کن، مستقیم برو سر اصل</td><td>ترجمهٔ We know that</td></tr>
+    <tr><td class="x">این بدان معناست که</td><td class="v">یعنی</td><td>ترجمهٔ This means that</td></tr>
+    <tr><td class="x">به شما کمک می‌کنیم تا…</td><td class="v">فعل مستقیم: «برایتان می‌سازیم»</td><td>ترجمهٔ We help you to</td></tr>
+    <tr><td class="x">نه تنها… بلکه…</td><td class="v">«نه‌تنها…، تازه…» یا دو جملهٔ جدا</td><td>Not only... but also</td></tr>
+    <tr><td class="x">اجازه دهید</td><td class="v">حذف</td><td>Let us</td></tr>
+    <tr><td class="x">ما اینجاییم تا</td><td class="v">حذف</td><td>We're here to</td></tr>
+    <tr><td class="x">در دنیای امروز</td><td class="v">حذف</td><td>کلیشهٔ بی‌معنی</td></tr>
+    <tr><td class="x">راهکار جامع</td><td class="v">بگو دقیقاً چه کاری</td><td>هیچ نمی‌گوید</td></tr>
+    <tr><td class="x">فول‌سرویس</td><td class="v">«هر حلقه‌ای که لازم است، خودمان داریم»</td><td>ادعای رایگانِ همه</td></tr>
+    <tr><td class="x">تیم متخصص و مجرب</td><td class="v">اسم و سابقهٔ واقعی</td><td>کلیشهٔ صنفی</td></tr>
+    <tr><td class="x">رضایت مشتری اولویت ماست</td><td class="v">یک مثال واقعی از رضایت</td><td>هرکسی می‌گوید</td></tr>
+    <tr><td class="x">بهترین / برترین / بی‌نظیر</td><td class="v">عدد و اسم</td><td>ادعای بی‌مدرک</td></tr>
+    <tr><td class="x">منحصربه‌فرد / انقلابی</td><td class="v">بگو دقیقاً چه چیزی متفاوت است</td><td>گارد مخاطب را بالا می‌برد</td></tr>
+    <tr><td class="x">تجربه‌ای متفاوت</td><td class="v">حذف</td><td>Different experience</td></tr>
+    <tr><td class="x">همراه شما</td><td class="v">حذف</td><td>کلیشه</td></tr>
+    <tr><td class="x">انجام می‌شود / صورت می‌گیرد</td><td class="v">فعل فعال: «انجام می‌دهیم»</td><td>مجهول ترجمه‌ای</td></tr>
+    <tr><td class="x">قرار داده می‌شود</td><td class="v">«می‌گذاریم» / «نصب می‌کنیم»</td><td>مجهول</td></tr>
+    <tr><td class="x">شما می‌توانید…</td><td class="v">فعل امری یا خبری مستقیم</td><td>You can</td></tr>
+    <tr><td class="x">جهت (به‌جای «برای»)</td><td class="v">برای</td><td>اداری و خشک</td></tr>
+    <tr><td class="x">می‌باشد</td><td class="v">است</td><td>غلط مشهور و اداری</td></tr>
+    <tr><td class="x">بیش از ۱۰۰ … (عدد گرد گزافه)</td><td class="v">عدد واقعی، هرچقدر کوچک</td><td>عدد کوچکِ دقیق، باورپذیرتر است</td></tr>
+    <tr><td class="x">با ما تماس بگیرید</td><td class="v">«یک زنگ بزنید» / «عکسش را بفرستید»</td><td>CTA بی‌جان و کلیشه</td></tr>
+    <tr><td class="x">خدمات ما شامل … می‌باشد</td><td class="v">مستقیم فهرست کن</td><td>مقدمهٔ بی‌فایده</td></tr>
+  </table>
+
+  <div class="note"><b>قاعدهٔ افزودن:</b> این جدول زنده است. هر بار که در متنی کلیشه‌ای دیدی، همین‌جا اضافه‌اش کن. یک سال دیگر، این جدول باارزش‌ترین دارایی محتوایی شما خواهد بود.</div>
+</div></div>
+
+<!-- ============ 5 PERSONA VOICE ============ -->
+<div class="pane" id="e"><div class="wrap">
+  <div class="sh"><h2>زبانِ هر پرسونا</h2>
+    <p>یک لحن برای همه، یعنی هیچ لحنی. با مغازه‌دار جور دیگری حرف می‌زنیم تا با شهردار.</p></div>
+
+  <div class="pv">
+    <div class="pv-h"><b>مغازه‌دار، سالن‌دار، کافه</b><span class="tg t-r">P7</span></div>
+    <div class="pv-g">
+      <div><b>لحن</b>خودمانیِ محترمانه. مثل کسی که کنارِ پیشخوانش ایستاده و دارد باهاش حرف می‌زند. جملهٔ کوتاه، بدون تشریفات.</div>
+      <div><b>واژگان</b>مغازه، ویترین، سردر، مشتری، رهگذر، شب، رقیبِ بغل‌دستی، خرج، صرف کردن.</div>
+      <div><b>بگو</b>«مشتری از جلوی در رد شد و ندیدت.» · «عکسش را بفرست، بگو چند.» · «آبروی مغازه.»</div>
+      <div><b>نگو</b>«بهینه‌سازی جذب مشتری» · «راهکار تبلیغاتی» · «افزایش نرخ تبدیل» · هر کلمهٔ انگلیسی.</div>
+    </div>
+  </div>
+
+  <div class="pv">
+    <div class="pv-h"><b>مالک پمپ‌بنزین، مجتمع، پارکینگ</b><span class="tg t-r">P4</span></div>
+    <div class="pv-g">
+      <div><b>لحن</b>مثل حرف‌زدن با یک آدمِ کاسب و باهوش. صریح، عددی، بدون قصهٔ اضافه. او دنبال منطق مالی است.</div>
+      <div><b>واژگان</b>دارایی، بازده، ملک، فضا، درآمد، شراکت، سهم، ریسک، بی‌دردسر.</div>
+      <div><b>بگو</b>«این فضا الان چیزی به شما نمی‌دهد.» · «تو یک ریال نمی‌دهی؛ ما می‌سازیم، ما می‌فروشیم.» · «ریسکش با ماست.»</div>
+      <div><b>نگو</b>احساساتِ زیادی · قصهٔ طولانی · «فرصت طلایی» · هر چیزی که بوی دلال بدهد.</div>
+    </div>
+  </div>
+
+  <div class="pv">
+    <div class="pv-h"><b>شهردار و مدیر نهاد</b><span class="tg t-y">P3</span></div>
+    <div class="pv-g">
+      <div><b>لحن</b>رسمیِ محترمانه ولی زنده. نه اداری و خشک، نه خودمانی. او دنبال اطمینان است، نه هیجان.</div>
+      <div><b>واژگان</b>مشارکت، سرمایه‌گذاری، فراخوان، مزایا، قرارداد، بهره‌برداری، درآمد پایدار، ظرفیت شهر، سابقه.</div>
+      <div><b>بگو</b>«شهرداری هیچ هزینه‌ای نمی‌پردازد.» · «شماره‌شان را می‌دهیم، بپرسید.» · نام و سالِ دقیق پروژه‌ها.</div>
+      <div><b>نگو</b>خودمانی‌گویی · «مجانی» (بگو «بدون هزینه») · وعدهٔ بی‌سند · هر چیزی که بوی فروشندگی بدهد.</div>
+    </div>
+  </div>
+
+  <div class="pv">
+    <div class="pv-h"><b>مدیر شرکت و کسب‌وکار در حال رشد</b><span class="tg t-b">P2</span></div>
+    <div class="pv-g">
+      <div><b>لحن</b>هم‌ترازِ حرفه‌ای. نه از بالا، نه از پایین. او باهوش است و بوی فروشندگی را از یک فرسخی می‌فهمد.</div>
+      <div><b>واژگان</b>برند، پیام، انسجام، بودجه، بازگشت، رشد، رقیب، جایگاه، ذهن مشتری.</div>
+      <div><b>بگو</b>«اگر کاری از دستمان برنیاید، همان را می‌گوییم.» · «پول تبلیغات کجا می‌رود.» · جزئیات فنی واقعی.</div>
+      <div><b>نگو</b>ساده‌سازی افراطی · قصهٔ احساسی بدون عدد · بازی با کلمات · «متحول کنید».</div>
+    </div>
+  </div>
+
+  <div class="pv">
+    <div class="pv-h"><b>غرفه‌دار و شرکت نمایشگاهی</b><span class="tg t-b">P6</span></div>
+    <div class="pv-g">
+      <div><b>لحن</b>فوری و عملی. او ددلاین دارد و وقت قصه ندارد.</div>
+      <div><b>واژگان</b>نمایشگاه، غرفه، ددلاین، تحویل، بازدیدکننده، توقف، آماده.</div>
+      <div><b>بگو</b>«چند روز تا نمایشگاه؟» · «تحویل به‌موقع، چون خودمان می‌سازیم.» · «الان زنگ بزنید، دیر می‌شود.»</div>
+      <div><b>نگو</b>حرفِ بلندمدت · برندسازیِ چندساله · هر چیزی که فوریت را کم کند.</div>
+    </div>
+  </div>
+
+  <div class="note d"><b>قاعدهٔ طلایی پرسونا:</b> قبل از نوشتن هر متن، یک جمله بنویس: «این را برای [کی] می‌نویسم و او الان [چه دردی] دارد.» اگر نتوانستی این جمله را بنویسی، هنوز آمادهٔ نوشتن نیستی.</div>
+</div></div>
+
+<!-- ============ 6 BEFORE/AFTER ============ -->
+<div class="pane" id="f"><div class="wrap">
+  <div class="sh"><h2>قبل و بعد — از متن‌های خودمان</h2>
+    <p>این‌ها نمونهٔ فرضی نیستند؛ متن‌های واقعیِ سایت خودمان‌اند که بازنویسی شدند. بهترین راه یادگیری قوانین، دیدن همین‌هاست.</p></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۱</span><b>تیتر اصلی صفحهٔ خانه</b></div>
+    <div class="rl-b">
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕ نسخهٔ ترجمه‌ای</span><p>برندتان را در شهر و در ذهن مشتری بنشانید.<br><br>بیشتر کسب‌وکارها پول تبلیغات می‌دهند ولی دیده نمی‌شوند. ما با بیش از یک دهه تجربه در تبلیغات محیطی و برندینگ اصفهان، کاری می‌کنیم که این اتفاق برای شما نیفتد.</p></div>
+        <div class="bx good"><span class="lb">✓ نسخهٔ فارسی</span><p>کاری کنیم اسم شما یادِ مشتری بماند.<br><br>شهر پر از تبلیغ است، ولی مشتری از هر صنف فقط دو سه اسم را به خاطر می‌سپارد. ده سال است در اصفهان تابلو می‌سازیم و برند می‌سازیم؛ کارمان این است که اسم شما جزو همان دو سه تا باشد.</p></div>
+      </div>
+      <div class="why"><b>چه شد:</b> «بنشانید» (کتابی) شد «یادِ مشتری بماند» (طبیعی). ادعای «بیش از یک دهه تجربه» شد صحنهٔ «شهر پر از تبلیغ است». «۱۰ سال» به‌جای «بیش از یک دهه». سمی‌کالن جای خط تیره. و مهم‌تر: جمله از تز شروع نمی‌شود، از واقعیتِ خیابان شروع می‌شود.</div>
+    </div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۲</span><b>بخش هزینهٔ پنهان</b></div>
+    <div class="rl-b">
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕</span><p>بودجهٔ تبلیغات شما کجا می‌رود؟<br><br>تبلیغات بد گران نیست — بی‌اثر است. و این سه اتفاق، همین حالا برای خیلی از کسب‌وکارها در حال رخ دادن است.</p></div>
+        <div class="bx good"><span class="lb">✓</span><p>پول تبلیغات چطور بی‌سروصدا آب می‌شود<br><br>مشکل معمولاً کم بودن بودجه نیست. سه تا اتفاق است که خیلی‌ها اصلاً حواسشان به آن نیست.</p></div>
+      </div>
+      <div class="why"><b>چه شد:</b> «آب می‌شود» = کنایهٔ بومی. خط تیره حذف شد. «اصلاً» = ذرهٔ گفتاری. جملهٔ قصارِ متقارن («گران نیست — بی‌اثر است») حذف شد چون بوی ترجمه می‌داد.</div>
+    </div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۳</span><b>بخش همدلی</b></div>
+    <div class="rl-b">
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕</span><p>می‌دانیم بودجهٔ تبلیغات را با نگرانی خرج می‌کنید.<br><br>چون بارها دیده‌ایم: کسب‌وکارهایی که پول داده‌اند و نتیجه‌ای ندیده‌اند، و بعد به تبلیغات بدبین شده‌اند. حق دارند.</p></div>
+        <div class="bx good"><span class="lb">✓</span><p>خیلی‌ها قبل از شما پول داده‌اند و چیزی گیرشان نیامده.<br><br>پس اگر محتاطید، حق دارید. ما هم این را زیاد دیده‌ایم: یکی یک بار تبلیغات کرده، نتیجه نگرفته، و از آن به بعد به همه‌چیز شک کرده.</p></div>
+      </div>
+      <div class="why"><b>چه شد:</b> «می‌دانیم…» (ترجمهٔ StoryBrand) حذف شد. «چیزی گیرشان نیامده» = فارسیِ کوچه. «یکی یک بار…» = صحنه به‌جای مفهوم. «پس اگر محتاطید، حق دارید» = جملهٔ کوتاه بعد از بلند.</div>
+    </div></div>
+
+  <div class="rl"><div class="rl-h"><span class="n">۴</span><b>فرایند</b></div>
+    <div class="rl-b">
+      <div class="bg">
+        <div class="bx bad"><span class="lb">✕</span><p>۱۵ دقیقه حرف بزنیم<br>رایگان و بدون تعهد. می‌فهمیم کسب‌وکارتان کجای مسیر است و واقعاً به چه چیزی نیاز دارد.</p></div>
+        <div class="bx good"><span class="lb">✓</span><p>یک ربع حرف بزنیم<br>مجانی و بدون هیچ قید و شرطی. می‌فهمیم کارتان چیست و کجا لنگ می‌زند.</p></div>
+      </div>
+      <div class="why"><b>چه شد:</b> «۱۵ دقیقه» شد «یک ربع» (فارسیِ گفتاری). «کجای مسیر است» (استعارهٔ ترجمه‌ای) شد «کجا لنگ می‌زند» (کنایهٔ فارسی). <b>نکته:</b> «مجانی» برای P7 و P2 خوب است؛ برای شهردار باید «بدون هزینه» بماند.</div>
+    </div></div>
+</div></div>
+
+<!-- ============ 7 TEST ============ -->
+<div class="pane" id="g"><div class="wrap">
+  <div class="sh"><h2>تست نهایی — قبل از انتشار</h2>
+    <p>هر متن، از هر نویسنده‌ای، باید هر سه مرحله را رد کند.</p></div>
+
+  <div class="chk">
+    <h3>مرحلهٔ ۱ · جست‌وجوی ماشین (۳۰ ثانیه)</h3>
+    <div class="row"><span class="box"></span><div><b>Ctrl+F کن: «—»</b><i>حتی یکی هم نباید باشد.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>Ctrl+F کن: «می‌دانیم»، «می‌باشد»، «جهت»، «شما می‌توانید»</b><i>هر کدام بود، حذف.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>Ctrl+F کن: «بهترین»، «جامع»، «متخصص و مجرب»، «فول‌سرویس»</b><i>هر کدام بود، جایگزین کن.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>هر فهرست را بشمار</b><i>اگر همه سه‌تایی‌اند، یکی را بشکن.</i></div></div>
+  </div>
+
+  <div class="chk">
+    <h3>مرحلهٔ ۲ · تست ریتم (۱ دقیقه)</h3>
+    <div class="row"><span class="box"></span><div><b>متن را بلند بخوان</b><i>اگر صدایت یکنواخت ماند یا نفست نگرفت، ریتم خراب است.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>کوتاه‌ترین جملهٔ متن چند کلمه است؟</b><i>اگر زیر ۶ نیست، یک جملهٔ کوتاه اضافه کن.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>بلندترین پاراگراف چند جمله است؟</b><i>بیش از ۴ یعنی دیوار. بشکنش.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>چند اصطلاح بومی دارد؟</b><i>حداقل یکی در هر بخش. صفر یعنی ترجمه.</i></div></div>
+  </div>
+
+  <div class="chk">
+    <h3>مرحلهٔ ۳ · تست معنا (۲ دقیقه)</h3>
+    <div class="row"><span class="box"></span><div><b>این متن را برای کدام پرسونا نوشته‌ام؟</b><i>اگر نمی‌توانی جواب بدهی، از اول بنویس.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>چند جزئیاتِ واقعی دارد؟</b><i>عدد، اسم، سال، ابعاد، اسم دستگاه. صفر یعنی متن توخالی است.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>اگر اسم «چتر قرمز» را برداریم، به هر شرکت دیگری می‌خورد؟</b><i>اگر بله، هنوز چیزی نگفته‌ای.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>تست اگیلوی: این متن می‌فروشد؟</b><i>اگر نه، هرچقدر هم زیبا باشد، خلاق نیست.</i></div></div>
+    <div class="row"><span class="box"></span><div><b>یک نفر بی‌اطلاع بخواند: در ۳ ثانیه فهمید برای کیست؟</b><i>آخرین دروازه.</i></div></div>
+  </div>
+
+  <div class="note g"><b>پرامپت آماده برای دستیار GPT:</b> «این متن را طبق سبک‌نامهٔ چتر قرمز بازنویسی کن: خط تیرهٔ بلند ممنوع؛ «ما می‌دانیم» و ساختار ترجمه‌ای ممنوع؛ صفت بدون مدرک ممنوع؛ ریتم را بشکن (کنار هر جملهٔ بلند، یک جملهٔ زیر شش کلمه)؛ حداقل یک کنایهٔ فارسی در هر بخش؛ به‌جای مفهوم، صحنه بساز؛ جزئیات واقعی (عدد، اسم، سال) نگه دار و از خودت عدد نساز. مخاطب: [پرسونا]. آخرش بگو کدام قانون را کجا اعمال کرده‌ای.»</div>
+
+  <div class="note d"><b>حرف آخر:</b> این قوانین برای این نیست که متن، تیکِ ابزار تشخیص بگیرد. برای این است که یک آدم، وسط کار روزانه‌اش، وقتی روی سایت شما می‌آید، <b>تا آخر بخواند</b>. تیکِ انسانی، خودش از راه می‌رسد.</div>
+</div></div>
+
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');document.getElementById(t.dataset.p).classList.add('on');
+  scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>

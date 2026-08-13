@@ -45,10 +45,25 @@ _TEXT_FIELD_BY_BLOCK = {
 
 _PERSIAN_LETTERS = re.compile(r"[؀-ۿ]")
 
+# The real, owner-supplied glossary — 05-rules/website/persian-writing-style-v1.html
+# §4 (tab ۴), a locked document, not a shortlist invented for this module.
+# It is explicitly a living list there; add new entries in that file first,
+# then mirror them here so the checker actually catches them.
 _BANNED_WORDS = (
-    "بهترین", "بی‌نظیر", "پیشرفته‌ترین", "تضمینی", "انقلابی",
-    "مادام‌العمر", "۱۰۰٪ تضمین‌شده",
+    "ما می‌دانیم که", "این بدان معناست که", "به شما کمک می‌کنیم تا",
+    "نه تنها", "اجازه دهید", "ما اینجاییم تا", "در دنیای امروز",
+    "راهکار جامع", "فول‌سرویس", "تیم متخصص و مجرب", "رضایت مشتری اولویت ماست",
+    "بهترین", "برترین", "بی‌نظیر", "منحصربه‌فرد", "انقلابی",
+    "تجربه‌ای متفاوت", "همراه شما", "انجام می‌شود", "صورت می‌گیرد",
+    "قرار داده می‌شود", "شما می‌توانید", "می‌باشد", "با ما تماس بگیرید",
 )
+# Two real glossary entries are deliberately NOT mirrored here as plain
+# substrings: "جهت" (banned only as the administrative "برای"/"regarding"
+# — but it is also the real spec label this engine already renders
+# honestly, e.g. hero stats' "جهت: افقی"; a substring match would flag
+# real content) and "بیش از ۱۰۰ ..." (the number varies; a real regex for
+# "بیش از \d+" would be needed, not a fixed phrase). Both need a smarter
+# check than substring matching if this list is ever extended to catch them.
 
 
 def lorem_ipsum_of_length(target_chars: int) -> str:
