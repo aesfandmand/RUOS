@@ -11,6 +11,12 @@ from __future__ import annotations
 import re
 
 # sha256 of every file that makes up the two locked components.
+#
+# bottom-nav/style.css was re-pinned on 2026-08-13 under the procedure in
+# navigation-lock.md, for the owner's explicitly approved change: the red
+# reference finish on the bar, the active bubble reduced to 20% protrusion,
+# and the ring between the icon and the bubble tightened by 30%. The other
+# five files are still on their original 2026-08-11 hashes.
 LOCKED_FILES: dict[str, str] = {
     "blocks/site-header/markup.html":
         "ceecf927b5f40a2ad42af45ad4396dcd1170cc47ff314c2b3a48f45d4031183e",
@@ -21,7 +27,7 @@ LOCKED_FILES: dict[str, str] = {
     "blocks/bottom-nav/markup.html":
         "9d244031a3cbc523149b029c0758dd00a79197f7b71342dfaab5dc0a2af7a397",
     "blocks/bottom-nav/style.css":
-        "cd1cf6f09b0de7da63b1b0d96a39db8c273fd342c7029ee1ab4499229f1e70b8",
+        "8dcc3a55446aec639cf5a3d5c6787744b52510b37d92afb15970ac45aa79994b",
     "blocks/bottom-nav/behavior.js":
         "2d173c83ab1d7cda1c1deeaef6d6cc6e75e9417e8191bafff21524bf77589ac6",
 }

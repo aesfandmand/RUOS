@@ -94,7 +94,52 @@ Keep this section accurate; it is the description of record.
 ### Mobile bottom nav
 
 Built to the owner's reference video frame by frame. Three mechanics, all
-required:
+required.
+
+> **Amended 2026-08-13 on the owner's explicit instruction** (the only
+> change to any locked file since 2026-08-11):
+>
+> - **Red, per the owner's colour reference.** Bar and bubble both take
+>   `--red-gloss` — glossy and textured, never flat or matte (design model
+>   §1). They share one token deliberately: the goo filter fuses them while
+>   travelling, and a white bubble sinking into a red bar blends to pink at
+>   the neck, which the palette forbids. Icons are white (`#fff` active,
+>   `#ffffff8f` idle).
+> - **The bubble sits down in the bar.** `--bn-out: .2` — only 20% of it
+>   rises above the bar's top edge; it was ~82%, which the owner judged too
+>   high.
+> - **The ring around the icon is 30% tighter.** `--bn-bubble: 46px`, down
+>   from 56px: the empty space between the 23px icon and the bubble's edge
+>   goes from 16.5px to 11.5px.
+>
+> The geometry lives in named custom properties on `.bottom-nav`
+> (`--bn-bubble`, `--bn-out`, `--bn-cy`, `--bn-rest`, `--bn-gap`) rather
+> than baked-in pixels, so these ratios stay legible and re-tunable.
+
+Two things had to move to keep the mechanics intact under that geometry, and
+both are load-bearing rather than cosmetic:
+
+- **The notch is now concentric with the bubble** (`--bn-gap: 11px` of
+  clearance all round). Offset centres were tried first: the crescent read
+  at ~11px on the sides but fell to 6.8px underneath, and the goo filter
+  filled that in — killing the hole on the very edge the reference shows it
+  on. Measured, a gap under ~9px gets bridged at `stdDeviation` 7.
+- **The goo layer runs 30px past the bottom of the viewport.** The filter
+  blurs-then-thresholds whatever silhouette it is given, so it rounds every
+  corner. On a white bar that was invisible; on a red one the rounded
+  *bottom* corners showed as two white notches in the screen corners.
+  Running the shape off-screen leaves only the top corners rounded.
+
+One pre-existing, site-wide bug was fixed **inside this component only**:
+the sprite's paths carry no `fill` attribute and no stylesheet sets `fill`,
+so every icon on the site paints SVG-default black and every `color:` meant
+to tint one is a no-op — the header's `--muted` nav icons, the `--red`
+icon-badges and the `--red` checklist ticks included. `.bn-ico svg` now sets
+`fill: currentColor` because this bar needs white icons on red. **The rest
+of the site is untouched**; fixing it globally repaints every page and is
+the owner's call, not a side effect of a nav change.
+
+The three mechanics:
 
 1. **The notch.** The bar is masked with a radial-gradient circle centred on
    the active item, cutting a real hole so the page shows through the

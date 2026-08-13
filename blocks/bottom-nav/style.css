@@ -8,16 +8,19 @@
 .bottom-nav{display:none}
 .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media (width<=980px){
-  /* Liquid bottom bar, built to the owner-supplied reference: a white bar
-     with a circular notch cut out of it at the active position — the page
-     shows through that gap — and a white bubble floating in the notch.
-     Travelling between items, the bubble dips down into the bar and the
-     goo filter fuses the two into one liquid shape, then it rises back out
-     at its destination. */
+  /* Liquid bottom bar, built to the owner's reference: a red-gloss bar with
+     a circular notch cut at the active position — the page shows through
+     that crescent — and a bubble seated in it. Travelling, the bubble dips
+     into the bar, the goo fuses them into one shape, then it surfaces. */
   .bottom-nav{
     position:fixed;z-index:150;inset:auto 0 0 0;height:74px;display:block;
     padding-bottom:env(safe-area-inset-bottom);
     --bn-x:0px;--bn-dip:0px;
+    /* Owner geometry 2026-08-13, rationale in navigation-lock.md: bubble
+       46px (icon ring 16.5->11.5px, -30%), out .2 (was .82), rest = idle
+       icon centre, gap = crescent (>9px or the goo bridges it). */
+    --bn-bubble:46px;--bn-out:.2;--bn-rest:35px;--bn-gap:11px;
+    --bn-cy:calc(var(--bn-bubble) * (.5 - var(--bn-out)));
     transition:--bn-x .55s cubic-bezier(.5,0,.2,1);
   }
   /* one animation on the bar drives the dip for the bubble and the icon
@@ -26,17 +29,25 @@
   @keyframes bn-dip{0%,100%{--bn-dip:0px}50%{--bn-dip:34px}}
 
   .bn-goo-defs{position:absolute;width:0;height:0}
-  .bn-goo{position:absolute;inset:0;overflow:visible;filter:url(#bn-goo);pointer-events:none}
+  /* runs past the viewport bottom so the goo only rounds the top corners */
+  .bn-goo{position:absolute;inset:0 0 -30px 0;overflow:visible;filter:url(#bn-goo);pointer-events:none}
+  /* Bar and bubble share --red-gloss deliberately: the goo fuses them while
+     travelling, and white-into-red would blend to pink at the neck. */
   .bn-bar{
-    position:absolute;inset:0;background:var(--white);
-    -webkit-mask-image:radial-gradient(circle 35px at var(--bn-x) -3px,#0000 98%,#000 100%);
-    mask-image:radial-gradient(circle 35px at var(--bn-x) -3px,#0000 98%,#000 100%);
+    position:absolute;inset:0;background:var(--red-gloss);
+    box-shadow:inset 0 1px 0 #ffffff5c;
+    /* concentric with the bubble, so the crescent is an even ring */
+    -webkit-mask-image:radial-gradient(circle calc(var(--bn-bubble) / 2 + var(--bn-gap)) at var(--bn-x) var(--bn-cy),#0000 98%,#000 100%);
+    mask-image:radial-gradient(circle calc(var(--bn-bubble) / 2 + var(--bn-gap)) at var(--bn-x) var(--bn-cy),#0000 98%,#000 100%);
     -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
   }
   .bn-bubble{
-    position:absolute;top:-46px;left:0;width:56px;height:56px;border-radius:50%;
-    background:var(--white);
-    transform:translate(calc(var(--bn-x) - 28px),var(--bn-dip));
+    position:absolute;left:0;border-radius:50%;
+    top:calc(var(--bn-bubble) * -1 * var(--bn-out));
+    width:var(--bn-bubble);height:var(--bn-bubble);
+    background:var(--red-gloss);
+    box-shadow:inset 0 1px 0 #ffffff6b;
+    transform:translate(calc(var(--bn-x) - var(--bn-bubble) / 2),var(--bn-dip));
   }
   .bn-items{
     position:relative;z-index:1;height:100%;display:flex;align-items:center;
@@ -47,12 +58,18 @@
     text-decoration:none;
   }
   .bn-ico{
-    position:relative;width:23px;height:23px;color:#cbc6be;transform:translateY(0);
+    position:relative;width:23px;height:23px;color:#ffffff8f;transform:translateY(0);
     transition:transform .55s cubic-bezier(.5,0,.2,1),color .3s;
   }
-  .bn-ico svg{width:100%;height:100%;display:block}
-  /* the active icon rides up into the bubble and shares its dip */
-  .bn-item.is-active .bn-ico{color:var(--ink);transform:translateY(calc(-53px + var(--bn-dip)))}
+  /* Sprite paths carry no fill attr, so without this they paint black and
+     every `color` here is a no-op. Site-wide bug; fixed in this block only
+     (see navigation-lock.md) because this bar needs white icons on red. */
+  .bn-ico svg{width:100%;height:100%;display:block;fill:currentColor}
+  /* the active icon rides from its rest position to the bubble's centre */
+  .bn-item.is-active .bn-ico{
+    color:#fff;
+    transform:translateY(calc(var(--bn-cy) - var(--bn-rest) + var(--bn-dip)));
+  }
   /* …and tumbles while it travels, rather than sliding across rigidly */
   .bottom-nav.is-moving .bn-item.is-active .bn-ico svg{animation:bn-tumble .55s cubic-bezier(.45,0,.25,1)}
   @keyframes bn-tumble{0%{transform:rotate(0) scale(1)}45%{transform:rotate(-16deg) scale(.78)}100%{transform:rotate(0) scale(1)}}
