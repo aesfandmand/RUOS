@@ -679,3 +679,61 @@ marked. Once a real API key is set, `content-brief` runs against real
 Iranian and international sources with no code change — the provider is
 already swappable; this session just can't prove that last mile without
 one.
+
+## 20. The always-complete draft, and the owner-approval gate
+
+Source: `structure_detail_spec.build_complete_draft_spec`,
+`tools/build_draft_preview.py`, `tests/test_structure_detail_spec.py`.
+Built 2026-08-13, per the owner's explicit instruction: **complete
+whatever the engine is still missing, so every page reaches full,
+SEO-shaped content — wherever real content doesn't exist yet, Lorem
+Ipsum. That's the whole rule.** This is §18/§19 taken one step further:
+§18's spine never omits a section for lack of registry data (it either
+has ≥3 real attributes or is honestly rejected), and §19's rich sections
+only appear when real research or an owner brief exists. This archetype
+removes that last conditionality — `numbered-features`, `parts-zigzag`,
+`checklist-section` and `compare-cards` are **always** present, real
+where data exists (registry facts, real siblings, real cited research),
+Lorem Ipsum and `"placeholder": true`-tagged everywhere it does not.
+
+```
+python3 tools/build_draft_preview.py STR-003
+```
+
+renders the draft, screenshots both mobile (390×844) and desktop
+(1440×900) — both required, per the owner's explicit instruction — and
+never writes to `pages/blocks/` or `dist/`. The block order
+(`hero → specs → numbered-features → parts-zigzag → compare-cards →
+[services] → checklist-section → [gallery] → faq → lead-form`) is
+load-bearing, not cosmetic: it is the only ordering that keeps every
+surface run at or under the composer's 2-in-a-row limit regardless of
+which optional blocks (gallery/services) a given structure's registry
+data can support — see the function's own comment for the real case
+(برایت‌بورد's family) that breaks a naively-ordered sequence.
+
+**The approval gate.** A structure's draft is generated and shown here —
+both breakpoints, per the owner's requirement — and stays a draft until
+the owner explicitly approves it in this environment. Only after that
+approval does the page's JSON get written to `pages/blocks/<slug>.json`
+(with the actual copy an approved page needs replacing the placeholders
+it can, per the owner's real content) and committed; committing removes
+it from `ruos next`/`ruos generate`'s build queue the same way every
+other authored page already does (`page_selector._already_generated`
+checks real output, and a hand-authored spec always wins over the
+auto-build per §18). There is no CLI "approve" command and there should
+never be one — an approval is a human decision made in conversation, not
+a flag a script could set for itself.
+
+Screenshot tooling note: `build_draft_preview.py`'s full-page capture
+(`captureBeyondViewport`) renders the whole document in one pass instead
+of actually scrolling a real viewport through it, which breaks two things
+that work correctly for a real visitor: `[data-reveal]` elements never
+enter a real viewport so the IntersectionObserver never fires (fixed by
+forcing every reveal's `is-in` class before capture), and the locked
+bottom-nav's `position: fixed` renders at the *original* viewport's
+offset instead of the true document bottom, landing stranded partway down
+the image (fixed by hiding it for the capture only — the nav itself is
+untouched and already reviewed/approved separately, see §5/navigation-lock.md).
+Neither is a real product bug; both are artifacts of this one capture
+method, documented so nobody "fixes" the real reveal/nav code chasing a
+screenshot-only symptom.

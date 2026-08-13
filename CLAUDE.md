@@ -70,7 +70,18 @@ real claim carries a citation. See design model §19 and
 placeholders with real copy happens before WordPress upload — not before
 `ruos generate` composes the page.
 
-## 5. Review every page with the critic before calling it done
+## 5. Every page is a draft until the owner approves it, both breakpoints
+
+`python3 tools/build_draft_preview.py <structure-id>` builds the
+always-complete page (§20 — real content where it exists, tagged Lorem
+Ipsum everywhere it doesn't, never an omitted section) and screenshots
+**both mobile and desktop**. Show both to the owner. A page's JSON only
+gets written to `pages/blocks/<slug>.json` and committed after the owner
+explicitly approves it here — that commit is also what removes it from
+the `ruos next`/`generate` build queue. There is no CLI "approve" command
+on purpose: approval is a conversation, never a script flag.
+
+## 6. Review every page with the critic before calling it done
 
 `python3 -m ruos.cli critique <slug> --spec-root pages/blocks` runs an
 automated art/creative-director pass — ten real, code-based checks against
@@ -81,29 +92,31 @@ model §17 for what each checks and why it is not the older
 locked-nav violation; anything else is a real, actionable finding, not
 noise — it does not grade a page down for no reason, so trust what it says.
 
-## 6. Layout comes from the owner's references
+## 7. Layout comes from the owner's references
 
 Mobile and desktop composition follow the reference images and videos the
 owner supplied, not the assistant's taste. When a reference exists, match it
 — go and look at the frames rather than approximating from memory. Ask for
 the reference if you cannot find it.
 
-## 7. Verify in a real browser
+## 8. Verify in a real browser
 
 Every visual or motion change is checked with Playwright before it is
 reported as done — both breakpoints, console errors captured, and the actual
 computed values measured rather than eyeballed from a screenshot. Chromium
-is preinstalled; do not run `playwright install`.
+is preinstalled; do not run `playwright install`. Full-page screenshots have
+their own artifacts (see design model §20) — don't chase them as if they
+were real rendering bugs without checking first.
 
 "It should work" is not a result. Neither is a screenshot that you did not
 read.
 
-## 8. Commit as you go
+## 9. Commit as you go
 
 The owner's standing instruction: commit and push each decision as it lands,
 so a lost container never costs the work twice. Branch: `claude/block-library`.
 
-## 9. Scope
+## 10. Scope
 
 Do what was asked. Do not rebuild or regenerate pages while working on a
 component, and do not widen the task because something nearby looks

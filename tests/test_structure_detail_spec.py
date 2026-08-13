@@ -8,6 +8,7 @@ from ruos.block_page import load_page_spec, render_page
 from ruos.block_registry import load_library
 from ruos.structure_detail_spec import (
     StructureDetailSpecError,
+    build_complete_draft_spec,
     build_product_page_spec,
     build_structure_detail_spec,
 )
@@ -309,5 +310,84 @@ def test_all_fourteen_composable_real_structures_actually_compose_the_product_pa
             continue
         page = render_page(spec, load_library())
         assert page.composed.blocks
+        composed_count += 1
+    assert composed_count == 14
+
+
+# ── build_complete_draft_spec — the always-complete, owner-review-only draft ──
+# Per the owner's 2026-08-13 instruction: never omit a rich section for lack
+# of real content — fill it with Lorem Ipsum, tag it a placeholder, and let
+# the page ship complete. This wraps build_product_page_spec (unchanged,
+# still the honest/tested spine) and never gets committed to
+# pages/blocks/*.json on its own; see the CLI review workflow.
+
+
+def test_the_draft_always_includes_every_rich_section() -> None:
+    spec = build_complete_draft_spec(_structure())
+    block_ids = [entry["block"] for entry in spec["blocks"]]
+    assert block_ids[0] == "product-hero"
+    assert block_ids[-1] == "lead-form"
+    for required in ("numbered-features", "parts-zigzag", "checklist-section", "compare-cards"):
+        assert required in block_ids
+
+
+def test_a_structure_too_thin_for_a_spec_sheet_is_still_rejected_not_padded() -> None:
+    sparse = _structure(context=None, orientation=None, dimensions=None)
+    with pytest.raises(StructureDetailSpecError, match="not enough"):
+        build_complete_draft_spec(sparse)
+
+
+def test_every_lorem_ipsum_item_is_tagged_a_placeholder() -> None:
+    spec = build_complete_draft_spec(_structure())
+    for entry in spec["blocks"]:
+        if entry["block"] not in ("numbered-features", "parts-zigzag", "checklist-section"):
+            continue
+        for item in entry["data"]["items"]:
+            assert item.get("placeholder") is True
+            text = item.get("body") or item.get("value")
+            assert "lorem ipsum" in text.lower()
+
+
+def test_compare_cards_uses_real_siblings_when_at_least_two_exist() -> None:
+    from ruos.architecture_registry import load_structures
+
+    brightboard = next(s for s in load_structures() if s.id == "STR-008")  # family of 3
+    spec = build_complete_draft_spec(brightboard)
+    compare = next(entry for entry in spec["blocks"] if entry["block"] == "compare-cards")
+    real_items = [item for item in compare["data"]["items"] if not item.get("placeholder")]
+    assert len(real_items) >= 2
+    for item in real_items:
+        assert item["cta"]["href"].startswith("/")
+
+
+def test_compare_cards_pads_with_placeholders_when_fewer_than_two_siblings() -> None:
+    # A family with no other real registry structures at all, so
+    # _related_structures returns nothing to draw real siblings from.
+    spec = build_complete_draft_spec(_structure(family="خانواده آزمایشی بدون همتا"))
+    compare = next(entry for entry in spec["blocks"] if entry["block"] == "compare-cards")
+    assert len(compare["data"]["items"]) >= 2
+    assert all(item.get("placeholder") for item in compare["data"]["items"])
+
+
+def test_all_fourteen_composable_real_structures_produce_a_clean_complete_draft() -> None:
+    """The real proof: every composable structure's draft actually composes
+    (the block order is the only one that survives the composer's surface/
+    layout/family rules for every real combination of optional blocks —
+    see build_complete_draft_spec's own comment) and critiques clean."""
+    from ruos.architecture_registry import load_structures
+    from ruos.page_critic import critique_page
+
+    library = load_library()
+    composed_count = 0
+    for structure in load_structures():
+        try:
+            spec = build_complete_draft_spec(structure)
+        except StructureDetailSpecError:
+            continue
+        page = render_page(spec, library)
+        critique = critique_page(page, spec, library)
+        assert critique.release_recommendation == "publish"
+        assert critique.quality_score == 100
+        assert critique.placeholder_count > 0  # this is a draft, not a finished page
         composed_count += 1
     assert composed_count == 14

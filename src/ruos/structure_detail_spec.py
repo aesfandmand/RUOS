@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .architecture_registry import ServiceRecord, StructureRecord, load_services, load_structures
+from .content_draft import lorem_ipsum_of_length
 from .persona_registry import journey_rows_for_entry_page, load_personas
 
 # Real, non-AI installation photography, organized by structure ID — see
@@ -664,3 +665,172 @@ def build_structure_detail_spec(
         "shell": dict(shell) if shell else _real_shell(registry_root),
         "blocks": blocks,
     }
+
+
+# ── the always-complete draft archetype ─────────────────────────────────
+# Per the owner's explicit instruction (2026-08-13): the engine should make
+# every effort to source real content, and where none exists, fill the slot
+# with real Lorem Ipsum and tag it a placeholder rather than omit the
+# section. This is §18's honest, registry-only spine (build_product_page_spec,
+# untouched, still the pure/tested/documented function) PLUS the rich
+# sections (numbered-features, parts-zigzag, checklist-section, compare-cards)
+# that §18 deliberately left out for lack of an owner brief. See design
+# model §19/§20 and content-voice-v1.md for why a Lorem Ipsum paragraph is
+# the no-fabrication rule applied to prose, not a relaxation of it.
+#
+# Block order below is load-bearing, not cosmetic: it is the only ordering
+# of (2 guaranteed process-family blocks + compare-cards + services? +
+# checklist + gallery? + faq) that keeps every surface run at or under
+# block_composer.MAX_CONSECUTIVE_SURFACE (2) regardless of which optional
+# blocks (gallery/services) the registry can support — verified against
+# every real composable structure, including the برایت‌بورد family whose
+# real siblings (compare-cards) but no real photos (no gallery) is exactly
+# the combination that breaks a naively-ordered sequence.
+_DRAFT_ITEMS_PER_FEATURE_LIST = 4
+_DRAFT_ITEMS_PER_CHECKLIST = 5
+_DRAFT_TITLE_CHARS = 26
+_DRAFT_BODY_CHARS = 220
+_DRAFT_CHECKLIST_ITEM_CHARS = 90
+
+
+def _draft_numbered_features(structure: StructureRecord) -> dict[str, Any]:
+    items = [
+        {
+            "index": _persian_digits(i),
+            "title": lorem_ipsum_of_length(_DRAFT_TITLE_CHARS),
+            "body": lorem_ipsum_of_length(_DRAFT_BODY_CHARS),
+            "icon": "icon-check",
+            "placeholder": True,
+        }
+        for i in range(1, _DRAFT_ITEMS_PER_FEATURE_LIST + 1)
+    ]
+    return {
+        "block": "numbered-features",
+        "id": "why",
+        "data": {
+            "eyebrow": "چرا این سازه؟",
+            "title": f"چرا {structure.name_fa}؟",
+            "items": items,
+        },
+    }
+
+
+def _draft_parts_zigzag(structure: StructureRecord) -> dict[str, Any]:
+    sides = ("start", "end")
+    items = [
+        {
+            "label": "تصویر نمونه",
+            "alt": f"{structure.name_fa} — جزء سازه",
+            "title": lorem_ipsum_of_length(_DRAFT_TITLE_CHARS),
+            "body": lorem_ipsum_of_length(_DRAFT_BODY_CHARS),
+            "side": sides[i % 2],
+            "icon": "icon-structures",
+            "placeholder": True,
+        }
+        for i in range(_DRAFT_ITEMS_PER_FEATURE_LIST)
+    ]
+    return {
+        "block": "parts-zigzag",
+        "id": "parts",
+        "data": {
+            "eyebrow": "اجزای سازه",
+            "title": f"{structure.name_fa} از چه بخش‌هایی ساخته می‌شود؟",
+            "items": items,
+        },
+    }
+
+
+def _draft_checklist_section(structure: StructureRecord) -> dict[str, Any]:
+    items = [
+        {"value": lorem_ipsum_of_length(_DRAFT_CHECKLIST_ITEM_CHARS), "placeholder": True}
+        for _ in range(_DRAFT_ITEMS_PER_CHECKLIST)
+    ]
+    return {
+        "block": "checklist-section",
+        "id": "fit",
+        "data": {
+            "eyebrow": "راهنمای انتخاب",
+            "title": f"چه زمانی {structure.name_fa} انتخاب مناسبی است؟",
+            "items": items,
+        },
+    }
+
+
+def _draft_compare_cards(structure: StructureRecord, related: list[dict[str, str]]) -> dict[str, Any]:
+    """Real sibling structures become real comparison cards (title/meta are
+    already-verified registry facts, so they are not placeholder-tagged);
+    padded with Lorem Ipsum cards only if fewer than 2 real siblings exist,
+    so the block's own real-data path (§18) is reused rather than
+    duplicated."""
+    items = []
+    for index, sibling in enumerate(related[:4], start=1):
+        items.append({
+            "title": sibling["title"],
+            "body": sibling["meta"] or "مدل جایگزین همین خانواده سازه.",
+            "index": _persian_digits(index),
+            "icon": "icon-compare",
+            "cta": {"label": "مشاهده سازه", "href": sibling["href"]},
+        })
+    while len(items) < 2:
+        items.append({
+            "title": lorem_ipsum_of_length(_DRAFT_TITLE_CHARS),
+            "body": lorem_ipsum_of_length(_DRAFT_BODY_CHARS),
+            "index": _persian_digits(len(items) + 1),
+            "icon": "icon-compare",
+            "placeholder": True,
+        })
+    return {
+        "block": "compare-cards",
+        "id": "compare",
+        "data": {
+            "eyebrow": "مقایسه و مدل‌های مرتبط",
+            "title": f"{structure.name_fa} را با گزینه‌های دیگر مقایسه کنید",
+            "items": items,
+        },
+    }
+
+
+def build_complete_draft_spec(
+    structure: StructureRecord,
+    shell: Mapping[str, Any] | None = None,
+    registry_root=None,
+    media_root: Path | None = None,
+) -> dict[str, Any]:
+    """The always-complete draft: §18's honest spine plus every rich
+    section, real where the registry/content pipeline has real data,
+    Lorem-Ipsum-and-tagged everywhere it does not. Never committed to
+    ``pages/blocks/`` without the owner's explicit approval — see design
+    model §20."""
+    base = build_product_page_spec(structure, shell, registry_root, media_root)
+
+    by_block_id: dict[str, list[dict[str, Any]]] = {}
+    for entry in base["blocks"]:
+        by_block_id.setdefault(entry["block"], []).append(entry)
+
+    hero = by_block_id["product-hero"][0]
+    specs = by_block_id["structure-specs"][0]
+    gallery = by_block_id.get("structure-gallery", [None])[0]
+    services = by_block_id.get("structure-services", [None])[0]
+    faq = by_block_id["faq-section-final"][0]
+    lead_form = by_block_id["lead-form"][0]
+
+    all_structures = load_structures(registry_root)
+    buildable_ids = {other.id for other in all_structures if len(_specs(other)) >= 3}
+    related = _related_structures(structure, all_structures, buildable_ids)
+
+    blocks = [
+        hero,
+        specs,
+        _draft_numbered_features(structure),
+        _draft_parts_zigzag(structure),
+        _draft_compare_cards(structure, related),
+    ]
+    if services:
+        blocks.append(services)
+    blocks.append(_draft_checklist_section(structure))
+    if gallery:
+        blocks.append(gallery)
+    blocks.append(faq)
+    blocks.append(lead_form)
+
+    return {**base, "blocks": blocks}
