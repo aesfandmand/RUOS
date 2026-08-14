@@ -86,6 +86,22 @@ def build_standalone_html(structure_id: str, out_path: Path) -> Path:
     logo_uri = "data:image/png;base64," + base64.b64encode(logo_path.read_bytes()).decode("ascii")
     html = html.replace('src="assets/logo.png"', f'src="{logo_uri}"')
 
+    # The structure's own real photos (hero slides + gallery) are not block
+    # assets -- they live in media/structures/<id>/ and are referenced as
+    # assets/<filename> by _gallery_items(). Without this, every real photo
+    # is a broken image link in the standalone file (no assets/ folder
+    # exists next to it), which went unnoticed until it was checked in a
+    # real browser instead of just grepped for markup.
+    media_dir = ROOT / "media" / "structures" / structure.id
+    if media_dir.is_dir():
+        mime_by_suffix = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}
+        for photo_path in media_dir.iterdir():
+            mime = mime_by_suffix.get(photo_path.suffix.lower())
+            if mime is None:
+                continue
+            photo_uri = f"data:{mime};base64," + base64.b64encode(photo_path.read_bytes()).decode("ascii")
+            html = html.replace(f'src="assets/{photo_path.name}"', f'src="{photo_uri}"')
+
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(html, encoding="utf-8")
     return out_path

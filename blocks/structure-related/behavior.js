@@ -1,8 +1,13 @@
-import { Swiper } from "./swiper.min.mjs";
+// Named import, not "Swiper": structure-gallery also imports a top-level
+// "Swiper" binding (from its own coverflow bundle), and block_composer
+// concatenates every block's behavior.js into one shared module scope --
+// two same-named top-level imports there is a SyntaxError that silently
+// kills ALL page JS, on any page composing both blocks together.
+import { Swiper as SwiperRelated } from "./swiper.min.mjs";
 
 document.querySelectorAll(".structure-related-swiper").forEach((el) => {
   const root = el.closest(".structure-related");
-  new Swiper(el, {
+  new SwiperRelated(el, {
     slidesPerView: 1.15,
     spaceBetween: 16,
     dir: "rtl",
