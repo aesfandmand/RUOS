@@ -167,17 +167,20 @@
           {
             "label": "اسلاید ۱",
             "alt": "نمای کامل استرابورد نصب‌شده در فضای شهری",
-            "caption": "فضای شهری"
+            "caption": "فضای شهری",
+            "src": "assets/installation-01.jpg"
           },
           {
             "label": "اسلاید ۲",
             "alt": "استرابورد ۳×۵ افقی در پروژه واقعی",
-            "caption": "پروژه واقعی"
+            "caption": "پروژه واقعی",
+            "src": "assets/installation-02.jpg"
           },
           {
             "label": "اسلاید ۳",
             "alt": "استرابورد دوطرفه نصب‌شده در رفیوژ شهری",
-            "caption": "رفیوژ بلوار"
+            "caption": "رفیوژ بلوار",
+            "src": "assets/installation-03.jpg"
           }
         ],
         "primary": {
@@ -318,6 +321,29 @@
           {
             "title": "یک‌طرفه یا دوطرفه؟",
             "body": "اگر سازه فقط از یک جهت دیده می‌شود، مدل یک‌طرفه منطقی‌تر است. در رفیوژ بلوار یا محلی که از مسیر رفت و برگشت دید دارد، مدل دوطرفه می‌تواند با یک پایه و افزایش محدود هزینه، دو سطح اکران در اختیار شما قرار دهد و استفاده بهتری از فضا و سرمایه ایجاد کند."
+          }
+        ]
+      }
+    },
+    {
+      "block": "structure-gallery",
+      "id": "gallery",
+      "data": {
+        "eyebrow": "نمونهٔ نصب واقعی",
+        "title": "استرابورد در محیط واقعی",
+        "lead": "چند نمونه از نصب واقعی این خانواده سازه در فضای شهری — آرشیو دیده‌شو.",
+        "items": [
+          {
+            "src": "assets/installation-04.jpg",
+            "alt": "استرابورد عمودی ۴×۳",
+            "title": "استرابورد عمودی ۴×۳",
+            "caption": "4×3 متر"
+          },
+          {
+            "src": "assets/installation-05.jpg",
+            "alt": "استرابورد عمودی ۴×۳",
+            "title": "استرابورد عمودی ۴×۳",
+            "caption": "4×3 متر"
           }
         ]
       }
@@ -795,6 +821,83 @@
             },
             "index": "۰۲",
             "icon": "icon-investment"
+          }
+        ]
+      }
+    },
+    {
+      "block": "structure-services",
+      "id": "services",
+      "data": {
+        "eyebrow": "خدمات مرتبط",
+        "title": "کنار این سازه چه خدماتی لازم دارید؟",
+        "lead": "طراحی، چاپ و برنامه‌ریزی رسانه — هرکدام لازم بود، جدا سفارش بدهید.",
+        "services": [
+          {
+            "title": "طراحی بنر",
+            "note": "تبلیغاتی",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+            "placeholder": true,
+            "label": "تصویر نمونه",
+            "alt": "طراحی بنر — خدمت مرتبط با استرابورد عمودی ۴×۳"
+          },
+          {
+            "title": "چاپ بنر",
+            "note": "لارج‌فرمت",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+            "placeholder": true,
+            "label": "تصویر نمونه",
+            "alt": "چاپ بنر — خدمت مرتبط با استرابورد عمودی ۴×۳"
+          }
+        ]
+      }
+    },
+    {
+      "block": "structure-related",
+      "id": "others",
+      "data": {
+        "eyebrow": "سایر تابلوها",
+        "title": "خانواده‌های دیگر سازه را ببینید",
+        "lead": "اگر این سازه دقیقاً چیزی نیست که پروژه لازم دارد، از اینجا سراغ بقیه بروید.",
+        "all_link": {
+          "label": "دیدن همهٔ سازه‌ها",
+          "href": "/structures/"
+        },
+        "items": [
+          {
+            "title": "بیلبورد",
+            "meta": "5×10 متر · محیط شهری (بیرون)",
+            "href": "/structures/billboard-vertical-5x10/"
+          },
+          {
+            "title": "لایت‌باکس",
+            "meta": "3×2 متر · محیط شهری (بیرون)",
+            "href": "/structures/lightbox-horizontal-3x2/"
+          },
+          {
+            "title": "لایت‌برد",
+            "meta": "محیط شهری (بیرون)",
+            "href": "/structures/lightboard/"
+          },
+          {
+            "title": "برایت‌بورد",
+            "meta": "3×2 متر · محیط شهری (بیرون)",
+            "href": "/structures/brightboard-vertical-3x2/"
+          },
+          {
+            "title": "سازه سازمانی",
+            "meta": "4×3 متر · محیط سازمانی (بیرون)",
+            "href": "/structures/banner-stand-portable-4x3/"
+          },
+          {
+            "title": "لایت‌باکس ایندور",
+            "meta": "داخل ساختمان",
+            "href": "/structures/indoor-wall-lightbox/"
+          },
+          {
+            "title": "عرشه پل",
+            "meta": "محیط شهری (بیرون)",
+            "href": "/structures/pedestrian-bridge-deck/"
           }
         ]
       }

@@ -39,7 +39,7 @@ def test_the_real_straboard_page_earns_a_clean_critique(straboard, library) -> N
     assert not critique.improvement_backlog
     assert critique.placeholder_count > 0  # the datasheet and price notes are real placeholders
     assert {f.discipline for f in critique.findings} == {
-        "colour", "navigation", "motion", "icons", "content-honesty",
+        "colour", "navigation", "structure-archetype", "motion", "icons", "content-honesty",
         "images", "rhythm", "accessibility", "seo-schema", "performance",
     }
 

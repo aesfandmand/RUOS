@@ -28,6 +28,21 @@ blocks/bottom-nav/{markup.html,style.css,behavior.js}
 To review the nav (or show it to the owner):
 `python3 tools/build_nav_preview.py out.html`
 
+## 1a. The Structure Detail page archetype is LOCKED
+
+`pages/blocks/straboard.json` — the full 19-block page, approved on
+2026-08-14 across mobile and desktop — is the **mandatory template for
+every other structure's page**: same blocks, same order, same
+markup/CSS/behaviour. Only the data changes per structure.
+
+Enforced by `tests/test_structure_page_lock.py` and, on every critique run,
+`page_critic.py`'s `"structure-archetype"` discipline (a hash mismatch is a
+blocker). **If it fails, you edited a locked file — revert, do not update
+the test.** The procedure to change it — same shape as the nav lock — is in
+`05-rules/website/structure-page-lock.md`, which also has the exact steps
+for building the *next* structure's page (copy `straboard.json`, replace
+data, never touch a locked block file).
+
 ## 2. Design rules
 
 `05-rules/website/red-umbrella-design-model-v1.md` is the owner-approved

@@ -38,6 +38,8 @@ from .block_composer import ComposedPage
 from .block_page import RenderedPage
 from .block_registry import BlockLibrary
 from .navigation_lock import LOCKED_FILES, UNLOCK_NOTICE
+from .structure_page_lock import LOCKED_FILES as STRUCTURE_LOCKED_FILES
+from .structure_page_lock import UNLOCK_NOTICE as STRUCTURE_UNLOCK_NOTICE
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
@@ -125,6 +127,7 @@ def _score(base: int, failures: list[str], penalty: int = 16) -> int:
 _DISCIPLINE_ACTIONS = {
     "colour": "Bring the surface back to the palette: white-dominant, cream for contrast, red only as accent, CTA or the glossy/textured finish — never flat, never pink.",
     "navigation": "Restore the locked header and bottom nav unmodified; the navigation does not vary by page.",
+    "structure-archetype": "Restore the locked Structure Detail blocks unmodified; the archetype does not vary by structure.",
     "motion": "Give every entering section a data-reveal (or a masked/zigzag variant) and confirm the reveal driver ships in the runtime.",
     "icons": "Use a real Phosphor icon from the sprite for every content affordance; fix or remove any dangling #icon-* reference.",
     "content-honesty": "Replace invented-looking values with a tagged placeholder, or bring in the real registry data.",
@@ -225,6 +228,23 @@ def critique_page(
     record("navigation", _score(100, nav_failures), (
         "; ".join(nav_failures) if nav_failures else "site-header and bottom-nav present, and match the locked hashes"
     ), [f"used_blocks={','.join(composed.used_blocks)}"], nav_failures, critical=True)
+
+    # ── structure-page archetype (reuses the same lock the tests enforce) ──
+    archetype_failures: list[str] = []
+    structure_mismatched = []
+    for relative_path, expected_hash in STRUCTURE_LOCKED_FILES.items():
+        actual_hash = hashlib.sha256(_read_locked(relative_path).encode("utf-8")).hexdigest()
+        if actual_hash != expected_hash:
+            structure_mismatched.append(relative_path)
+    if structure_mismatched:
+        archetype_failures.append(
+            "locked structure-page files changed on disk: " + ", ".join(structure_mismatched)
+            + " — " + STRUCTURE_UNLOCK_NOTICE
+        )
+    record("structure-archetype", _score(100, archetype_failures), (
+        "; ".join(archetype_failures) if archetype_failures
+        else "every locked Structure Detail block matches its approved hash"
+    ), [f"locked_files_checked={len(STRUCTURE_LOCKED_FILES)}"], archetype_failures, critical=True)
 
     # ── motion ───────────────────────────────────────────────────────────
     motion_failures: list[str] = []
