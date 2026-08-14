@@ -25,10 +25,23 @@
 .var-guides article:nth-child(2n){background:var(--paper-2);border-color:transparent}
 .var-guides h3{margin:0 0 8px;color:var(--ink);font-size:1.05rem;font-weight:800;line-height:1.5}
 .var-guides p{margin:0;color:var(--muted);font-size:.95rem;line-height:1.95}
+/* Controls: hidden by default (mobile keeps the plain swipe gesture, which
+   already works there and needs no extra chrome), shown from 980px where
+   there is no touch affordance to rely on. */
+.var-controls{display:none}
 @media (width>=760px){
   .var-rail{padding:88px 0}
   .var-card{flex-basis:34%}
   .var-guides{flex-direction:row}
   .var-guides article{flex:1}
+}
+@media (width>=980px){
+  .var-controls{align-items:center;gap:14px;margin-top:22px;display:flex}
+  .var-dots{align-items:center;gap:7px;display:flex}
+  .var-dots button{width:7px;height:7px;padding:0;border:0;border-radius:999px;background:var(--line);cursor:pointer;transition:width .3s cubic-bezier(.16,1,.3,1),background .3s}
+  .var-dots button.is-active{width:22px;background:var(--red-gloss)}
+  .var-prev,.var-next{color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:50%;width:42px;height:42px;align-items:center;justify-content:center;display:flex;flex:none;transition:background .22s,color .22s,border-color .22s}
+  .var-prev svg,.var-next svg{width:15px;height:15px}
+  .var-prev:hover,.var-next:hover{background:var(--red-gloss);box-shadow:var(--red-gloss-shadow);border-color:#0000;color:#fff}
 }
 @media (prefers-reduced-motion:reduce){.var-card{transform:none;opacity:1;transition:none}}

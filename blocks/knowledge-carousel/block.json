@@ -12,7 +12,7 @@
     "deepen"
   ],
   "position": "any",
-  "behavior": false,
+  "behavior": true,
   "adjacency": {
     "not_after_same_family": true
   },

@@ -8,8 +8,17 @@
 .ed-split.is-flipped .ed-split-inner{flex-direction:column-reverse}
 @media (width>=760px){
   .ed-split{padding:88px 0}
-  .ed-split-inner{flex-direction:row;align-items:center;gap:44px}
+  /* align-items:center left the photo floating in dead space once real copy
+     (5 paragraphs) ran far taller than the fixed-aspect image — the pair
+     read as misaligned rather than as one row. Top-aligned and sticky, the
+     photo now stays level with the copy's own first line and travels with
+     the reader instead of stranding in the middle of empty space below it. */
+  .ed-split-inner{flex-direction:row;align-items:flex-start;gap:44px}
   .ed-copy{flex:0 1 42%}
-  .ed-shot{flex:0 1 58%;width:auto;aspect-ratio:4/3}
+  /* align-self:flex-end from the mobile rule above (line 6) otherwise wins
+     over the row's own align-items:flex-start here -- align-self on the
+     item always overrides the container's align-items, so it has to be
+     reset per breakpoint, not just set once on the parent. */
+  .ed-shot{flex:0 1 58%;width:auto;aspect-ratio:4/3;align-self:flex-start;position:sticky;top:calc(var(--header) + 28px)}
   .ed-split.is-flipped .ed-split-inner{flex-direction:row-reverse}
 }

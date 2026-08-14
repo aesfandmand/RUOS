@@ -1,19 +1,15 @@
-// Signature motion C (design model §8.1): depth carousel. The card nearest
-// the rail's centre is dominant; its neighbours sit back and turn slightly.
-// --near is 0 at the centre and 1 at a card-width away; --side is which side
-// it is on, so the two neighbours lean in opposite directions.
+// Prev/next buttons and dots per group, desktop only (owner's report,
+// 2026-08-14): the rail is a bare scroll container with the native
+// scrollbar hidden, so a mouse user had no visible way to move it or any
+// sense of position within it. Touch/swipe already works and is untouched.
 
-document.querySelectorAll(".var-rail").forEach((rail) => {
-  const track = rail.querySelector(".var-track");
+document.querySelectorAll(".kn-group").forEach((group) => {
+  const track = group.querySelector(".kn-track");
   const cards = track ? [...track.children] : [];
   if (!track || !cards.length) return;
   let ticking = 0;
 
-  // Prev/next buttons and dots exist because the rail is a bare scroll
-  // container: real on a touch screen (swipe is a known gesture there), but
-  // a mouse user gets no native scrollbar (scrollbar-width:none) and no
-  // sign the rail moves at all. Owner's report, 2026-08-14.
-  const dotsHost = rail.querySelector(".var-dots");
+  const dotsHost = group.querySelector(".kn-dots");
   const dots = cards.map((_, index) => {
     const dot = document.createElement("button");
     dot.type = "button";
@@ -34,9 +30,6 @@ document.querySelectorAll(".var-rail").forEach((rail) => {
     cards.forEach((card, index) => {
       const box = card.getBoundingClientRect();
       const distance = Math.abs(box.left + box.width / 2 - centre);
-      const offset = (box.left + box.width / 2 - centre) / box.width;
-      card.style.setProperty("--near", String(Math.min(1, Math.abs(offset))));
-      card.style.setProperty("--side", String(Math.sign(offset) || 0));
       if (distance < closestDistance) { closestDistance = distance; closestIndex = index; }
     });
     dots.forEach((dot, index) => dot.classList.toggle("is-active", index === closestIndex));
@@ -47,12 +40,11 @@ document.querySelectorAll(".var-rail").forEach((rail) => {
   }, { passive: true });
   addEventListener("resize", settle);
   settle();
-  requestAnimationFrame(settle);
 
-  rail.querySelector(".var-prev")?.addEventListener("click", () => {
+  group.querySelector(".kn-prev")?.addEventListener("click", () => {
     track.scrollBy({ left: track.clientWidth * (document.dir === "rtl" ? 1 : -1) * 0.86, behavior: "smooth" });
   });
-  rail.querySelector(".var-next")?.addEventListener("click", () => {
+  group.querySelector(".kn-next")?.addEventListener("click", () => {
     track.scrollBy({ left: track.clientWidth * (document.dir === "rtl" ? -1 : 1) * 0.86, behavior: "smooth" });
   });
 });

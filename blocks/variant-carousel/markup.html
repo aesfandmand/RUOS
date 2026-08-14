@@ -5,5 +5,6 @@
 {{?lead}}<p class="var-lead" data-reveal>{{lead}}</p>{{/}}
 </div>
 <ul class="var-track" aria-label="{{title}}">{{#items}}<li class="var-card"><figure class="var-shot img-slot">{{?src}}<img src="{{src}}" alt="{{alt}}">{{/}}{{^src}}<span class="img-slot-copy"><strong>{{label}}</strong><span>{{alt}}</span></span>{{/}}{{?meta}}<span class="var-tag">{{meta}}</span>{{/}}</figure><div class="var-body"><h3>{{title}}</h3>{{?note}}<span class="placeholder-chip" data-placeholder="price">{{note}}</span>{{/}}<a class="var-cta" href="#quote"><span>استعلام این مدل</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></li>{{/}}</ul>
+<div class="content-shell var-controls"><button class="var-prev" type="button" aria-label="مورد قبلی"><svg aria-hidden="true"><use href="#icon-chevron-right"></use></svg></button><div class="var-dots" role="tablist" aria-label="رفتن به مورد"></div><button class="var-next" type="button" aria-label="مورد بعدی"><svg aria-hidden="true"><use href="#icon-chevron-left"></use></svg></button></div>
 {{?guides}}<div class="content-shell var-guides" data-reveal-group>{{#guides}}<article data-reveal><h3>{{title}}</h3><p>{{body}}</p></article>{{/}}</div>{{/}}
 </section>

@@ -15,7 +15,21 @@
 .kn-play{position:absolute;top:50%;inset-inline-start:50%;transform:translate(50%,-50%);width:44px;height:44px;border-radius:50%;background:#ffffffe6;box-shadow:0 8px 22px #17171930}
 .kn-play:after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-style:solid;border-width:7px 0 7px 11px;border-color:transparent transparent transparent var(--ink)}
 .kn-dur{position:absolute;bottom:10px;inset-inline-end:10px;padding:4px 9px;border-radius:999px;background:#171719c7;color:#fff;font-size:.62rem;font-weight:800;font-variant-numeric:tabular-nums}
+/* Controls: hidden by default (mobile keeps the plain swipe gesture that
+   already works there), shown from 980px where a mouse user has no touch
+   affordance and, with scrollbar-width:none, no visible sign the rail
+   moves at all. Owner's report, 2026-08-14. */
+.kn-controls{display:none}
 @media (width>=760px){.kn{padding:88px 0}.kn-card{flex-basis:30%}}
+@media (width>=980px){
+  .kn-controls{align-items:center;gap:14px;margin-top:16px;display:flex}
+  .kn-dots{align-items:center;gap:7px;display:flex}
+  .kn-dots button{width:7px;height:7px;padding:0;border:0;border-radius:999px;background:var(--line);cursor:pointer;transition:width .3s cubic-bezier(.16,1,.3,1),background .3s}
+  .kn-dots button.is-active{width:22px;background:var(--red-gloss)}
+  .kn-prev,.kn-next{color:var(--ink);background:var(--white);border:1px solid var(--line);border-radius:50%;width:38px;height:38px;align-items:center;justify-content:center;display:flex;flex:none;transition:background .22s,color .22s,border-color .22s}
+  .kn-prev svg,.kn-next svg{width:14px;height:14px}
+  .kn-prev:hover,.kn-next:hover{background:var(--red-gloss);box-shadow:var(--red-gloss-shadow);border-color:#0000;color:#fff}
+}
 .kn-play:after{display:none}
 .kn-play svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:17px;height:17px;color:var(--ink)}
 .kn-head h3{display:flex;align-items:center;gap:8px}

@@ -1,19 +1,27 @@
 .wk{background:var(--white);padding:44px 0}
 .wk h2{margin:0 0 14px;color:var(--ink);font-size:clamp(1.65rem,6.5vw,2.1rem);font-weight:900;line-height:1.45;text-wrap:balance}
 .wk-lead{margin:0;color:var(--muted);font-size:.98rem;line-height:1.95}
-.wk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:26px}
-.wk-cell{margin:0;aspect-ratio:1/1;border-radius:16px;min-height:0}
+/* CSS Grid, tried first (2026-08-14, two passes), could not do this without
+   a gap: a shared grid row always sizes itself to its tallest cell, so a
+   row holding one tall aspect-ratio cell beside normal ones leaves the
+   normal ones' own track visibly empty below them -- true masonry needs
+   `grid-template-rows: masonry`, which Chrome/Safari don't implement yet.
+   Multi-column layout has no row concept to desync: each cell keeps its
+   own natural height and the next cell starts right after it in the same
+   column. break-inside:avoid stops a cell being sliced across columns. */
+.wk-grid{columns:2;column-gap:10px;margin-top:26px}
+.wk-cell{margin:0 0 10px;aspect-ratio:1/1;border-radius:16px;min-height:0;break-inside:avoid}
 /* uneven on purpose — the 1st and 6th cells run tall (design model §10) */
 .wk-cell:nth-child(1),.wk-cell:nth-child(6){aspect-ratio:1/1.6}
 .wk-cell:nth-child(4){aspect-ratio:1/1.25}
 @media (width>=760px){
   .wk{padding:88px 0}
-  .wk-grid{grid-template-columns:repeat(3,1fr);gap:14px}
-  .wk-cell{aspect-ratio:4/3}
-  .wk-cell:nth-child(1),.wk-cell:nth-child(6){aspect-ratio:4/5;grid-row:span 2}
+  .wk-grid{columns:3;column-gap:14px}
+  .wk-cell{margin-bottom:14px;aspect-ratio:4/3}
+  .wk-cell:nth-child(1),.wk-cell:nth-child(6){aspect-ratio:4/5}
   .wk-cell:nth-child(4){aspect-ratio:4/3}
 }
-.wk-cell{position:relative}
+.wk-cell{position:relative;overflow:hidden}
 .wk-cell figcaption{position:absolute;z-index:1;bottom:10px;inset-inline-start:10px;padding:5px 11px;border-radius:999px;background:#ffffffdb;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--ink);font-size:.62rem;font-weight:800}
 .wk-cell:after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(180deg,#0000,#1717193d)}
 .wk h2{display:flex;align-items:center;gap:11px}
