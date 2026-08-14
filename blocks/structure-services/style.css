@@ -2,10 +2,20 @@
 .structure-services .eyebrow{color:var(--red)}
 .structure-services h2{color:#fff}
 .structure-services .section-intro p{color:#ffffffa8}
-.structure-services-list{flex-wrap:wrap;gap:14px;margin:46px 0 0;padding:0;list-style:none;display:flex}
-.structure-services-list li{background:var(--white);border:0;border-radius:14px;align-items:center;gap:14px;flex:1 1 260px;padding:18px 20px;display:flex}
-.structure-services-list svg{color:var(--red);background:var(--paper-2);border-radius:10px;width:38px;height:38px;padding:9px;flex:none}
-.structure-services-list strong{color:var(--ink);font-size:.88rem;font-weight:800;display:block}
-.structure-services-list span{color:var(--muted);margin-top:3px;font-size:.72rem;display:block}
+/* Two columns, each service a real card with a reserved image slot, a note
+   and a description (owner's call, 2026-08-14) — it was a flat icon+label
+   strip that said nothing about what the service actually is. */
+.structure-services-list{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:46px 0 0;padding:0;list-style:none}
+.structure-services-list li{background:var(--white);border:0;border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.structure-service-shot{aspect-ratio:16/9;border-radius:14px;min-height:0;padding:14px}
+.structure-service-copy{display:flex;flex-direction:column;gap:5px;padding:0 6px 6px}
+.structure-service-ico{width:38px;height:38px;border-radius:11px;margin-bottom:4px;color:var(--red);background:var(--paper-2)}
+.structure-service-ico svg{width:19px;height:19px;fill:currentColor}
+.structure-services-list strong{color:var(--ink);font-size:1rem;font-weight:800;display:block}
+.structure-service-note{color:var(--red);font-size:.7rem;font-weight:800;display:block}
+.structure-services-list p{color:var(--muted);margin:4px 0 0;font-size:.8rem;line-height:1.9}
+.structure-services-list p[data-placeholder]{color:#9a938a}
 @media (width<=980px){.structure-services{padding:56px 0}}
-@media (width<=980px){.structure-services-list li{flex-basis:100%}}
+/* One column on a phone: two cards side by side at 390px leaves each about
+   170px, which the image slot alone cannot carry. */
+@media (width<=760px){.structure-services-list{grid-template-columns:1fr;gap:14px}}

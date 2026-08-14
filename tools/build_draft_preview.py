@@ -50,17 +50,27 @@ def build_preview(structure_id: str, output_dir: Path) -> Path:
     return output_dir
 
 
-def build_standalone_html(structure_id: str, out_path: Path) -> Path:
+def build_standalone_html(structure_id: str, out_path: Path, spec_path: Path | None = None) -> Path:
     """One self-contained .html file -- CSS, script, vendor imports and the
     header logo all inlined -- so it opens directly in a real browser over
     file:// and the owner can resize it, scroll it and actually interact
     with it. Per the owner's explicit instruction (2026-08-13): approval
-    needs the real page, not a screenshot of it."""
+    needs the real page, not a screenshot of it.
+
+    `spec_path` renders an existing hand-authored spec instead of the
+    generated skeleton. That is the important case, not a convenience: the
+    owner-approved page lives in pages/blocks/*.json with real transcribed
+    copy, and previewing only the generated spec is what let a regression
+    against it go unnoticed. `structure_id` still selects which structure's
+    photos get inlined below.
+    """
     import base64
+
+    from ruos.cli import load_block_spec
 
     structure = _find_structure(structure_id)
     library = load_library()
-    spec = build_complete_draft_spec(structure)
+    spec = load_block_spec(spec_path) if spec_path else build_complete_draft_spec(structure)
     page = render_page(spec, library)
 
     html = page.html.replace(
@@ -192,11 +202,21 @@ def screenshot(output_dir: Path, shots_dir: Path, slug: str) -> tuple[Path, Path
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        raise SystemExit("usage: python3 tools/build_draft_preview.py <structure-id> [output-dir] [--screenshots]")
-    target = sys.argv[1]
-    out_dir = Path(sys.argv[2]) if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else ROOT / ".ruos" / "drafts" / target
+        raise SystemExit(
+            "usage: python3 tools/build_draft_preview.py <structure-id> [output-dir] "
+            "[--spec <path>] [--screenshots]",
+        )
+    argv = sys.argv[1:]
+    spec_arg = None
+    if "--spec" in argv:
+        index = argv.index("--spec")
+        spec_arg = Path(argv[index + 1])
+        del argv[index:index + 2]
+    target = argv[0]
+    out_dir = Path(argv[1]) if len(argv) > 1 and not argv[1].startswith("--") else ROOT / ".ruos" / "drafts" / target
+    name = spec_arg.stem if spec_arg else target
 
-    standalone_path = build_standalone_html(target, out_dir / f"{target}.html")
+    standalone_path = build_standalone_html(target, out_dir / f"{name}.html", spec_path=spec_arg)
     print(f"STANDALONE: {standalone_path}")
 
     if "--screenshots" in sys.argv:

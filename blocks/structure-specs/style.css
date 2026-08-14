@@ -1,15 +1,19 @@
 .structure-specs{background:var(--white);padding:110px 0}
 .structure-specs .section-intro--right{margin-inline:0;max-width:640px}
 .structure-spec-list{border-top:1px solid var(--line);margin:55px 0 0;padding:0;display:block}
-.structure-spec-row{grid-template-columns:220px 1fr;border-bottom:1px solid var(--line);padding:22px 0 22px 18px;gap:24px;position:relative;display:grid}
-.structure-spec-row:before{content:"";background:var(--red-gloss);width:3px;position:absolute;top:10px;bottom:10px;right:0}
+/* The red rule sits on the reading edge, so the row's padding has to be on
+   that same edge. It was written physically (padding-left, right:0), which in
+   RTL put the 18px gap on the far side and let the label text sit directly on
+   the bar. Both are logical now so they stay paired. */
+.structure-spec-row{grid-template-columns:220px 1fr;border-bottom:1px solid var(--line);padding-block:22px;padding-inline:18px 0;gap:24px;position:relative;display:grid}
+.structure-spec-row:before{content:"";background:var(--red-gloss);width:3px;position:absolute;top:10px;bottom:10px;inset-inline-start:0}
 .structure-spec-row dt{color:var(--muted);margin:0;font-size:.76rem;font-weight:800}
 .structure-spec-row dd{color:var(--ink);font-variant-numeric:tabular-nums;margin:0;font-size:1rem;font-weight:800}
 .structure-datasheet-link{color:var(--ink);border-bottom-color:#17171947;margin-top:34px;display:inline-block}
 @media (prefers-reduced-motion:no-preference){.structure-specs .section-intro--right>*{animation:structure-specs-intro-in .6s cubic-bezier(.16,1,.3,1) both}.structure-specs .eyebrow{animation-delay:.02s}.structure-specs h2{animation-delay:.08s}}
 @keyframes structure-specs-intro-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @media (width<=980px){.structure-specs{padding:70px 0}}
-@media (width<=980px){.structure-spec-row{grid-template-columns:1fr;gap:6px;padding:18px 0 18px 14px}}
+@media (width<=980px){.structure-spec-row{grid-template-columns:1fr;gap:6px;padding-block:18px;padding-inline:14px 0}}
 /* Desktop: the intro sat alone above a void because the spec list ran the
    full width below it. Two columns instead — heading on the reading side,
    the rows beside it — and a cream ground so the page actually alternates.

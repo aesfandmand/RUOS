@@ -2,8 +2,12 @@
 .zz h2{margin:0 0 14px;color:var(--ink);font-size:clamp(1.65rem,6.5vw,2.1rem);font-weight:900;line-height:1.45;text-wrap:balance}
 .zz-lead{margin:0;color:var(--muted);font-size:.98rem;line-height:1.95}
 .zz-rows{display:flex;flex-direction:column;gap:16px;margin-top:26px}
-/* Two real, unequal cells — kept side by side at phone width (design model §14). */
-.zz-row{display:grid;grid-template-columns:46fr 54fr;gap:12px;align-items:center}
+/* Two real, unequal cells — kept side by side at phone width (design model §14).
+   Each part sits in its own card (owner's call, 2026-08-14): the row was two
+   loose cells on the page ground, so a list of parts read as one long column
+   instead of a set of discrete components. */
+.zz-row{display:grid;grid-template-columns:46fr 54fr;gap:12px;align-items:center;padding:14px;background:var(--paper);border:1px solid var(--line);border-radius:20px}
+.zz-copy{padding-inline:6px}
 .zz-row:nth-child(2n){grid-template-columns:54fr 46fr}
 .zz-row:nth-child(2n) .zz-shot{order:2}
 .zz-shot{margin:0;aspect-ratio:1/1;border-radius:18px;min-height:0}
@@ -13,8 +17,8 @@
 .zz-copy p[data-placeholder]{color:#9a938a}
 @media (width>=760px){
   .zz{padding:88px 0}
-  .zz-rows{gap:34px;margin-top:40px}
-  .zz-row{grid-template-columns:52fr 48fr;gap:36px}
+  .zz-rows{gap:20px;margin-top:40px}
+  .zz-row{grid-template-columns:52fr 48fr;gap:36px;padding:18px}
   .zz-row:nth-child(2n){grid-template-columns:44fr 56fr}
   .zz-shot,.zz-row:nth-child(3n) .zz-shot{aspect-ratio:16/10}
   .zz-copy h3{font-size:1.35rem}
@@ -26,8 +30,8 @@
    is the exact failure those references exist to prevent. Each row is also
    pulled up into the one above so four rows stop being a 2000px column. */
 @media (width>=980px){
-  .zz-rows{gap:0;margin-top:52px}
-  .zz-row{align-items:center;padding-block:12px}
+  .zz-rows{gap:20px;margin-top:52px}
+  .zz-row{align-items:center;padding:20px}
   .zz-row:nth-child(4n+1){grid-template-columns:43fr 57fr;gap:48px}
   .zz-row:nth-child(4n+2){grid-template-columns:58fr 42fr;gap:40px}
   .zz-row:nth-child(4n+3){grid-template-columns:49fr 51fr;gap:56px}

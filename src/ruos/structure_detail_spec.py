@@ -246,13 +246,33 @@ def _related_structures(structure: StructureRecord, all_structures: tuple[Struct
 
 
 def _cross_sell_services(structure: StructureRecord, services_by_id: Mapping[str, ServiceRecord]) -> list[dict[str, str]]:
+    """Real service names and families from the registry, each with an image
+    slot and a description.
+
+    The registry's own `note` field is deliberately NOT used as the
+    description: it holds internal SEO working notes ("Intent transactional
+    قوی."), not anything a visitor should read. No customer-facing service
+    copy exists yet, so the description is Lorem Ipsum carrying
+    `placeholder: True` — the owner's standing rule for missing copy, and the
+    same convention the rest of the draft pipeline uses. The photo slot stays
+    reserved and empty rather than borrowing an unrelated image.
+    """
+    from .content_draft import lorem_ipsum_of_length
+
     ids = _SERVICE_IDS_BY_FAMILY.get(structure.family, _DEFAULT_SERVICE_IDS)
     items = []
     for service_id in ids:
         service = services_by_id.get(service_id)
         if service is None:
             continue
-        items.append({"title": service.name, "note": service.subgroup or service.family})
+        items.append({
+            "title": service.name,
+            "note": service.subgroup or service.family,
+            "body": lorem_ipsum_of_length(150),
+            "placeholder": True,
+            "label": "تصویر نمونه",
+            "alt": f"{service.name} — خدمت مرتبط با {structure.name_fa}",
+        })
     return items
 
 
@@ -307,6 +327,14 @@ def _gallery_items(structure: StructureRecord, media_root: Path | None = None) -
         items.append({
             "src": f"assets/{path.name}",
             "alt": structure.name_fa,
+            # The coverflow card carries an identity strip so the side cards
+            # read as something rather than as anonymous photos. It holds real
+            # registry data only — NOT a provenance/credit caption, which
+            # design model §4 explicitly withdrew (attribution is handled at
+            # WordPress upload time). The street/city of each install is not
+            # known per-file and is never guessed here.
+            "title": structure.name_fa,
+            "caption": _dimension_label(structure.dimensions) or structure.family,
         })
     return items
 

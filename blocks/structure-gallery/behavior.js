@@ -9,10 +9,14 @@ document.querySelectorAll(".structure-gallery-swiper").forEach((el) => {
     centeredSlides: true,
     slidesPerView: "auto",
     dir: "rtl",
+    // Deeper than the first pass (rotate 34 / depth 180), which read as a
+    // slight lean rather than a stack — the owner's reference has the
+    // neighbours clearly standing behind the active card.
     coverflowEffect: {
-      rotate: 34,
-      stretch: 0,
-      depth: 180,
+      rotate: 42,
+      stretch: -30,
+      depth: 320,
+      scale: .9,
       modifier: 1,
       slideShadows: false,
     },
@@ -30,6 +34,7 @@ document.querySelectorAll(".structure-gallery-swiper").forEach((el) => {
       el: root.querySelector(".structure-gallery-pagination"),
       type: "fraction",
     },
+    watchSlidesProgress: true,
     navigation: {
       nextEl: root.querySelector(".structure-gallery-next"),
       prevEl: root.querySelector(".structure-gallery-prev"),

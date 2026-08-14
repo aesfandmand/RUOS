@@ -98,28 +98,36 @@ import { scroll } from "./motion.min.mjs";
   // there is a sweep that reveals anything the viewport has already reached.
   // A fast flick outruns IntersectionObserver's delivery and would otherwise
   // leave whole sections blank.
-  const pending = new Set(document.querySelectorAll("[data-reveal]"));
+  const revealables = [...document.querySelectorAll("[data-reveal]")];
   document.querySelectorAll("[data-reveal-group]").forEach((group) => {
     group.querySelectorAll("[data-reveal]").forEach((child, index) => {
       child.style.setProperty("--reveal-i", String(index));
     });
   });
-  const reveal = (element) => {
-    element.classList.add("is-in");
-    pending.delete(element);
-    revealer.unobserve(element);
-  };
+  // The element resets once it has fully left the viewport, so scrolling back
+  // over a section plays its motion again instead of it firing once for the
+  // life of the page (owner's call, 2026-08-14). The reset itself is never
+  // seen: the transition lives on the .is-in rule, so dropping the class
+  // snaps the element back instantly, off-screen.
   const revealer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => { if (entry.isIntersecting) reveal(entry.target); });
+    entries.forEach((entry) => entry.target.classList.toggle("is-in", entry.isIntersecting));
   }, { rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
-  pending.forEach((element) => revealer.observe(element));
+  revealables.forEach((element) => revealer.observe(element));
 
   let sweeping = 0;
   const sweep = () => {
     sweeping = 0;
-    pending.forEach((element) => {
-      // anything whose top edge the viewport has already passed is overdue
-      if (element.getBoundingClientRect().top < innerHeight) reveal(element);
+    // Deliberately reveal-only, and over a band strictly INSIDE the observer's
+    // own: if the sweep could also hide, or could reveal at an edge the
+    // observer wants hidden, the two would fight frame by frame and the
+    // element would flicker. Every rect is read before any class is written,
+    // so this costs one layout pass rather than one per element.
+    const overdue = revealables.map((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.top < innerHeight * 0.9 && rect.bottom > 8;
+    });
+    revealables.forEach((element, index) => {
+      if (overdue[index]) element.classList.add("is-in");
     });
   };
   addEventListener("scroll", () => { if (!sweeping) sweeping = requestAnimationFrame(sweep); }, { passive: true });

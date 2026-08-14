@@ -15,13 +15,20 @@ import re
 # bottom-nav/style.css was re-pinned on 2026-08-13 under the procedure in
 # navigation-lock.md, for the owner's explicitly approved change: the red
 # reference finish on the bar, the active bubble reduced to 20% protrusion,
-# and the ring between the icon and the bubble tightened by 30%. The other
-# five files are still on their original 2026-08-11 hashes.
+# and the ring between the icon and the bubble tightened by 30%.
+#
+# site-header/style.css was re-pinned on 2026-08-14 under the same procedure,
+# for the owner's explicitly approved change — "نوار منو در هنگام باز شدن نرم
+# باز نمیشود / در زمان بسته شدن که کلا حرکتی ندارد که آن هم باید خیلی نرم
+# بسته شود": the mega-menu's open and close curves, which had shared one
+# heavily front-loaded easing. Only the transitions changed; the panel's
+# geometry, colour and behaviour are untouched. The other four files are
+# still on their original 2026-08-11 hashes.
 LOCKED_FILES: dict[str, str] = {
     "blocks/site-header/markup.html":
         "ceecf927b5f40a2ad42af45ad4396dcd1170cc47ff314c2b3a48f45d4031183e",
     "blocks/site-header/style.css":
-        "76fe8312bd11a67d3836b90548f8a78ed1a59dc1bb87d410b2038030258d5ba5",
+        "493ae9e9fb9d3aa5862483cd68cb9574cf4210c67981f732340965f70c4ff96f",
     "blocks/site-header/behavior.js":
         "64e4705d374d3a106a64693fc7eb668b65dfae41271af56b2abef97a46e9cc68",
     "blocks/bottom-nav/markup.html":

@@ -14,7 +14,14 @@
 :root{--swiper-theme-color:#007aff}:host{display:block;margin-left:auto;margin-right:auto;position:relative;z-index:1}.swiper{display:block;list-style:none;margin-left:auto;margin-right:auto;overflow:hidden;padding:0;position:relative;z-index:1}.swiper-vertical>.swiper-wrapper{flex-direction:column}.swiper-wrapper{box-sizing:initial;display:flex;height:100%;position:relative;transition-property:transform;transition-timing-function:var(--swiper-wrapper-transition-timing-function,initial);width:100%;z-index:1}.swiper-android .swiper-slide,.swiper-ios .swiper-slide,.swiper-wrapper{transform:translateZ(0)}.swiper-horizontal{touch-action:pan-y}.swiper-vertical{touch-action:pan-x}.swiper-slide{display:block;flex-shrink:0;height:100%;position:relative;transition-property:transform;width:100%}.swiper-slide-invisible-blank{visibility:hidden}.swiper-autoheight,.swiper-autoheight .swiper-slide{height:auto}.swiper-autoheight .swiper-wrapper{align-items:flex-start;transition-property:transform,height}.swiper-backface-hidden .swiper-slide{backface-visibility:hidden;transform:translateZ(0)}.swiper-3d.swiper-css-mode .swiper-wrapper{perspective:1200px}.swiper-3d .swiper-wrapper{transform-style:preserve-3d}.swiper-3d{perspective:1200px;.swiper-cube-shadow,.swiper-slide{transform-style:preserve-3d}}.swiper-css-mode{>.swiper-wrapper{overflow:auto;scrollbar-width:none;-ms-overflow-style:none;&::-webkit-scrollbar{display:none}}>.swiper-wrapper>.swiper-slide{scroll-snap-align:start start}&.swiper-horizontal{>.swiper-wrapper{scroll-snap-type:x mandatory}>.swiper-wrapper>.swiper-slide:first-child{margin-inline-start:var(--swiper-slides-offset-before);scroll-margin-inline-start:var(--swiper-slides-offset-before)}>.swiper-wrapper>.swiper-slide:last-child{margin-inline-end:var(--swiper-slides-offset-after)}}&.swiper-vertical{>.swiper-wrapper{scroll-snap-type:y mandatory}>.swiper-wrapper>.swiper-slide:first-child{margin-block-start:var(--swiper-slides-offset-before);scroll-margin-block-start:var(--swiper-slides-offset-before)}>.swiper-wrapper>.swiper-slide:last-child{margin-block-end:var(--swiper-slides-offset-after)}}&.swiper-free-mode{>.swiper-wrapper{scroll-snap-type:none}>.swiper-wrapper>.swiper-slide{scroll-snap-align:none}}&.swiper-centered{>.swiper-wrapper:before{content:"";flex-shrink:0;order:9999}>.swiper-wrapper>.swiper-slide{scroll-snap-align:center center;scroll-snap-stop:always}}&.swiper-centered.swiper-horizontal{>.swiper-wrapper>.swiper-slide:first-child{margin-inline-start:var(--swiper-centered-offset-before)}>.swiper-wrapper:before{height:100%;min-height:1px;width:var(--swiper-centered-offset-after)}}&.swiper-centered.swiper-vertical{>.swiper-wrapper>.swiper-slide:first-child{margin-block-start:var(--swiper-centered-offset-before)}>.swiper-wrapper:before{height:var(--swiper-centered-offset-after);min-width:1px;width:100%}}}.swiper-3d{.swiper-slide-shadow,.swiper-slide-shadow-bottom,.swiper-slide-shadow-left,.swiper-slide-shadow-right,.swiper-slide-shadow-top{height:100%;left:0;pointer-events:none;position:absolute;top:0;width:100%;z-index:10}.swiper-slide-shadow{background:#00000026}.swiper-slide-shadow-left{background-image:linear-gradient(270deg,#00000080,#0000)}.swiper-slide-shadow-right{background-image:linear-gradient(90deg,#00000080,#0000)}.swiper-slide-shadow-top{background-image:linear-gradient(0deg,#00000080,#0000)}.swiper-slide-shadow-bottom{background-image:linear-gradient(180deg,#00000080,#0000)}}.swiper-lazy-preloader{border:4px solid var(--swiper-preloader-color,var(--swiper-theme-color));border-radius:50%;border-top:4px solid #0000;box-sizing:border-box;height:42px;left:50%;margin-left:-21px;margin-top:-21px;position:absolute;top:50%;transform-origin:50%;width:42px;z-index:10}.swiper-watch-progress .swiper-slide-visible,.swiper:not(.swiper-watch-progress){.swiper-lazy-preloader{animation:swiper-preloader-spin 1s linear infinite}}.swiper-lazy-preloader-white{--swiper-preloader-color:#fff}.swiper-lazy-preloader-black{--swiper-preloader-color:#000}@keyframes swiper-preloader-spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}
 
 
-/* --- structure-gallery: white-dominant stage, charcoal cards for contrast, red accent only — custom skin on top of vendored swiper-base.css above --- */
+/* --- structure-gallery: coverflow rebuilt against the owner's 3D-carousel
+   reference (reference/didanshow-photos/raw/72d69139-IMG_3952.jpeg). What was
+   missing: the slides were bare photos, so the side cards carried no
+   identity and the stack read flat. Each slide is now a CARD — photo panel
+   plus a title/credit strip that stays legible on the receding slides — with
+   deeper perspective, and the neighbours dimmed and pushed back so the
+   active card clearly sits in front. Amended 2026-08-14 at the owner's
+   request. --- */
 .structure-gallery{background:var(--white);color:var(--ink);padding:110px 0 96px;overflow:hidden}
 .structure-gallery-head{text-align:center;max-width:640px;margin:0 auto 54px}
 .structure-gallery-head .eyebrow{color:var(--red);justify-content:center;align-items:center;gap:9px;display:flex}
@@ -22,20 +29,34 @@
 .structure-gallery-head h2{letter-spacing:-.03em;margin:14px 0 0;font-size:clamp(1.6rem,2.6vw,2.4rem);font-weight:900;color:var(--ink)}
 .structure-gallery-head p{color:var(--muted);margin:14px 0 0;font-size:.92rem;line-height:1.75}
 .structure-gallery-stage{max-width:1100px;margin:0 auto;position:relative}
-.structure-gallery-swiper{padding:40px 0 64px}
-.structure-gallery-swiper.swiper-3d{perspective:1400px}
-.structure-gallery-card{width:min(66vw,460px);aspect-ratio:16/10;background:var(--ink-soft);border-radius:22px;box-shadow:0 24px 55px #1717191f;overflow:hidden;position:relative}
-.structure-gallery-card img{width:100%;height:100%;object-fit:cover;display:block}
-.structure-gallery-card:before{content:"";background:linear-gradient(180deg,#0000 45%,#171719cc);position:absolute;inset:0}
-.structure-gallery-credit{color:#fffc;z-index:1;backdrop-filter:blur(6px);background:#00000059;border-radius:999px;padding:6px 14px;font-size:.68rem;font-weight:700;position:absolute;bottom:16px;inset-inline-end:16px}
+.structure-gallery-swiper{padding:46px 0 60px}
+/* Tighter perspective than the 1400px default: at 1400 the rotation reads as
+   a slight lean rather than depth, which is exactly the "too simple" note. */
+.structure-gallery-swiper.swiper-3d{perspective:1150px}
+/* Scoped to the section on purpose. structure-related vendors the SAME swiper
+   core CSS, so whichever block renders later wins on equal specificity — and
+   when related came after gallery, its generic .swiper-slide{width:100%} blew
+   the card up to the full stage width. .structure-gallery .card is (0,2,0) and
+   cannot be overridden by a bare .swiper-slide whatever the order. */
+.structure-gallery .structure-gallery-card{width:min(66vw,440px);background:var(--white);border:1px solid var(--line);border-radius:24px;box-shadow:0 30px 70px #17171926;overflow:hidden;position:relative;display:flex;flex-direction:column;
+  /* the neighbours recede; only the centre card is at full strength */
+  opacity:.55;transition:opacity .45s cubic-bezier(.33,.2,.28,1),box-shadow .45s}
+.structure-gallery-card.swiper-slide-active{opacity:1;box-shadow:0 40px 90px #1717193d}
+.structure-gallery-shot{margin:0;aspect-ratio:4/3;position:relative;overflow:hidden;background:var(--paper-2)}
+.structure-gallery-shot img{width:100%;height:100%;object-fit:cover;display:block}
+.structure-gallery-shot:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0000 62%,#1717192e)}
+.structure-gallery-meta{display:flex;flex-direction:column;gap:4px;padding:16px 18px 18px;background:var(--white)}
+.structure-gallery-meta strong{color:var(--ink);font-size:.95rem;font-weight:900;line-height:1.5}
+.structure-gallery-meta span{color:var(--muted);font-size:.72rem;line-height:1.6}
 .structure-gallery-pagination{color:var(--muted);direction:ltr;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:.04em;margin-top:6px;font-size:.78rem;font-weight:800}
 .structure-gallery-pagination .swiper-pagination-current{color:var(--ink)}
 .structure-gallery-prev,.structure-gallery-next{color:var(--ink);z-index:2;background:var(--white);border:1px solid var(--line);border-radius:50%;width:48px;height:48px;align-items:center;justify-content:center;display:flex;position:absolute;top:44%;transform:translateY(-50%);box-shadow:0 14px 30px #1717190f}
-.structure-gallery-prev{right:calc(50% - min(66vw,460px)/2 - 64px)}
-.structure-gallery-next{left:calc(50% - min(66vw,460px)/2 - 64px)}
+.structure-gallery-prev{right:calc(50% - min(66vw,440px)/2 - 64px)}
+.structure-gallery-next{left:calc(50% - min(66vw,440px)/2 - 64px)}
 .structure-gallery-prev:hover,.structure-gallery-next:hover{background:var(--red-gloss);box-shadow:var(--red-gloss-shadow);border-color:var(--red);color:#fff}
-.structure-gallery-prev svg,.structure-gallery-next svg{width:16px;height:16px}
+.structure-gallery-prev svg,.structure-gallery-next svg{width:16px;height:16px;fill:currentColor}
 .structure-gallery .swiper-button-disabled{opacity:.35;pointer-events:none}
 @media (width<=980px){.structure-gallery{padding:64px 0 56px}}
 @media (width<=980px){.structure-gallery-prev,.structure-gallery-next{display:none}}
-@media (width<=980px){.structure-gallery-card{width:78vw}}
+@media (width<=980px){.structure-gallery .structure-gallery-card{width:76vw}}
+@media (prefers-reduced-motion:reduce){.structure-gallery-card{transition:none}}

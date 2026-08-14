@@ -10,10 +10,15 @@ third-party stock and are authorized for use in building Chatreghermez
 **Important distinction to preserve in any page copy:** the *structure and
 photograph* belong to Didanshow. The *ad creative shown on the board face*
 (Signal, Lux, Mammut, Gerad, SAIPA, Benelli, etc.) belongs to Didanshow's
-own advertising clients — not to Chatreghermez. When these photos are used
-on a Chatreghermez page, caption them as real installation samples from
-the Didanshow network (e.g. "نمونه نصب واقعی"), never as Chatreghermez's
-own client work — that would misattribute someone else's project.
+own advertising clients — not to Chatreghermez. Never present these as
+Chatreghermez's own client work; that would misattribute someone else's
+project.
+
+**Superseded 2026-08-14:** an earlier version of this note told you to put a
+"نمونه نصب واقعی" credit caption on each photo. Design model §4 has since
+**withdrawn** that requirement — Didanshow is the owner's own company, so
+the archive needs no credit chip, and attribution is handled at WordPress
+upload time. Do not add provenance captions to gallery cards.
 
 ## `raw/` contains 4 unrelated files — do not use
 

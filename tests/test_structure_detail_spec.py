@@ -126,8 +126,13 @@ def test_a_structure_with_two_real_photos_uses_both_in_the_gallery_not_the_hero(
     assert [item["src"] for item in gallery["data"]["items"]] == ["assets/a.jpg", "assets/b.jpg"]
     for item in gallery["data"]["items"]:
         # Owner-supplied photography needs no provenance/credit caption —
-        # see 05-rules/website/red-umbrella-design-model-v1.md §4.
-        assert "caption" not in item
+        # see 05-rules/website/red-umbrella-design-model-v1.md §4. The card
+        # does carry a second line so the coverflow's side cards are not
+        # anonymous photos (the owner's 3D-carousel reference), but it must
+        # be real registry data, never a credit or a source attribution.
+        assert "دیده‌شو" not in item["caption"]
+        assert "نمونه" not in item["caption"]
+        assert item["caption"] == "5×10 متر"
         assert item["alt"] == _structure().name_fa
 
 

@@ -55,6 +55,25 @@ asked me to redesign the homepage" is not approval to touch the nav.
 
 Keep this section accurate; it is the description of record.
 
+> **Amended 2026-08-14 on the owner's explicit instruction** — "نوار منو در
+> هنگام باز شدن نرم باز نمیشود / در زمان بسته شدن که کلا حرکتی ندارد که آن
+> هم باید خیلی نرم بسته شود". Only `site-header/style.css` changed, and only
+> its mega-menu transitions:
+>
+> - **Open and close are now tuned separately.** Both directions previously
+>   shared the single transition declared on `.mega-panel`. Measured in a
+>   real browser, `cubic-bezier(.16,1,.3,1)` spent **81% of the fade in the
+>   first 60ms** of a 280ms open — a flash, not a reveal — and **92% in the
+>   first 140ms** of the close, which is why the close read as no animation
+>   at all. The base rule now governs closing, and a matching declaration on
+>   `.mega-item.is-open .mega-panel` governs opening.
+> - Curves are mid-weighted rather than front-loaded, and the panel, the
+>   lead column and the cards each get both directions. The staggered card
+>   entrance, the icon ring, the geometry, the colours and every behaviour
+>   in `behavior.js` are unchanged.
+> - Re-measured after the change: the open now moves 0.07 → 0.42 → 0.71 →
+>   0.88 across its duration, and the close 0.88 → 0.59 → 0.26 → 0.06.
+
 ### Desktop mega-menu
 
 - White header bar, `--line` bottom border, backdrop blur. Never dark glass.
