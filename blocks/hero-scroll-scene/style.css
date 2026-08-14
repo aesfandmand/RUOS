@@ -98,8 +98,8 @@
 @media (width<=480px) and (height<=740px){.hero-actions .primary-button{min-height:44px;padding:0 13px}}
 @media (width<=480px) and (height<=740px){.start-action span{max-width:175px}}
 .story-status{color:#575158;background:#ffffffe6;border-color:#1717191a;box-shadow:0 12px 34px #2419141a}
-.phase-opportunity{border-color:#da1e493d}
-.phase-paths{border-color:var(--red);color:#fff;background:#da1e49f0}
+.phase-opportunity{border-color:#e5142f3d}
+.phase-paths{border-color:var(--red);color:#fff;background:#e5142ff0}
 .hero-scroll,.hero-sticky{background:var(--paper)}
 .hero-grid{gap:48px;width:min(1240px,100% - 48px);margin-inline:auto;padding-block:32px}
 .hero-visual{box-shadow:var(--shadow);background:#211f20;border:1px solid #6e655f1c;border-radius:26px}
@@ -113,7 +113,7 @@
 .hero-lead{color:var(--muted)}
 .hero-proof{color:#575158;border-top-color:#1717191a}
 .micro-scene{border:1px solid var(--line);background:var(--paper-2);box-shadow:var(--shadow);border-radius:22px}
-.micro-sky{background:radial-gradient(circle at 74% 22%,#da1e4933,#0000 25%),linear-gradient(155deg,#f4efe9,#cfc6c0 67%)}
+.micro-sky{background:radial-gradient(circle at 74% 22%,#e5142f33,#0000 25%),linear-gradient(155deg,#f4efe9,#cfc6c0 67%)}
 .micro-road{background:#343135}
 .scene-caption{color:#575158;background:#ffffffe0;border:1px solid #1717191a}
 @media (width<=980px){.hero-grid{gap:0;width:100%;padding:0}}

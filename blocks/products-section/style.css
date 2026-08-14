@@ -5,7 +5,7 @@
 .product-toolbar button.is-active{border-color:var(--ink);background:var(--ink);color:#fff}
 .products-grid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:18px;display:grid}
 .product-card{border:1px solid var(--line);background:#fff;border-radius:22px;flex-direction:column;min-width:0;transition:transform .25s,box-shadow .25s,border-color .25s;display:flex;overflow:hidden;box-shadow:0 14px 38px #2419140e}
-.product-card:hover{border-color:#da1e494d;transform:translateY(-5px);box-shadow:0 24px 58px #2419141a}
+.product-card:hover{border-color:#e5142f4d;transform:translateY(-5px);box-shadow:0 24px 58px #2419141a}
 .product-card-copy{flex-direction:column;flex:1;padding:22px;display:flex}
 .product-meta{color:var(--muted);align-items:center;gap:9px;font-size:.6rem;display:flex}
 .product-meta span{color:var(--red);font:900 .7rem/1 Arial}
@@ -43,7 +43,7 @@
 .product-visual--straboard-portrait{--frame-w:38%;--frame-h:48%;--frame-left:31%;--frame-bottom:31%}
 .product-visual--lightbox-landscape{--frame-w:48%;--frame-h:31%;--frame-left:26%;--frame-bottom:35%}
 .product-visual--lightbox-portrait,.product-visual--bright-portrait,.product-visual--memorial{--frame-w:29%;--frame-h:48%;--frame-left:35%;--frame-bottom:27%}
-.product-visual--lightbox-landscape .product-frame,.product-visual--lightbox-portrait .product-frame,.product-visual--lightboard .product-frame,.product-visual--bright-portrait .product-frame,.product-visual--bright-landscape .product-frame,.product-visual--bright-wide .product-frame,.product-visual--memorial .product-frame{box-shadow:0 0 0 3px #da1e4947,0 0 33px #ffeed2d9,0 18px 28px #00000047}
+.product-visual--lightbox-landscape .product-frame,.product-visual--lightbox-portrait .product-frame,.product-visual--lightboard .product-frame,.product-visual--bright-portrait .product-frame,.product-visual--bright-landscape .product-frame,.product-visual--bright-wide .product-frame,.product-visual--memorial .product-frame{box-shadow:0 0 0 3px #e5142f47,0 0 33px #ffeed2d9,0 18px 28px #00000047}
 .product-visual--lightboard{--frame-w:38%;--frame-h:43%;--frame-left:31%;--frame-bottom:30%}
 .product-visual--bright-landscape{--frame-w:58%;--frame-h:34%;--frame-left:21%;--frame-bottom:36%}
 .product-visual--bright-wide{--frame-w:69%;--frame-h:32%;--frame-left:15%;--frame-bottom:38%}

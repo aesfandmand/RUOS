@@ -17,23 +17,33 @@ import re
 # reference finish on the bar, the active bubble reduced to 20% protrusion,
 # and the ring between the icon and the bubble tightened by 30%.
 #
-# site-header/style.css was re-pinned twice on 2026-08-14 under the same
-# procedure. First pass, for the owner's explicitly approved change — "نوار
-# منو در هنگام باز شدن نرم باز نمیشود / در زمان بسته شدن که کلا حرکتی ندارد
-# که آن هم باید خیلی نرم بسته شود": the mega-menu's open and close curves,
-# which had shared one heavily front-loaded easing. Second pass, same
+# site-header/style.css was re-pinned three times on 2026-08-14 under the
+# same procedure. First pass, for the owner's explicitly approved change —
+# "نوار منو در هنگام باز شدن نرم باز نمیشود / در زمان بسته شدن که کلا حرکتی
+# ندارد که آن هم باید خیلی نرم بسته شود": the mega-menu's open and close
+# curves, which had shared one heavily front-loaded easing. Second pass, same
 # session, owner reported the SAME problem was still live on the mobile
 # drawer ("بسته شدن مگا منو که درست نشده") — the first pass had only touched
 # .mega-panel/.mega-lead/.mega-card and never reached .mobile-menu, which had
 # the identical shared-curve bug (measured: 94% of its close-opacity fade
-# gone by 140ms of 400ms). Both passes only ever touched transitions; the
-# panel/drawer geometry, colour and behaviour are untouched. The other four
-# files are still on their original 2026-08-11 hashes.
+# gone by 140ms of 400ms).
+#
+# Third pass: the owner asked for a site-wide palette change (their choice,
+# from three real proposed directions, of "سیگنال ایمنی" — a bolder signal
+# red on a warm-stone ground, replacing the raspberry red and pink-cream
+# ground everywhere: blocks/_tokens/style.css's --red/--paper/--ink/etc.).
+# site-header hardcodes a few alpha-blended copies of the old red hex in its
+# icon-pop glow-ring keyframes (@keyframes mega-ico-in) rather than
+# referencing var(--red), so those needed updating in place for the ring to
+# glow the new red instead of the old one. Only those literal hex values
+# changed — geometry, layout, and every behaviour in behavior.js are
+# untouched. The other three locked files are still on their original
+# 2026-08-11 hashes.
 LOCKED_FILES: dict[str, str] = {
     "blocks/site-header/markup.html":
         "ceecf927b5f40a2ad42af45ad4396dcd1170cc47ff314c2b3a48f45d4031183e",
     "blocks/site-header/style.css":
-        "b4be640afefe2ad773b939ceb3a307c1776d1f1b4c66d71b8ba2bf5f0ddbb1a5",
+        "36cdfc53df373f5d7b9593f084558c6e181ec90f80eac601955be26e4dfa9fa2",
     "blocks/site-header/behavior.js":
         "64e4705d374d3a106a64693fc7eb668b65dfae41271af56b2abef97a46e9cc68",
     "blocks/bottom-nav/markup.html":

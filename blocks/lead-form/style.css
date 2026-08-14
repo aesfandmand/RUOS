@@ -5,7 +5,7 @@
 .lead-field{display:flex;flex-direction:column;gap:7px}
 .lead-field label{color:var(--ink);font-size:.82rem;font-weight:800}
 .lead-field input,.lead-field textarea{width:100%;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--white);color:var(--ink);font-family:inherit;font-size:1rem;line-height:1.7;outline:none;transition:border-color .22s,box-shadow .22s}
-.lead-field input:focus,.lead-field textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px #da1e491f}
+.lead-field input:focus,.lead-field textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px #e5142f1f}
 .lead-field textarea{resize:vertical}
 .lead-submit{justify-content:center;gap:0;margin-top:4px}
 .lead-status{margin:0;min-height:1.2em;color:var(--red);font-size:.8rem;font-weight:800}

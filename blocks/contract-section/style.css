@@ -3,7 +3,7 @@
 .contract-section .split-heading h2{color:#fff}
 .bolt-flow{grid-template-columns:repeat(4,1fr);gap:12px;display:grid}
 .bolt-flow article{background:#1c191c;border:1px solid #ffffff1f;border-radius:18px;min-height:300px;padding:25px;position:relative;overflow:hidden}
-.bolt-flow article:after{content:"";border:1px solid #da1e4959;border-radius:50%;width:150px;height:150px;position:absolute;bottom:-50px;right:-40px}
+.bolt-flow article:after{content:"";border:1px solid #e5142f59;border-radius:50%;width:150px;height:150px;position:absolute;bottom:-50px;right:-40px}
 .bolt-flow article>span{color:var(--red);font:900 5rem/1 Arial;display:block}
 .bolt-flow article>small{color:#746c71;font:900 .66rem Arial;position:absolute;top:27px;left:24px}
 .bolt-flow h3{margin:42px 0 9px;font-size:1.3rem}

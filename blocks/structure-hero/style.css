@@ -14,7 +14,7 @@
 .structure-hero-copy .eyebrow:before{content:"";background:var(--red-gloss);width:7px;height:7px;display:inline-block}
 .structure-hero-copy h1{letter-spacing:-.045em;text-wrap:balance;margin:0;font-weight:900;line-height:1.16;font-size:clamp(2.1rem,3vw,3.3rem);color:var(--ink)}
 .structure-hero-copy>p:not(.structure-hero-dimension){color:var(--muted);max-width:34ch;margin:16px 0 0;font-size:.92rem;line-height:1.75}
-.structure-hero-dimension{color:var(--red-deep);background:var(--paper-2);border:1px solid #da1e4940;border-radius:999px;margin:22px 0 0;padding:8px 18px;font-variant-numeric:tabular-nums;font-size:.78rem;font-weight:800;display:inline-block}
+.structure-hero-dimension{color:var(--red-deep);background:var(--paper-2);border:1px solid #e5142f40;border-radius:999px;margin:22px 0 0;padding:8px 18px;font-variant-numeric:tabular-nums;font-size:.78rem;font-weight:800;display:inline-block}
 .structure-hero-copy .primary-button{margin-top:30px}
 @media (prefers-reduced-motion:no-preference){.structure-hero-media{animation:structure-hero-media-in .9s cubic-bezier(.16,1,.3,1) both}.structure-hero-copy>*{animation:structure-hero-copy-in .7s cubic-bezier(.16,1,.3,1) both}.structure-hero-copy .eyebrow{animation-delay:.05s}.structure-hero-copy h1{animation-delay:.12s}.structure-hero-copy>p:not(.structure-hero-dimension){animation-delay:.2s}.structure-hero-dimension{animation-delay:.27s}.structure-hero-copy .primary-button{animation-delay:.34s}}
 @keyframes structure-hero-media-in{from{opacity:0;transform:scale(1.045)}to{opacity:1;transform:scale(1)}}

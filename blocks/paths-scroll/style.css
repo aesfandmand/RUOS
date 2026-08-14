@@ -57,7 +57,7 @@
 @media (width<=480px) and (height<=740px){.path-card-copy li{padding:4px 7px}}
 .paths-header h2{font-size:clamp(2rem,3.25vw,3.2rem)}
 .paths-scroll{color:var(--ink);background:var(--paper-2)}
-.paths-sticky{background:radial-gradient(circle at 12% 18%, #da1e4914, transparent 27%), var(--paper-2)}
+.paths-sticky{background:radial-gradient(circle at 12% 18%, #e5142f14, transparent 27%), var(--paper-2)}
 .paths-sticky:before{opacity:.55;background-image:linear-gradient(#6e655f0e 1px,#0000 1px),linear-gradient(90deg,#6e655f0e 1px,#0000 1px)}
 .paths-instruction{border-right-color:var(--line);color:var(--muted)}
 .paths-instruction b{color:var(--ink)}

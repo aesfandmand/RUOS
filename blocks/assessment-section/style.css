@@ -26,7 +26,7 @@
 .assessment-result ul{color:#cbc4c8;border-top:1px solid #353136;border-bottom:1px solid #353136;gap:7px;margin:22px 0;padding:17px 0;font-size:.62rem;list-style:none;display:grid}
 .assessment-result li:before{content:"✓";color:var(--red);margin-left:8px}
 .assessment-result .primary-button{width:100%}
-.assessment-result.is-ready{border-color:#da1e49a6}
+.assessment-result.is-ready{border-color:#e5142fa6}
 @media (width<=980px){.assessment-section{padding:88px 0}}
 @media (width<=980px){.assessment-board{grid-template-columns:1fr}}
 @media (width<=980px){.assessment-result{position:static}}

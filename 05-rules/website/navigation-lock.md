@@ -87,6 +87,17 @@ Keep this section accurate; it is the description of record.
 > current pinned hash — do not assume a fresh `git blame` read of only the
 > first amendment's note is the full story.**
 
+> **Amended a third time, same day** — a site-wide palette change, the
+> owner's choice of "سیگنال ایمنی" from three proposed directions (see
+> `blocks/_tokens/style.css`: `--red` is now `#e5142f`, was `#da1e49`; the
+> ground tokens moved from a pink-cream to a warm-stone family). Everything
+> in the header that reads its colour from a `var(--red)`/`var(--paper)`/etc.
+> token picked this up automatically with no edit here. What *did* need
+> editing: `@keyframes mega-ico-in`'s glow ring hardcodes three alpha-blended
+> copies of the red hex instead of referencing the token, so those three
+> literal values were updated to match. No geometry, layout, or `behavior.js`
+> changed — only those hex literals.
+
 ### Desktop mega-menu
 
 - White header bar, `--line` bottom border, backdrop blur. Never dark glass.
