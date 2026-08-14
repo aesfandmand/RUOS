@@ -74,6 +74,19 @@ Keep this section accurate; it is the description of record.
 > - Re-measured after the change: the open now moves 0.07 → 0.42 → 0.71 →
 >   0.88 across its duration, and the close 0.88 → 0.59 → 0.26 → 0.06.
 
+> **Amended again, same day** — the owner reported the identical symptom
+> was still live: "بسته شدن مگا منو که درست نشده". The pass above only
+> touched `.mega-panel`/`.mega-lead`/`.mega-card`; it never reached
+> `.mobile-menu`, which had the same shared-curve bug. Measured before the
+> fix: the drawer's close had already lost 94% of its opacity by 140ms of a
+> 400ms transition. `.mobile-menu`'s base rule (closing) and `.is-open`
+> (opening) are now split the same way the mega-panel's were. Re-measured:
+> open moves 0.06 → 0.29 → 0.59 → 0.84 across its duration, close
+> 0.98 → 0.88 → 0.59 → 0.26 → 0. Geometry, glass, stagger and every
+> behaviour in `behavior.js` are unchanged. **Both amendments are on the
+> current pinned hash — do not assume a fresh `git blame` read of only the
+> first amendment's note is the full story.**
+
 ### Desktop mega-menu
 
 - White header bar, `--line` bottom border, backdrop blur. Never dark glass.

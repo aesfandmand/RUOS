@@ -3,6 +3,6 @@
 {{?eyebrow}}<p class="eyebrow" data-reveal>{{eyebrow}}</p>{{/}}
 <h2 id="{{anchor}}-title" data-reveal>{{title}}</h2>
 {{?lead}}<p class="num-lead">{{lead}}</p>{{/}}
-<ol class="num-list" data-reveal-group>{{#items}}<li data-reveal><span class="num-mark" aria-hidden="true">{{index}}</span><span class="icon-badge"><svg aria-hidden="true"><use href="#{{icon}}"></use></svg></span><div class="num-copy"><h3>{{title}}</h3><p{{?placeholder}} data-placeholder="feature"{{/}}>{{body}}</p></div></li>{{/}}</ol>
+<ol class="num-list" data-reveal-group>{{#items}}<li data-reveal><div class="num-item-lead"><span class="icon-badge"><svg aria-hidden="true"><use href="#{{icon}}"></use></svg></span><span class="num-mark" aria-hidden="true">{{index}}</span><h3>{{title}}</h3></div><p class="num-desc"{{?placeholder}} data-placeholder="feature"{{/}}>{{body}}</p></li>{{/}}</ol>
 </div>
 </section>

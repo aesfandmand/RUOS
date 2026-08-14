@@ -17,18 +17,23 @@ import re
 # reference finish on the bar, the active bubble reduced to 20% protrusion,
 # and the ring between the icon and the bubble tightened by 30%.
 #
-# site-header/style.css was re-pinned on 2026-08-14 under the same procedure,
-# for the owner's explicitly approved change — "نوار منو در هنگام باز شدن نرم
-# باز نمیشود / در زمان بسته شدن که کلا حرکتی ندارد که آن هم باید خیلی نرم
-# بسته شود": the mega-menu's open and close curves, which had shared one
-# heavily front-loaded easing. Only the transitions changed; the panel's
-# geometry, colour and behaviour are untouched. The other four files are
-# still on their original 2026-08-11 hashes.
+# site-header/style.css was re-pinned twice on 2026-08-14 under the same
+# procedure. First pass, for the owner's explicitly approved change — "نوار
+# منو در هنگام باز شدن نرم باز نمیشود / در زمان بسته شدن که کلا حرکتی ندارد
+# که آن هم باید خیلی نرم بسته شود": the mega-menu's open and close curves,
+# which had shared one heavily front-loaded easing. Second pass, same
+# session, owner reported the SAME problem was still live on the mobile
+# drawer ("بسته شدن مگا منو که درست نشده") — the first pass had only touched
+# .mega-panel/.mega-lead/.mega-card and never reached .mobile-menu, which had
+# the identical shared-curve bug (measured: 94% of its close-opacity fade
+# gone by 140ms of 400ms). Both passes only ever touched transitions; the
+# panel/drawer geometry, colour and behaviour are untouched. The other four
+# files are still on their original 2026-08-11 hashes.
 LOCKED_FILES: dict[str, str] = {
     "blocks/site-header/markup.html":
         "ceecf927b5f40a2ad42af45ad4396dcd1170cc47ff314c2b3a48f45d4031183e",
     "blocks/site-header/style.css":
-        "493ae9e9fb9d3aa5862483cd68cb9574cf4210c67981f732340965f70c4ff96f",
+        "b4be640afefe2ad773b939ceb3a307c1776d1f1b4c66d71b8ba2bf5f0ddbb1a5",
     "blocks/site-header/behavior.js":
         "64e4705d374d3a106a64693fc7eb668b65dfae41271af56b2abef97a46e9cc68",
     "blocks/bottom-nav/markup.html":

@@ -45,7 +45,9 @@ _MOUNTING_FA = {"wall": "نصب دیواری", "standing": "استند ایست�
 # names. A family missing here falls back to _DEFAULT_SERVICE_IDS.
 _SERVICE_IDS_BY_FAMILY: dict[str, tuple[str, ...]] = {
     "بیلبورد": ("GD-011", "PRN-002", "OOH-003"),
-    "استرابورد": ("GD-009", "PRN-002", "OOH-003"),
+    # Media Planning (OOH-003) dropped for this family per the owner's
+    # explicit instruction, 2026-08-14 — only the two production services.
+    "استرابورد": ("GD-009", "PRN-002"),
     "برایت‌بورد": ("GD-013", "PRN-004", "OOH-003"),
     "لایت‌باکس": ("GD-013", "PRN-005", "OOH-003"),
     "لایت‌برد": ("GD-013", "PRN-004", "OOH-003"),
