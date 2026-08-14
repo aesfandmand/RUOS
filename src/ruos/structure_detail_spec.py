@@ -790,6 +790,30 @@ def _draft_compare_cards(structure: StructureRecord, related: list[dict[str, str
     }
 
 
+def _other_family_cards(structure: StructureRecord, registry_root=None) -> list[dict[str, str]]:
+    """One real representative per *other* structure family — the "سایر
+    تابلوها" rail. `_related_structures` only ever returns same-family
+    siblings, so without this a page never links out to the rest of the
+    catalogue; every field here is registry data, nothing invented."""
+    seen: dict[str, StructureRecord] = {}
+    for other in load_structures(registry_root):
+        if other.family == structure.family or other.family in seen:
+            continue
+        if len(_specs(other)) < 3:
+            continue  # not buildable yet — never link to a page that cannot exist
+        seen[other.family] = other
+    cards = []
+    for family, other in seen.items():
+        meta = [p for p in (_dimension_label(other.dimensions),
+                            _CONTEXT_FA.get(other.context, other.context)) if p]
+        cards.append({
+            "title": family,
+            "meta": " · ".join(meta) if meta else other.name_fa,
+            "href": other.url,
+        })
+    return cards
+
+
 def build_complete_draft_spec(
     structure: StructureRecord,
     shell: Mapping[str, Any] | None = None,
@@ -824,10 +848,23 @@ def build_complete_draft_spec(
         _draft_numbered_features(structure),
         _draft_parts_zigzag(structure),
         _draft_compare_cards(structure, related),
+        _draft_checklist_section(structure),
     ]
     if services:
         blocks.append(services)
-    blocks.append(_draft_checklist_section(structure))
+    others = _other_family_cards(structure, registry_root)
+    if len(others) >= 2:
+        blocks.append({
+            "block": "structure-related",
+            "id": "others",
+            "data": {
+                "eyebrow": "سایر تابلوها",
+                "title": "خانواده‌های دیگر سازه را ببینید",
+                "lead": "اگر این سازه دقیقاً چیزی نیست که پروژه لازم دارد، از اینجا سراغ بقیه بروید.",
+                "all_link": {"label": "دیدن همهٔ سازه‌ها", "href": _STRUCTURES_HUB_URL},
+                "items": others,
+            },
+        })
     if gallery:
         blocks.append(gallery)
     blocks.append(faq)

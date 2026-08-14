@@ -32,3 +32,8 @@
 .swiper-button-disabled{opacity:.35;pointer-events:none}
 @media (width<=980px){.structure-related{padding:64px 0}}
 @media (width<=980px){.structure-related-head{flex-direction:column;align-items:flex-start}}
+/* Desktop: the rail is a real carousel, not one-and-a-bit cards. */
+@media (width>=980px){
+  .structure-related-card{padding:30px 26px;min-height:172px}
+  .structure-related-card h3{font-size:1.12rem}
+}

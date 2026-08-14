@@ -20,6 +20,26 @@
   .zz-copy h3{font-size:1.35rem}
   .zz-copy p{font-size:.95rem;line-height:1.95}
 }
+/* Desktop asymmetry, per reference/asymmetric-layout-references/ rules 2-3:
+   cells unequal *by a different amount on every row*, and row heights that
+   vary — two alternating ratios repeated still reads as a level grid, which
+   is the exact failure those references exist to prevent. Each row is also
+   pulled up into the one above so four rows stop being a 2000px column. */
+@media (width>=980px){
+  .zz-rows{gap:0;margin-top:52px}
+  .zz-row{align-items:center;padding-block:12px}
+  .zz-row:nth-child(4n+1){grid-template-columns:43fr 57fr;gap:48px}
+  .zz-row:nth-child(4n+2){grid-template-columns:58fr 42fr;gap:40px}
+  .zz-row:nth-child(4n+3){grid-template-columns:49fr 51fr;gap:56px}
+  .zz-row:nth-child(4n+4){grid-template-columns:55fr 45fr;gap:36px}
+  .zz-row:nth-child(4n+1) .zz-shot{aspect-ratio:16/10}
+  .zz-row:nth-child(4n+2) .zz-shot{aspect-ratio:4/3}
+  .zz-row:nth-child(4n+3) .zz-shot{aspect-ratio:16/9}
+  .zz-row:nth-child(4n+4) .zz-shot{aspect-ratio:3/2}
+  /* stagger the copy against the image so the eye never lands on a grid line */
+  .zz-row:nth-child(2n) .zz-copy{padding-block-start:34px}
+  .zz-copy{max-width:52ch}
+}
 .zz-ico{width:32px;height:32px;border-radius:10px;margin-bottom:8px}
 .zz-ico svg{width:16px;height:16px}
 .zz-row.is-in .zz-ico{animation:icon-pop .55s cubic-bezier(.34,1.4,.44,1) both;animation-delay:.15s}

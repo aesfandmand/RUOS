@@ -18,3 +18,10 @@
 }
 .num-list li{gap:12px}
 .num-list .icon-badge{margin-top:2px}
+/* Desktop: a level 2x2 grid is the failure mode the asymmetric references
+   call out (rule 3). Drop every second card so the pair never lines up. */
+@media (width>=980px){
+  .num-list{gap:0 56px}
+  .num-list li:nth-child(2n){transform:translateY(38px)}
+  .num-list li:nth-child(2n+3){margin-top:38px}
+}

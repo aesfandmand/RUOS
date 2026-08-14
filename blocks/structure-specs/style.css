@@ -10,3 +10,17 @@
 @keyframes structure-specs-intro-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @media (width<=980px){.structure-specs{padding:70px 0}}
 @media (width<=980px){.structure-spec-row{grid-template-columns:1fr;gap:6px;padding:18px 0 18px 14px}}
+/* Desktop: the intro sat alone above a void because the spec list ran the
+   full width below it. Two columns instead — heading on the reading side,
+   the rows beside it — and a cream ground so the page actually alternates.
+   The composer already labels this block surface "paper" but the mobile CSS
+   paints it white; desktop-only here so the owner-approved phone layout is
+   untouched. */
+@media (width>=980px){
+  .structure-specs{background:var(--paper)}
+  .structure-specs .content-shell{display:grid;grid-template-columns:minmax(0,38fr) minmax(0,62fr);gap:64px;align-items:start}
+  .structure-specs .section-intro--right{max-width:none;position:sticky;top:calc(var(--header) + 28px)}
+  .structure-spec-list{margin:0;border-top:0}
+  .structure-spec-row:first-child{border-top:1px solid var(--line)}
+  .structure-spec-row{grid-template-columns:200px 1fr}
+}

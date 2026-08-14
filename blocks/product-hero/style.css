@@ -50,6 +50,37 @@
   .p-hero h1{font-size:clamp(2.6rem,5vw,3.4rem)}
   .p-hero-actions{max-width:430px}
 }
+/* Desktop opening scene, from the owner's slider reference
+   (reference/motion-references/ frames 01-03): the type column and the
+   image panel sit SIDE BY SIDE rather than stacked. In RTL the type leads
+   on the right, the panel takes the left. Nothing here applies below
+   980px — the phone layout is owner-approved and must not move. */
+@media (width>=980px){
+  .p-hero{
+    display:grid;grid-template-columns:minmax(0,46fr) minmax(0,54fr);
+    align-items:center;column-gap:64px;
+    width:min(1240px,100% - 48px);margin-inline:auto;
+  }
+  .p-hero>.content-shell{width:auto;margin-inline:0}
+  .p-hero>.content-shell:first-child{grid-column:1/-1}  /* breadcrumb spans both */
+  .p-hero>.content-shell:last-child{grid-column:1;grid-row:2}  /* type: right in RTL */
+  .p-hero-frame{grid-column:2;grid-row:2;margin:0}
+  /* the stage's viewport-centring padding (50vw - 620px) is for the
+     full-bleed phone layout; inside a grid column it just starves the
+     slide, so it and the chrome insets reset to the panel's own edge */
+  .p-hero-stage{padding-inline:0}
+  .p-hero-index,.p-hero-next{inset-inline-end:auto;inset-inline-start:auto}
+  .p-hero-index{inset-inline-end:14px}
+  .p-hero-next{inset-inline-start:14px}
+  .p-hero-slide{flex:0 0 100%;aspect-ratio:4/5}
+  .p-hero h1{font-size:clamp(3rem,4.1vw,4rem);margin-top:2px}
+  .p-hero-lead{font-size:1.04rem;max-width:44ch}
+  .p-hero-dots{justify-content:flex-start;margin:0 0 18px}
+  /* stat block per the wide-card reference: value in ink at ~2x the label */
+  .p-stats{gap:26px;margin-top:36px;padding-top:26px}
+  .p-stats dt{font-size:1.32rem}
+  .p-stats dd{font-size:.72rem}
+}
 @media (prefers-reduced-motion:reduce){
   .p-hero-slide{animation:none;clip-path:none}
   .p-hero h1 .w{opacity:1;transform:none}
