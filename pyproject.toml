@@ -9,9 +9,13 @@ description = "Red Umbrella Operating System executable website compiler"
 requires-python = ">=3.11"
 dependencies = ["Pillow>=11.3"]
 
+[project.optional-dependencies]
+content-intel = ["psycopg[binary]>=3.2"]
+
 [project.scripts]
 ruos = "ruos.cli:main"
 ruos-cie = "ruos.cie_cli:main"
+ruos-content-sync = "ruos.content_intelligence_sync:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
