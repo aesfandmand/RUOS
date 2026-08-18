@@ -1,6 +1,6 @@
 engine:
   id: ruos.content_intelligence
-  version: 0.2.0
+  version: 0.3.0
   status: experimental
   scope: multi_project
   language: fa-first
@@ -61,14 +61,29 @@ connectors:
     project_ref: esobizhvqnvmhafqhlpc
     status: live
     access: trusted_backend_only
+  research:
+    contract: 03-engines/content-intelligence/research-engine-v0.3.md
+    evidence_schema: 03-engines/content-intelligence/research-evidence.schema.json
+    sources:
+      - google_search
+      - google_trends
+      - instagram_competitive
+      - youtube
+      - reddit
+      - tiktok_creative_center
+      - competitor_sites
+      - voice_of_customer
+    status: contract_ready_collectors_pending
 
 analysis_layers:
   - source_normalization
+  - deduplication
   - intent_classification
   - funnel_classification
   - pain_question_objection_extraction
   - hook_and_format_extraction
   - outlier_detection
+  - cross_source_validation
   - pattern_mining
   - opportunity_scoring
   - strategy_mapping
@@ -81,3 +96,5 @@ approval_gates:
   separate_owned_and_competitive_data: true
   secrets_never_committed: true
   no_live_connection_claim_without_successful_read_test: true
+  no_invented_metrics: true
+  no_calendar_item_without_evidence: true
