@@ -219,15 +219,23 @@ class PostgresContentIntelligenceStore:
         *,
         project_id: str,
         metric: str,
+        age_hours: int,
         limit: int = 20,
         exclude_content_item_id: int | None = None,
     ) -> list[float]:
-        """Return latest available metric value from recent Instagram content items."""
+        """Return baseline values from the same target age across recent content.
+
+        A 6-hour Reel must be compared with other 6-hour snapshots, not with their
+        7-day or 30-day totals. Matching checkpoint age is therefore mandatory.
+        """
 
         if limit < 1:
             raise ValueError("limit must be >= 1")
-        params: list[Any] = [metric, project_id]
+        if age_hours < 0:
+            raise ValueError("age_hours cannot be negative")
+
         exclusion_sql = ""
+        params: list[Any] = [metric, age_hours, metric, project_id]
         if exclude_content_item_id is not None:
             exclusion_sql = "and ci.id <> %s"
             params.append(exclude_content_item_id)
@@ -242,6 +250,7 @@ class PostgresContentIntelligenceStore:
                     select metrics
                     from ci_metric_snapshots
                     where content_item_id = ci.id
+                      and age_hours = %s
                       and jsonb_extract_path_text(metrics, %s) is not null
                     order by captured_at desc
                     limit 1
@@ -252,7 +261,6 @@ class PostgresContentIntelligenceStore:
                 order by ci.published_at desc nulls last
                 limit %s
                 """,
-                # metric is used twice: select extraction and lateral availability test.
-                [metric, *params],
+                params,
             )
             return [float(row[0]) for row in cur.fetchall() if row[0] is not None]
