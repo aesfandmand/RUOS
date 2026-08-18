@@ -1,0 +1,33 @@
+{
+  "youtube": {
+    "video_id": "example-video-id",
+    "title": "How to choose a billboard location",
+    "channel": "Example OOH Channel",
+    "published_at": "2026-07-01T10:00:00Z",
+    "canonical_url": "https://www.youtube.com/watch?v=example-video-id",
+    "visible_metrics": {"view_count": 12000, "like_count": 430, "comment_count": 28},
+    "private_metrics": null
+  },
+  "instagram_competitive": {
+    "account": "example_ooh_account",
+    "canonical_url": "https://www.instagram.com/reel/example/",
+    "format": "reel",
+    "hook": "3 mistakes that waste your billboard budget",
+    "topic": "outdoor advertising",
+    "visible_metrics": {"visible_views_if_shown": 25000, "visible_likes_if_shown": 860, "visible_comments_if_shown": 41},
+    "forbidden_private_metrics": ["reach", "saves", "shares", "retention"]
+  },
+  "tiktok": {
+    "source": "creative_center",
+    "topic": "marketing",
+    "signal_type": "top_ad_pattern",
+    "hook": "before you spend your ad budget",
+    "metrics": {"ctr_if_visible": null, "six_second_view_rate_if_visible": null}
+  },
+  "linkedin": {
+    "canonical_url": "https://www.linkedin.com/posts/example",
+    "topic": "OOH planning",
+    "signal": "business intent before media selection",
+    "source_class": "competitive"
+  }
+}
