@@ -8,17 +8,19 @@
 
 `Demand → Winning Content → Pattern Mining → Opportunity Score → Strategy → 30-day Rolling Calendar → Measurement → 45-day Strategic Review`
 
-## اصول قفل‌شدهٔ v0.1
+## اصول قفل‌شده
 
 1. **Multi-project by design** — منطق موتور مشترک است؛ هر برند فقط پروفایل و وزن منابع خودش را دارد.
 2. **Evidence before ideas** — ایده بدون شاهد از جست‌وجو، رفتار مخاطب، دادهٔ رقبا یا دادهٔ خود برند وارد تقویم نمی‌شود.
 3. **Owned ≠ Competitive** — Insight خصوصی حساب‌های متصل هرگز با دادهٔ عمومی رقبا مخلوط نمی‌شود.
 4. **Outlier over raw views** — نسبت عملکرد محتوا به baseline همان حساب مهم‌تر از عدد خام بازدید است.
-5. **Search + Social + Voice of Customer** — گوگل، شبکه‌های اجتماعی و زبان واقعی مشتری هم‌زمان دیده می‌شوند.
-6. **Reddit = pain/language miner** — برای کشف درد، سؤال، اعتراض و زبان طبیعی؛ نه نمایندهٔ مستقیم بازار ایران.
-7. **30-day rolling execution / 45-day strategy** — تقویم اجرایی ۳۰روزه است؛ بازبینی راهبردی در روز ۴۵ انجام می‌شود.
-8. **Free-first architecture** — نسخهٔ اول بدون وابستگی اجباری به سرویس پولی طراحی می‌شود.
-9. **Human approval gate** — هیچ پیشنهاد استراتژیک یا تقویم نهایی بدون تأیید انسانی «publish-ready» نیست.
+5. **Same-age baseline** — عملکرد 6h فقط با 6h مقایسه می‌شود؛ 24h با 24h و همین‌طور ادامه.
+6. **No stale backfill** — اگر checkpoint زمانی از دست رفت، عدد امروز به‌جای snapshot تاریخی ثبت نمی‌شود.
+7. **Search + Social + Voice of Customer** — گوگل، شبکه‌های اجتماعی و زبان واقعی مشتری هم‌زمان دیده می‌شوند.
+8. **Reddit = pain/language miner** — برای کشف درد، سؤال، اعتراض و زبان طبیعی؛ نه نمایندهٔ مستقیم بازار ایران.
+9. **30-day rolling execution / 45-day strategy** — تقویم اجرایی ۳۰روزه است؛ بازبینی راهبردی در روز ۴۵ انجام می‌شود.
+10. **Free-first architecture** — نسخهٔ اول بدون وابستگی اجباری به سرویس پولی طراحی می‌شود.
+11. **Human approval gate** — هیچ پیشنهاد استراتژیک یا تقویم نهایی بدون تأیید انسانی «publish-ready» نیست.
 
 ## منابع نسخهٔ اول
 
@@ -44,6 +46,30 @@
 - `day_30_performance_review`
 - `day_45_strategic_review`
 
-## وضعیت v0.1
+## وضعیت v0.2
 
-در این نسخه، هستهٔ امتیازدهی و Outlier Detection پیاده‌سازی شده و قرارداد منابع، چرخهٔ تحقیق و پروفایل پروژهٔ Red Umbrella تعریف شده است. اتصال مستقیم APIها و دیتابیس در فاز بعدی انجام می‌شود.
+پیاده‌سازی‌شده:
+
+- Opportunity Score و Outlier Detection
+- Snapshot checkpoints: 1h / 6h / 24h / 72h / 7d / 30d
+- نرخ‌های Save / Share / Interaction بر مبنای Reach
+- Instagram Owned Insights read-only connector
+- resilient metric collection برای Metricهای ناسازگار با نوع Media
+- PostgreSQL/Supabase schema و storage adapter
+- CLI اجرای sync: `ruos-content-sync`
+- تست‌های واحد برای scoring، Instagram normalization، snapshot policy و sync orchestration
+
+هنوز زنده متصل نشده:
+
+- Meta App/OAuth حساب چتر قرمز
+- Access Token و Instagram User ID واقعی
+- Supabase/PostgreSQL instance واقعی
+- Secret Store / GitHub Actions Secrets
+- اجرای Read-only test روی حساب Red Umbrella
+- Runner زمان‌بندی‌شده
+
+قاعدهٔ گزارش وضعیت: تا Read-only test واقعی موفق نشده، سیستم را «Instagram connected» معرفی نکنید. عبارت صحیح فعلی:
+
+`Instagram Owned Insights connector implemented; live connection pending credentials and Meta app setup.`
+
+راهنمای اتصال: `instagram-owned-insights.md`
