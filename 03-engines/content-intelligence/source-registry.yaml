@@ -1,0 +1,47 @@
+sources:
+  google_search:
+    role: demand_and_serp_intent
+    default_weight: high
+    access_mode: web_research
+  google_trends:
+    role: trend_direction_and_related_queries
+    default_weight: high
+    access_mode: public_tool
+  instagram_owned:
+    role: first_party_performance
+    default_weight: very_high
+    access_mode: official_api_when_connected
+    data_class: owned
+  instagram_competitive:
+    role: public_outlier_and_format_research
+    default_weight: high
+    access_mode: public_research
+    data_class: competitive
+  youtube:
+    role: long_form_and_short_form_pattern_research
+    default_weight: high
+    access_mode: official_api_or_web
+  reddit:
+    role: pain_question_objection_language_story_controversy
+    default_weight: medium_high
+    access_mode: web_research_default
+    caveat: "Do not treat Reddit as a direct statistical proxy for the Iranian market. Validate locally."
+  tiktok_creative_center:
+    role: format_hook_and_creative_trend_research
+    default_weight: medium
+    access_mode: public_tool
+  competitors:
+    role: positioning_offer_proof_and_content_gap
+    default_weight: high
+    access_mode: web_research
+  first_party_voice_of_customer:
+    role: dm_comment_call_consultation_sales_objection
+    default_weight: very_high
+    access_mode: project_input
+    data_class: owned
+
+rules:
+  never_merge_private_insights_with_competitor_public_metrics: true
+  prefer_first_party_language_for_copy: true
+  require_cross_source_validation_for_trend_claims: true
+  reddit_api_not_required_for_v0_1: true
