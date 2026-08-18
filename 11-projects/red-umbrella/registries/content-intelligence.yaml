@@ -39,13 +39,27 @@ terminology_guards:
 source_weights:
   first_party_voice_of_customer: very_high
   instagram_owned: very_high
+  instagram_competitive: very_high
+  youtube: very_high
+  tiktok_creative_center: high
+  linkedin: high
   google_search: high
   google_trends: high
-  instagram_competitive: high
-  youtube: high
   reddit: medium_high
   competitors: high
-  tiktok_creative_center: medium
+
+platform_roles:
+  youtube:
+    use_for: [searchable_video_demand, hooks, long_form, shorts, visible_performance]
+  instagram_competitive:
+    use_for: [reels, carousels, hooks, offers, public_outliers, competitor_positioning]
+    private_metrics_forbidden: [reach, saves, shares, retention, profile_actions, conversions]
+  tiktok_creative_center:
+    use_for: [top_ads, creative_patterns, hooks, keywords, short_video_trends]
+    commercial_research_api_dependency: false
+  linkedin:
+    use_for: [b2b_pain, executive_language, authority_content, consulting, organizational_buyers]
+    unrestricted_public_post_api_assumed: false
 
 reddit_role:
   use_for:
