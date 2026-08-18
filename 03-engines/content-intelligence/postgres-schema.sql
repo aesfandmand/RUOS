@@ -1,5 +1,6 @@
--- RUOS Content Intelligence Engine v0.1
--- PostgreSQL / Supabase-compatible starter schema.
+-- RUOS Content Intelligence Engine v0.2
+-- PostgreSQL / Supabase-compatible base schema.
+-- Follow with migrations/002_hardening.sql and migrations/003_fk_indexes.sql.
 
 create table if not exists ci_projects (
   id text primary key,
@@ -130,5 +131,5 @@ create table if not exists ci_business_outcomes (
   metadata jsonb not null default '{}'::jsonb
 );
 
--- Security rule for implementation phase:
--- API tokens and OAuth secrets MUST NOT be stored in these tables or committed to Git.
+-- Security rule:
+-- API tokens, OAuth secrets and database passwords MUST NOT be stored in these tables or committed to Git.
