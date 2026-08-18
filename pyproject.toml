@@ -16,6 +16,7 @@ content-intel = ["psycopg[binary]>=3.2"]
 ruos = "ruos.cli:main"
 ruos-cie = "ruos.cie_cli:main"
 ruos-content-sync = "ruos.content_intelligence_sync:main"
+ruos-research-ingest = "ruos.research_ingest_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
