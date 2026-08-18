@@ -1,6 +1,6 @@
 # Instagram Owned Insights — Connection Contract
 
-وضعیت: **connector implemented / live account not connected yet**
+وضعیت: **database live / connector implemented / Meta authorization pending**
 
 این لایه فقط برای حساب حرفه‌ای Instagram از نوع Business یا Creator است و دادهٔ خصوصی همان حساب را در کلاس `owned` نگه می‌دارد. دادهٔ عمومی رقبا هرگز در این مسیر وارد نمی‌شود.
 
@@ -38,25 +38,34 @@ CI_PROJECT_NAME
 
 `CI_META_GRAPH_API_VERSION` عمداً hard-code نشده است؛ هنگام راه‌اندازی App باید نسخهٔ فعال و پشتیبانی‌شدهٔ Meta ثبت شود.
 
-## دیتابیس
+## دیتابیس — انجام‌شده
 
-Schema اولیه:
+Supabase project:
 
 ```text
-03-engines/content-intelligence/postgres-schema.sql
+name: umbrella social
+project_ref: esobizhvqnvmhafqhlpc
+status: ACTIVE
 ```
 
-برای persistence:
+اعمال‌شده:
+
+- `postgres-schema.sql`
+- `migrations/002_hardening.sql`
+- `migrations/003_fk_indexes.sql`
+- RLS روی تمام جدول‌های `ci_*`
+- بدون public RLS policy؛ backend-only در این فاز
+- seed پروژهٔ `red-umbrella`
+
+برای persistence در Runner:
 
 ```bash
 pip install -e '.[content-intel]'
 ```
 
-و سپس Schema روی PostgreSQL/Supabase اعمال شود.
-
 ## اجرای یک Sync
 
-بعد از تنظیم Secretها و Schema:
+بعد از تنظیم Secretهای Meta و `CI_DATABASE_URL`:
 
 ```bash
 ruos-content-sync
@@ -73,18 +82,17 @@ Runner این کارها را انجام می‌دهد:
 7. Outlier Ratio را نسبت به median حداکثر 20 محتوای اخیر محاسبه می‌کند.
 8. خطای Metricهای پشتیبانی‌نشده را در metadata همان Snapshot ثبت می‌کند.
 
-## هنوز برای اتصال زنده لازم است
+## هنوز برای اتصال زنده Instagram لازم است
 
 - ساخت یا انتخاب Meta App مناسب
 - فعال‌سازی Business Login for Instagram
 - تنظیم Redirect URI/OAuth
-- گرفتن User ID و Access Token مجاز
+- گرفتن Professional User ID و Access Token مجاز
 - تعیین Graph API Version فعال
-- ساخت Supabase/PostgreSQL instance و اجرای Schema
 - انتقال Secretها به Secret Store / GitHub Actions Secrets
 - تست Read-only روی حساب Red Umbrella
 - سپس فعال‌سازی Runner زمان‌بندی‌شده
 
-تا این موارد انجام نشده، عبارت درست برای وضعیت سیستم این است:
+تا تست واقعی Meta انجام نشده، عبارت درست برای وضعیت سیستم این است:
 
-> Instagram Owned Insights connector implemented; live Red Umbrella connection pending credentials and Meta app setup.
+> Content Intelligence database live; Instagram Owned Insights connector implemented; Meta authorization pending.
