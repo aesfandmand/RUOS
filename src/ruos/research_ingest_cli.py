@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 import json
 from pathlib import Path
 
@@ -31,7 +32,7 @@ def main() -> int:
 
     store = PostgresContentIntelligenceStore()
     summary = bulk_ingest(store, _load_jsonl(args.path))
-    print(json.dumps(summary.__dict__, ensure_ascii=False, indent=2))
+    print(json.dumps(asdict(summary), ensure_ascii=False, indent=2))
     return 0
 
 
