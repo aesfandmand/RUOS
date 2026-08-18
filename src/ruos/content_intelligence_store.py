@@ -10,7 +10,7 @@ from __future__ import annotations
 from contextlib import contextmanager
 import json
 import os
-from typing import Any, Iterator, Mapping
+from typing import Any, Iterator, Mapping, Sequence
 
 
 class ContentIntelligenceStoreError(RuntimeError):
@@ -163,6 +163,59 @@ class PostgresContentIntelligenceStore:
                 ),
             )
             return int(cur.fetchone()[0])
+
+    def upsert_research_evidence(
+        self,
+        *,
+        project_id: str,
+        fingerprint: str,
+        source_type: str,
+        source_class: str,
+        topic: str,
+        title: str | None = None,
+        query: str | None = None,
+        excerpt: str | None = None,
+        url: str | None = None,
+        observed_at: str,
+        published_at: str | None = None,
+        confidence: float,
+        commercial_relevance: float | None = None,
+        corroboration_status: str = "single_source",
+        tags: Sequence[str] | None = None,
+        metadata: Mapping[str, Any] | None = None,
+    ) -> bool:
+        """Insert one normalized evidence row; return False when fingerprint already exists."""
+        with self.connection() as conn, conn.cursor() as cur:
+            cur.execute(
+                """
+                insert into ci_research_evidence
+                  (project_id, source_type, source_class, fingerprint, topic, title, query,
+                   excerpt, url, observed_at, published_at, confidence, commercial_relevance,
+                   corroboration_status, tags, metadata)
+                values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb)
+                on conflict (project_id, fingerprint) where fingerprint is not null do nothing
+                returning id
+                """,
+                (
+                    project_id,
+                    source_type,
+                    source_class,
+                    fingerprint,
+                    topic,
+                    title,
+                    query,
+                    excerpt,
+                    url,
+                    observed_at,
+                    published_at,
+                    confidence,
+                    commercial_relevance,
+                    corroboration_status,
+                    list(tags or []),
+                    json.dumps(dict(metadata or {})),
+                ),
+            )
+            return cur.fetchone() is not None
 
     def completed_snapshot_targets(self, content_item_id: int) -> list[int]:
         with self.connection() as conn, conn.cursor() as cur:
