@@ -1,6 +1,6 @@
 engine:
   id: ruos.content_intelligence
-  version: 0.1.0
+  version: 0.2.0
   status: experimental
   scope: multi_project
   language: fa-first
@@ -27,6 +27,10 @@ cycles:
 
 owned_metrics:
   snapshot_hours: [1, 6, 24, 72, 168, 720]
+  snapshot_max_lateness_hours: 3
+  baseline_window: 20
+  baseline_rule: compare_same_snapshot_age_only
+  no_stale_backfill: true
   derived:
     - outlier_ratio
     - view_velocity
@@ -39,6 +43,18 @@ owned_metrics:
     - consultation_rate
     - lead_rate
     - sale_rate
+
+connectors:
+  instagram_owned:
+    implementation: src/ruos/content_intelligence_instagram.py
+    runner: src/ruos/content_intelligence_sync.py
+    status: implemented_not_live_connected
+    auth: runtime_secret_only
+    data_class: owned
+  postgres:
+    implementation: src/ruos/content_intelligence_store.py
+    schema: 03-engines/content-intelligence/postgres-schema.sql
+    status: implemented_instance_not_provisioned
 
 analysis_layers:
   - source_normalization
@@ -57,3 +73,5 @@ approval_gates:
   commercial_relevance_required_for_conversion_content: true
   human_approval_before_calendar_publish: true
   separate_owned_and_competitive_data: true
+  secrets_never_committed: true
+  no_live_connection_claim_without_successful_read_test: true
