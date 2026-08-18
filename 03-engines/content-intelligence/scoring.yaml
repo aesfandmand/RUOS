@@ -1,0 +1,32 @@
+opportunity_score:
+  scale: 0-100
+  weights:
+    demand: 0.20
+    viral_potential: 0.20
+    audience_pain: 0.15
+    commercial_intent: 0.15
+    brand_authority_fit: 0.10
+    differentiation: 0.10
+    production_feasibility: 0.05
+    freshness: 0.05
+
+thresholds:
+  produce_now: 85
+  backlog: 70
+  watch_or_reject: 0
+
+outlier_detection:
+  baseline_window_items: 20
+  preferred_metric: views
+  formula: current_value / baseline_median
+  labels:
+    breakout: 5.0
+    strong_outlier: 3.0
+    outlier: 2.0
+    normal: 0.0
+
+notes:
+  - Raw views alone must not determine priority.
+  - For owned accounts, save/share/profile/DM and business outcomes outrank vanity metrics.
+  - For competitive accounts, use only public or officially available signals.
+  - A high-viral, low-commercial item may still be selected for Reach, but must not dominate the calendar.
