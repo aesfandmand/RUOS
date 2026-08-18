@@ -11,10 +11,16 @@ from ruos.content_intelligence_snapshots import (
 )
 
 
-def test_due_snapshot_target_returns_earliest_unfinished_target():
+def test_due_snapshot_target_returns_current_checkpoint_only():
     assert due_snapshot_target(6.2, completed_targets=[1]) == 6
     assert due_snapshot_target(25, completed_targets=[1, 6, 24]) is None
     assert due_snapshot_target(73, completed_targets=[1, 6, 24]) == 72
+
+
+def test_due_snapshot_target_does_not_fake_old_checkpoints():
+    assert due_snapshot_target(100, completed_targets=[]) is None
+    assert due_snapshot_target(8.9, completed_targets=[1]) == 6
+    assert due_snapshot_target(9.1, completed_targets=[1]) is None
 
 
 def test_instagram_rates_use_reach_denominator():
