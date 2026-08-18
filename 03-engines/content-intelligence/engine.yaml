@@ -48,13 +48,19 @@ connectors:
   instagram_owned:
     implementation: src/ruos/content_intelligence_instagram.py
     runner: src/ruos/content_intelligence_sync.py
-    status: implemented_not_live_connected
+    status: implemented_authorization_pending
     auth: runtime_secret_only
     data_class: owned
   postgres:
     implementation: src/ruos/content_intelligence_store.py
     schema: 03-engines/content-intelligence/postgres-schema.sql
-    status: implemented_instance_not_provisioned
+    migrations:
+      - 03-engines/content-intelligence/migrations/002_hardening.sql
+      - 03-engines/content-intelligence/migrations/003_fk_indexes.sql
+    provider: supabase
+    project_ref: esobizhvqnvmhafqhlpc
+    status: live
+    access: trusted_backend_only
 
 analysis_layers:
   - source_normalization
