@@ -164,6 +164,19 @@ class PostgresContentIntelligenceStore:
             )
             return int(cur.fetchone()[0])
 
+    def completed_snapshot_targets(self, content_item_id: int) -> list[int]:
+        with self.connection() as conn, conn.cursor() as cur:
+            cur.execute(
+                """
+                select distinct age_hours
+                from ci_metric_snapshots
+                where content_item_id = %s and age_hours is not null
+                order by age_hours asc
+                """,
+                (content_item_id,),
+            )
+            return [int(row[0]) for row in cur.fetchall()]
+
     def insert_metric_snapshot(
         self,
         *,
@@ -172,7 +185,20 @@ class PostgresContentIntelligenceStore:
         metrics: Mapping[str, Any],
         derived: Mapping[str, Any] | None = None,
     ) -> int:
+        """Insert a target snapshot once; repeated runners are idempotent per target."""
+
         with self.connection() as conn, conn.cursor() as cur:
+            cur.execute(
+                """
+                select id from ci_metric_snapshots
+                where content_item_id = %s and age_hours = %s
+                order by id asc limit 1
+                """,
+                (content_item_id, age_hours),
+            )
+            existing = cur.fetchone()
+            if existing:
+                return int(existing[0])
             cur.execute(
                 """
                 insert into ci_metric_snapshots (content_item_id, age_hours, metrics, derived)
@@ -187,3 +213,46 @@ class PostgresContentIntelligenceStore:
                 ),
             )
             return int(cur.fetchone()[0])
+
+    def recent_metric_values(
+        self,
+        *,
+        project_id: str,
+        metric: str,
+        limit: int = 20,
+        exclude_content_item_id: int | None = None,
+    ) -> list[float]:
+        """Return latest available metric value from recent Instagram content items."""
+
+        if limit < 1:
+            raise ValueError("limit must be >= 1")
+        params: list[Any] = [metric, project_id]
+        exclusion_sql = ""
+        if exclude_content_item_id is not None:
+            exclusion_sql = "and ci.id <> %s"
+            params.append(exclude_content_item_id)
+        params.append(limit)
+
+        with self.connection() as conn, conn.cursor() as cur:
+            cur.execute(
+                f"""
+                select jsonb_extract_path_text(ms.metrics, %s)::numeric
+                from ci_content_items ci
+                join lateral (
+                    select metrics
+                    from ci_metric_snapshots
+                    where content_item_id = ci.id
+                      and jsonb_extract_path_text(metrics, %s) is not null
+                    order by captured_at desc
+                    limit 1
+                ) ms on true
+                where ci.project_id = %s
+                  and ci.platform = 'instagram'
+                  {exclusion_sql}
+                order by ci.published_at desc nulls last
+                limit %s
+                """,
+                # metric is used twice: select extraction and lateral availability test.
+                [metric, *params],
+            )
+            return [float(row[0]) for row in cur.fetchall() if row[0] is not None]
