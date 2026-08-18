@@ -2,7 +2,7 @@ schema_version: 1.0.0
 kind: content-intelligence-project
 project_id: red-umbrella
 engine: 03-engines/content-intelligence/engine.yaml
-status: active_config_live_data_pending
+status: database_live_instagram_auth_pending
 
 business_goal:
   primary: generate_qualified_demand_and_consultation
@@ -64,8 +64,19 @@ cycles:
   performance_review_day: 30
   strategic_review_day: 45
 
+database:
+  provider: supabase
+  project_ref: esobizhvqnvmhafqhlpc
+  project_name: umbrella social
+  status: live
+  access: trusted_backend_only
+  public_rls_policy: none
+  credentials: runtime_secret_only
+  seeded_project_id: red-umbrella
+
 instagram_owned:
-  status: connector_ready_live_connection_pending
+  status: connector_ready_authorization_pending
+  connector: src/ruos/content_intelligence_instagram.py
   data_class: owned
   snapshot_hours: [1, 6, 24, 72, 168, 720]
   outlier_baseline_window: 20
