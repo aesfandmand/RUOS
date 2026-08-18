@@ -30,6 +30,10 @@ knowledge_graph:
   relation_registry: 11-projects/red-umbrella/knowledge/relations.yaml
 capabilities:
   registry: 11-projects/red-umbrella/capabilities/registry.yaml
+content_intelligence:
+  engine: 03-engines/content-intelligence/engine.yaml
+  project_registry: 11-projects/red-umbrella/registries/content-intelligence.yaml
+  status: active_config_live_data_pending
 quality_gates:
   - 15-website-studio-engine/contracts/website-v16-non-regression.yaml
 assistant_adapters:
