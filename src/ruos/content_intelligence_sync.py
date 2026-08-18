@@ -135,6 +135,7 @@ def sync_owned_instagram(
             baseline = store.recent_metric_values(
                 project_id=project_id,
                 metric="views",
+                age_hours=target,
                 limit=baseline_window,
                 exclude_content_item_id=content_item_id,
             )
@@ -143,6 +144,7 @@ def sync_owned_instagram(
                 derived["outlier_ratio"] = ratio
                 derived["outlier_class"] = classify_outlier(ratio)
                 derived["baseline_window"] = len(baseline)
+                derived["baseline_age_hours"] = target
 
         store.insert_metric_snapshot(
             content_item_id=content_item_id,
