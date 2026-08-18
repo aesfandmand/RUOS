@@ -1,0 +1,124 @@
+engine:
+  id: ruos.content_intelligence
+  version: 0.3.1
+  status: experimental
+  scope: multi_project
+  language: fa-first
+
+objectives:
+  - discover_demand
+  - detect_winning_content
+  - mine_audience_pain_and_language
+  - extract_repeatable_patterns
+  - score_content_opportunities
+  - generate_strategy_inputs
+  - generate_rolling_calendar_inputs
+  - learn_from_owned_performance
+
+cycles:
+  research_horizon_days:
+    default: 180
+    min: 90
+    max: 365
+  execution_calendar_days: 30
+  mini_review_day: 15
+  performance_review_day: 30
+  strategic_review_day: 45
+
+owned_metrics:
+  snapshot_hours: [1, 6, 24, 72, 168, 720]
+  snapshot_max_lateness_hours: 3
+  baseline_window: 20
+  baseline_rule: compare_same_snapshot_age_only
+  no_stale_backfill: true
+  derived:
+    - outlier_ratio
+    - view_velocity
+    - save_rate
+    - share_rate
+    - interaction_rate
+    - profile_visit_rate
+    - follow_rate
+    - dm_rate
+    - consultation_rate
+    - lead_rate
+    - sale_rate
+
+connectors:
+  instagram_owned:
+    implementation: src/ruos/content_intelligence_instagram.py
+    runner: src/ruos/content_intelligence_sync.py
+    status: implemented_authorization_pending
+    auth: runtime_secret_only
+    data_class: owned
+  instagram_competitive:
+    adapter: src/ruos/content_intelligence_social.py
+    policy: 03-engines/content-intelligence/instagram-outlier-discovery-policy-v0.3.md
+    priority: primary
+    official_target: professional_account_business_discovery_after_meta_auth
+    current_fallback: public_web_manual_or_approved_provider
+    private_metric_inference: forbidden
+    pattern_mining_gate: true
+  postgres:
+    implementation: src/ruos/content_intelligence_store.py
+    schema: 03-engines/content-intelligence/postgres-schema.sql
+    migrations:
+      - 03-engines/content-intelligence/migrations/002_hardening.sql
+      - 03-engines/content-intelligence/migrations/003_fk_indexes.sql
+      - 03-engines/content-intelligence/migrations/004_research_evidence_hardening.sql
+    provider: supabase
+    project_ref: esobizhvqnvmhafqhlpc
+    status: live
+    access: trusted_backend_only
+  research:
+    contract: 03-engines/content-intelligence/research-engine-v0.3.md
+    evidence_schema: 03-engines/content-intelligence/research-evidence.schema.json
+    social_workflow: 03-engines/content-intelligence/social-discovery-workflow-v0.3.md
+    sources:
+      - google_search
+      - google_trends
+      - instagram_competitive
+      - youtube
+      - reddit
+      - tiktok_creative_center
+      - linkedin
+      - competitor_sites
+      - voice_of_customer
+    status: adapters_ready_live_discovery_partial
+
+instagram_competitive_gate:
+  pilot_min_evidence: 15
+  pilot_min_accounts: 5
+  desired_high_performance_items: 5
+  production_min_accounts_per_cluster: 10
+  preferred_recent_items_per_account: 20
+  compare_like_formats: true
+  age_normalization: true
+  absolute_and_account_relative_ranking: true
+  no_outlier_without_baseline: true
+
+analysis_layers:
+  - source_normalization
+  - deduplication
+  - intent_classification
+  - funnel_classification
+  - pain_question_objection_extraction
+  - hook_and_format_extraction
+  - outlier_detection
+  - instagram_batch_high_performance_detection
+  - cross_source_validation
+  - pattern_mining
+  - opportunity_scoring
+  - strategy_mapping
+  - calendar_prioritization
+
+approval_gates:
+  research_evidence_required: true
+  instagram_competitive_sample_required_for_primary_pattern_mining: true
+  commercial_relevance_required_for_conversion_content: true
+  human_approval_before_calendar_publish: true
+  separate_owned_and_competitive_data: true
+  secrets_never_committed: true
+  no_live_connection_claim_without_successful_read_test: true
+  no_invented_metrics: true
+  no_calendar_item_without_evidence: true

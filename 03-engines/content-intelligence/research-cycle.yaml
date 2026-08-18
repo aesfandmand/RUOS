@@ -1,0 +1,50 @@
+research_cycle:
+  phase_1_discovery:
+    tasks:
+      - collect_search_queries
+      - collect_social_outliers
+      - collect_reddit_pains_questions_objections
+      - collect_competitor_patterns
+      - collect_first_party_customer_language
+  phase_2_normalize:
+    tasks:
+      - deduplicate_topics
+      - normalize_metrics
+      - separate_owned_and_competitive_data
+      - classify_intent_and_funnel
+  phase_3_pattern_mining:
+    tasks:
+      - extract_hooks
+      - extract_formats
+      - extract_emotional_angles
+      - extract_story_structures
+      - detect_repeated_winning_formulas
+  phase_4_score:
+    tasks:
+      - calculate_outlier_ratio
+      - calculate_opportunity_score
+      - assign_reach_authority_education_proof_conversion_brand_role
+  phase_5_strategy:
+    outputs:
+      - content_opportunity_map
+      - hook_library
+      - signature_series_candidates
+      - channel_mix
+      - kpi_map
+  phase_6_calendar:
+    horizon_days: 30
+    mode: rolling
+    rule: "Do not freeze trend-sensitive content 30+ days ahead."
+  phase_7_learning:
+    checkpoints:
+      day_15: mini_review
+      day_30: performance_review_and_next_calendar
+      day_45: strategic_review
+
+minimum_research_evidence:
+  per_project:
+    winning_content_items: 100
+    distinct_sources: 4
+    first_party_inputs_when_available: 10
+  exceptions:
+    - "Niche or new markets may use a smaller sample, but the limitation must be reported."

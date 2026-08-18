@@ -1,0 +1,112 @@
+schema_version: 1.0.0
+kind: content-intelligence-project
+project_id: red-umbrella
+engine: 03-engines/content-intelligence/engine.yaml
+status: database_live_instagram_auth_pending
+
+business_goal:
+  primary: generate_qualified_demand_and_consultation
+  secondary:
+    - strengthen_brand_authority
+    - support_sales
+    - discover_high-performing_content_patterns
+
+primary_pillars:
+  - digital_marketing
+  - outdoor_advertising
+  - investment
+
+supporting_domains:
+  - advertising_and_marketing_consulting
+  - content_production
+  - printing
+  - outdoor_advertising_structure_engineering
+
+terminology_guards:
+  forbidden_as_top_level_labels:
+    - سازه
+    - تابلو
+    - نصب
+  preferred_top_level_labels:
+    - دیجیتال مارکتینگ
+    - تبلیغات محیطی
+    - سرمایه‌گذاری
+  notes:
+    - "تابلو فقط در ترکیب‌های روشن مانند تابلو تبلیغاتی به‌کار رود؛ نه به‌تنهایی."
+    - "سازه در لایهٔ فنی مجاز است؛ نه به‌عنوان هویت ورودی برند."
+    - "نصب یک مرحلهٔ اجراست، نه خدمت محوری برای معرفی برند."
+
+source_weights:
+  first_party_voice_of_customer: very_high
+  instagram_owned: very_high
+  instagram_competitive: very_high
+  youtube: very_high
+  tiktok_creative_center: high
+  linkedin: high
+  google_search: high
+  google_trends: high
+  reddit: medium_high
+  competitors: high
+
+platform_roles:
+  youtube:
+    use_for: [searchable_video_demand, hooks, long_form, shorts, visible_performance]
+  instagram_competitive:
+    use_for: [reels, carousels, hooks, offers, public_outliers, competitor_positioning]
+    private_metrics_forbidden: [reach, saves, shares, retention, profile_actions, conversions]
+  tiktok_creative_center:
+    use_for: [top_ads, creative_patterns, hooks, keywords, short_video_trends]
+    commercial_research_api_dependency: false
+  linkedin:
+    use_for: [b2b_pain, executive_language, authority_content, consulting, organizational_buyers]
+    unrestricted_public_post_api_assumed: false
+
+reddit_role:
+  use_for:
+    - pain
+    - question
+    - objection
+    - natural_language
+    - story
+    - controversy
+  local_validation_required: true
+
+cycles:
+  research_horizon_days: 180
+  rolling_calendar_days: 30
+  mini_review_day: 15
+  performance_review_day: 30
+  strategic_review_day: 45
+
+database:
+  provider: supabase
+  project_ref: esobizhvqnvmhafqhlpc
+  project_name: umbrella social
+  status: live
+  access: trusted_backend_only
+  public_rls_policy: none
+  credentials: runtime_secret_only
+  seeded_project_id: red-umbrella
+
+instagram_owned:
+  status: connector_ready_authorization_pending
+  connector: src/ruos/content_intelligence_instagram.py
+  data_class: owned
+  snapshot_hours: [1, 6, 24, 72, 168, 720]
+  outlier_baseline_window: 20
+  same_age_comparison_required: true
+  no_stale_backfill: true
+
+conversion_paths:
+  - consultation
+  - digital_marketing_project
+  - outdoor_advertising_project
+  - investment_opportunity
+
+candidate_signature_series:
+  status: test_not_locked
+  series:
+    - اگر جای شما بودم
+    - این تبلیغ مشکلش کجاست؟
+    - پول تبلیغات کجا هدر می‌رود؟
+    - از داخل کارگاه
