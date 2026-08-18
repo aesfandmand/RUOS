@@ -12,7 +12,12 @@
     "title": {"type": ["string", "null"]},
     "topic": {"type": "string"},
     "observed_at": {"type": "string", "format": "date-time"},
-    "published_at": {"type": ["string", "null"], "format": "date-time"},
+    "published_at": {
+      "anyOf": [
+        {"type": "string", "format": "date-time"},
+        {"type": "null"}
+      ]
+    },
     "language": {"type": ["string", "null"]},
     "geography": {"type": ["string", "null"]},
     "query": {"type": ["string", "null"]},
