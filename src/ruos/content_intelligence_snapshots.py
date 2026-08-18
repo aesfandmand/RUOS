@@ -25,21 +25,25 @@ def due_snapshot_target(
     age_hours: float,
     completed_targets: Iterable[int],
     *,
-    tolerance_hours: float = 1.0,
+    max_lateness_hours: float = 3.0,
 ) -> int | None:
-    """Return the earliest snapshot target that is due and not completed.
+    """Return a due target without backfilling stale historical checkpoints.
 
-    A target becomes due when content age reaches ``target - tolerance``. The caller
-    records the returned target as completed after a successful snapshot.
+    A target is eligible only after the content reaches it and while the runner is
+    still within ``max_lateness_hours``. This prevents a 100-hour-old Reel from
+    being written into a fake 1h/6h snapshot simply because an earlier run was
+    missed.
     """
 
     if age_hours < 0:
         raise ValueError("age_hours cannot be negative")
-    if tolerance_hours < 0:
-        raise ValueError("tolerance_hours cannot be negative")
+    if max_lateness_hours < 0:
+        raise ValueError("max_lateness_hours cannot be negative")
     completed = set(completed_targets)
     for target in SNAPSHOT_TARGET_HOURS:
-        if target not in completed and age_hours >= max(0, target - tolerance_hours):
+        if target in completed:
+            continue
+        if target <= age_hours <= target + max_lateness_hours:
             return target
     return None
 
