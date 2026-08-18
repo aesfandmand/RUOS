@@ -7,29 +7,54 @@ sources:
     role: trend_direction_and_related_queries
     default_weight: high
     access_mode: public_tool
+
   instagram_owned:
     role: first_party_performance
     default_weight: very_high
     access_mode: official_api_when_connected
     data_class: owned
   instagram_competitive:
-    role: public_outlier_and_format_research
-    default_weight: high
+    role: public_outlier_format_hook_and_offer_research
+    default_weight: very_high
     access_mode: public_research
     data_class: competitive
+    caveat: "Never infer private reach, saves, shares, retention, profile actions or conversion from public competitor content."
+
   youtube:
-    role: long_form_and_short_form_pattern_research
-    default_weight: high
-    access_mode: official_api_or_web
+    role: searchable_video_demand_long_form_short_form_hooks_and_visible_performance
+    default_weight: very_high
+    access_mode: youtube_data_api_with_api_key_or_web_fallback
+    data_class: competitive
+    notes:
+      - "Use search.list for discovery and videos.list for public statistics when API key is configured."
+      - "Search results are discovery objects; fetch persistent video resources before storing performance metrics."
+
   reddit:
     role: pain_question_objection_language_story_controversy
     default_weight: medium_high
     access_mode: web_research_default
     caveat: "Do not treat Reddit as a direct statistical proxy for the Iranian market. Validate locally."
+
   tiktok_creative_center:
-    role: format_hook_and_creative_trend_research
-    default_weight: medium
-    access_mode: public_tool
+    role: creative_patterns_top_ads_hooks_keywords_and_trends
+    default_weight: high
+    access_mode: public_creative_center_or_tiktok_one_research
+    data_class: competitive
+    caveat: "TikTok Research API is not available to commercial users; do not build the agency engine around it."
+    notes:
+      - "Creative Center / TikTok One may surface authorized high-performing ad examples and creative analytics."
+      - "Top Ads is a selected/authorized set, not a census of all winning TikTok content."
+
+  linkedin:
+    role: b2b_questions_authority_formats_offers_and_professional_language
+    default_weight: high
+    access_mode: public_web_research_plus_authorized_owned_org_api
+    data_class: competitive
+    caveat: "Do not assume unrestricted API search over public LinkedIn posts. Official post retrieval permissions are scoped to authorized members/organizations and approved products."
+    notes:
+      - "For Red Umbrella, prioritize marketing leaders, founders, agencies, OOH/media owners, B2B consultants and organizational buyers."
+      - "Owned company-page research may later use authorized LinkedIn organization social APIs."
+
   competitors:
     role: positioning_offer_proof_and_content_gap
     default_weight: high
@@ -45,3 +70,5 @@ rules:
   prefer_first_party_language_for_copy: true
   require_cross_source_validation_for_trend_claims: true
   reddit_api_not_required_for_v0_1: true
+  tiktok_research_api_not_required_for_commercial_engine: true
+  linkedin_public_post_search_api_not_assumed: true
