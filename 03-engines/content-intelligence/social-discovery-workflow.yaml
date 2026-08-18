@@ -1,0 +1,123 @@
+schema_version: 1.0.0
+kind: social-discovery-workflow
+project_scope: multi_project
+
+platforms:
+  youtube:
+    priority: very_high
+    discovery:
+      primary: official_data_api
+      fallback: public_web_research
+    public_metrics_allowed:
+      - view_count
+      - like_count
+      - comment_count
+    private_metrics_forbidden_without_auth:
+      - audience_retention
+      - traffic_sources
+      - revenue
+    required_evidence_fields:
+      - video_id
+      - title
+      - channel
+      - published_at
+      - canonical_url
+      - visible_metrics
+    outlier_rule: compare_against_same_channel_and_comparable_format_when_history_is_available
+
+  instagram_competitive:
+    priority: very_high
+    discovery:
+      primary: public_web_research
+      secondary: manual_verified_public_capture
+    public_metrics_allowed:
+      - visible_views_if_shown
+      - visible_likes_if_shown
+      - visible_comments_if_shown
+    private_metrics_forbidden:
+      - reach
+      - saves
+      - shares
+      - profile_visits
+      - retention
+      - conversion
+    required_evidence_fields:
+      - account
+      - canonical_url
+      - format
+      - hook
+      - topic
+      - visible_metrics
+    rule: never_infer_private_metrics_for_competitors
+
+  tiktok:
+    priority: high
+    discovery:
+      primary: creative_center_or_tiktok_one
+      fallback: public_web_research
+    signals:
+      - top_ads
+      - trending_hashtags
+      - keywords
+      - creative_patterns
+      - engagement_moments_when_visible
+    rule: do_not_depend_on_research_api_for_agency_commercial_work
+
+  linkedin:
+    priority: high
+    discovery:
+      primary: public_web_research
+      owned_optional: authorized_organization_api
+    signals:
+      - executive_language
+      - b2b_objections
+      - budget_justification
+      - media_strategy
+      - marketing_leadership_questions
+      - case_studies
+    rule: do_not_assume_unrestricted_public_post_search_api
+
+cross_platform:
+  canonicalize_urls: true
+  deduplicate_by_fingerprint: true
+  preserve_published_at: true
+  store_observed_at: true
+  no_invented_metrics: true
+  require_source_url: true
+  corroboration_threshold_source_classes: 2
+  first_party_confirmation_can_override_social_popularity: true
+
+red_umbrella_pilot_queries:
+  outdoor_advertising:
+    fa:
+      - تبلیغات محیطی
+      - بیلبورد
+      - اجاره بیلبورد
+      - انتخاب موقعیت بیلبورد
+      - اثربخشی تبلیغات محیطی
+      - هزینه تبلیغات محیطی
+    en:
+      - billboard advertising strategy
+      - outdoor advertising effectiveness
+      - billboard location strategy
+      - OOH campaign ROI
+      - billboard creative mistakes
+  digital_marketing:
+    fa:
+      - هدررفت بودجه تبلیغات
+      - انتخاب کانال تبلیغاتی
+      - هزینه جذب مشتری
+      - مشاوره تبلیغات و بازاریابی
+    en:
+      - wasted ad budget
+      - marketing channel selection
+      - customer acquisition cost mistakes
+      - advertising consultant strategy
+  integrated_marketing:
+    fa:
+      - تبلیغات محیطی و دیجیتال مارکتینگ
+      - کمپین یکپارچه تبلیغاتی
+    en:
+      - OOH and digital marketing
+      - integrated advertising campaign
+      - offline to online amplification
