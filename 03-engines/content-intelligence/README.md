@@ -57,7 +57,7 @@
 - resilient metric collection برای Metricهای ناسازگار با نوع Media
 - PostgreSQL/Supabase schema و storage adapter
 - Supabase live database برای موتور روی پروژهٔ `umbrella social` (`esobizhvqnvmhafqhlpc`)
-- RLS فعال روی تمام جدول‌های `ci_*` بدون public policy؛ دسترسی عمومی API عمداً بسته است
+- RLS فعال روی تمام جدول‌های `ci_*` بدون public policy؛ دسترسی عمومی API عمداً بسته است و فعلاً فقط مسیر backend/trusted connection طراحی شده است
 - unique snapshot/source guards و foreign-key indexes
 - پروژهٔ `red-umbrella` در دیتابیس seed شده است
 - CLI اجرای sync: `ruos-content-sync`
