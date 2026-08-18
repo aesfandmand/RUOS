@@ -1,0 +1,85 @@
+project:
+  id: red-umbrella
+  engine: ruos.content_intelligence
+  language: fa
+  geography:
+    primary: Iran
+    operating_poles: [Tehran, Isfahan]
+
+business_goal:
+  primary: growth_and_brand_development
+  conversion_goals:
+    - advertising_marketing_consultation
+    - project_lead
+    - outdoor_advertising_investment_lead
+
+content_architecture:
+  core_pillars:
+    - id: digital_marketing
+      label_fa: دیجیتال مارکتینگ
+    - id: outdoor_advertising
+      label_fa: تبلیغات محیطی
+    - id: investment
+      label_fa: سرمایه‌گذاری
+  supporting_capabilities:
+    - id: advertising_marketing_consulting
+      label_fa: مشاوره تبلیغات و بازاریابی
+    - id: content_production
+      label_fa: تولید محتوا
+    - id: print
+      label_fa: چاپ
+    - id: outdoor_structure_engineering
+      label_fa: مهندسی سازه‌های تبلیغات محیطی
+
+terminology_guards:
+  forbidden_as_top_level_marketing_label:
+    - سازه
+    - تابلو
+    - نصب
+  preferred_terms:
+    outdoor_category: تبلیغات محیطی
+    billboard_query: بیلبورد
+    advertising_sign_query: تابلو تبلیغاتی
+  notes:
+    - "سازه فقط در لایهٔ فنی/مهندسی یا همراه با تبلیغات محیطی استفاده شود."
+    - "تابلو به‌تنهایی نباید هویت برند را به تابلوسازی تقلیل دهد."
+    - "نصب قابلیت اجرایی است، نه خدمت محوری برای معرفی برند."
+
+source_weights:
+  first_party_voice_of_customer: 1.00
+  instagram_owned: 1.00
+  google_search: 0.95
+  google_trends: 0.90
+  instagram_competitive: 0.90
+  youtube: 0.85
+  reddit: 0.80
+  competitors: 0.90
+  tiktok_creative_center: 0.65
+
+content_roles:
+  - reach
+  - authority
+  - education
+  - proof
+  - conversion
+  - brand
+
+signature_series_candidates:
+  - title_fa: اگر جای شما بودم
+    role: authority
+    status: test
+  - title_fa: این تبلیغ مشکلش کجاست؟
+    role: authority
+    status: test
+  - title_fa: پول تبلیغات کجا هدر می‌رود؟
+    role: conversion
+    status: test
+  - title_fa: از داخل کارگاه
+    role: proof
+    status: test
+
+planning:
+  execution_calendar_days: 30
+  strategic_cycle_days: 45
+  review_days: [15, 30, 45]
+  research_horizon_days: 180
