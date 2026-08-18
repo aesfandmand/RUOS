@@ -1,0 +1,59 @@
+engine:
+  id: ruos.content_intelligence
+  version: 0.1.0
+  status: experimental
+  scope: multi_project
+  language: fa-first
+
+objectives:
+  - discover_demand
+  - detect_winning_content
+  - mine_audience_pain_and_language
+  - extract_repeatable_patterns
+  - score_content_opportunities
+  - generate_strategy_inputs
+  - generate_rolling_calendar_inputs
+  - learn_from_owned_performance
+
+cycles:
+  research_horizon_days:
+    default: 180
+    min: 90
+    max: 365
+  execution_calendar_days: 30
+  mini_review_day: 15
+  performance_review_day: 30
+  strategic_review_day: 45
+
+owned_metrics:
+  snapshot_hours: [1, 6, 24, 72, 168, 720]
+  derived:
+    - outlier_ratio
+    - view_velocity
+    - save_rate
+    - share_rate
+    - interaction_rate
+    - profile_visit_rate
+    - follow_rate
+    - dm_rate
+    - consultation_rate
+    - lead_rate
+    - sale_rate
+
+analysis_layers:
+  - source_normalization
+  - intent_classification
+  - funnel_classification
+  - pain_question_objection_extraction
+  - hook_and_format_extraction
+  - outlier_detection
+  - pattern_mining
+  - opportunity_scoring
+  - strategy_mapping
+  - calendar_prioritization
+
+approval_gates:
+  research_evidence_required: true
+  commercial_relevance_required_for_conversion_content: true
+  human_approval_before_calendar_publish: true
+  separate_owned_and_competitive_data: true
