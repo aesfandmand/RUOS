@@ -1,0 +1,87 @@
+schema_version: 1.0.0
+kind: content-intelligence-project
+project_id: red-umbrella
+engine: 03-engines/content-intelligence/engine.yaml
+status: active_config_live_data_pending
+
+business_goal:
+  primary: generate_qualified_demand_and_consultation
+  secondary:
+    - strengthen_brand_authority
+    - support_sales
+    - discover_high-performing_content_patterns
+
+primary_pillars:
+  - digital_marketing
+  - outdoor_advertising
+  - investment
+
+supporting_domains:
+  - advertising_and_marketing_consulting
+  - content_production
+  - printing
+  - outdoor_advertising_structure_engineering
+
+terminology_guards:
+  forbidden_as_top_level_labels:
+    - سازه
+    - تابلو
+    - نصب
+  preferred_top_level_labels:
+    - دیجیتال مارکتینگ
+    - تبلیغات محیطی
+    - سرمایه‌گذاری
+  notes:
+    - "تابلو فقط در ترکیب‌های روشن مانند تابلو تبلیغاتی به‌کار رود؛ نه به‌تنهایی."
+    - "سازه در لایهٔ فنی مجاز است؛ نه به‌عنوان هویت ورودی برند."
+    - "نصب یک مرحلهٔ اجراست، نه خدمت محوری برای معرفی برند."
+
+source_weights:
+  first_party_voice_of_customer: very_high
+  instagram_owned: very_high
+  google_search: high
+  google_trends: high
+  instagram_competitive: high
+  youtube: high
+  reddit: medium_high
+  competitors: high
+  tiktok_creative_center: medium
+
+reddit_role:
+  use_for:
+    - pain
+    - question
+    - objection
+    - natural_language
+    - story
+    - controversy
+  local_validation_required: true
+
+cycles:
+  research_horizon_days: 180
+  rolling_calendar_days: 30
+  mini_review_day: 15
+  performance_review_day: 30
+  strategic_review_day: 45
+
+instagram_owned:
+  status: connector_ready_live_connection_pending
+  data_class: owned
+  snapshot_hours: [1, 6, 24, 72, 168, 720]
+  outlier_baseline_window: 20
+  same_age_comparison_required: true
+  no_stale_backfill: true
+
+conversion_paths:
+  - consultation
+  - digital_marketing_project
+  - outdoor_advertising_project
+  - investment_opportunity
+
+candidate_signature_series:
+  status: test_not_locked
+  series:
+    - اگر جای شما بودم
+    - این تبلیغ مشکلش کجاست؟
+    - پول تبلیغات کجا هدر می‌رود؟
+    - از داخل کارگاه
