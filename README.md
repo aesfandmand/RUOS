@@ -14,10 +14,15 @@
 - GCERA-DSL — مدل Entity/Journey/Page (`12-gcera-dsl/`)
 - Canonical Repository Specification — قرارداد مسیرگذاری و UID (`13-canonical-repository/`)
 - Technology Intelligence Registry — رجیستری دستیِ ارزیابی کتابخانه‌ها (`14-technology-intelligence-registry/`)
-- Content Intelligence Engine v0.1 — هستهٔ آزمایشی امتیازدهی فرصت محتوا، Outlier Detection و چرخهٔ ۳۰/۴۵ روزه (`03-engines/content-intelligence/`, `src/ruos/content_intelligence.py`)
+- Content Intelligence Engine v0.2 — هستهٔ امتیازدهی، Outlier Detection، Snapshot policy، Instagram Owned Insights connector و PostgreSQL storage adapter (`03-engines/content-intelligence/`, `src/ruos/content_intelligence*.py`)
 - Multi-project workspaces، Persian-first localization
 
-هنوز پیاده‌سازی نشده (فقط در نسخه‌های قبلی به‌عنوان هدف ذکر شده بودند): اتصال رسمی Instagram Engine، Search Intelligence خودکار، Capability Engine مستقل، ابزار `10-tools/validate_repository.py`. تا پیاده‌سازی واقعی، این‌ها را به‌عنوان دامنهٔ فعلی معرفی نکنید.
+## پیاده‌سازی شده ولی هنوز زنده متصل نشده
+
+- Instagram Owned Insights connector: کد و Runner آماده است، اما Meta App/OAuth، Token واقعی، User ID واقعی و Read-only test حساب Red Umbrella هنوز انجام نشده.
+- PostgreSQL/Supabase adapter: کد و Schema آماده است، اما instance واقعی و Secretها هنوز provision نشده‌اند.
+
+هنوز پیاده‌سازی نشده: Search Intelligence خودکار، Capability Engine مستقل، ابزار `10-tools/validate_repository.py`. تا پیاده‌سازی واقعی، این‌ها را به‌عنوان دامنهٔ فعلی معرفی نکنید.
 
 ## اجرای اعتبارسنجی
 
@@ -27,6 +32,12 @@
 pip install -e .
 pip install pytest
 python3 -m pytest tests/ -q
+```
+
+برای لایهٔ Persistence موتور محتوا:
+
+```bash
+pip install -e '.[content-intel]'
 ```
 
 برای Build واقعی یک صفحه:
