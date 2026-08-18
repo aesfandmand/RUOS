@@ -33,7 +33,15 @@ capabilities:
 content_intelligence:
   engine: 03-engines/content-intelligence/engine.yaml
   project_registry: 11-projects/red-umbrella/registries/content-intelligence.yaml
-  status: active_config_live_data_pending
+  status: database_live_instagram_auth_pending
+  database:
+    provider: supabase
+    project_ref: esobizhvqnvmhafqhlpc
+    project_name: umbrella social
+    credentials: runtime_secret_only
+  instagram_owned:
+    connector: src/ruos/content_intelligence_instagram.py
+    status: authorization_pending
 quality_gates:
   - 15-website-studio-engine/contracts/website-v16-non-regression.yaml
 assistant_adapters:
