@@ -59,6 +59,16 @@
 - confidence
 - commercial relevance
 
+## Ingest pipeline — implemented
+- Collector adapters normalize Search / Reddit / YouTube evidence.
+- Tracking parameters are removed from URLs before persistence.
+- Stable SHA-256 fingerprint prevents duplicate evidence for the same project/source/url/topic/title.
+- JSON Schema allows `published_at = null` when publication time is unavailable.
+- Database has a partial unique index on `(project_id, fingerprint)`.
+- `bulk_ingest()` validates, deduplicates in-memory, then performs idempotent persistence.
+- `ruos-research-ingest <file.jsonl>` provides a repeatable JSONL ingestion path.
+- No outlier is inferred when a defensible baseline is absent.
+
 ## Cross-source rule
 یک موضوع فقط به دلیل وایرال‌شدن در یک پلتفرم «فرصت قطعی» نیست. موتور باید تفکیک کند:
 - single-source signal
@@ -114,5 +124,5 @@ Reddit برای کشف زبان و مسئله استفاده می‌شود. هر
 ## Current connector status
 - Database: LIVE
 - Instagram Owned: IMPLEMENTED / AUTH_PENDING
-- Search/Reddit/YouTube: research contract defined in v0.3; automated collectors pending
-- Manual/live web research may populate the same evidence contract before automation is complete.
+- Search/Reddit/YouTube: adapters + validation + dedupe + bulk ingest implemented; automated discovery collectors pending
+- Manual/live web research can populate the same evidence contract before automation is complete.
