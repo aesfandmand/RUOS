@@ -6,8 +6,8 @@
   },
   "role": "content",
   "family": "cross-sell",
-  "surface": "paper",
-  "composition": "Real, registry-sourced services that pair with this structure (design, print, planning) — curated by family, never invented.",
+  "surface": "dark",
+  "composition": "Real, registry-sourced services that pair with this structure (design, print, planning) — curated by family, never invented. Paints var(--ink-soft): this is a charcoal band, which the design model allows at most once per page.",
   "serves_intent": [
     "cross-sell"
   ],

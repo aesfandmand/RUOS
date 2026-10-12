@@ -1,0 +1,380 @@
+{
+  "slug": "services",
+  "lang": "fa",
+  "direction": "rtl",
+  "title": "خدمات چتر قرمز | شش خانواده خدمت، از تبلیغات محیطی تا مشاوره",
+  "description": "شش خانوادهٔ خدمت چتر قرمز در یک نقشه: تبلیغات محیطی، دیجیتال مارکتینگ، طراحی گرافیک، چاپ و تولید، عکاسی و فیلم‌برداری و مشاوره — در مجموع ۶۹ خدمت فعال.",
+  "canonical": "https://chatreghermez.ir/services/",
+  "shell": "@site",
+  "blocks": [
+    {
+      "block": "product-hero",
+      "id": "top",
+      "data": {
+        "breadcrumb": [
+          {
+            "label": "خانه",
+            "href": "/"
+          },
+          {
+            "label": "خدمات",
+            "href": "/services/"
+          }
+        ],
+        "title": "خدمات چتر قرمز",
+        "lead": "این صفحه فهرست نیست؛ نقشه است. شش خانوادهٔ خدمت با مرز روشن، تا بدانید کاری که در ذهن دارید زیر کدام خانواده می‌نشیند و از کجا باید شروع کنید.",
+        "slides": [
+          {
+            "label": "جایگاه تصویر ۱",
+            "caption": "تبلیغات محیطی",
+            "alt": "جایگاه تصویر نمونه‌کار تبلیغات محیطی"
+          },
+          {
+            "label": "جایگاه تصویر ۲",
+            "caption": "طراحی و چاپ",
+            "alt": "جایگاه تصویر نمونه‌کار طراحی گرافیک و چاپ"
+          },
+          {
+            "label": "جایگاه تصویر ۳",
+            "caption": "دیجیتال و سوشال",
+            "alt": "جایگاه تصویر نمونه‌کار دیجیتال مارکتینگ"
+          }
+        ],
+        "stats": [
+          {
+            "value": "۶",
+            "label": "خانوادهٔ خدمت",
+            "icon": "icon-services-nav"
+          },
+          {
+            "value": "۶۹",
+            "label": "خدمت فعال",
+            "icon": "icon-check"
+          },
+          {
+            "value": "۸۵",
+            "label": "خدمت ثبت‌شده",
+            "icon": "icon-datasheet"
+          }
+        ],
+        "count": "۰۶",
+        "primary": {
+          "label": "گفت‌وگو دربارهٔ پروژه",
+          "href": "#review"
+        },
+        "secondary": {
+          "label": "دیدن نمونه‌کارها",
+          "href": "/portfolio/"
+        },
+        "icon": "icon-services-nav"
+      }
+    },
+    {
+      "block": "editorial-split",
+      "id": "model",
+      "data": {
+        "eyebrow": "مدل دسته‌بندی",
+        "title": "چرا خدمات به شش خانواده تقسیم شده‌اند؟",
+        "body": [
+          "هر خانواده یک مالک مشخص دارد؛ یعنی هر خدمت فقط در یک جا تعریف می‌شود، حتی اگر در چند جای دیگر هم به کار بیاید. «طراحی بنر» مالکش طراحی گرافیک است، چه روی یک سازهٔ محیطی دیده شود، چه در یک کمپین اینستاگرام.",
+          "این مرزبندی برای شما یک نتیجهٔ ساده دارد: سفارش دوباره‌کاری نمی‌شود و هر پروژه از همان ابتدا سراغ تیم درست می‌رود، حتی اگر از چند خانواده عبور کند."
+        ],
+        "image": {
+          "label": "جایگاه تصویر",
+          "alt": "نمودار شش خانوادهٔ خدمت و مرز میان آن‌ها"
+        }
+      }
+    },
+    {
+      "block": "numbered-features",
+      "id": "families",
+      "data": {
+        "eyebrow": "شش خانوادهٔ خدمت",
+        "title": "کارتان زیر کدام خانواده می‌نشیند؟",
+        "lead": "در مجموع ۶۹ خدمت فعال، گروه‌بندی‌شده بر اساس اینکه چه چیزی تولید می‌شود — نه بر اساس اینکه در کدام کانال دیده می‌شود.",
+        "items": [
+          {
+            "index": "۰۱",
+            "title": "تبلیغات محیطی",
+            "body": "۳ خدمت ثبت‌شده در ۳ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true,
+            "icon": "icon-fam-outdoor"
+          },
+          {
+            "index": "۰۲",
+            "title": "دیجیتال مارکتینگ",
+            "body": "۳۴ خدمت ثبت‌شده در ۸ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true,
+            "icon": "icon-fam-digital"
+          },
+          {
+            "index": "۰۳",
+            "title": "طراحی گرافیک",
+            "body": "۱۸ خدمت ثبت‌شده در ۱۰ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true,
+            "icon": "icon-fam-graphic"
+          },
+          {
+            "index": "۰۴",
+            "title": "چاپ و تولید",
+            "body": "۱۴ خدمت ثبت‌شده در ۲ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true,
+            "icon": "icon-fam-print"
+          },
+          {
+            "index": "۰۵",
+            "title": "عکاسی و فیلم‌برداری",
+            "body": "۷ خدمت ثبت‌شده در ۲ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true,
+            "icon": "icon-fam-photo"
+          },
+          {
+            "index": "۰۶",
+            "title": "مشاوره",
+            "body": "۹ خدمت ثبت‌شده در ۴ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true,
+            "icon": "icon-fam-consult"
+          }
+        ],
+        "icon": "icon-services-nav"
+      }
+    },
+    {
+      "block": "audience-section-final",
+      "id": "audiences",
+      "data": {
+        "eyebrow": "این خدمات برای چه کسانی است؟",
+        "title": "خدمات یکسان‌اند؛ مسئلهٔ سفارش‌دهنده‌ها یکسان نیست.",
+        "lead": "اگر مسئله‌تان را در یکی از این چهار گروه می‌بینید، راهکار همان گروه ترکیب آماده‌تری از همین خدمات به شما می‌دهد.",
+        "items": [
+          {
+            "tag": "۰۱",
+            "title": "شهرداری‌ها و نهادهای عمومی",
+            "body": "ترکیب خدمات سازمانی، سازه، پروژه و مسیر سرمایه‌گذاری"
+          },
+          {
+            "tag": "۰۲",
+            "title": "شرکت‌های صنعتی و B2B",
+            "body": "پکیج چندخدمتی برای شرکت/کارخانه"
+          },
+          {
+            "tag": "۰۳",
+            "title": "حضور در نمایشگاه",
+            "body": "بسته زمانی و چندخدمتی نمایشگاه"
+          },
+          {
+            "tag": "۰۴",
+            "title": "کسب‌وکارهای محلی و اصناف",
+            "body": "راهکار رشد و دیده‌شدن محلی"
+          }
+        ]
+      }
+    },
+    {
+      "block": "checklist-section",
+      "id": "brief",
+      "data": {
+        "eyebrow": "پیش از سفارش",
+        "title": "چه چیزهایی را از قبل آماده کنید؟",
+        "lead": "هرچه این موارد روشن‌تر باشند، برآورد زمان و هزینه دقیق‌تر در می‌آید و رفت‌وبرگشت کمتر می‌شود.",
+        "items": [
+          {
+            "value": "هدف کار: آگاهی از برند، فروش مستقیم، یا معرفی یک محصول مشخص"
+          },
+          {
+            "value": "مخاطب: چه کسی قرار است این را ببیند و کجا"
+          },
+          {
+            "value": "محدودهٔ زمانی و تاریخ‌های قطعی، مثل افتتاحیه یا نمایشگاه"
+          },
+          {
+            "value": "دارایی‌های موجود: لوگو، فونت، رنگ سازمانی، عکس‌های قبلی"
+          },
+          {
+            "value": "محدودهٔ بودجه، حتی به‌صورت یک بازه"
+          },
+          {
+            "value": "تصمیم‌گیرندگان و اینکه تأیید نهایی با چه کسی است"
+          }
+        ],
+        "note": {
+          "title": "اگر بخشی از این‌ها را هنوز ندارید، مشکلی نیست.",
+          "body": "مشاوره خودش یکی از شش خانوادهٔ خدمت است. اگر هدف یا مخاطب هنوز روشن نیست، از همان‌جا شروع می‌کنیم و بقیهٔ موارد در طول کار شکل می‌گیرد."
+        }
+      }
+    },
+    {
+      "block": "process-section-final",
+      "id": "process",
+      "data": {
+        "eyebrow": "فرایند",
+        "title": "یک پروژه معمولاً از چند خانواده عبور می‌کند",
+        "lead": "کمتر پروژه‌ای فقط یک خدمت لازم دارد. ترتیب زیر همان ترتیبی است که کار واقعاً در آن جلو می‌رود؛ آنچه بین خانواده‌ها فرق می‌کند طول هر مرحله است.",
+        "steps": [
+          {
+            "title": "تعریف مسئله و انتخاب مسیر",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true
+          },
+          {
+            "title": "طراحی و آماده‌سازی خروجی",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true
+          },
+          {
+            "title": "تولید، چاپ یا اجرا",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true
+          },
+          {
+            "title": "اکران، انتشار و اندازه‌گیری",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true
+          }
+        ]
+      }
+    },
+    {
+      "block": "compare-cards",
+      "id": "choose",
+      "data": {
+        "eyebrow": "انتخاب خانواده",
+        "title": "اگر بین دو خانواده مردد هستید",
+        "lead": "این سه مورد بیشترین ابهام را ایجاد می‌کنند.",
+        "items": [
+          {
+            "index": "۰۱",
+            "title": "طراحی گرافیک یا چاپ و تولید؟",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true,
+            "icon": "icon-compare"
+          },
+          {
+            "index": "۰۲",
+            "title": "دیجیتال مارکتینگ یا عکاسی و فیلم‌برداری؟",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true,
+            "icon": "icon-compare"
+          },
+          {
+            "index": "۰۳",
+            "title": "تبلیغات محیطی یا سازه‌ها؟",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true,
+            "icon": "icon-compare"
+          }
+        ],
+        "icon": "icon-compare"
+      }
+    },
+    {
+      "block": "faq-section-final",
+      "id": "faq",
+      "data": {
+        "eyebrow": "پرسش‌های پرتکرار",
+        "title": "پیش از تماس، جواب کوتاه را همین‌جا ببینید",
+        "lead": "برای برآورد دقیق هزینه و زمان، به جزئیات پروژه نیاز است؛ پاسخ‌های اینجا عمومی‌اند.",
+        "questions": [
+          {
+            "q": "آیا فقط یک خدمت را هم سفارش می‌دهید؟",
+            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true
+          },
+          {
+            "q": "خدمات شما فقط در اصفهان ارائه می‌شود؟",
+            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true
+          },
+          {
+            "q": "برآورد هزینه چقدر طول می‌کشد؟",
+            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true
+          },
+          {
+            "q": "اگر طرح آماده داشته باشم، فقط چاپ و اجرا را انجام می‌دهید؟",
+            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "placeholder": true
+          }
+        ]
+      }
+    },
+    {
+      "block": "knowledge-carousel",
+      "id": "knowledge",
+      "data": {
+        "eyebrow": "مرکز دانش",
+        "title": "مقاله‌ها و ویدیوهای مرتبط با خدمات",
+        "groups": [
+          {
+            "title": "مقاله‌ها",
+            "items": [
+              {
+                "label": "کاور مقاله",
+                "title": "عنوان مقاله",
+                "meta": "در دست تهیه",
+                "alt": "جایگاه تصویر شاخص مقاله",
+                "placeholder": true
+              },
+              {
+                "label": "کاور مقاله",
+                "title": "عنوان مقاله",
+                "meta": "در دست تهیه",
+                "alt": "جایگاه تصویر شاخص مقاله",
+                "placeholder": true
+              },
+              {
+                "label": "کاور مقاله",
+                "title": "عنوان مقاله",
+                "meta": "در دست تهیه",
+                "alt": "جایگاه تصویر شاخص مقاله",
+                "placeholder": true
+              }
+            ]
+          },
+          {
+            "title": "ویدیوها",
+            "items": [
+              {
+                "label": "کاور ویدیو",
+                "title": "عنوان ویدیو",
+                "meta": "در دست تهیه",
+                "alt": "جایگاه کاور ویدیو",
+                "placeholder": true
+              },
+              {
+                "label": "کاور ویدیو",
+                "title": "عنوان ویدیو",
+                "meta": "در دست تهیه",
+                "alt": "جایگاه کاور ویدیو",
+                "placeholder": true
+              },
+              {
+                "label": "کاور ویدیو",
+                "title": "عنوان ویدیو",
+                "meta": "در دست تهیه",
+                "alt": "جایگاه کاور ویدیو",
+                "placeholder": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "block": "review-gate",
+      "id": "review",
+      "data": {
+        "eyebrow": "قدم بعدی",
+        "title": "بگویید چه کاری در دست دارید.",
+        "body": "لازم نیست از قبل بدانید کارتان زیر کدام خانواده می‌نشیند. صورت مسئله را بگویید؛ مسیر درست را با هم پیدا می‌کنیم.",
+        "primary": {
+          "label": "شروع گفت‌وگو"
+        },
+        "secondary": {
+          "label": "بازگشت به بالای صفحه ↑",
+          "href": "#top"
+        }
+      }
+    }
+  ]
+}
