@@ -9,6 +9,7 @@ from ruos.block_registry import load_library
 from ruos.design_approach import MATCHED, NOT_YET_DESIGNED, select_design_approach
 
 REFERENCE_SPEC = Path("pages/blocks/urban-investment.json")
+ARCHIVED_V16 = Path("tests/fixtures/sales-landing-v16-reference.json")
 
 
 def test_a_page_type_with_no_reference_is_reported_honestly() -> None:
@@ -39,9 +40,16 @@ def test_the_hardcoded_sequence_matches_the_actual_reference_spec_on_disk() -> N
     assert result.approach.block_sequence == on_disk
 
 
-def test_the_matched_sequence_still_fails_composition_as_documented() -> None:
-    """The approach is a real reference, not a guarantee it composes today."""
+def test_the_matched_sequence_composes() -> None:
+    """The investment hub was recomposed to clear the shape rules."""
     spec = load_page_spec(REFERENCE_SPEC)
+    composed = compose_page(load_library(), spec["slug"], spec["blocks"], spec["shell"])
+    assert [block.block_id for block in composed.blocks] == [e["block"] for e in spec["blocks"]]
+
+
+def test_the_archived_v16_sequence_still_fails_as_documented() -> None:
+    """Why the recomposition was needed: five card grids in V16's own tail."""
+    spec = load_page_spec(ARCHIVED_V16)
     with pytest.raises(BlockCompositionError, match="repeated pattern"):
         compose_page(load_library(), spec["slug"], spec["blocks"], spec["shell"])
 

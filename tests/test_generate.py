@@ -16,7 +16,7 @@ from ruos.generate import (
 from ruos.page_selector import PageCandidate
 
 REAL_PROJECT_ROOT = Path(".")
-REAL_SPEC = json.loads(Path("pages/blocks/urban-investment.json").read_text(encoding="utf-8"))
+REAL_SPEC = json.loads(Path("tests/fixtures/sales-landing-v16-reference.json").read_text(encoding="utf-8"))
 
 
 def _write_registry(registry_root: Path, entities: list[dict]) -> None:

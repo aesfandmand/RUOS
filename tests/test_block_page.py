@@ -4,7 +4,8 @@ from pathlib import Path
 from ruos.block_page import load_page_spec, render_page
 from ruos.block_registry import load_library
 
-SPEC_PATH = Path("pages/blocks/urban-investment.json")
+# Archived V16 sequence, frozen — see tests/test_block_composer.py.
+SPEC_PATH = Path("tests/fixtures/sales-landing-v16-reference.json")
 
 
 def _spec() -> dict:
@@ -20,10 +21,9 @@ def _passing_sequence(spec: dict) -> list:
         _entry(spec, "hero-scroll-scene"),
         _entry(spec, "opportunity-section"),
         _entry(spec, "products-section"),
-        _entry(spec, "assessment-section"),
+        _entry(spec, "faq-section-final"),
         _entry(spec, "proof-section-final"),
         _entry(spec, "process-section-final"),
-        _entry(spec, "faq-section-final"),
         _entry(spec, "review-gate"),
     ]
 

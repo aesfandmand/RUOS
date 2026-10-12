@@ -8,7 +8,10 @@ from ruos.block_composer import BlockCompositionError, compose_page
 from ruos.block_page import load_page_spec, render_page
 from ruos.block_registry import load_library
 
-SPEC_PATH = Path("pages/blocks/urban-investment.json")
+# The archived V16 sequence, frozen as a fixture: these tests exercise the
+# shape rules against a known-bad page, so a fix to the live investment page
+# no longer breaks them.
+SPEC_PATH = Path("tests/fixtures/sales-landing-v16-reference.json")
 
 
 def _spec() -> dict:
@@ -20,9 +23,9 @@ def _entry(spec: dict, block_id: str) -> dict:
 
 
 def test_reference_page_still_fails_the_shape_rules() -> None:
-    """V16's own tail is five card grids, so the approved page does not pass.
+    """V16's own tail is five card grids, so that archived sequence does not pass.
 
-    This is deliberate and is the open design work, not a defect in the rule.
+    Kept as a regression fixture: the live page was recomposed to clear this.
     """
     spec = _spec()
     with pytest.raises(BlockCompositionError, match="repeated pattern"):
@@ -34,10 +37,11 @@ def _passing_sequence(spec: dict) -> list:
         _entry(spec, "hero-scroll-scene"),
         _entry(spec, "opportunity-section"),
         _entry(spec, "products-section"),
-        _entry(spec, "assessment-section"),
+        # a light block every two papers: the surface run rule is real, and the
+        # block metadata it reads is now truthful about what each block paints
+        _entry(spec, "faq-section-final"),
         _entry(spec, "proof-section-final"),
         _entry(spec, "process-section-final"),
-        _entry(spec, "faq-section-final"),
         _entry(spec, "review-gate"),
     ]
 
@@ -47,8 +51,8 @@ def test_a_shape_varied_sequence_composes_cleanly() -> None:
     composed = compose_page(load_library(), spec["slug"], _passing_sequence(spec), spec["shell"])
     assert [block.block_id for block in composed.blocks] == [
         "hero-scroll-scene", "opportunity-section", "products-section",
-        "assessment-section", "proof-section-final", "process-section-final",
-        "faq-section-final", "review-gate",
+        "faq-section-final", "proof-section-final", "process-section-final",
+        "review-gate",
     ]
     # The foundation must be first in the cascade, before any block styles.
     assert composed.used_blocks[:2] == ("_tokens", "_foundation")
@@ -74,12 +78,14 @@ def test_the_foundations_vendor_library_is_reported_on_every_page() -> None:
 
 def test_only_the_used_blocks_contribute_css() -> None:
     spec = _spec()
+    # faq-section-final stays: it is the light block that keeps the paper run
+    # legal once two sections are dropped.
     sequence = [b for b in _passing_sequence(spec)
-                if b["block"] not in {"process-section-final", "faq-section-final"}]
+                if b["block"] not in {"process-section-final", "products-section"}]
     composed = compose_page(load_library(), spec["slug"], sequence, spec["shell"])
     assert "media-grid" not in composed.css
     assert "process-timeline" not in composed.css
-    assert "faq-list" not in composed.css
+    assert "product-toolbar" not in composed.css
     assert "hero-scroll" in composed.css
 
 

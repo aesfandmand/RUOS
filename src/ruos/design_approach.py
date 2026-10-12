@@ -61,13 +61,41 @@ _SALES_LANDING_V16 = DesignApproach(
         "faq-section-final",
         "review-gate",
     ),
-    source_reference="pages/blocks/urban-investment.json, extracted from "
+    source_reference="tests/fixtures/sales-landing-v16-reference.json, extracted from "
                       "red-umbrella-website/services-urban-investment-final-v16.html",
-    note="Composes structurally but its own tail repeats the card-grid layout "
-         "across five sections (three of them adjacent), which violates the "
-         "composer's anti-repetition rule. It needs owner-approved alternative "
-         "layouts for contract/proof/media/audience/knowledge before it can "
-         "actually compose — see blocks/README.md.",
+    note="ARCHIVED, kept as the historical reference and a regression fixture. "
+         "Its tail repeats the card-grid layout across five sections (three of "
+         "them adjacent), which violates the composer's anti-repetition rule, so "
+         "it never composed. Superseded by sales-landing-v17.",
+)
+
+_SALES_LANDING_V17 = DesignApproach(
+    id="sales-landing-v17",
+    name="V17 sales / investment landing (recomposed to clear the shape rules)",
+    block_sequence=(
+        "hero-scroll-scene",
+        "opportunity-section",
+        "numbered-features",
+        "paths-scroll",
+        "products-section",
+        "checklist-section",
+        "proof-section-final",
+        "assessment-section",
+        "workshop-gallery",
+        "process-section-final",
+        "audience-section-final",
+        "faq-section-final",
+        "knowledge-carousel",
+        "review-gate",
+    ),
+    source_reference="pages/blocks/urban-investment.json — V16's content preserved, "
+                      "recomposed onto the straboard block archetype",
+    note="Same content as V16, three sections re-formed so the page clears the "
+         "composer: the BOLT contract grid became numbered-features, its five "
+         "commitments became a checklist-section, the image grid became "
+         "workshop-gallery and the knowledge grid became knowledge-carousel. "
+         "Card grids are down to two (proof, audience) and the page carries one "
+         "dark band, as the design model requires.",
 )
 
 _STRUCTURE_DETAIL_V1 = DesignApproach(
@@ -108,12 +136,13 @@ _STRUCTURE_DETAIL_V1 = DesignApproach(
 # owner-approved reference yet and must be reported as NOT_YET_DESIGNED,
 # never guessed.
 _PAGE_TYPE_APPROACH: dict[str, str] = {
-    "INVESTMENT_HUB": _SALES_LANDING_V16.id,
+    "INVESTMENT_HUB": _SALES_LANDING_V17.id,
     "STRUCTURE_DETAIL": _STRUCTURE_DETAIL_V1.id,
 }
 
 _CATALOG: dict[str, DesignApproach] = {
     _SALES_LANDING_V16.id: _SALES_LANDING_V16,
+    _SALES_LANDING_V17.id: _SALES_LANDING_V17,
     _STRUCTURE_DETAIL_V1.id: _STRUCTURE_DETAIL_V1,
 }
 
