@@ -33,14 +33,19 @@ def _walk(entries):
         yield from _walk(entry.get("children", ()))
 
 
-def test_the_nav_row_is_home_plus_the_six_approved_panels() -> None:
+def test_the_nav_row_is_the_approved_entries_in_the_approved_order() -> None:
     nav = site_nav()
     assert [entry["label"] for entry in nav] == [
         "خانه", "خدمات", "راهکارها", "سازه‌ها و تابلوها",
-        "سرمایه‌گذاری", "نمونه‌کارها", "مرکز دانش",
+        "سرمایه‌گذاری", "پروژه‌ها", "نمونه‌کارها", "مرکز دانش",
     ]
-    assert "children" not in nav[0], "Home is a plain link, not a panel"
-    panels = nav[1:]
+    # Home and Projects are plain links. Projects is separate from Portfolio
+    # on the owner's instruction ("پروژه ها جدا باشند") but has no panel:
+    # the registry's only child for it is the dynamic project-slug pattern,
+    # and no project records exist yet, so cards would have to be invented.
+    plain = [entry["label"] for entry in nav if "children" not in entry]
+    assert plain == ["خانه", "پروژه‌ها"]
+    panels = [entry for entry in nav if "children" in entry]
     assert len(panels) == 6
     for panel in panels:
         assert panel["children"], f"{panel['label']} is a panel with no cards"
@@ -82,6 +87,28 @@ def test_every_nav_icon_exists_in_the_sprite() -> None:
     assert not missing, f"nav icons not in the sprite: {missing}"
 
 
+def test_the_header_carries_the_phone_in_both_a_dialable_and_a_readable_form() -> None:
+    """The desktop header shows the number and the mobile header collapses the
+    same element to a call button, so both forms have to be right: `display`
+    is what a Persian reader sees, `href` is what a phone dials. A Persian
+    digit inside the tel: URI does not dial."""
+    phone = site_shell()["site-header"]["phone"]
+    assert phone["href"].startswith("tel:+98")
+    assert phone["href"][4:].lstrip("+").isascii() and phone["href"][5:].isdigit(), (
+        f"tel: target must be Latin digits in E.164 form, got {phone['href']!r}"
+    )
+    assert not any(ch.isdigit() and ch.isascii() for ch in phone["display"]), (
+        f"the displayed number should use Persian digits, got {phone['display']!r}"
+    )
+    # the two must be the same number, not two numbers that drifted apart
+    latin = phone["display"].translate(str.maketrans("۰۱۲۳۴۵۶۷۸۹", "0123456789"))
+    digits = latin.replace(" ", "")
+    assert phone["href"] == "tel:+98" + digits.lstrip("0"), (
+        f"{phone['display']} and {phone['href']} are different numbers"
+    )
+    assert phone["aria"], "the mobile call button is icon-only and needs a label"
+
+
 def test_every_footer_link_has_a_label_and_an_href() -> None:
     for column in site_shell()["site-footer"]["columns"]:
         assert column["title"]
@@ -93,8 +120,8 @@ def test_no_nav_card_is_missing_its_note() -> None:
     """A card with no note renders a title with an empty line under it."""
     bare = [entry["label"] for entry in _walk(site_nav())
             if entry.get("children") is None and not entry.get("note")]
-    # Home is the one entry with no note: it is a plain link, not a card.
-    assert bare == ["خانه"], f"cards with no note: {bare}"
+    # The two top-level plain links carry no note: they are links, not cards.
+    assert bare == ["خانه", "پروژه‌ها"], f"cards with no note: {bare}"
 
 
 @pytest.mark.parametrize("settled", ["/", "/structures/", "/investment/"])

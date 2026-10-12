@@ -71,11 +71,47 @@
 .header-actions{align-items:center;gap:10px;display:flex;flex:none}
 .contact-link{color:#fff;background:var(--red);border:0;border-radius:11px;min-height:42px;padding:0 18px;font-family:inherit;font-size:.76rem;font-weight:800;cursor:pointer;transition:background .22s}
 .contact-link:hover{background:var(--red-deep)}
+/* The phone sits before the CTA and is one element in two states: the full
+   number on desktop, an icon-only call button on mobile (the owner asked for
+   the number in the desktop header and a call button on mobile). It never
+   takes a red fill -- the CTA beside it is the page's one red button, and two
+   reds in the same corner is the "red as background" the design model forbids. */
+.header-phone{color:var(--ink);background:var(--paper-2);border-radius:11px;min-height:42px;align-items:center;gap:9px;padding:0 13px;display:flex;flex:none;transition:background .22s}
+.header-phone:hover{background:var(--line)}
+.header-phone-ico{width:18px;height:18px;color:var(--red);fill:currentColor;flex:none}
+.header-phone-copy{flex-direction:column;display:flex;line-height:1.2}
+.header-phone-copy small{color:var(--muted);font-size:.58rem}
+.header-phone-copy strong{font-size:.82rem;font-weight:800;letter-spacing:.02em;direction:ltr;unicode-bidi:plaintext}
 .menu-button{color:var(--ink);background:var(--paper-2);border:0;border-radius:11px;width:42px;height:42px;align-items:center;justify-content:center;display:none;cursor:pointer;position:relative}
 .menu-button svg{width:20px;height:20px;position:absolute;transition:opacity .2s,transform .3s cubic-bezier(.16,1,.3,1)}
 .menu-ico-close{opacity:0;transform:rotate(-90deg)}
 .menu-button[aria-expanded=true] .menu-ico-open{opacity:0;transform:rotate(90deg)}
 .menu-button[aria-expanded=true] .menu-ico-close{opacity:1;transform:rotate(0)}
+
+/* Eight nav items, a brand and a phone pill stop fitting between the
+   header's padding at ~1093px, and the nav -- a flex item whose own children
+   are flex:none -- does not shrink: it spills past the edge instead
+   (measured: 68px off-canvas at 1024, growing as the window narrows). The
+   drawer breakpoint is 980px and is site-wide (blocks/_foundation reads it
+   too for body padding and headings), so it is not the thing to move here.
+   Instead the row compresses in two steps and everything stays on screen
+   down to the drawer. Each step gives back only what that band needs, and
+   the full treatment returns as soon as there is room. */
+@media (980px<width<=1120px){
+  .site-header{gap:20px}
+  .header-phone{width:42px;height:42px;justify-content:center;padding:0}
+  .header-phone-copy{display:none}
+  .header-phone-ico{width:20px;height:20px}
+}
+@media (980px<width<=1075px){
+  /* The number is already one tap away in the bottom bar and the drawer at
+     this width, so the header gives up its copy of it before it gives up a
+     nav label. */
+  .header-phone{display:none}
+  .site-header{gap:14px}
+  .mega-trigger,.nav-link{padding-inline:9px;gap:0}
+  .nav-ico{display:none}
+}
 
 /* ── mobile drawer ── */
 .mobile-menu{display:none}
@@ -84,6 +120,11 @@
   .desktop-nav{display:none}
   .menu-button{display:flex}
   .contact-link{display:none}
+  /* the number itself does not fit beside the brand at 390px, so the same
+     element becomes a square call button -- still the same tel: link */
+  .header-phone{width:42px;height:42px;justify-content:center;padding:0}
+  .header-phone-copy{display:none}
+  .header-phone-ico{width:20px;height:20px}
   /* 65%-width glass drawer on the inline-start edge, dropping down from
      behind the header. The page stays visible through the blur beside it,
      which is the point of the glass. */

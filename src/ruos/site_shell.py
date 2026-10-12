@@ -48,6 +48,16 @@ from .architecture_registry import EntityRecord, load_entities, load_services
 
 SITE_SHELL_REF = "@site"
 
+# The owner's number, given on 2026-10-13 («اسلات تماس اضافه شود ۳۴۳۲ ۳۳۵
+# ۰۹۱۳»). `display` is the Persian-digit form the header shows; `href` is the
+# E.164 form a phone actually dials, which must stay Latin digits.
+_PHONE = {
+    "display": "۰۹۱۳ ۳۳۵ ۳۴۳۲",
+    "href": "tel:+989133353432",
+    "label": "تماس مستقیم",
+    "aria": "تماس با چتر قرمز، ۰۹۱۳ ۳۳۵ ۳۴۳۲",
+}
+
 _BRAND = {
     "name": "چتر قرمز",
     "tagline": "به آسمان سلام کن",
@@ -59,7 +69,7 @@ _BRAND = {
 # plain link, then the six mega panels. Every id here is an entity whose
 # `navigation` field puts it in the main nav or the mega menu.
 _HOME_ID = "CORE-001"
-_PANEL_IDS = ("SRV-000", "SOL-000", "STR-000", "INV-000", "PRT-000", "KNW-000")
+_PANEL_IDS = ("SRV-000", "SOL-000", "STR-000", "INV-000", "PRJ-000", "PRT-000", "KNW-000")
 
 # Which registry children fill each panel. Services and Solutions are the
 # registry's own parent_id children; Structures is the live structure
@@ -76,12 +86,20 @@ _PANEL_CHILD_IDS: dict[str, tuple[str, ...]] = {
     "KNW-000": ("KNW-ART-*", "KNW-VID-*"),
 }
 
+# Projects is its own entry in the row, on the owner's instruction of
+# 2026-10-13 («پروژه ها جدا باشند»), not a card inside Portfolio. It is a
+# plain link rather than a panel: the registry records exactly one child for
+# it, the dynamic `/projects/{project-slug}/` pattern, and no project records
+# exist in the repository yet -- so a panel could only be filled with card
+# names nobody has earned. It becomes a panel the day real projects are
+# registered. The registry's own line is "Project ≠ Portfolio", which this
+# now reflects in the navigation.
+
 # The portfolio panel. The archive's real filters have to come from real
 # work-sample data, and no work-sample registry exists yet -- so rather than
 # invent filter names, the cards are the service families the owner states
 # the agency actually produces work in (BOLT outdoor, graphic design,
-# websites, Instagram, video), each a view of the archive, plus the Projects
-# registry, which the archive links to but never duplicates. Entity id ->
+# websites, Instagram, video), each a view of the archive. Entity id ->
 # (path under /portfolio/, label override or None).
 _PORTFOLIO_CARDS: tuple[tuple[str, str | None], ...] = (
     ("SRV-OOH", "تبلیغات محیطی و BOLT"),
@@ -280,10 +298,11 @@ def _investment_cards() -> list[dict[str, Any]]:
 
 
 def _portfolio_cards(entities: Mapping[str, EntityRecord]) -> list[dict[str, Any]]:
-    """Archive views for the families the agency really has work in, then the
-    Projects registry. Every href lives under /portfolio/, so a work sample
-    never claims a project's canonical URL -- the registry's own rule is that
-    the archive may show a project but never republishes it."""
+    """Archive views for the families the agency really has work in. Every
+    href lives under /portfolio/, so a work sample never claims a project's
+    canonical URL -- the registry's own rule is that the archive may show a
+    project but never republishes it. Projects itself is a separate entry in
+    the nav row, not a card here."""
     cards: list[dict[str, Any]] = []
     for entity_id, label in _PORTFOLIO_CARDS:
         entity = entities[entity_id]
@@ -295,16 +314,6 @@ def _portfolio_cards(entities: Mapping[str, EntityRecord]) -> list[dict[str, Any
             "url_status": "PENDING_AUDIT",
             "provisional": True,
         })
-    projects = entities["PRJ-000"]
-    href, _ = _resolve_url(projects)
-    cards.append({
-        "label": projects.name_fa,
-        "href": href,
-        "icon": _ENTITY_ICONS["PRJ-000"],
-        "note": _CARD_NOTES["PRJ-000"],
-        "url_status": projects.url_status or "PENDING_AUDIT",
-        "provisional": True,
-    })
     return cards
 
 
@@ -455,6 +464,7 @@ def site_shell(registry_root=None, active_href: str | None = None) -> dict[str, 
         "site-header": {
             "brand": _BRAND,
             "cta": {"label": "درخواست بررسی", "href": "#review"},
+            "phone": dict(_PHONE),
             "nav": site_nav(registry_root),
         },
         "site-footer": _site_footer(registry_root),

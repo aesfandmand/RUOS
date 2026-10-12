@@ -143,6 +143,43 @@ Keep this section accurate; it is the description of record.
 > literal values were updated to match. No geometry, layout, or `behavior.js`
 > changed — only those hex literals.
 
+> **Amended 2026-10-13, second change the same day, owner's explicit
+> instruction** — «اسلات تماس اضافه شود ۳۴۳۲ ۳۳۵ ۰۹۱۳», closing the request
+> from «در موبایل دکمه تماس و در دسکتاپ وجود شماره تماس در هدر بسیار مهم
+> است». **`site-header/markup.html` and `site-header/style.css` are re-pinned;
+> the other four locked files are untouched.**
+>
+> - **One element, two states.** `.header-phone` is an optional `{{?phone}}`
+>   anchor in `.header-actions`, before the CTA: the number on desktop, a
+>   42×42 call button on mobile. Both are the same `tel:` link, so there is
+>   no second element to keep in sync.
+> - **It is never red.** `--paper-2` ground, red icon. The CTA beside it is
+>   the header's one red control; a second red fill in that corner is the
+>   red-as-background the design model forbids.
+> - **The number is Persian-digit for reading, Latin E.164 for dialling.**
+>   `display: ۰۹۱۳ ۳۳۵ ۳۴۳۲`, `href: tel:+989133353432`. A Persian digit
+>   inside a `tel:` URI does not dial, and a test asserts the two are the
+>   same number.
+> - **Two compression bands, and why they exist.** Eight nav entries plus the
+>   pill stop fitting below ~1093px. `.desktop-nav` is `flex:1` with
+>   `flex:none` children, so it does not shrink — it spills past the header's
+>   padding, 68px off-canvas at 1024 and worse as the window narrows. The
+>   980px drawer breakpoint is **site-wide** (`blocks/_foundation/style.css`
+>   reads it for body padding and headings), so moving it is a separate
+>   decision and was not taken here. Instead: at ≤1120px the pill drops to
+>   its icon; at ≤1075px the pill is hidden (the number is one tap away in
+>   the bottom bar and the drawer at that width) and the nav icons go with
+>   it. Re-measured at 1920, 1600, 1440, 1366, 1280, 1200, 1121, 1120, 1100,
+>   1060, 1024, 1000 and 981 — no spill at any of them, nothing wrapped, and
+>   all eight labels still readable at 1000px.
+>
+> **Also this day, data only, no locked file involved:** پروژه‌ها became its
+> own entry in the row rather than a card inside نمونه‌کارها, on the owner's
+> instruction «پروژه ها جدا باشند». It is a plain link, not a panel — the
+> registry's only child for it is the dynamic `/projects/{project-slug}/`
+> pattern and no project records exist yet, so a panel could only hold
+> invented card names. It becomes a panel when real projects are registered.
+
 ### Desktop mega-menu
 
 - White header bar, `--line` bottom border, backdrop blur. Never dark glass.

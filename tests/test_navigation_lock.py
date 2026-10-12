@@ -91,7 +91,7 @@ def _nav_shape(shell: dict) -> tuple:
         )
 
     return (
-        header.get("brand"), header.get("cta"),
+        header.get("brand"), header.get("cta"), header.get("phone"),
         tuple(entry(row) for row in header["nav"]),
         tuple(
             (row.get("label"), row.get("href"), row.get("icon"), row.get("icon_active"))

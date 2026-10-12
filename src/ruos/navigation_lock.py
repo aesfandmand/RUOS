@@ -39,11 +39,36 @@ import re
 # changed — geometry, layout, and every behaviour in behavior.js are
 # untouched. The other three locked files are still on their original
 # 2026-08-11 hashes.
+#
+# site-header/markup.html and style.css were re-pinned on 2026-10-13 under
+# the same procedure, for the owner's explicitly approved change: «اسلات
+# تماس اضافه شود ۳۴۳۲ ۳۳۵ ۰۹۱۳» — the phone slot they had asked for in
+# «در موبایل دکمه تماس و در دسکتاپ وجود شماره تماس در هدر بسیار مهم است».
+# markup.html gained one optional `{{?phone}}` element inside
+# `.header-actions`, before the CTA; style.css gained the rules for it and
+# the ≤980px rule that collapses it to a square call button. It is ONE
+# element in two states, not two elements, and it takes --paper-2, never a
+# red fill — the CTA beside it is the header's one red control, and a second
+# red in the same corner is the red-as-background the design model forbids.
+# Nothing else moved: no geometry, no mega-menu or drawer rule, no
+# behavior.js. Measured at 1440×900 the pill is 144×42 and overlaps neither
+# the brand nor the nav row; at 390×844 it is a 42×42 tap target with the
+# number hidden, and the page still does not scroll horizontally.
+#
+# style.css carries one more rule from the same change, and it is a fix, not
+# a flourish. With eight nav entries and the pill, the row stopped fitting
+# below ~1093px: .desktop-nav is flex:1 but its children are flex:none, so it
+# does not shrink -- it spills past the header's padding (measured 68px
+# off-canvas at 1024 and growing). The 980px drawer breakpoint is site-wide
+# (blocks/_foundation reads it too), so moving it would be a different
+# decision; instead the row now compresses in two bands -- pill to icon at
+# ≤1120, pill dropped and nav icons dropped at ≤1075 -- and every width from
+# 981 to 1920 was re-measured clean, with all eight labels readable at 1000.
 LOCKED_FILES: dict[str, str] = {
     "blocks/site-header/markup.html":
-        "ceecf927b5f40a2ad42af45ad4396dcd1170cc47ff314c2b3a48f45d4031183e",
+        "6819cbfc0a8ee19ce4d5016c359c0f55df7af7452dfc515d53998c0bb4c95023",
     "blocks/site-header/style.css":
-        "36cdfc53df373f5d7b9593f084558c6e181ec90f80eac601955be26e4dfa9fa2",
+        "c38e74aec2380006b5eebe6aaf7b23a279665930ada41b483a03d5618f0a6f9b",
     "blocks/site-header/behavior.js":
         "64e4705d374d3a106a64693fc7eb668b65dfae41271af56b2abef97a46e9cc68",
     "blocks/bottom-nav/markup.html":
