@@ -14,57 +14,85 @@
         "logo_alt": "نشان چتر قرمز"
       },
       "cta": {
-        "label": "درخواست بررسی"
+        "label": "درخواست بررسی",
+        "href": "#review"
       },
       "nav": [
         {
-          "label": "راهکارها",
-          "href": "#opportunity",
+          "label": "خانه",
+          "href": "/",
+          "icon": "icon-home"
+        },
+        {
+          "label": "سازه‌ها و تابلوها",
+          "href": "/structures/",
+          "icon": "icon-structures",
+          "note": "هر خانواده سازه با ابعاد، محیط نصب و کاربرد خودش. برای دیدن مشخصات فنی کامل، یکی را باز کنید.",
+          "all_label": "دیدن همهٔ سازه‌ها",
           "children": [
             {
-              "note": "از مسئله شروع کنید",
-              "label": "فرصت‌های شهری",
-              "href": "#opportunity"
+              "label": "بیلبورد",
+              "href": "/structures/billboard-vertical-5x10/",
+              "icon": "icon-fam-billboard",
+              "note": "محیط شهری (بیرون) · 5×10 متر"
             },
             {
-              "note": "سه انتخاب روشن",
-              "label": "مسیر همکاری",
-              "href": "#paths"
+              "label": "استرابورد",
+              "href": "/structures/straboard-horizontal-5x3/",
+              "icon": "icon-fam-straboard",
+              "note": "محیط شهری (بیرون) · 5×3 متر"
             },
             {
-              "note": "تصویر، کاربرد و هدف",
-              "label": "سازه‌ها و تابلوها",
-              "href": "#structures"
+              "label": "لایت‌باکس",
+              "href": "/structures/lightbox-horizontal-3x2/",
+              "icon": "icon-fam-lightbox",
+              "note": "محیط شهری (بیرون) · 3×2 متر"
             },
             {
-              "note": "منبع واحد محصولات",
-              "label": "همهٔ محصولات",
-              "href": "#structures"
+              "label": "لایت‌برد",
+              "href": "/structures/lightboard/",
+              "icon": "icon-fam-lightboard",
+              "note": "محیط شهری (بیرون)"
+            },
+            {
+              "label": "برایت‌بورد",
+              "href": "/structures/brightboard-vertical-3x2/",
+              "icon": "icon-fam-brightboard",
+              "note": "محیط شهری (بیرون) · 3×2 متر"
+            },
+            {
+              "label": "سازه سازمانی",
+              "href": "/structures/banner-stand-portable-4x3/",
+              "icon": "icon-fam-org",
+              "note": "محیط سازمانی (بیرون) · 4×3 متر"
+            },
+            {
+              "label": "لایت‌باکس ایندور",
+              "href": "/structures/indoor-wall-lightbox/",
+              "icon": "icon-fam-indoor",
+              "note": "داخل ساختمان"
+            },
+            {
+              "label": "عرشه پل",
+              "href": "/structures/pedestrian-bridge-deck/",
+              "icon": "icon-fam-bridge",
+              "note": "محیط شهری (بیرون)"
             }
           ]
         },
         {
-          "label": "مدل قرارداد",
-          "href": "#model"
-        },
-        {
-          "label": "ارزیابی موقعیت",
-          "href": "#assessment"
-        },
-        {
-          "label": "فرایند",
-          "href": "#process"
-        },
-        {
-          "label": "پرسش‌ها",
-          "href": "#faq"
+          "label": "سرمایه‌گذاری",
+          "href": "/investment/",
+          "icon": "icon-investment"
         }
       ]
     },
     "site-footer": {
       "brand": {
         "name": "چتر قرمز",
-        "tagline": "به آسمان سلام کن"
+        "tagline": "به آسمان سلام کن",
+        "aria": "چتر قرمز، ابتدای صفحه",
+        "logo_alt": "نشان چتر قرمز"
       },
       "summary": "از امکان‌سنجی و سرمایه‌گذاری تا تولید، نصب و بهره‌برداری رسانه‌های محیطی.",
       "columns": [
@@ -72,33 +100,12 @@
           "title": "راهکارها",
           "links": [
             {
-              "label": "سازه‌ها و تابلوها",
-              "href": "#structures"
+              "label": "همهٔ سازه‌ها و تابلوها",
+              "href": "/structures/"
             },
             {
-              "label": "مدل همکاری",
-              "href": "#model"
-            },
-            {
-              "label": "ارزیابی موقعیت",
-              "href": "#assessment"
-            }
-          ]
-        },
-        {
-          "title": "دسترسی سریع",
-          "links": [
-            {
-              "label": "فرایند همکاری",
-              "href": "#process"
-            },
-            {
-              "label": "پرسش‌ها",
-              "href": "#faq"
-            },
-            {
-              "label": "مسیر محصولات",
-              "href": "#structures"
+              "label": "سرمایه‌گذاری",
+              "href": "/investment/"
             }
           ]
         }
@@ -112,19 +119,29 @@
     "bottom-nav": {
       "entries": [
         {
-          "href": "#top",
-          "icon": "nav-home",
+          "href": "/",
+          "icon": "icon-home",
+          "icon_active": "icon-home-active",
           "label": "خانه"
         },
         {
-          "href": "#assessment",
-          "icon": "nav-services",
-          "label": "ارزیابی"
+          "href": "/structures/",
+          "icon": "icon-structures",
+          "icon_active": "icon-structures-active",
+          "label": "سازه‌ها"
         },
         {
-          "href": "#structures",
-          "icon": "nav-work",
-          "label": "سازه‌ها"
+          "href": "/investment/",
+          "icon": "icon-investment",
+          "icon_active": "icon-investment-active",
+          "label": "سرمایه‌گذاری",
+          "active": true
+        },
+        {
+          "href": "#review",
+          "icon": "icon-rfq",
+          "icon_active": "icon-rfq-active",
+          "label": "استعلام"
         }
       ]
     }

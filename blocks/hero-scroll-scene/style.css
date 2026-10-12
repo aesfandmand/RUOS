@@ -123,3 +123,9 @@
 @media (width<=980px){.hero-copy h1{color:var(--ink)}}
 @media (width<=980px){.hero-lead{color:var(--muted)}}
 @media (width<=980px){.hero-actions .text-button{color:var(--ink);border-bottom-color:#17171947}}
+/* The light override above resets padding-inline to 0 so the desktop copy
+   column can sit flush in its grid cell. Below 980px the grid itself drops to
+   width:100%;padding:0, so that reset left the headline and lead touching both
+   screen edges. Restore the 16px gutter the rest of the page uses
+   (.content-shell measures 16px each side at 390px). */
+@media (width<=980px){.hero-copy{padding-inline:16px}}
