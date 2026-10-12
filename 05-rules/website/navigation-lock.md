@@ -55,6 +55,51 @@ asked me to redesign the homepage" is not approval to touch the nav.
 
 Keep this section accurate; it is the description of record.
 
+> **Amended 2026-10-12 on the owner's explicit instruction** — the menu's
+> *contents* were completed to the approved six-panel architecture. **No
+> locked file changed**: every hash in `LOCKED_FILES` is untouched, because
+> the header markup already loops `{{#nav}}`/`{{?children}}` and the bottom
+> bar already loops `{{#entries}}`, so this is entirely shell *data*.
+>
+> The owner's words: «مگا منوی شیشه ای کامل و نه فقط سازه ها … مورد تایید
+> است»; «نمونه کارها هم برای ناوبری پایین موبایل و برای هدر در دسکتاپ مهم
+> است»; «ناوبری و مگا منوی تایید شده برای نسخه ها همه جا یکسان باشد و تغییر
+> نکند مگر بنا به مصلحت و استراتژی»; and, on the shape of the thing, «مگا
+> منویی که تایید کردم شامل ۶ بخش اصلی و هر بخش شامل تعدادی آیتم و هر بخش یک
+> کارت هیرو بود».
+>
+> - **The nav row is Home plus six mega panels**: خدمات، راهکارها، سازه‌ها و
+>   تابلوها، سرمایه‌گذاری، نمونه‌کارها، مرکز دانش. Measured at 1440×900 the
+>   row needs 846px in a 982px box — no overflow, no wrap.
+> - **The hero card per panel is `.mega-lead`**, which the locked CSS already
+>   defines as a 250px `--paper` card with 16px radius beside the 4-column
+>   grid. Filling every panel's `note` and `all_label` is all it needed; no
+>   new markup, and no image slot was added.
+> - **The bottom nav is five entries** — خانه · نمونه‌کارها · سازه‌ها ·
+>   سرمایه‌گذاری · تماس. The two new icon pairs (`icon-portfolio`,
+>   `icon-contact` and their `-active` fills) come from the sprite, which is
+>   not a locked file and was regenerated purely additively: 25 symbols
+>   added, none removed, none changed.
+> - **`active` is now page state, not nav data.** The bubble has to rest on
+>   the section the visitor is in, so a page states its own `nav_section`;
+>   everything else — entries, order, labels, icons, hrefs — stays identical
+>   everywhere. The lock's third clause is tested against that shape.
+>
+> **The lock got stronger, not weaker.** Shell data used to be copied
+> verbatim into every page spec, so "identical on every page" held only
+> until someone edited one copy. There is now one definition
+> (`src/ruos/site_shell.py`), every page spec says `"shell": "@site"`, and
+> `test_every_page_spec_takes_the_shared_shell_rather_than_its_own_copy`
+> fails any page that goes back to carrying its own.
+>
+> Verified in Chromium at 1440×900 and 390×844, served over HTTP (on
+> `file://` the behaviour script is blocked by CORS and every motion
+> measurement is meaningless): all six panels open to opacity 1 and close to
+> 0, every card is fully inside the viewport, the drawer carries all six
+> groups and 33 cards and scrolls to its end without dragging the page
+> behind it, and the bubble settles dead-centre on each of the five entries
+> (0.0px off, dip back to 0).
+
 > **Amended 2026-08-14 on the owner's explicit instruction** — "نوار منو در
 > هنگام باز شدن نرم باز نمیشود / در زمان بسته شدن که کلا حرکتی ندارد که آن
 > هم باید خیلی نرم بسته شود". Only `site-header/style.css` changed, and only

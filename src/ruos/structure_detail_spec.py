@@ -174,62 +174,22 @@ def _family_nav_cards(registry_root=None) -> list[dict[str, str]]:
     return cards
 
 
-def _real_shell(registry_root=None) -> dict[str, Any]:
-    """Site chrome with real, working site-wide URLs — not the page-specific
-    in-page anchors urban-investment.json's shell uses (#structures, #model...),
-    which only make sense on that one page and are broken everywhere else."""
-    brand = {
-        "name": "چتر قرمز",
-        "tagline": "به آسمان سلام کن",
-        "aria": "چتر قرمز، ابتدای صفحه",
-        "logo_alt": "نشان چتر قرمز",
-    }
-    return {
-        "site-header": {
-            "brand": brand,
-            "cta": {"label": "درخواست بررسی", "href": "#review"},
-            "nav": [
-                {"label": "خانه", "href": "/", "icon": "icon-home"},
-                {
-                    "label": "سازه‌ها و تابلوها",
-                    "href": _STRUCTURES_HUB_URL,
-                    "icon": "icon-structures",
-                    "note": "هر خانواده سازه با ابعاد، محیط نصب و کاربرد خودش. "
-                            "برای دیدن مشخصات فنی کامل، یکی را باز کنید.",
-                    "all_label": "دیدن همهٔ سازه‌ها",
-                    "children": _family_nav_cards(registry_root),
-                },
-                {"label": "سرمایه‌گذاری", "href": "/investment/", "icon": "icon-investment"},
-            ],
-        },
-        "site-footer": {
-            "brand": brand,
-            "summary": "از امکان‌سنجی و سرمایه‌گذاری تا تولید، نصب و بهره‌برداری رسانه‌های محیطی.",
-            "columns": [
-                {
-                    "title": "راهکارها",
-                    "links": [
-                        {"label": "همهٔ سازه‌ها و تابلوها", "href": _STRUCTURES_HUB_URL},
-                        {"label": "سرمایه‌گذاری", "href": "/investment/"},
-                    ],
-                },
-            ],
-            "contact": {"title": "شروع گفت‌وگو", "label": "درخواست بررسی موقعیت ←"},
-            "copyright": "© چتر قرمز؛ همه حقوق محفوظ است.",
-        },
-        "bottom-nav": {
-            "entries": [
-                {"href": "/", "icon": "icon-home", "icon_active": "icon-home-active",
-                 "label": "خانه"},
-                {"href": _STRUCTURES_HUB_URL, "icon": "icon-structures",
-                 "icon_active": "icon-structures-active", "label": "سازه‌ها", "active": True},
-                {"href": "/investment/", "icon": "icon-investment",
-                 "icon_active": "icon-investment-active", "label": "سرمایه‌گذاری"},
-                {"href": "#review", "icon": "icon-rfq", "icon_active": "icon-rfq-active",
-                 "label": "استعلام"},
-            ]
-        },
-    }
+def _real_shell(registry_root=None, active_href: str | None = _STRUCTURES_HUB_URL) -> dict[str, Any]:
+    """The one site shell, from ``ruos.site_shell``.
+
+    Every page this module builds is a Structure Detail page, so the
+    bottom-nav section is the structures hub.
+
+    This used to hold its own copy of the nav data, which meant the "the
+    navigation is identical on every page" rule depended on nobody editing
+    one of several copies. There is now a single definition and this
+    delegates to it. Imported here rather than at module scope because
+    ``site_shell`` reads this module's ``_family_nav_cards`` for the
+    structures panel.
+    """
+    from .site_shell import site_shell
+
+    return site_shell(registry_root, active_href=active_href)
 
 
 def _related_structures(structure: StructureRecord, all_structures: tuple[StructureRecord, ...],

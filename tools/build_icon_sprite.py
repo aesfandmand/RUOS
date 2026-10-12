@@ -77,6 +77,41 @@ ICONS: dict[str, tuple[str, str]] = {
     "icon-rfq-active": ("note-pencil", "fill"),
     "icon-contact": ("phone", "regular"),
     "icon-contact-active": ("phone", "fill"),
+    "icon-solutions": ("target", "regular"),
+    "icon-solutions-active": ("target", "fill"),
+    "icon-portfolio": ("images-square", "regular"),
+    "icon-portfolio-active": ("images-square", "fill"),
+    "icon-knowledge": ("book-open-text", "regular"),
+    "icon-knowledge-active": ("book-open-text", "fill"),
+    "icon-projects": ("folders", "regular"),
+    "icon-projects-active": ("folders", "fill"),
+
+    # --- one icon per real service family, for the Services mega panel.
+    # The six families are the registry's own first layer
+    # (architecture registry v2.1, ServiceRecord.family) -- not a set
+    # invented for the menu.
+    "icon-fam-outdoor": ("road-horizon", "regular"),
+    "icon-fam-digital": ("cursor-click", "regular"),
+    "icon-fam-graphic": ("pen-nib", "regular"),
+    "icon-fam-print": ("printer", "regular"),
+    "icon-fam-photo": ("camera", "regular"),
+    "icon-fam-consult": ("chats-circle", "regular"),
+
+    # --- one icon per Solutions audience, and the portfolio/knowledge
+    # card sets ---
+    "icon-sol-public": ("bank", "regular"),
+    "icon-sol-industrial": ("factory", "regular"),
+    "icon-sol-expo": ("tent", "regular"),
+    "icon-sol-local": ("storefront", "regular"),
+    "icon-fam-web": ("browsers", "regular"),
+    "icon-fam-social": ("instagram-logo", "regular"),
+    "icon-fam-video": ("video-camera", "regular"),
+    "icon-glossary": ("book-bookmark", "regular"),
+
+    # --- investment panel cards ---
+    "icon-partnership": ("handshake", "regular"),
+    "icon-purchase": ("shopping-bag", "regular"),
+    "icon-process": ("path", "regular"),
 
     # --- one icon per real structure family, for the mega-menu cards ---
     "icon-fam-billboard": ("projector-screen", "regular"),

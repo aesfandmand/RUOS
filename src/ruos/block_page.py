@@ -38,7 +38,36 @@ def load_page_spec(path: Path) -> dict[str, Any]:
     for key in ("slug", "title", "description", "blocks"):
         if not raw.get(key):
             raise BlockPageError(f"Block page spec is missing '{key}'")
+    raw["shell"] = _resolve_shell(raw.get("shell"), raw.get("nav_section"), path)
     return raw
+
+
+def _resolve_shell(shell: Any, nav_section: Any, path: Path) -> Any:
+    """``"shell": "@site"`` means the one site-wide shell.
+
+    The navigation lock's third clause is that two pages may not render
+    different ``site-header``/``bottom-nav`` data. A page that writes its own
+    copy can always drift from the others; ``@site`` is how a page says it
+    takes the shared one, which makes drift impossible rather than merely
+    tested for. See ``ruos.site_shell``.
+
+    ``nav_section`` is the one thing a page still says for itself: which
+    bottom-nav section it belongs to, so the liquid bubble rests on it.
+    It is stated rather than derived from ``canonical`` because some pages'
+    canonical still carries a pre-architecture path (urban-investment's is
+    ``/services/urban-investment/``, while the registry records the
+    investment hub as ``/investment/``, KEEP) and inferring from it would
+    light up the wrong tab.
+    """
+    from .site_shell import SITE_SHELL_REF, site_shell
+
+    if shell == SITE_SHELL_REF:
+        return site_shell(active_href=nav_section)
+    if isinstance(shell, str):
+        raise BlockPageError(
+            f"{path}: 'shell' must be an object or {SITE_SHELL_REF!r}, got {shell!r}"
+        )
+    return shell
 
 
 def _schema_graph(spec: Mapping[str, Any], composed: ComposedPage) -> dict[str, Any]:
