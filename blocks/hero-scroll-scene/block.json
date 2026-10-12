@@ -26,6 +26,12 @@
       "type": "object",
       "required": false
     },
+    "boards": {
+      "type": "list",
+      "required": false,
+      "min": 3,
+      "max": 3
+    },
     "eyebrow": {
       "type": "text",
       "required": false

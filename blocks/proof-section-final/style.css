@@ -3,7 +3,7 @@
 .proof-grid article{border:1px solid var(--line);background:#fff;border-radius:20px;overflow:hidden}
 .proof-placeholder{color:#fff;text-align:center;isolation:isolate;background:linear-gradient(145deg,#2b2629,#0e0c0d);flex-direction:column;justify-content:center;align-items:center;gap:8px;min-height:300px;padding:24px;display:flex;position:relative;overflow:hidden}
 .proof-placeholder:before{content:"";z-index:-1;opacity:.8;background:repeating-linear-gradient(90deg,#363137 0 48px,#211e22 48px 54px);position:absolute;inset:18% -10% -30%;transform:rotate(-7deg)}
-.proof-placeholder:after{content:"";z-index:-1;background:var(--red);border:9px solid #0e0c0d;width:220px;height:120px;position:absolute;box-shadow:0 38px 0 -5px #0e0c0d}
+.proof-placeholder:after{content:"";z-index:-1;background:var(--red-gloss);border:9px solid #0e0c0d;width:220px;height:120px;position:absolute;box-shadow:0 38px 0 -5px #0e0c0d}
 .proof-placeholder--2:after{transform:rotate(4deg)}
 .proof-placeholder--3:after{width:130px;height:190px}
 .proof-placeholder--4:after{width:270px;height:95px}

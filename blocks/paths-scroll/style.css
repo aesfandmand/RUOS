@@ -11,7 +11,7 @@
 .path-stepper{direction:rtl;grid-template-columns:repeat(3,1fr);width:min(620px,100%);margin:24px 0 15px;display:grid}
 .path-stepper button{color:#625b60;text-align:right;background:0 0;border:0;align-items:center;gap:9px;min-width:0;padding:0;font-weight:900;transition:color .3s;display:flex}
 .path-stepper button i{background:#312b2f;border-radius:4px;flex:1;height:2px;overflow:hidden}
-.path-stepper button i:after{content:"";background:var(--red);width:0;height:100%;transition:width .45s;display:block}
+.path-stepper button i:after{content:"";background:var(--red-gloss);width:0;height:100%;transition:width .45s;display:block}
 .path-stepper button.is-active i:after{width:100%}
 .path-viewport{flex:auto;min-height:0;position:relative;overflow:hidden}
 .path-card{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;will-change:transform, opacity;background:#241e22e0;border:1px solid #ffffff21;border-radius:28px;grid-template-columns:minmax(220px,.62fr) minmax(0,1.38fr);width:min(930px,90%);min-height:0;max-height:100%;transition:transform .78s cubic-bezier(.16,1,.3,1),opacity .45s,filter .45s;display:grid;position:absolute;inset:0 auto 0 0;overflow:hidden;box-shadow:0 38px 90px #00000057}
@@ -45,7 +45,7 @@
 @media (width<=980px){.path-card-copy li{padding:6px 8px;font-size:.57rem}}
 @media (width<=980px){.path-result{margin-top:auto;padding-top:11px;font-size:.59rem}}
 @media (width<=980px){.path-mobile-hint{color:#756d72;justify-content:center;align-items:center;gap:8px;height:26px;font-size:.59rem;display:flex}}
-@media (width<=980px){.path-mobile-hint span{background:var(--red);width:18px;height:2px}}
+@media (width<=980px){.path-mobile-hint span{background:var(--red-gloss);width:18px;height:2px}}
 @media (width<=480px) and (height<=740px){.paths-sticky{padding-top:calc(var(--header) + 45px)}}
 @media (width<=480px) and (height<=740px){.paths-header h2{font-size:1.55rem}}
 @media (width<=480px) and (height<=740px){.path-stepper{margin:9px 0 7px}}
@@ -63,7 +63,7 @@
 .paths-instruction b{color:var(--ink)}
 .path-stepper button{color:#aaa3a9}
 .path-stepper button i{background:#d8d1ca}
-.path-stepper button i:after{background:var(--red)}
+.path-stepper button i:after{background:var(--red-gloss)}
 .path-stepper button.is-active{color:var(--red)}
 .path-card{border-color:var(--line);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:#fffffff5;border-radius:22px}
 .path-large-number{border-left-color:var(--line);background:var(--paper);color:#eee9e5;text-shadow:none}
