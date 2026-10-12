@@ -1,4 +1,11 @@
-.structure-specs{background:var(--white);padding:110px 0}
+/* --paper, not --white. The metadata always declared this block a paper
+   band; the stylesheet painted white, and the composer believed the
+   metadata. With both telling the truth the auto-built structure page ran
+   product-hero(light) -> specs(light) -> gallery(light): three white
+   sections in a row, which the rhythm rule correctly rejects. Paper here is
+   what the declared intent was and what makes the spine alternate however
+   many of the conditional sections a given structure actually has. */
+.structure-specs{background:var(--paper);padding:110px 0}
 .structure-specs .section-intro--right{margin-inline:0;max-width:640px}
 .structure-spec-list{border-top:1px solid var(--line);margin:55px 0 0;padding:0;display:block}
 /* The red rule sits on the reading edge, so the row's padding has to be on

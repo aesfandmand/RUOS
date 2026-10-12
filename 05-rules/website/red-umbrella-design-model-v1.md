@@ -34,6 +34,28 @@ Rules:
 - Never a flat-black section, never a red gradient, never a
   dark-radial-gradient "stage". Flat fills only.
 - Charcoal (`--ink-soft`) is an accent band, not a theme. Max one per page.
+
+> **Surface metadata audit, 2026-10-13.** Every block's `block.json`
+> `surface` was checked against what its stylesheet actually paints. Six were
+> lying to the composer, which reads that field for the "no more than two of
+> the same surface in a row" rule — so the rule was being enforced against
+> fiction. Five metadata values were corrected to match their CSS
+> (`media-section-final` and `structure-specs` paper→light before the last
+> change below, `structure-gallery` and `structure-hero` dark→light,
+> `structure-related` light→paper, `structure-services` paper→**dark**).
+>
+> `structure-specs` went the other way: its metadata had always said paper
+> and its stylesheet painted white, and here the metadata was the approved
+> intent — so the **stylesheet** was corrected to `--paper`. That also fixes
+> a real defect the false metadata had been hiding: the auto-built Structure
+> Detail spine ran product-hero(light) → specs(light) → gallery(light),
+> three white sections in a row.
+>
+> **What this means for the charcoal budget:** with the truth in place, the
+> approved straboard page carries **exactly one** charcoal band
+> (`structure-services`, section 16 of 19) across its 19 sections. It
+> complies with the rule above. An earlier reading of a half-corrected
+> registry suggested it carried two; that reading was wrong.
 - Red as a full section background is reserved for the single closing
   conversion band.
 - Contrast between a background and the cards on it comes from the cream

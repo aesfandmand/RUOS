@@ -6,8 +6,8 @@
   },
   "role": "content",
   "family": "media-gallery",
-  "surface": "dark",
-  "composition": "Real installation photos of this structure family, shown full-bleed on a dark stage in a 3D coverflow carousel (Swiper's effect-coverflow module — CSS 3D perspective, not a WebGL 3D model). Only real, provenance-tracked photography — never a stock or AI-generated image — captioned as a real installation sample, never implied to be Chatreghermez's own client work when the photo's source company differs.",
+  "surface": "light",
+  "composition": "Real installation photos of this structure family, shown full-bleed on a dark stage in a 3D coverflow carousel (Swiper's effect-coverflow module — CSS 3D perspective, not a WebGL 3D model). Only real, provenance-tracked photography — never a stock or AI-generated image — captioned as a real installation sample, never implied to be Chatreghermez's own client work when the photo's source company differs. Surface metadata corrected dark -> light on 2026-10-13: the stylesheet has always painted light, and the composer's surface-run rule was reading the wrong value.",
   "serves_intent": [
     "build-trust",
     "explore"

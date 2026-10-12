@@ -6,7 +6,7 @@
   "description": "معرفی کامل استرابورد، مدل‌های عمودی و افقی، یک‌طرفه و دوطرفه، اجزا، مشخصات فنی، تفاوت با بیلبورد و پایه بنر، عوامل مؤثر بر قیمت، رنگ سفارشی، پروژه‌ها و درخواست مشاوره.",
   "canonical": "https://chatreghermez.ir/structures/straboard/",
   "shell": "@site",
-  "nav_section": "/structures/",
+  "nav_section": "/services/",
   "blocks": [
     {
       "block": "product-hero",

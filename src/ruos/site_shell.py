@@ -165,6 +165,17 @@ _SLUG_OVERRIDES: dict[str, str] = {
     "SRV-DM-SOC": "social-media",
 }
 
+# The registry recorded /consulting/ for the consulting family, at the root,
+# while its five siblings have no candidate at all. Under the standard the
+# owner asked for ("شما مطابق با استاندارد url هر صفحه رو بزار و در صورت نیاز
+# اصلاح میکنیم بعدا") a family sits under its hub, so all six are now
+# /services/<slug>/ and the six read as one set. The registry's own candidate
+# is kept here as the legacy path, which is what the URL audit needs in order
+# to decide KEEP or 301 -- it is a redirect pair, not a forgotten decision.
+_LEGACY_URLS: dict[str, str] = {
+    "SRV-CONS": "/consulting/",
+}
+
 _SHORTLISTED_URLS: dict[str, str] = {
     "KNW-000": "/knowledge/",
     "ABT-000": "/about/",
@@ -232,10 +243,24 @@ def _slug(entity: EntityRecord) -> str:
     return re.sub(r"[^a-z0-9]+", "-", entity.name_en.lower()).strip("-")
 
 
-def _resolve_url(entity: EntityRecord) -> tuple[str, bool]:
-    """(href, provisional). A recorded candidate is used as recorded; a
-    'PENDING' one gets a shortlisted or derived path, flagged either way."""
+def _resolve_url(entity: EntityRecord, entities: Mapping[str, EntityRecord] | None = None,
+                 ) -> tuple[str, bool]:
+    """(href, provisional).
+
+    A recorded candidate is used as recorded. Where the registry still says
+    PENDING, the path is built to the ordinary web convention the owner asked
+    for on 2026-10-13 ("شما مطابق با استاندارد url هر صفحه رو بزار و در صورت
+    نیاز اصلاح میکنیم بعدا"): a child sits under its parent's path, and its
+    own segment is a slug of the registry's English name. So a service family
+    is /services/<slug>/ and a solution is /solutions/<slug>/.
+
+    Those stay flagged `provisional` -- not as a blocker, but so the live URL
+    audit has one generated list to confirm or redirect, and so nobody reads
+    a derived path as a decided one.
+    """
     candidate = (entity.url_candidate or "").strip()
+    if entity.id in _LEGACY_URLS:
+        candidate = ""  # standardised below; the recorded path lives on as legacy
     if candidate and candidate.upper() != "PENDING":
         # A dynamic collection records its pattern, e.g.
         # '/portfolio/{work-sample-slug}/'. The hub, not the pattern, is what
@@ -245,7 +270,16 @@ def _resolve_url(entity: EntityRecord) -> tuple[str, bool]:
         return candidate, (entity.url_status or "").upper() != "KEEP"
     if entity.id in _SHORTLISTED_URLS:
         return _SHORTLISTED_URLS[entity.id], True
-    return f"/{_slug(entity)}/", True
+
+    # Nest under the parent hub, when there is one that is not the site root.
+    prefix = ""
+    if entities is not None:
+        parent = entities.get(entity.parent_id or "")
+        if parent is not None and parent.id != _HOME_ID:
+            parent_href, _ = _resolve_url(parent, entities)
+            if parent_href != "/":
+                prefix = parent_href.rstrip("/")
+    return f"{prefix}/{_slug(entity)}/", True
 
 
 def _entities_by_id(registry_root=None) -> dict[str, EntityRecord]:
@@ -324,7 +358,7 @@ def _knowledge_cards(entities: Mapping[str, EntityRecord]) -> list[dict[str, Any
     """The registry's Knowledge children are the dynamic article and video
     item patterns, not destinations. A menu links to their listings, which
     hang off whichever hub path the URL audit settles on."""
-    hub, _ = _resolve_url(entities["KNW-000"])
+    hub, _ = _resolve_url(entities["KNW-000"], entities)
     return [
         {"label": "مقاله‌ها", "href": f"{hub}articles/", "icon": _ENTITY_ICONS["KNW-ART-*"],
          "note": _CARD_NOTES["KNW-ART-*"], "url_status": "PENDING_URL_AUDIT",
@@ -335,8 +369,9 @@ def _knowledge_cards(entities: Mapping[str, EntityRecord]) -> list[dict[str, Any
     ]
 
 
-def _nav_entry(entity: EntityRecord, children: list[dict[str, Any]]) -> dict[str, Any]:
-    href, provisional = _resolve_url(entity)
+def _nav_entry(entity: EntityRecord, children: list[dict[str, Any]],
+               entities: Mapping[str, EntityRecord]) -> dict[str, Any]:
+    href, provisional = _resolve_url(entity, entities)
     entry: dict[str, Any] = {
         "label": _NAV_LABELS.get(entity.id, entity.name_fa),
         "href": href,
@@ -370,7 +405,7 @@ def site_nav(registry_root=None) -> list[dict[str, Any]]:
         cards = []
         for child_id in _PANEL_CHILD_IDS.get(panel_id, ()):
             child = entities[child_id]
-            href, provisional = _resolve_url(child)
+            href, provisional = _resolve_url(child, entities)
             note = _CARD_NOTES.get(child_id)
             if note is None and panel_id == "SRV-000":
                 note = _family_note(child.name_fa, services)
@@ -386,8 +421,8 @@ def site_nav(registry_root=None) -> list[dict[str, Any]]:
             cards.append(card)
         return cards
 
-    nav = [_nav_entry(entities[_HOME_ID], [])]
-    nav.extend(_nav_entry(entities[panel_id], cards_for(panel_id)) for panel_id in _PANEL_IDS)
+    nav = [_nav_entry(entities[_HOME_ID], [], entities)]
+    nav.extend(_nav_entry(entities[pid], cards_for(pid), entities) for pid in _PANEL_IDS)
     return nav
 
 
@@ -403,12 +438,18 @@ def _bottom_nav(registry_root=None, active_href: str | None = None) -> dict[str,
     to the first entry on every page.
     """
     entities = _entities_by_id(registry_root)
-    order = ("CORE-001", "PRT-000", "STR-000", "INV-000", "CNT-000")
-    labels = {"STR-000": "سازه‌ها", "PRT-000": "نمونه‌کارها", "CNT-000": "تماس"}
+    # خانه · نمونه‌کارها · خدمات · سرمایه‌گذاری · تماس. Services replaced
+    # Structures here on the owner's instruction of 2026-10-13 ("خدمات بجای
+    # سازه ها"): the structures catalogue is one family's worth of the site,
+    # and it keeps its own mega panel, while Services is the hub every other
+    # family hangs off. It also means the bar now marks the services page,
+    # which previously had no entry of its own to rest the bubble on.
+    order = ("CORE-001", "PRT-000", "SRV-000", "INV-000", "CNT-000")
+    labels = {"SRV-000": "خدمات", "PRT-000": "نمونه‌کارها", "CNT-000": "تماس"}
     entries = []
     for entity_id in order:
         entity = entities[entity_id]
-        href, provisional = _resolve_url(entity)
+        href, provisional = _resolve_url(entity, entities)
         icon = _ENTITY_ICONS[entity_id]
         entry: dict[str, Any] = {
             "href": href,
@@ -432,7 +473,7 @@ def _site_footer(registry_root=None) -> dict[str, Any]:
 
     def link(entity_id: str, label: str | None = None) -> dict[str, Any]:
         entity = entities[entity_id]
-        href, _ = _resolve_url(entity)
+        href, _ = _resolve_url(entity, entities)
         return {"label": label or entity.name_fa, "href": href}
 
     return {
@@ -473,6 +514,19 @@ def site_shell(registry_root=None, active_href: str | None = None) -> dict[str, 
         "site-footer": _site_footer(registry_root),
         "bottom-nav": _bottom_nav(registry_root, active_href),
     }
+
+
+def legacy_url_pairs(registry_root=None) -> list[tuple[str, str, str]]:
+    """(label, legacy path, standardised path) for every page whose registry
+    candidate was superseded by the standard scheme. The URL audit decides
+    KEEP or 301 for each of these."""
+    entities = _entities_by_id(registry_root)
+    pairs = []
+    for entity_id, legacy in _LEGACY_URLS.items():
+        entity = entities[entity_id]
+        href, _ = _resolve_url(entity, entities)
+        pairs.append((entity.name_fa, legacy, href))
+    return sorted(pairs, key=lambda row: row[1])
 
 
 def provisional_nav_urls(registry_root=None) -> list[tuple[str, str, str]]:

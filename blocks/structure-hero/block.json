@@ -6,8 +6,8 @@
   },
   "role": "content",
   "family": "hero",
-  "surface": "dark",
-  "composition": "Product-stage hero for a single structure. Shows a real photo when one exists; otherwise renders a true-to-scale dimension diagram built from the structure's own registry data, never a stock or invented photo.",
+  "surface": "light",
+  "composition": "Product-stage hero for a single structure. Shows a real photo when one exists; otherwise renders a true-to-scale dimension diagram built from the structure's own registry data, never a stock or invented photo. Surface metadata corrected dark -> light on 2026-10-13: the stylesheet has always painted light, and the composer's surface-run rule was reading the wrong value.",
   "serves_intent": [
     "orient",
     "identify"

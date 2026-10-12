@@ -58,7 +58,7 @@ def test_the_nav_row_is_the_approved_entries_in_the_approved_order() -> None:
 def test_the_bottom_nav_is_the_five_entries_the_owner_chose() -> None:
     entries = site_shell()["bottom-nav"]["entries"]
     assert [entry["label"] for entry in entries] == [
-        "خانه", "نمونه‌کارها", "سازه‌ها", "سرمایه‌گذاری", "تماس",
+        "خانه", "نمونه‌کارها", "خدمات", "سرمایه‌گذاری", "تماس",
     ]
 
 
@@ -176,7 +176,7 @@ def test_the_shell_is_the_same_object_graph_for_every_caller() -> None:
 
 def test_marking_a_section_changes_only_that_flag() -> None:
     plain = site_shell()
-    marked = site_shell(active_href="/structures/")
+    marked = site_shell(active_href="/services/")
     assert plain["site-header"] == marked["site-header"]
     assert [e.get("active") for e in marked["bottom-nav"]["entries"]] == [
         None, None, True, None, None,

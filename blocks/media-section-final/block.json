@@ -6,8 +6,8 @@
   },
   "role": "content",
   "family": "evidence",
-  "surface": "paper",
-  "composition": "V16 evidence composition",
+  "surface": "light",
+  "composition": "V16 evidence composition. Surface metadata corrected paper -> light on 2026-10-13: the stylesheet has always painted light, and the composer's surface-run rule was reading the wrong value.",
   "serves_intent": [
     "build-trust",
     "show"

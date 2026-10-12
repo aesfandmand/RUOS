@@ -6,15 +6,17 @@
   },
   "role": "content",
   "family": "cross-reference",
-  "surface": "light",
-  "composition": "A swipeable carousel of other structures in the same registry family — real records, not invented ones.",
+  "surface": "paper",
+  "composition": "A swipeable carousel of other structures in the same registry family — real records, not invented ones. Surface metadata corrected light -> paper on 2026-10-13: the stylesheet has always painted paper, and the composer's surface-run rule was reading the wrong value.",
   "serves_intent": [
     "compare",
     "discover"
   ],
   "position": "any",
   "behavior": true,
-  "vendor": ["swiper"],
+  "vendor": [
+    "swiper"
+  ],
   "adjacency": {
     "not_after_same_family": true
   },

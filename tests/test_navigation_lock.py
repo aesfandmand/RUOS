@@ -142,7 +142,7 @@ def test_pages_in_different_sections_still_render_the_same_navigation() -> None:
 
     # ...and each one does mark its own section, or the bubble sits on Home
     # everywhere.
-    for slug, section in (("straboard", "/structures/"), ("urban-investment", "/investment/")):
+    for slug, section in (("straboard", "/services/"), ("urban-investment", "/investment/")):
         spec = load_page_spec(_Path(ROOT / f"pages/blocks/{slug}.json"))
         active = [e for e in spec["shell"]["bottom-nav"]["entries"] if e.get("active")]
         assert [e["href"] for e in active] == [section], (

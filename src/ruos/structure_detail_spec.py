@@ -174,11 +174,14 @@ def _family_nav_cards(registry_root=None) -> list[dict[str, str]]:
     return cards
 
 
-def _real_shell(registry_root=None, active_href: str | None = _STRUCTURES_HUB_URL) -> dict[str, Any]:
+def _real_shell(registry_root=None, active_href: str | None = "/services/") -> dict[str, Any]:
     """The one site shell, from ``ruos.site_shell``.
 
-    Every page this module builds is a Structure Detail page, so the
-    bottom-nav section is the structures hub.
+    Every page this module builds is a Structure Detail page. The bottom bar
+    carries خدمات rather than سازه‌ها since 2026-10-13, so these pages have no
+    entry of their own there; Services is their nearest parent in the bar and
+    is what the bubble rests on. Without it the bubble would default to the
+    first entry and tell the visitor they are on the home page.
 
     This used to hold its own copy of the nav data, which meant the "the
     navigation is identical on every page" rule depended on nobody editing
