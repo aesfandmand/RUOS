@@ -36,7 +36,7 @@ def _walk(entries):
 def test_the_nav_row_is_the_approved_entries_in_the_approved_order() -> None:
     nav = site_nav()
     assert [entry["label"] for entry in nav] == [
-        "خانه", "خدمات", "راهکارها", "سازه‌ها و تابلوها",
+        "خانه", "خدمات", "راهکارها", "سازه‌ها",
         "سرمایه‌گذاری", "پروژه‌ها", "نمونه‌کارها", "مرکز دانش",
     ]
     # Home and Projects are plain links. Projects is separate from Portfolio

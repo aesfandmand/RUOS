@@ -61,14 +61,24 @@ import re
 # does not shrink -- it spills past the header's padding (measured 68px
 # off-canvas at 1024 and growing). The 980px drawer breakpoint is site-wide
 # (blocks/_foundation reads it too), so moving it would be a different
-# decision; instead the row now compresses in two bands -- pill to icon at
-# ≤1120, pill dropped and nav icons dropped at ≤1075 -- and every width from
-# 981 to 1920 was re-measured clean, with all eight labels readable at 1000.
+# decision. Two further things came out of measuring it properly. Labels now
+# carry white-space:nowrap: without it a long label wrapped to two lines when
+# the row got tight, which looked broken AND hid the overflow from every
+# width check, because a wrapped item measures narrower. With wrapping off,
+# the row's real requirement is 1416px, and the header's content column was
+# capped at 1280 -- the cap a page SECTION uses. The header is chrome, not a
+# section, so its cap is now 1440. Below that the row gives things up in a
+# deliberate order, each threshold taken from a containment sweep rather than
+# guessed: nav icons at ≤1380, the number at ≤1230, the phone entirely at
+# ≤1130. The number outranks the icons because the owner asked for it by
+# name, so it survives to 1231px -- 1366 laptops included. Re-measured at 21
+# widths from 981 to 1920: every direct child of .site-header inside its
+# padding box, nothing wrapped.
 LOCKED_FILES: dict[str, str] = {
     "blocks/site-header/markup.html":
         "6819cbfc0a8ee19ce4d5016c359c0f55df7af7452dfc515d53998c0bb4c95023",
     "blocks/site-header/style.css":
-        "c38e74aec2380006b5eebe6aaf7b23a279665930ada41b483a03d5618f0a6f9b",
+        "2712ef3aec5ede2b8b572a8105d556b06383a3f935da3a358fe3fda34eddecad",
     "blocks/site-header/behavior.js":
         "64e4705d374d3a106a64693fc7eb668b65dfae41271af56b2abef97a46e9cc68",
     "blocks/bottom-nav/markup.html":

@@ -68,7 +68,7 @@
 @media (width<=980px){.story-status{top:calc(var(--header) + 10px);white-space:nowrap;max-width:calc(100% - 28px)}}
 @media (width<=980px){.hero-scroll{height:300svh}}
 @media (width<=980px){.hero-sticky{top:var(--header);height:calc(100svh - var(--header))}}
-@media (width<=980px){.hero-grid{grid-template-rows:45% 55%;grid-template-columns:1fr}}
+@media (width<=980px){.hero-grid{grid-template-rows:34% 66%;grid-template-columns:1fr}}
 @media (width<=980px){.hero-visual{grid-row:1;min-height:0}}
 @media (width<=980px){.hero-city{object-position:51% 53%;transform:scale(1.02)}}
 @media (width<=980px){.hero-visual:after{background:linear-gradient(#0000 44%,#0d0a0c8a)}}
@@ -83,17 +83,40 @@
 @media (width<=980px){.start-action i{width:25px;height:25px}}
 @media (width<=980px){.birth-meter{bottom:21px;left:14px}}
 @media (width<=980px){.birth-meter span{width:18px}}
-@media (width<=980px){.hero-copy{min-height:0;padding:18px 18px calc(80px + env(safe-area-inset-bottom));grid-row:2;justify-content:flex-start;overflow:hidden}}
+@media (width<=980px){.hero-copy{min-height:0;padding:18px 18px calc(96px + env(safe-area-inset-bottom));grid-row:2;justify-content:flex-start;overflow:hidden}}
 @media (width<=980px){.hero-copy .eyebrow{margin-bottom:7px;font-size:.56rem}}
 @media (width<=980px){.hero-copy h1{font-size:clamp(1.7rem,7vw,2.3rem);line-height:1.46}}
-@media (width<=980px){.hero-lead{-webkit-line-clamp:3;-webkit-box-orient:vertical;margin-top:10px;font-size:clamp(.72rem,2.6vw,.84rem);line-height:1.75;display:-webkit-box;overflow:hidden}}
+/* The lead used to be clamped to three lines because the copy column had a
+   fixed share of a sticky, viewport-tall stage and the sentence overflowed
+   it. Clamping cut it mid-sentence, which the owner saw. The row now gets
+   62% instead of 55% and the sentence is read in full. */
+@media (width<=980px){.hero-lead{margin-top:10px;font-size:clamp(.72rem,2.6vw,.84rem);line-height:1.72}}
 @media (width<=980px){.hero-actions{gap:13px;margin-top:13px}}
 @media (width<=980px){.hero-actions .text-button{font-size:.64rem}}
+/* The proof row was hidden outright on mobile. It is the hero's one line
+   of evidence, so it comes back -- but only where it actually fits. The
+   stage is sticky and exactly one viewport tall, so the copy column has a
+   hard height budget: measured, a 844pt phone has room for it and a 667pt
+   one does not. Below 800pt the full sentence keeps the space instead,
+   because a cut sentence was the thing the owner actually objected to. */
 @media (width<=980px){.hero-proof{display:none}}
+@media (width<=980px) and (height>=800px){.hero-proof{display:flex;gap:3px 12px;margin-top:10px;padding-top:8px;font-size:.58rem;line-height:1.5}}
 @media (width<=980px){.micro-scene{border-radius:23px;height:42svh;max-height:380px}}
-@media (width<=480px) and (height<=740px){.hero-grid{grid-template-rows:42% 58%}}
+/* Short phones (<=760pt tall) cannot hold the full sentence, the buttons
+   and the proof row in one viewport-tall sticky stage. Measured on a
+   375x667, the buttons ended 38px BEHIND the bottom bar. The proof row
+   is already dropped at this height; this reclaims the rest so the CTA
+   clears the bar, without going back to cutting the sentence. */
+@media (width<=980px) and (height<=760px){
+  .hero-grid{grid-template-rows:28% 72%}
+  .hero-copy{padding:12px 16px calc(88px + env(safe-area-inset-bottom))}
+  .hero-copy .eyebrow{margin-bottom:5px}
+  .hero-copy h1{font-size:clamp(1.38rem,5.8vw,1.58rem);line-height:1.36}
+  .hero-lead{margin-top:7px;font-size:.7rem;line-height:1.56}
+  .hero-actions{margin-top:10px;gap:10px}
+}
 @media (width<=480px) and (height<=740px){.hero-copy h1{font-size:1.55rem}}
-@media (width<=480px) and (height<=740px){.hero-lead{-webkit-line-clamp:2}}
+@media (width<=480px) and (height<=740px){.hero-lead{font-size:.72rem;line-height:1.62}}
 @media (width<=480px) and (height<=740px){.hero-actions{margin-top:9px}}
 @media (width<=480px) and (height<=740px){.hero-actions .primary-button{min-height:44px;padding:0 13px}}
 @media (width<=480px) and (height<=740px){.start-action span{max-width:175px}}
@@ -104,7 +127,15 @@
 .hero-grid{gap:48px;width:min(1240px,100% - 48px);margin-inline:auto;padding-block:32px}
 .hero-visual{box-shadow:var(--shadow);background:#211f20;border:1px solid #6e655f1c;border-radius:26px}
 .hero-city{filter:saturate(.88)brightness(.9)contrast(1.02)}
-.hero-visual:after{background:linear-gradient(90deg,#0000 60%,#fbf8f3ad),linear-gradient(#0000 62%,#0c090b80)}
+/* The horizontal stop here used to wash the photo's inline-start edge with
+   #fbf8f3ad -- a cream veil at 68% alpha that read as a halo over the city,
+   which is what the owner saw. It was meant to blend the photo into a text
+   column that sat on top of it; the copy is its own column now, so it blends
+   nothing and only dulls the image. The cream is also the pre-"سیگنال ایمنی"
+   paper colour, so it had been stale since the palette change. Only the
+   vertical darkening is kept, which is what the caption needs to stay
+   legible -- the same treatment mobile already uses. */
+.hero-visual:after{background:linear-gradient(#0000 62%,#0c090b80)}
 .live-badge{color:#575158;background:#fbf8f3e0;border-color:#1717191f}
 .live-badge{color:#575158}
 .start-action{color:var(--ink);background:#ffffffed;border-color:#1717191f;border-radius:10px;box-shadow:0 14px 34px #24191424}

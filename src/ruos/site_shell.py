@@ -142,7 +142,10 @@ _ENTITY_ICONS: dict[str, str] = {
 # "سازه‌ها و تابلوها". The registry record is untouched -- this only governs
 # how the entry is presented.
 _NAV_LABELS: dict[str, str] = {
-    "STR-000": "سازه‌ها و تابلوها",
+    # "سازه‌ها و تابلوها" is the fuller phrase and it stays on the panel's
+    # hero card; the row itself uses the short form, which is also what the
+    # bottom bar says, so the two agree and eight entries fit on one line.
+    "STR-000": "سازه‌ها",
 }
 
 # Where the registry's recorded candidate is 'PENDING' but the decision is

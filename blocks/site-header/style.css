@@ -1,7 +1,13 @@
 .reading-progress{z-index:120;top:var(--header);width:100%;height:3px;transform:scaleX(var(--reading-progress));transform-origin:100%;background:var(--red);position:fixed;right:0}
 
 /* ── header bar: white, not a dark glass slab ── */
-.site-header{z-index:110;height:var(--header);color:var(--ink);background:#fffffff2;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);align-items:center;gap:30px;padding:0 max(24px,50vw - 640px);display:flex;position:fixed;inset:0 0 auto}
+/* The header's content column used to be capped at 1280px, the same cap the
+   page's sections use. It is chrome, not a section: it carries the brand,
+   eight nav entries, the phone and the CTA, which need 1416px. At 1280 the
+   actions block simply hung 136px outside the padding box at every width
+   -- invisible until labels were stopped from wrapping, because a wrapped
+   label absorbed it. The cap is now 1440. */
+.site-header{z-index:110;height:var(--header);color:var(--ink);background:#fffffff2;-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);align-items:center;gap:26px;padding:0 max(24px,50vw - 720px);display:flex;position:fixed;inset:0 0 auto}
 .brand{align-items:center;gap:11px;display:flex;flex:none}
 .brand-mark img{width:38px;height:38px;display:block}
 .brand-copy{flex-direction:column;display:flex;line-height:1.25}
@@ -10,7 +16,13 @@
 
 /* ── desktop nav ── */
 .desktop-nav{align-items:center;gap:4px;height:100%;display:flex;flex:1}
-.nav-link,.mega-trigger{color:var(--ink);background:0 0;border:0;border-radius:11px;align-items:center;gap:8px;height:42px;padding:0 14px;font-family:inherit;font-size:.8rem;font-weight:800;display:inline-flex;cursor:pointer;transition:background .22s cubic-bezier(.16,1,.3,1),color .22s}
+/* white-space:nowrap is load-bearing, not cosmetic. Without it a long label
+   ("سازه‌ها و تابلوها") wraps to two lines when the row gets tight, which
+   both looks broken and hides the overflow from any width measurement --
+   the wrapped item measures narrower, so the row appears to fit when it does
+   not. Keeping labels on one line makes the real required width observable,
+   which is what the compression bands below are tuned against. */
+.nav-link,.mega-trigger{color:var(--ink);background:0 0;border:0;border-radius:11px;align-items:center;gap:8px;height:42px;padding:0 11px;font-family:inherit;font-size:.8rem;font-weight:800;white-space:nowrap;display:inline-flex;cursor:pointer;transition:background .22s cubic-bezier(.16,1,.3,1),color .22s}
 .nav-link:hover,.mega-trigger:hover{background:var(--paper-2)}
 .nav-ico{width:17px;height:17px;flex:none;color:var(--muted);transition:color .22s}
 .nav-link:hover .nav-ico,.mega-trigger:hover .nav-ico,.mega-item.is-open .nav-ico{color:var(--red)}
@@ -88,29 +100,35 @@
 .menu-button[aria-expanded=true] .menu-ico-open{opacity:0;transform:rotate(90deg)}
 .menu-button[aria-expanded=true] .menu-ico-close{opacity:1;transform:rotate(0)}
 
-/* Eight nav items, a brand and a phone pill stop fitting between the
-   header's padding at ~1093px, and the nav -- a flex item whose own children
-   are flex:none -- does not shrink: it spills past the edge instead
-   (measured: 68px off-canvas at 1024, growing as the window narrows). The
-   drawer breakpoint is 980px and is site-wide (blocks/_foundation reads it
-   too for body padding and headings), so it is not the thing to move here.
-   Instead the row compresses in two steps and everything stays on screen
-   down to the drawer. Each step gives back only what that band needs, and
-   the full treatment returns as soon as there is room. */
-@media (980px<width<=1120px){
-  .site-header{gap:20px}
+/* Eight nav entries, the brand, the phone and the CTA need 1416px on one
+   line. The header's column is 1440 at its widest and shrinks with the
+   window, so between there and the 980px drawer breakpoint the row gives
+   things up in a deliberate order -- decoration first, the owner's two
+   requirements last. The thresholds below are not guesses: each is the
+   width at which the measured requirement stops fitting, taken from a
+   containment sweep of every direct child of .site-header.
+
+   The order is: nav icons, then the number, then the phone entirely. The
+   number outranks the icons because the owner asked for it specifically
+   ("در دسکتاپ وجود شماره تماس در هدر بسیار مهم است"), so it survives down
+   to 1231px -- every ordinary laptop, 1366 included -- while the icons go
+   at 1380. The drawer breakpoint itself is site-wide (blocks/_foundation
+   reads it too) and is not moved here. */
+@media (980px<width<=1380px){
+  .nav-ico{display:none}
+  .mega-trigger,.nav-link{gap:0}
+}
+@media (980px<width<=1230px){
   .header-phone{width:42px;height:42px;justify-content:center;padding:0}
   .header-phone-copy{display:none}
   .header-phone-ico{width:20px;height:20px}
 }
-@media (980px<width<=1075px){
-  /* The number is already one tap away in the bottom bar and the drawer at
-     this width, so the header gives up its copy of it before it gives up a
-     nav label. */
+@media (980px<width<=1130px){
+  /* The number is one tap away in the bottom bar and the drawer at this
+     width, so the header gives up its copy before it gives up a nav label. */
   .header-phone{display:none}
-  .site-header{gap:14px}
-  .mega-trigger,.nav-link{padding-inline:9px;gap:0}
-  .nav-ico{display:none}
+  .site-header{gap:18px}
+  .mega-trigger,.nav-link{padding-inline:8px}
 }
 
 /* ── mobile drawer ── */
