@@ -103,7 +103,28 @@
 @media (width<=980px){.products-route-cta{grid-template-columns:1fr;padding-bottom:115px}}
 @media (width<=640px){.product-toolbar{grid-template-columns:1fr;display:grid}}
 @media (width<=640px){.product-card{display:flex}}
-@media (width<=640px){.product-visual{border-left:0;border-bottom:1px solid var(--line);height:235px;min-height:0}}
+/* On a phone this section was 14 cards x ~585px = nearly 11 viewports of
+   scrolling, and every card carried the SAME drawn illustration -- the same
+   red-and-black structure over and over. That repetition was the owner's
+   actual complaint, and it is also what made the section so long.
+
+   The drawing is decorative CSS art, not a photograph of the structure, so
+   on a phone it earns none of its 235px: it tells the reader nothing that
+   the card's own title and specs do not, and fourteen copies of it tell
+   them less than one would. It is kept on desktop, where the grid shows
+   several at once and the repetition reads as a set rather than a loop.
+
+   What the phone gets instead is the card as an index entry: the meta row,
+   the title, the two real specs and the link through to the structure's own
+   page, which is where the full detail lives anyway. */
+@media (width<=640px){.product-visual{display:none}}
+@media (width<=640px){.product-card-copy{padding:15px 16px}}
+@media (width<=640px){.product-card h3{margin:9px 0 11px;font-size:1.08rem;line-height:1.4}}
+@media (width<=640px){.product-card dl{gap:8px}}
+@media (width<=640px){.product-card dl>div{grid-template-columns:66px 1fr;gap:9px;padding-top:8px}}
+@media (width<=640px){.product-card dd{font-size:.66rem;line-height:1.65}}
+@media (width<=640px){.selection-note{font-size:.66rem;line-height:1.7}}
+@media (width<=640px){.product-card-copy>a{padding-top:12px}}
 @media (width<=640px){.product-meta{flex-wrap:wrap}}
 @media (width<=640px){.products-route-hero{padding:75px 0 65px}}
 @media (width<=640px){.products-route-hero h1{font-size:clamp(2rem,10vw,3rem)}}
