@@ -777,3 +777,88 @@ untouched and already reviewed/approved separately, see §5/navigation-lock.md).
 Neither is a real product bug; both are artifacts of this one capture
 method, documented so nobody "fixes" the real reveal/nav code chasing a
 screenshot-only symptom.
+
+## 21. Motion strategy — the verbs, the score, and the cursor
+
+Source: `reference/motion-strategy-references/` — seven recordings the owner
+sent on 2026-10-13, with his own framing of what they are for:
+
+> مسئله من رنگ نیست — حرکت و استراتژی تولید صفحات است.
+> میخوام متوجه بشی که دنبال چه چیزایی میگردم: مثلا تنوع و حرکت چگونه باشه،
+> و یا شکل موس در صفحات و بخش‌هایی می‌تواند تغییر کند و حتی روایت بسازد.
+
+§15 says how motion should move. §16 says it must not break. **Neither says how
+a page's motion gets planned**, and that gap is why pages kept coming out
+correct and plain. This section closes it.
+
+The machine-readable half is `05-rules/website/motion-verbs-v1.yaml`. It is the
+source of record for the verb list, the families, the cursor states and the
+per-page-type scores. This section is the law; the YAML is the data.
+
+### A verb, not an effect
+
+A **verb** is what a section *does* when the visitor reaches it or acts on it.
+"Fades in" is not a verb — every section does that. "The scroll locks and the
+stack advances one card" is a verb. Twelve are approved, in six families:
+
+| Family | Verbs |
+|---|---|
+| scroll-driven | `scroll-swaps-content`, `scroll-locks-and-advances`, `horizontal-accordion`, `active-card-becomes-hero` |
+| entrance | `count-up-on-reveal`, `skeleton-to-content`, `rise-into-place` |
+| pointer | `perspective-drag`, `pointer-parallax` |
+| ambient | `ambient-field` |
+| typographic | `kinetic-oversized-type` |
+| threshold | `threshold-intro` |
+
+Adding a thirteenth is an owner decision, like any other change to this
+document. It is not something a page build invents because a section felt empty.
+
+### The four rules
+
+1. **No verb twice on one page.** A verb used in the hero is spent.
+2. **No two adjacent sections from the same family.** This is the same instinct
+   `block_composer` already applies to `layout` and `surface` — a page that
+   moves the same way twice running reads as one long section.
+3. **The score is chosen before the content is written.** Not after, and not
+   per-section as the build goes. The YAML carries a score for each page type;
+   a page either takes it or declares its own and checks it against rules 1, 2
+   and 4.
+4. **One `heavy` verb per page, at most.** `scroll-locks-and-advances`,
+   `perspective-drag` and `active-card-becomes-hero` are heavy. Two of them on
+   one page is a page that fights its own reader.
+
+### Every verb carries its own failure
+
+This is §16 restated per verb, and the YAML records it for each one:
+`mobile`, `reduced_motion` and `fails_open` are required fields. A verb whose
+`fails_open` is "the content is missing" is not a verb, it is the straboard bug
+again. **Pinning in particular does not survive a phone** — below 768px
+`scroll-locks-and-advances` becomes a swipeable rail, never a pinned section.
+
+### The cursor is a narrative device
+
+The owner's point, and it is new to this document: the cursor can change shape
+by section, and because it changes as the visitor descends, **it draws an arc**.
+The visitor learns the tone of each part of the page without reading a word.
+
+- Implemented as `data-cursor="<state>"` on a section or an interactive element,
+  with one layer that follows the pointer. Six states are approved
+  (`default`, `drag`, `view`, `play`, `open`, `send`); the YAML holds their
+  shapes and where each belongs.
+- **Pointer devices only.** On touch the native cursor is untouched, and the
+  custom layer is never rendered.
+- **Decoration, never affordance.** Anything the cursor signals must also be
+  reachable by keyboard and named in text or `aria-label`. A control whose only
+  hint is the cursor shape is a bug, not a flourish.
+- `prefers-reduced-motion` removes the trailing and the easing. The shape still
+  changes — it is information, not motion.
+
+### What the engine still needs
+
+`block.json` has a `layout` field, which is how `block_composer` enforces
+anti-repetition for composition. **It has no motion field**, so rules 1 and 2
+above are currently enforced by review rather than by the composer, which is
+exactly the kind of rule that gets violated. The fix is a `motion` field on
+`block.json` naming the block's verb, and the same adjacency check the composer
+already runs on `layout`. That change is not made by this commit and needs the
+owner's go-ahead, since it touches every block's metadata.

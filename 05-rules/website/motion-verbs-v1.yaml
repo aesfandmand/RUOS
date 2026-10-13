@@ -1,0 +1,360 @@
+# Motion verbs — the interaction vocabulary of record
+#
+# Owner-approved 2026-10-13, from seven recordings he sent that day. He stated
+# the point himself: «مسئله من رنگ نیست / حرکت و استراتژی تولید صفحات است».
+# This file is the machine-readable half; design model §21 is the prose half.
+#
+# A verb is what a section DOES when the visitor arrives at it or acts on it.
+# It is not an effect. "fade in" is not a verb; "the scroll locks and the stack
+# advances one card" is.
+#
+# The law this file exists to enforce (§21):
+#   1. No verb twice on one page.
+#   2. No two adjacent sections from the same family.
+#   3. Every page declares a score before its content is written.
+#   4. `cost: heavy` — at most one per page.
+
+version: 1
+approved: 2026-10-13
+reference_root: reference/motion-strategy-references/
+supersedes: nothing   # extends design model §15 (how motion moves) and §16 (it must not break)
+
+# --------------------------------------------------------------------------
+# Families. Rule 2 is checked against this field, not against the verb id.
+# --------------------------------------------------------------------------
+families:
+  entrance:
+    fa: ورود
+    what: the element arrives in place; the visitor only scrolls past
+  scroll-driven:
+    fa: اسکرول‌محور
+    what: scroll position is the input; the section transforms as it is read
+  pointer:
+    fa: مکان‌نما‌محور
+    what: the cursor is the input
+  ambient:
+    fa: محیطی
+    what: runs on its own clock behind the content; never demands attention
+  typographic:
+    fa: تایپوگرافیک
+    what: the type itself is the moving object
+  threshold:
+    fa: آستانه
+    what: a boundary moment — page load, section hand-off
+
+# --------------------------------------------------------------------------
+# The twelve verbs
+# --------------------------------------------------------------------------
+verbs:
+
+  - id: scroll-swaps-content
+    fa: اسکرول محتوا را عوض می‌کند
+    family: scroll-driven
+    what: >
+      A tab or marker row sits under a single card. Moving through the section
+      swaps the whole card body with a cross-fade; the frame never moves.
+    reference:
+      - clips/01-xurya-white-b2b-scroll-score.mp4
+      - stills/01-xurya-white-b2b-scroll-score--testimonial-tab-swap.jpg
+    use_for: [testimonials, case-studies, audience-segments]
+    max_per_page: 1
+    cost: medium
+    mobile: keeps the tab row, becomes swipe as well as tap
+    reduced_motion: tabs still work; the cross-fade becomes an instant swap
+    fails_open: every panel is in the DOM and readable with JS off
+    library: none
+
+  - id: scroll-locks-and-advances
+    fa: اسکرول قفل می‌شود و پشته جلو می‌رود
+    family: scroll-driven
+    what: >
+      The section pins; each further scroll step brings the next card forward
+      while the others recede and dim. The page does not move until the stack
+      is spent.
+    reference:
+      - clips/03-propfirm-locked-card-stack.mp4
+      - stills/03-propfirm-locked-card-stack--locked-card-stack.jpg
+    use_for: [service-tiers, programme-ladders, before-after-sequences]
+    max_per_page: 1
+    cost: heavy
+    mobile: >
+      Pinning on a phone fights the browser's own scroll. Below 768px this
+      degrades to a swipeable rail with a progress bar — never a pinned section.
+    reduced_motion: becomes a plain vertical list of the same cards
+    fails_open: unpinned, the cards read as a normal stack
+    library: GSAP ScrollTrigger (vendored)
+
+  - id: horizontal-accordion
+    fa: آکاردئون افقی
+    what: >
+      Three or four panels share a row. The active one expands to a full photo
+      panel; the inactive ones collapse to a vertical rotated label with their
+      number. Clicking or scrolling moves the active one.
+    family: scroll-driven
+    reference:
+      - clips/02-vistahaven-horizontal-accordion.mp4
+      - stills/02-vistahaven-horizontal-accordion--horizontal-accordion.jpg
+    use_for: [service-families, structure-families, solution-areas]
+    max_per_page: 1
+    cost: medium
+    mobile: >
+      Rotates 90°: the panels stack vertically and the collapsed label runs
+      horizontally. It does NOT collapse to a plain list — the asymmetry is the
+      point (§14).
+    reduced_motion: all panels open, stacked
+    fails_open: panels are open by default; JS closes them
+    library: none
+
+  - id: perspective-drag
+    fa: کشیدن با پرسپکتیو
+    family: pointer
+    what: >
+      A real 3D turn: the panel skews on its Y axis under the drag and settles.
+      The compositing layer is isolated so the turn does not flatten in Safari.
+    reference:
+      - clips/05-vmag-3d-page-turn.mp4
+      - stills/05-vmag-3d-page-turn--perspective-page-turn.jpg
+    use_for: [portfolio-pieces, printed-work, catalogue-spreads]
+    max_per_page: 1
+    cost: heavy
+    mobile: touch drag, reduced rotation angle
+    reduced_motion: becomes a paged carousel with no rotation
+    fails_open: pages are a scrollable row without JS
+    library: Swiper coverflow (vendored)
+    note: >
+      v18 removed perspective/rotateY to dodge a Safari bug instead of isolating
+      the layer. That was the wrong fix and the owner rejected it. The fix is
+      `transform-style: preserve-3d` on the track plus `will-change: transform`
+      on each face, not dropping the rotation.
+
+  - id: active-card-becomes-hero
+    fa: کارت فعال تبدیل به هیرو می‌شود
+    family: scroll-driven
+    what: >
+      A card rail runs along the lower half; the photo of the active card is
+      also the full-bleed background behind the headline. Advancing the rail
+      changes the background and the headline together.
+    reference:
+      - reference/motion-references/01-slider-slide-a.jpg
+      - clips/06-volcanoes-slide-takeover.mp4
+      - stills/06-volcanoes-slide-takeover--slide-02-takeover.jpg
+    use_for: [structure-gallery, portfolio-hub-hero, project-showcase]
+    max_per_page: 1
+    cost: heavy
+    mobile: rail becomes two-and-a-peek; background still tracks the active card
+    reduced_motion: background changes without the cross-fade
+    fails_open: the first card's photo is the static background
+    library: Swiper (vendored)
+
+  - id: count-up-on-reveal
+    fa: عدد روی ظهور بالا می‌رود
+    family: entrance
+    what: A figure counts from zero to its value once, when its row is first seen.
+    reference:
+      - stills/01-xurya-white-b2b-scroll-score--hero-stat-strip.jpg
+      - stills/02-vistahaven-horizontal-accordion--hero-stats-and-avatars.jpg
+    use_for: [proof-strip, about-stats]
+    max_per_page: 1
+    cost: light
+    mobile: identical
+    reduced_motion: the final value is simply present
+    fails_open: the final value is the HTML; JS only animates toward it
+    library: none
+    note: >
+      §3 governs the number itself. A figure with no verified source gets a
+      tagged placeholder and does NOT get a count-up — animating an invented
+      number is the worst version of the honesty problem.
+
+  - id: kinetic-oversized-type
+    fa: تایپ غول‌پیکر از عرض صفحه عبور می‌کند
+    family: typographic
+    what: >
+      One sentence, far larger than any heading on the page, travels across the
+      viewport as the visitor scrolls. It is a statement, not a marquee: it
+      moves once and it is readable at every point of its travel.
+    reference:
+      - stills/03-propfirm-locked-card-stack--kinetic-oversized-type.jpg
+    use_for: [golden-sentence, positioning-claim]
+    max_per_page: 1
+    cost: light
+    mobile: >
+      In Persian this travels right-to-left. Font size caps so a four-word line
+      still fits two lines at 360px.
+    reduced_motion: sits still, centred
+    fails_open: it is a normal heading in the markup
+    library: none
+    note: the golden sentence (part 6 of the page skeleton) is this verb's home
+
+  - id: ambient-field
+    fa: میدان محیطی زنده
+    family: ambient
+    what: >
+      A generated layer behind the content — drifting marks at three depths,
+      different speeds, continuously recycled. Never a looping video, never
+      loud enough to compete with the type.
+    reference:
+      - stills/03-propfirm-locked-card-stack--ambient-glyph-field.jpg
+      - stills/04-gcore-preloader-and-bento--circuit-pulse-hero.jpg
+    use_for: [hero]
+    max_per_page: 1
+    cost: medium
+    mobile: particle count drops by half; pauses when the tab is hidden
+    reduced_motion: a single static frame of the field
+    fails_open: the hero is complete without it
+    library: none
+    note: >
+      Ours is drawn from the trade, not from maths: faint outlines of structure
+      silhouettes, frame sections, grid marks. It must read as Red Umbrella's
+      field, not a borrowed one.
+
+  - id: pointer-parallax
+    fa: شیء با مکان‌نما جابه‌جا می‌شود
+    family: pointer
+    what: >
+      Layers shift a few pixels against the cursor, near layers more than far.
+      The whole effect is under 20px of travel.
+    reference:
+      - clips/03-propfirm-locked-card-stack.mp4
+    use_for: [hero, feature-showcase]
+    max_per_page: 1
+    cost: light
+    mobile: disabled — there is no pointer; device tilt is NOT a substitute
+    reduced_motion: disabled
+    fails_open: layers sit at their rest position
+    library: none
+
+  - id: skeleton-to-content
+    fa: اسکلت خاکستری بعد پر می‌شود
+    family: entrance
+    what: >
+      A grid arrives as its own empty shape, then fills cell by cell. The layout
+      never jumps, because the skeleton is the final geometry.
+    reference:
+      - stills/04-gcore-preloader-and-bento--bento-stagger.jpg
+      - clips/02-vistahaven-horizontal-accordion.mp4
+    use_for: [feature-grid, review-grid, logo-wall]
+    max_per_page: 1
+    cost: light
+    mobile: identical
+    reduced_motion: content present, no skeleton stage
+    fails_open: content is in the DOM; the skeleton is a CSS state on top
+    library: none
+
+  - id: rise-into-place
+    fa: عنصر از پایین بالا می‌آید و می‌نشیند
+    family: entrance
+    what: >
+      One substantial object — a device mock, a stat strip overlapping the hero
+      photo's bottom edge, a certificate — travels up and settles. One object
+      per page, not a page-wide habit.
+    reference:
+      - stills/01-xurya-white-b2b-scroll-score--hero-stat-strip.jpg
+      - stills/04-gcore-preloader-and-bento--dotted-globe.jpg
+    use_for: [proof-object, hero-overlap, product-shot]
+    max_per_page: 1
+    cost: light
+    mobile: shorter travel (24px, not 80px)
+    reduced_motion: present at rest
+    fails_open: present at rest
+    library: none
+
+  - id: threshold-intro
+    fa: پری‌لودر، نشان برند، باز شدن صفحه
+    family: threshold
+    what: >
+      First paint is the mark on a plain ground; it resolves and hands off to
+      the hero, which is already composed behind it.
+    reference:
+      - stills/04-gcore-preloader-and-bento--preloader-brandmark.jpg
+      - clips/01-xurya-white-b2b-scroll-score.mp4
+    use_for: [home, campaign-landing]
+    max_per_page: 1
+    cost: medium
+    mobile: shorter — 600ms ceiling, and it never delays LCP
+    reduced_motion: skipped entirely
+    fails_open: >
+      Hard rule: the intro layer is added by JS and removed by JS. With JS off
+      or slow it never exists. It must never be able to hide the page.
+    library: none
+    note: >
+      Not on a service or structure detail page — those are usually entered
+      from search, and an intro between the click and the answer is a cost.
+
+# --------------------------------------------------------------------------
+# The cursor is a narrative device, not a pointer (§21)
+# --------------------------------------------------------------------------
+cursor:
+  principle: >
+    The cursor's shape says what is possible here, and because it changes as the
+    visitor descends, it draws an arc of its own. The owner's words:
+    «شکل موس در صفحات و بخش‌هایی می‌تواند تغییر کند و حتی روایت بسازد».
+  mechanism: data-cursor="<state>" on a section or an interactive element
+  pointer_only: true          # never rendered on touch; the native cursor is kept
+  reduced_motion: no trailing, no easing — the shape still changes
+  accessibility: >
+    The shape is decoration. Every state it signals must also be reachable by
+    keyboard and named in text or aria-label. A cursor that is the only
+    affordance is a bug.
+  states:
+    - id: default
+      shape: the native arrow, untouched
+      where: body text, forms, navigation
+    - id: drag
+      fa: بکشید
+      shape: a ring with left and right chevrons inside
+      where: card rails, the 3D turn, any horizontal track
+    - id: view
+      fa: ببینید
+      shape: a filled disc that grows and takes the word
+      where: portfolio items, structure photos, case studies
+    - id: play
+      shape: a disc with a play triangle
+      where: video posters, motion-graphic sections
+    - id: open
+      shape: a disc with a plus
+      where: FAQ rows, accordion headers, expandable specs
+    - id: send
+      shape: the arrow with a small trailing dot
+      where: the closing CTA and the lead form
+
+# --------------------------------------------------------------------------
+# Scores. A page picks one before its content is written (§21).
+# Each score is already legal under rules 1–4; a hand-built score must be
+# checked against them.
+# --------------------------------------------------------------------------
+scores:
+
+  service_hub:
+    fa: هاب خدمت
+    verbs: [ambient-field, skeleton-to-content, horizontal-accordion,
+            count-up-on-reveal, kinetic-oversized-type, scroll-swaps-content]
+    heavy_count: 0
+    cursor_arc: [default, open, view, drag, send]
+
+  structure_detail:
+    fa: صفحهٔ سازه
+    verbs: [rise-into-place, pointer-parallax, skeleton-to-content,
+            scroll-locks-and-advances, count-up-on-reveal]
+    heavy_count: 1
+    cursor_arc: [default, view, drag, open, send]
+
+  portfolio_hub:
+    fa: هاب نمونه‌کار
+    verbs: [active-card-becomes-hero, skeleton-to-content, horizontal-accordion,
+            kinetic-oversized-type]
+    heavy_count: 1
+    cursor_arc: [default, drag, view, send]
+
+  portfolio_item:
+    fa: صفحهٔ نمونه‌کار
+    verbs: [perspective-drag, count-up-on-reveal, scroll-swaps-content,
+            rise-into-place]
+    heavy_count: 1
+    cursor_arc: [default, view, drag, send]
+
+  home:
+    fa: صفحهٔ نخست
+    verbs: [threshold-intro, ambient-field, active-card-becomes-hero,
+            skeleton-to-content, scroll-swaps-content, count-up-on-reveal]
+    heavy_count: 1
+    cursor_arc: [default, drag, view, open, send]
