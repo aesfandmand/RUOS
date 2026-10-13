@@ -862,3 +862,82 @@ exactly the kind of rule that gets violated. The fix is a `motion` field on
 `block.json` naming the block's verb, and the same adjacency check the composer
 already runs on `layout`. That change is not made by this commit and needs the
 owner's go-ahead, since it touches every block's metadata.
+
+## 22. Three standing rules from the first services review (2026-10-13)
+
+The owner reviewed the services draft in a real browser and gave three rules
+that are not page notes. They are standing, and they are recorded here rather
+than fixed once and forgotten.
+
+### 22.1 The desktop hero is one viewport, plus a sliver of what follows
+
+> هیرو به طور کامل باید در یک سکشن دیده شود و نیاز به اسکرول نداشته باشد؛ حتی
+> برای اینکه کاربر متوجه شود با اسکرول می‌تواند چیز دیگری ببیند، بخش کوچکی از
+> سکشن دوم در زیر سکشن اول دیده شود. این باید قانون همیشگی من برای طراحی
+> صفحات در نسخه دسکتاپ باشد.
+
+On desktop a hero must fit **entirely** within the first viewport, with a
+**24–80px sliver** of the next section visible beneath it. The sliver is the
+point: it is what tells the visitor there is more without making them guess.
+
+Measured, not estimated, at **1366×768, 1440×900 and 1920×1080** — the three
+sizes that matter. 1366×768 is the hard case and the one that decides it.
+
+**Where we stand today, measured 2026-10-13:**
+
+| Hero | 1366×768 | 1440×900 | 1920×1080 |
+|---|---|---|---|
+| `product-hero` (straboard, services) | 1001px — overflows by 263px | overflows by 131px | fits, 49px sliver |
+| `hero-scroll-scene` (urban-investment) | 2458px — overflows by 1719px | overflows by 2010px | overflows by 2406px |
+
+So the rule is currently broken on every page, including the approved one.
+`product-hero` is a fixed 1001px tall whatever the viewport; it was built for
+a 1080p screen and nothing else.
+
+**This collides with the structure-page lock.** `product-hero` is a locked
+file and straboard is the locked archetype, so making it viewport-aware
+changes the owner-approved page. That is the one procedure in
+`structure-page-lock.md`, and it needs the owner's approval for that specific
+change. Until then the rule applies to new heroes only, and any new page hero
+must satisfy it from the start.
+
+### 22.2 Cards are too heavy
+
+> به نظر میاد برخی از کارت‌ها به طراحی ظریف‌تری نیاز دارند و این‌همه درشت‌بودن
+> و ظریف‌نبودن، طراحی را از زیبایی خارج کرده.
+
+The card system is correct in anatomy (§12, §13) and too heavy in execution.
+What makes a card read as coarse, in the order it shows:
+
+- Type sizes too close together — title, qualifier and body all land in the
+  same visual weight band, so nothing recedes.
+- Padding too uniform. A refined card has a tighter text block and more air
+  around it, not the same gap everywhere.
+- Borders and shadows doing the same job twice. Pick one edge treatment per
+  card; a 1px line *and* a heavy shadow *and* a large radius is three.
+- Bullets, badges and icon chips sized for a touch target when they are
+  decoration.
+
+Refinement here is a typographic scale problem before it is a layout problem.
+
+### 22.3 The circular cursor is glass, and it moves
+
+> وقتی موس شبیه دایره می‌شود باید گلس‌مورفی شود و یک موشنی داشته باشد که جلب
+> توجه کند.
+
+The cursor states that grow into a disc (`view`, `play`, `drag`, `open`,
+`send` — §21) render as a **glass lens**, not a filled disc:
+
+- `backdrop-filter: blur(7px) saturate(1.7)` is the effect. The fill stays
+  translucent; a solid fill makes it a sprite again.
+- A light edge and an inset highlight give it thickness.
+- A slow conic sheen rotates across the lens, 7s — slower than anything else
+  on the page, so it is alive without competing.
+- **Two trackers at two speeds**: a small dot pinned exactly to the pointer,
+  and the lens easing toward it (0.18) so it arrives a beat later. That lag is
+  what makes it read as a material rather than a cursor sprite.
+- A short overshoot on every state change, then settle.
+
+It stands down entirely where `backdrop-filter` is unsupported — a grey disc
+is worse than the native cursor — and on touch, and under
+`prefers-reduced-motion` the sheen and the lag stop while the shapes remain.

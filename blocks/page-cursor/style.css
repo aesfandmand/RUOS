@@ -1,31 +1,70 @@
-/* The cursor arc — design model §21. Decoration only: every state it signals is
-   also reachable by keyboard and named in text, and the native cursor is never
-   removed on touch or when this layer is inactive. */
+/* The cursor arc — design model §21/§22. Decoration only: every state it
+   signals is also reachable by keyboard and named in text, and the native
+   cursor is never removed on touch or when this layer is inactive.
+
+   Two parts move at different speeds, which is what makes it read as a
+   material rather than a sprite: the dot tracks the pointer exactly, the
+   glass ring follows it with easing and arrives a beat later. */
 .page-cursor-host{position:static}
+
+.page-cursor-dot{position:fixed;top:0;left:0;z-index:61;pointer-events:none;
+  width:6px;height:6px;border-radius:999px;background:var(--ink);opacity:0;
+  translate:calc(var(--dx,0px) - 50%) calc(var(--dy,0px) - 50%);
+  transition:opacity .25s ease,background .3s ease,scale .3s cubic-bezier(.16,1,.3,1)}
+.page-cursor-dot.is-live{opacity:.85}
+
 .page-cursor{position:fixed;top:0;left:0;z-index:60;pointer-events:none;opacity:0;
   translate:calc(var(--cx,0px) - 50%) calc(var(--cy,0px) - 50%);
-  display:grid;place-items:center;transition:opacity .25s ease}
+  display:grid;place-items:center;transition:opacity .3s ease}
 .page-cursor.is-live{opacity:1}
-.page-cursor-ring{width:var(--cur-size,16px);height:var(--cur-size,16px);border-radius:999px;
-  border:1.5px solid var(--ink);background:var(--cur-fill,transparent);
-  transition:width .38s cubic-bezier(.16,1,.3,1),height .38s cubic-bezier(.16,1,.3,1),
-             background .3s ease,border-color .3s ease}
-.page-cursor-label{position:absolute;font-size:.72rem;font-weight:800;letter-spacing:-.02em;
-  color:var(--paper);opacity:0;transition:opacity .25s ease;white-space:nowrap}
+
+/* The glass itself. backdrop-filter is the whole effect, so everything else
+   stays translucent: a solid fill would make it a disc, not a lens. */
+.page-cursor-ring{position:relative;display:grid;place-items:center;overflow:hidden;
+  width:var(--cur-size,18px);height:var(--cur-size,18px);border-radius:999px;
+  background:var(--cur-tint,#ffffff2e);
+  -webkit-backdrop-filter:blur(7px) saturate(1.7);backdrop-filter:blur(7px) saturate(1.7);
+  border:1px solid var(--cur-edge,#ffffff8c);
+  box-shadow:inset 0 1px 0 #ffffff9e,inset 0 -8px 14px -8px #0000002e,0 10px 26px -6px #1f1b1838;
+  transition:width .42s cubic-bezier(.16,1,.3,1),height .42s cubic-bezier(.16,1,.3,1),
+             background .32s ease,border-color .32s ease,scale .42s cubic-bezier(.34,1.56,.44,1)}
+
+/* A slow sheen crossing the lens, so the cursor is alive even while the
+   pointer is still. 7s is deliberately slower than anything else on the page. */
+.page-cursor-sheen{position:absolute;inset:-40%;border-radius:inherit;pointer-events:none;
+  background:conic-gradient(from 0turn,#0000 0deg,#ffffffa6 38deg,#0000 96deg,#0000 360deg);
+  animation:page-cursor-sheen 7s linear infinite;opacity:.75}
+@keyframes page-cursor-sheen{to{rotate:1turn}}
+
+/* The beat when a state changes: a short overshoot, then settle. */
+.page-cursor.is-shift .page-cursor-ring{scale:1.14}
+
+.page-cursor-label{position:absolute;font-size:.74rem;font-weight:800;letter-spacing:-.02em;
+  color:var(--cur-label,#fff);opacity:0;transition:opacity .28s ease;white-space:nowrap;
+  text-shadow:0 1px 10px #1f1b1859}
 .page-cursor[data-state=view] .page-cursor-label,
 .page-cursor[data-state=play] .page-cursor-label,
+.page-cursor[data-state=open] .page-cursor-label,
 .page-cursor[data-state=drag] .page-cursor-label{opacity:1}
-.page-cursor[data-state=view] .page-cursor-ring,
-.page-cursor[data-state=play] .page-cursor-ring{--cur-size:74px;--cur-fill:var(--red);border-color:var(--red)}
-.page-cursor[data-state=drag] .page-cursor-ring{--cur-size:64px;--cur-fill:var(--ink);border-color:var(--ink)}
-.page-cursor[data-state=open] .page-cursor-ring{--cur-size:34px;--cur-fill:transparent;border-color:var(--red)}
-.page-cursor[data-state=open] .page-cursor-label{opacity:1;color:var(--red);font-size:1.1rem}
-.page-cursor[data-state=send] .page-cursor-ring{--cur-size:22px;--cur-fill:var(--red);border-color:var(--red)}
 
-/* Pointer devices only, and never while the visitor has asked for less motion
-   than this. The native cursor is kept underneath in every case. */
-@media (hover:none),(pointer:coarse){.page-cursor{display:none}}
+.page-cursor[data-state=view] .page-cursor-ring,
+.page-cursor[data-state=play] .page-cursor-ring{--cur-size:82px;--cur-tint:#e5142f59;--cur-edge:#ffffffa6}
+.page-cursor[data-state=drag] .page-cursor-ring{--cur-size:72px;--cur-tint:#1f1b1842;--cur-edge:#ffffff85}
+.page-cursor[data-state=open] .page-cursor-ring{--cur-size:40px;--cur-tint:#e5142f3d;--cur-edge:#e5142f8a}
+.page-cursor[data-state=open] .page-cursor-label{--cur-label:var(--red);font-size:1.15rem}
+.page-cursor[data-state=send] .page-cursor-ring{--cur-size:28px;--cur-tint:#e5142f6e;--cur-edge:#ffffffa6}
+.page-cursor[data-state=view] ~ .page-cursor-dot,
+.page-cursor[data-state=drag] ~ .page-cursor-dot{opacity:0}
+
+/* Pointer devices only. The native cursor is kept underneath in every case. */
+@media (hover:none),(pointer:coarse){.page-cursor,.page-cursor-dot{display:none}}
+/* Without backdrop-filter the lens would read as a flat grey disc, so the
+   whole layer stands down rather than shipping a worse version of itself. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .page-cursor,.page-cursor-dot{display:none}
+}
 @media (prefers-reduced-motion:reduce){
-  .page-cursor{transition:none}
-  .page-cursor-ring,.page-cursor-label{transition:none}
+  .page-cursor,.page-cursor-dot,.page-cursor-ring,.page-cursor-label{transition:none}
+  .page-cursor-sheen{animation:none;opacity:.35}
+  .page-cursor.is-shift .page-cursor-ring{scale:1}
 }
