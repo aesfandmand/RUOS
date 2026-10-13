@@ -7,3 +7,7 @@ __pycache__/
 *.egg-info/
 dist/
 .ruos/
+
+# Draft previews built from dist/ by tools/build_draft_preview.py --
+# review artifacts shown to the owner, regenerable, never source.
+previews/
