@@ -35,6 +35,24 @@ Rules:
   dark-radial-gradient "stage". Flat fills only.
 - Charcoal (`--ink-soft`) is an accent band, not a theme. Max one per page.
 
+> **Page media, 2026-10-13.** A page spec can name a `"media"` directory
+> (relative to the repo root) and `ruos compose` copies exactly the files
+> that page references out of it — no more, so an archive folder is never
+> bulk-shipped. If a page names a file the directory does not have, the build
+> is **rejected** with the missing filenames.
+>
+> This existed because it had to: only a *block's* `assets/` directory was
+> ever copied, so the approved straboard page — which names five installation
+> photographs in its data — shipped with all five broken, in every browser,
+> from the day it was approved. Nothing caught it, because nothing was
+> looking. Rejecting the build is what stops that recurring.
+>
+> Photographs ship as WebP (quality 82) with the master JPEG kept in a
+> `source/` subfolder, which the composer never copies because nothing
+> references it. The delivered page inlines what it references, so this is
+> not a nicety: the straboard set went 1537 KB → 977 KB of base64 in the
+> visitor's first request.
+
 > **Surface metadata audit, 2026-10-13.** Every block's `block.json`
 > `surface` was checked against what its stylesheet actually paints. Six were
 > lying to the composer, which reads that field for the "no more than two of
