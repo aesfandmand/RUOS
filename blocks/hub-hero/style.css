@@ -1,0 +1,101 @@
+/* The one-viewport hero — design model §22.
+   Desktop height is pinned so the section ends exactly --hub-peek above the
+   fold: the visitor sees the whole hero without scrolling, and sees that there
+   is something under it. Nothing inside may push that height. */
+.hub-hero{
+  --hub-peek:60px;
+  background:var(--white);color:var(--ink);
+  min-height:calc(100svh - var(--header) - var(--hub-peek));
+  display:flex;flex-direction:column;justify-content:center;
+  padding:28px max(24px,50vw - 640px) 0;position:relative;overflow:hidden}
+
+/* ── the light field (§21 ambient-field + pointer-parallax) ──────────────
+   An outdoor company's own joke: move the mouse and you light the city. A
+   faint field of structure silhouettes sits behind everything, and a soft
+   light masked to the pointer is the only thing that reveals it. Until the
+   pointer arrives it drifts on its own, so the hero is never dead. It is
+   decoration end to end: no text, no control and no meaning lives in it. */
+.hub-hero-field{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.34;
+  background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='300' fill='none' stroke='%231f1b18' stroke-width='1.1'><rect x='24' y='48' width='104' height='62' rx='3'/><path d='M68 110v74M84 110v74M60 184h32'/><rect x='196' y='28' width='58' height='92' rx='3'/><path d='M225 120v86M209 206h32'/><rect x='304' y='86' width='86' height='40' rx='6'/><path d='M347 126v58M331 184h32'/><rect x='120' y='196' width='70' height='44' rx='3'/><path d='M155 240v34M141 274h28'/><circle cx='268' cy='188' r='9'/><path d='M268 197v54M254 251h28'/></svg>");background-size:270px 193px;background-repeat:repeat;
+  -webkit-mask-image:radial-gradient(circle 330px at var(--lx,50%) var(--ly,42%),
+    #000 0%,#000a 34%,#0004 58%,#0000 78%);
+  mask-image:radial-gradient(circle 330px at var(--lx,50%) var(--ly,42%),
+    #000 0%,#000a 34%,#0004 58%,#0000 78%)}
+.hub-hero-grid,.hub-scroll{position:relative;z-index:1}
+@media (hover:none),(pointer:coarse){.hub-hero-field{display:none}}
+@media (prefers-reduced-motion:reduce){.hub-hero-field{opacity:.28}}
+
+.hub-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
+  gap:clamp(32px,4vw,72px);align-items:center;width:100%}
+
+/* ── copy ─────────────────────────────────────────────────────────────── */
+.hub-hero-copy{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.hub-crumb{display:flex;gap:8px;align-items:center;font-size:11.5px;color:var(--muted);margin:0 0 26px}
+.hub-crumb a{color:var(--muted);text-decoration:none;border:0}
+.hub-crumb a:after{content:"/";margin-inline-start:8px;opacity:.5}
+.hub-crumb a:hover{color:var(--ink)}
+.hub-crumb span{color:var(--ink);font-weight:600}
+
+.hub-eyebrow{margin:0 0 16px;font-size:11px;font-weight:700;letter-spacing:.09em;color:var(--red);
+  display:inline-flex;align-items:center;gap:8px}
+.hub-eyebrow:before{content:"";width:18px;height:2px;background:var(--red-gloss);border-radius:2px}
+
+.hub-title{margin:0;font-size:clamp(2.1rem,3.5vw,3.25rem);font-weight:900;line-height:1.3;
+  letter-spacing:-.04em;max-width:15ch;text-wrap:balance}
+.hub-title b{font-weight:900;color:var(--ink)}
+.hub-title i{font-style:normal;font-weight:300;color:var(--muted)}
+
+.hub-lead{margin:20px 0 0;font-size:clamp(.94rem,1.08vw,1.03rem);font-weight:300;line-height:2.05;
+  color:var(--muted);max-width:46ch}
+
+.hub-chips{margin:24px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:7px}
+.hub-chips li{font-size:11.5px;font-weight:600;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-radius:999px;padding:6px 13px;line-height:1.6}
+
+.hub-cta{margin-top:30px;display:inline-flex;align-items:center;gap:10px;
+  background:var(--red-gloss);box-shadow:var(--red-gloss-shadow);color:#fff;border:0;
+  border-radius:12px;padding:13px 22px;font-size:13.5px;font-weight:700;text-decoration:none;
+  transition:translate .35s cubic-bezier(.16,1,.3,1),box-shadow .35s}
+.hub-cta:hover{translate:0 -2px}
+.hub-cta svg{width:14px;height:14px;fill:currentColor;transition:translate .35s cubic-bezier(.16,1,.3,1)}
+.hub-cta:hover svg{translate:-4px 0}
+
+/* ── panel ────────────────────────────────────────────────────────────── */
+.hub-hero-panel{position:relative;min-width:0}
+.hub-panel-shot{margin:0;border-radius:22px;aspect-ratio:4/3.1;max-height:min(58svh,560px);
+  border-color:var(--line)}
+.hub-strip{margin:0;position:absolute;inset-inline-start:22px;inset-block-end:-26px;
+  display:grid;grid-auto-flow:column;gap:clamp(18px,2vw,34px);
+  background:var(--white);border:1px solid var(--line);border-radius:16px;
+  padding:16px 22px;box-shadow:0 2px 4px #1717190a,0 26px 52px -24px #1717192b}
+.hub-strip div{display:flex;flex-direction:column;gap:3px}
+.hub-strip dt{order:2;font-size:10.5px;font-weight:600;color:var(--muted);line-height:1.5}
+.hub-strip dd{order:1;margin:0;font-size:clamp(1rem,1.3vw,1.22rem);font-weight:800;
+  letter-spacing:-.02em;color:var(--ink);line-height:1.3}
+
+/* ── scroll cue ───────────────────────────────────────────────────────── */
+.hub-scroll{position:absolute;inset-block-end:18px;inset-inline-start:max(24px,50vw - 640px);
+  margin:0;display:flex;align-items:center;gap:10px;font-size:10.5px;font-weight:600;
+  letter-spacing:.06em;color:var(--muted)}
+.hub-scroll i{display:block;width:1px;height:26px;background:linear-gradient(var(--muted),#0000);
+  animation:hub-cue 2.4s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes hub-cue{0%{transform:scaleY(.2);transform-origin:top;opacity:0}
+  40%{transform:scaleY(1);opacity:1}100%{transform:scaleY(.2);transform-origin:bottom;opacity:0}}
+
+@media (width<=1100px){
+  .hub-hero-grid{grid-template-columns:1fr;gap:34px}
+  .hub-hero{min-height:0;padding-block:40px 64px}
+  .hub-title{max-width:none}
+  .hub-strip{position:static;margin-top:18px;grid-auto-flow:row;gap:12px;
+    grid-template-columns:repeat(3,1fr);box-shadow:none}
+  .hub-strip div{gap:2px}
+  .hub-scroll{display:none}
+}
+@media (width<=560px){
+  .hub-panel-shot{aspect-ratio:16/10;max-height:none}
+  .hub-strip{grid-template-columns:1fr 1fr;padding:14px 16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .hub-scroll i{animation:none;opacity:.6}
+  .hub-cta,.hub-cta svg{transition:none}
+}

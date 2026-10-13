@@ -1,70 +1,78 @@
-/* The cursor arc — design model §21/§22. Decoration only: every state it
-   signals is also reachable by keyboard and named in text, and the native
-   cursor is never removed on touch or when this layer is inactive.
+/* The cursor arc — design model §21. Decoration only: every state it signals
+   is also reachable by keyboard and named in text, the native cursor is never
+   removed, and nothing here renders on a touch device.
 
-   Two parts move at different speeds, which is what makes it read as a
-   material rather than a sprite: the dot tracks the pointer exactly, the
-   glass ring follows it with easing and arrives a beat later. */
+   Amended 2026-10-13: the circular states are glass, and they move. A flat
+   red disc that teleports to the pointer was the owner's note; what reads as
+   expensive is a panel that refracts what is behind it, trails the pointer by
+   a few frames, and keeps a slow sheen turning inside the ring. */
 .page-cursor-host{position:static}
-
-.page-cursor-dot{position:fixed;top:0;left:0;z-index:61;pointer-events:none;
-  width:6px;height:6px;border-radius:999px;background:var(--ink);opacity:0;
-  translate:calc(var(--dx,0px) - 50%) calc(var(--dy,0px) - 50%);
-  transition:opacity .25s ease,background .3s ease,scale .3s cubic-bezier(.16,1,.3,1)}
-.page-cursor-dot.is-live{opacity:.85}
 
 .page-cursor{position:fixed;top:0;left:0;z-index:60;pointer-events:none;opacity:0;
   translate:calc(var(--cx,0px) - 50%) calc(var(--cy,0px) - 50%);
   display:grid;place-items:center;transition:opacity .3s ease}
+/* Ring and label share one grid cell. Without this they stack as two rows and
+   the label lands under the circle instead of inside it. */
+.page-cursor>*{grid-area:1/1}
 .page-cursor.is-live{opacity:1}
 
-/* The glass itself. backdrop-filter is the whole effect, so everything else
-   stays translucent: a solid fill would make it a disc, not a lens. */
-.page-cursor-ring{position:relative;display:grid;place-items:center;overflow:hidden;
-  width:var(--cur-size,18px);height:var(--cur-size,18px);border-radius:999px;
-  background:var(--cur-tint,#ffffff2e);
-  -webkit-backdrop-filter:blur(7px) saturate(1.7);backdrop-filter:blur(7px) saturate(1.7);
-  border:1px solid var(--cur-edge,#ffffff8c);
-  box-shadow:inset 0 1px 0 #ffffff9e,inset 0 -8px 14px -8px #0000002e,0 10px 26px -6px #1f1b1838;
-  transition:width .42s cubic-bezier(.16,1,.3,1),height .42s cubic-bezier(.16,1,.3,1),
-             background .32s ease,border-color .32s ease,scale .42s cubic-bezier(.34,1.56,.44,1)}
+.page-cursor-ring{position:relative;width:var(--cur-size,14px);height:var(--cur-size,14px);
+  border-radius:999px;display:grid;place-items:center;
+  background:var(--cur-fill,var(--ink));border:1px solid var(--cur-edge,transparent);
+  transition:width .5s cubic-bezier(.16,1,.3,1),height .5s cubic-bezier(.16,1,.3,1),
+             background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
 
-/* A slow sheen crossing the lens, so the cursor is alive even while the
-   pointer is still. 7s is deliberately slower than anything else on the page. */
-.page-cursor-sheen{position:absolute;inset:-40%;border-radius:inherit;pointer-events:none;
-  background:conic-gradient(from 0turn,#0000 0deg,#ffffffa6 38deg,#0000 96deg,#0000 360deg);
-  animation:page-cursor-sheen 7s linear infinite;opacity:.75}
-@keyframes page-cursor-sheen{to{rotate:1turn}}
+/* The glass states. backdrop-filter is the whole effect; where it is not
+   supported the fallback is a translucent white panel, which still reads. */
+.page-cursor[data-state=view] .page-cursor-ring,
+.page-cursor[data-state=play] .page-cursor-ring,
+.page-cursor[data-state=drag] .page-cursor-ring{
+  --cur-size:78px;
+  /* Tinted toward ink, not white: a white panel over a white page left the
+     label at a contrast nobody could read. Dark glass carries a white label
+     on both the cream sections and a photograph. */
+  --cur-fill:#1f1b1870;
+  --cur-edge:#ffffff59;
+  -webkit-backdrop-filter:blur(10px) saturate(1.6);
+  backdrop-filter:blur(10px) saturate(1.6);
+  box-shadow:inset 0 1px 0 #ffffff4d,inset 0 -12px 20px -14px #00000073,0 18px 44px -16px #17171973}
 
-/* The beat when a state changes: a short overshoot, then settle. */
-.page-cursor.is-shift .page-cursor-ring{scale:1.14}
+/* A slow sheen turning inside the ring — the "attention" the owner asked for,
+   at a speed that never competes with the content. */
+.page-cursor[data-state=view] .page-cursor-ring:before,
+.page-cursor[data-state=play] .page-cursor-ring:before,
+.page-cursor[data-state=drag] .page-cursor-ring:before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:conic-gradient(from var(--sheen,0deg),#fff0 0deg,#ffffffd9 48deg,#fff0 120deg,#fff0 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;animation:cur-sheen 3.4s linear infinite}
+@keyframes cur-sheen{to{--sheen:360deg}}
+@property --sheen{syntax:"<angle>";initial-value:0deg;inherits:false}
 
-.page-cursor-label{position:absolute;font-size:.74rem;font-weight:800;letter-spacing:-.02em;
-  color:var(--cur-label,#fff);opacity:0;transition:opacity .28s ease;white-space:nowrap;
-  text-shadow:0 1px 10px #1f1b1859}
+/* and a breath, so it is alive even when the pointer is still */
+.page-cursor[data-state=view] .page-cursor-ring:after,
+.page-cursor[data-state=play] .page-cursor-ring:after{
+  content:"";position:absolute;inset:0;border-radius:inherit;
+  border:1px solid #ffffff73;animation:cur-breath 2.6s cubic-bezier(.4,0,.2,1) infinite}
+@keyframes cur-breath{0%{transform:scale(1);opacity:.85}
+  70%{transform:scale(1.34);opacity:0}100%{transform:scale(1.34);opacity:0}}
+
+.page-cursor-label{position:relative;z-index:2;font-size:12.5px;font-weight:700;
+  letter-spacing:-.01em;color:#fff;opacity:0;white-space:nowrap;
+  transition:opacity .3s ease .08s}
 .page-cursor[data-state=view] .page-cursor-label,
 .page-cursor[data-state=play] .page-cursor-label,
-.page-cursor[data-state=open] .page-cursor-label,
 .page-cursor[data-state=drag] .page-cursor-label{opacity:1}
 
-.page-cursor[data-state=view] .page-cursor-ring,
-.page-cursor[data-state=play] .page-cursor-ring{--cur-size:82px;--cur-tint:#e5142f59;--cur-edge:#ffffffa6}
-.page-cursor[data-state=drag] .page-cursor-ring{--cur-size:72px;--cur-tint:#1f1b1842;--cur-edge:#ffffff85}
-.page-cursor[data-state=open] .page-cursor-ring{--cur-size:40px;--cur-tint:#e5142f3d;--cur-edge:#e5142f8a}
-.page-cursor[data-state=open] .page-cursor-label{--cur-label:var(--red);font-size:1.15rem}
-.page-cursor[data-state=send] .page-cursor-ring{--cur-size:28px;--cur-tint:#e5142f6e;--cur-edge:#ffffffa6}
-.page-cursor[data-state=view] ~ .page-cursor-dot,
-.page-cursor[data-state=drag] ~ .page-cursor-dot{opacity:0}
+.page-cursor[data-state=open] .page-cursor-ring{--cur-size:30px;--cur-fill:#1f1b1859;
+  --cur-edge:var(--red);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.page-cursor[data-state=open] .page-cursor-label{opacity:1;color:var(--red);font-size:15px}
+.page-cursor[data-state=send] .page-cursor-ring{--cur-size:20px;--cur-fill:var(--red);--cur-edge:transparent}
 
 /* Pointer devices only. The native cursor is kept underneath in every case. */
-@media (hover:none),(pointer:coarse){.page-cursor,.page-cursor-dot{display:none}}
-/* Without backdrop-filter the lens would read as a flat grey disc, so the
-   whole layer stands down rather than shipping a worse version of itself. */
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
-  .page-cursor,.page-cursor-dot{display:none}
-}
+@media (hover:none),(pointer:coarse){.page-cursor{display:none}}
 @media (prefers-reduced-motion:reduce){
-  .page-cursor,.page-cursor-dot,.page-cursor-ring,.page-cursor-label{transition:none}
-  .page-cursor-sheen{animation:none;opacity:.35}
-  .page-cursor.is-shift .page-cursor-ring{scale:1}
+  .page-cursor,.page-cursor-ring,.page-cursor-label{transition:none}
+  .page-cursor-ring:before,.page-cursor-ring:after{animation:none}
 }

@@ -1,22 +1,21 @@
-// The cursor arc — design model §21/§22.
+// The cursor arc — design model §21.
 // The shape says what is possible in this part of the page, and because it
 // changes on the way down, it draws an arc of its own. It is decoration: it
 // adds no affordance, removes nothing, and never runs on a touch device.
 //
-// Two trackers, two speeds. The dot is pinned to the pointer; the glass ring
-// eases toward it and arrives a beat later. That lag is the whole reason the
-// thing reads as a material instead of a sprite following the mouse.
+// Amended 2026-10-13: the layer now eases toward the pointer instead of being
+// pinned to it. The few frames of lag are the whole difference between a dot
+// stuck to the mouse and something that feels like it has weight.
 (() => {
   const host = document.querySelector('[data-block="page-cursor"]');
   if (!host) return;
   const layer = host.querySelector(".page-cursor");
-  const dot = host.querySelector(".page-cursor-dot");
   const label = host.querySelector(".page-cursor-label");
-  if (!layer || !dot || !label) return;
+  if (!layer || !label) return;
 
   const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
   if (!fine.matches) return;
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const map = [...host.querySelectorAll(".page-cursor-map")].map((node) => ({
     selector: node.dataset.selector || "",
@@ -25,28 +24,23 @@
   })).filter((entry) => entry.selector);
   if (!map.length) return;
 
-  let px = 0;      // pointer, exact
-  let py = 0;
-  let rx = 0;      // ring, eased
-  let ry = 0;
-  let live = false;
-  let running = false;
-  let shiftTimer = 0;
+  let tx = 0, ty = 0;   // where the pointer is
+  let cx = 0, cy = 0;   // where the layer has got to
+  let live = false, running = false;
 
   const tick = () => {
-    // 0.18 is slow enough to be felt and fast enough never to feel broken.
-    const ease = reduced.matches ? 1 : 0.18;
-    rx += (px - rx) * ease;
-    ry += (py - ry) * ease;
-    dot.style.setProperty("--dx", `${px}px`);
-    dot.style.setProperty("--dy", `${py}px`);
-    layer.style.setProperty("--cx", `${rx}px`);
-    layer.style.setProperty("--cy", `${ry}px`);
-    if (Math.abs(px - rx) < 0.1 && Math.abs(py - ry) < 0.1) {
+    // A straight lerp: fast enough to stay with a quick flick, slow enough to
+    // read as weight. Reduced motion skips the easing entirely.
+    const k = calm ? 1 : 0.18;
+    cx += (tx - cx) * k;
+    cy += (ty - cy) * k;
+    layer.style.setProperty("--cx", `${cx.toFixed(1)}px`);
+    layer.style.setProperty("--cy", `${cy.toFixed(1)}px`);
+    if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
+      requestAnimationFrame(tick);
+    } else {
       running = false;
-      return;
     }
-    requestAnimationFrame(tick);
   };
 
   const start = () => {
@@ -70,14 +64,12 @@
 
   document.addEventListener("pointermove", (event) => {
     if (event.pointerType !== "mouse") return;
-    px = event.clientX;
-    py = event.clientY;
+    tx = event.clientX;
+    ty = event.clientY;
     if (!live) {
       live = true;
-      rx = px;
-      ry = py;
+      cx = tx; cy = ty;           // no flight in from the corner on first move
       layer.classList.add("is-live");
-      dot.classList.add("is-live");
     }
     start();
 
@@ -87,18 +79,11 @@
     if (layer.dataset.state !== state) {
       layer.dataset.state = state;
       label.textContent = hit ? hit.label : "";
-      // the beat: a short overshoot on arrival, then settle
-      layer.classList.add("is-shift");
-      clearTimeout(shiftTimer);
-      shiftTimer = setTimeout(() => layer.classList.remove("is-shift"), 180);
     }
   }, { passive: true });
 
-  const hide = () => {
+  document.addEventListener("pointerleave", () => {
     live = false;
     layer.classList.remove("is-live");
-    dot.classList.remove("is-live");
-  };
-  document.addEventListener("pointerleave", hide);
-  window.addEventListener("blur", hide);
+  });
 })();

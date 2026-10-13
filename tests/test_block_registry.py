@@ -38,7 +38,11 @@ def test_opening_and_closing_blocks_exist_for_every_archetype() -> None:
     content = load_library().content_blocks()
     openers = {b.id for b in content if b.position == "first"}
     closers = {b.id for b in content if b.position == "last"}
-    assert openers == {"hero-scroll-scene", "structure-hero", "product-hero"}
+    # hub-hero joined this set on 2026-10-13: the owner made the one-viewport
+    # hero a standing rule for desktop (design model §22) and product-hero,
+    # which is locked by the structure-page lock, cannot meet it. Hub pages
+    # open with hub-hero; a structure page keeps the approved archetype.
+    assert openers == {"hero-scroll-scene", "structure-hero", "product-hero", "hub-hero"}
     assert closers == {"review-gate", "lead-form"}
 
 

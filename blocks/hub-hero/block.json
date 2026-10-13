@@ -1,0 +1,71 @@
+{
+  "id": "hub-hero",
+  "name": {
+    "fa": "هیرو صفحات هاب",
+    "en": "hub-hero"
+  },
+  "role": "content",
+  "family": "hero",
+  "surface": "light",
+  "composition": "The one-viewport hero (design model §22). On desktop it is exactly tall enough to fill the screen under the header and leave a deliberate sliver of the next section showing, so the visitor can see there is more without scrolling to find out. Asymmetric: copy against the start edge, a photo panel bleeding off the end edge, and a trust strip overlapping the panel's lower edge.",
+  "serves_intent": [
+    "orient",
+    "convert"
+  ],
+  "position": "first",
+  "behavior": true,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "motion": "rise-into-place",
+  "source": {
+    "page": "reference/motion-strategy-references/stills/01-xurya-white-b2b-scroll-score--hero-stat-strip.jpg",
+    "selector": "hero stat strip overlapping the photo"
+  },
+  "slots": {
+    "breadcrumb": {
+      "type": "list",
+      "required": false,
+      "max": 4
+    },
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "primary": {
+      "type": "object",
+      "required": false
+    },
+    "chips": {
+      "type": "list",
+      "required": false,
+      "max": 6
+    },
+    "panel": {
+      "type": "object",
+      "required": false
+    },
+    "strip": {
+      "type": "list",
+      "required": false,
+      "max": 4
+    },
+    "scroll_cue": {
+      "type": "text",
+      "required": false
+    },
+    "title_html": {
+      "type": "text",
+      "required": false
+    }
+  },
+  "layout": "scene"
+}

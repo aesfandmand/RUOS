@@ -941,3 +941,106 @@ The cursor states that grow into a disc (`view`, `play`, `drag`, `open`,
 It stands down entirely where `backdrop-filter` is unsupported — a grey disc
 is worse than the native cursor — and on touch, and under
 `prefers-reduced-motion` the sheen and the lag stop while the shapes remain.
+
+## 22. The hero is one viewport, and it shows that there is more
+
+Owner's instruction, 2026-10-13, stated as a standing rule for **every desktop
+page**, not a note on one build:
+
+> هیرو به طور کامل باید در یک سکشن دیده شود و نیاز به اسکرول نداشته باشد. حتی
+> برای اینکه کاربر متوجه شود که با اسکرول می‌تواند چیز دیگری ببیند، بخش کوچکی
+> از سکشن دوم در زیر سکشن اول دیده شود.
+
+Two requirements, and the second is the one that gets forgotten:
+
+1. **Nothing in the hero needs scrolling to reach.** Breadcrumb, heading, lead,
+   chips and the CTA are all above the fold at every desktop height. A hero
+   whose button is 20px under the fold has no button.
+2. **A deliberate sliver of the next section is visible.** Not a gap — the next
+   section's own ground, showing, so the page says "keep going" without a
+   device. The sliver is a measured value, not whatever is left over.
+
+`blocks/hub-hero` implements it: `min-height: calc(100svh - var(--header) -
+var(--hub-peek))`, with the header's real height fed back by its behaviour
+script rather than assumed. Verified at 1280×720, 1366×768, 1440×900,
+1536×864, 1600×1000 and 1920×1080: the hero ends exactly 110px above the fold
+at every one, the CTA is fully in view at every one, and there is no horizontal
+overflow.
+
+**Below 1100px the rule is off.** The owner scoped it to desktop, and a phone
+hero squeezed into one short viewport loses the lead or the CTA, which is worse
+than a scroll.
+
+`product-hero` is locked by the structure-page lock and is 1001px tall on a
+900px viewport; it cannot meet this rule and it is not being changed. Hub pages
+use `hub-hero`. A structure page keeps the approved archetype.
+
+## 23. Craft — what separates a correct page from a launched one
+
+Owner, 2026-10-13: «این همه درشت بودن و ظریف نبودن طراحی را از زیبایی خارج
+کرده» and «این صفحه شبیه یک صفحهٔ خام است». Both are fair, and both are
+measurable rather than matters of taste. The services page was measured before
+this section was written; these are the numbers it failed on.
+
+### The type ladder
+
+The fault was a **2.35× hole** between the section heading (40px) and the card
+heading (17px), with seven sizes then crammed between 11.8px and 17px, each
+within 2–14% of its neighbour. Headings shouted, everything else was mush.
+
+| Role | Size (1440) | Weight | Line height |
+|---|---|---|---|
+| display | 60–64px | 900 | 1.25 |
+| h1 | 50–52px | 900 | 1.3 |
+| h2 | 32–34px | 800 | 1.38 |
+| h3 | 19px | 700 | 1.45 |
+| lead | 16–17px | **300** | 2.0 |
+| body | 14px | 400 | 2.05 |
+| small | 12.5px | 400 | 1.8 |
+| eyebrow | 11px | 700 | letter-spacing .09em |
+
+### Weight carries the delicacy
+
+Before this pass, h1, h2 and h3 were all 900, the eyebrow 800, the card link
+800, the qualifier 700. Everything was bold, so nothing was. **Weight contrast
+is the whole effect**: 900 against 300 reads as refined; 900 against 800 reads
+as heavy. The lead is 300, not 400.
+
+### The eyebrow is quiet
+
+It was 15.7px at weight 800 — larger and heavier than the body copy it
+introduced. An eyebrow is 11px, 700, letterspaced, and it never competes.
+
+### Chrome
+
+- **Radii**: 4 / 10 / 16 / 22 / 999 only. The page had 24, 26, 12, 10 and 999
+  with no system.
+- **Borders**: 1px `var(--line)`. Never two weights in one component.
+- **Shadows**, two levels, both nearly invisible on their own:
+  at rest `0 1px 2px #17171908, 0 14px 30px -14px #17171914`;
+  raised `0 2px 4px #1717190a, 0 30px 60px -24px #17171926`.
+- **Icon badges inside cards** are 28px with a 14px glyph, not the 40px
+  foundation badge. The foundation size is right for a row, too big for a card.
+
+### Section rhythm
+
+Padding was 88, 102, 110, 112, 126, 130 — six values with no relationship.
+Three are allowed: **72 / 104 / 136**, the last reserved for the moments that
+should feel like a breath.
+
+### A grid of identical boxes is the tell
+
+Six equal cards in two rows of three is the single clearest "template" signal.
+Equal billing is about what the copy says, not about drawing six identical
+rectangles: `service-map` gives the first two cards a wide horizontal card and
+the rest a narrow vertical one, on one six-column field. §14 already said this
+about rows; it applies to grids too.
+
+### What this section cannot fix
+
+The largest single reason a page reads as raw is that **every image slot is
+empty**. Twenty-four dashed boxes with alt text do not look like a launched
+site and no amount of type scale will change that. The slots are correctly
+sized and described (§4, and the owner's instruction not to treat a missing
+photo as a defect); they are waiting on photography, and that is the one
+remaining gap this section cannot close.

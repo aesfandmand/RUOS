@@ -1,56 +1,88 @@
-/* Equal-weight service cards. Body anatomy (§13 and
-   reference/card-anatomy-references/README.md §1): photo panel on top, every
-   other part on white below it, action as a pill at the end. */
-.service-map{background:var(--paper);color:var(--ink);padding:112px 0 100px}
-.service-map .split-heading{display:grid;grid-template-columns:1fr minmax(240px,340px);gap:40px;align-items:end;margin-bottom:34px}
-.service-map .split-heading h2{margin:14px 0 0;font-size:clamp(1.7rem,2.8vw,2.5rem);font-weight:900;letter-spacing:-.035em;line-height:1.4}
-.service-map .heading-aside p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.95}
+/* Equal-weight service cards, body anatomy (§13 and
+   reference/card-anatomy-references/README.md §1): photo panel, then every
+   other part on white below it, action last.
 
-.service-filters{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 34px;padding-bottom:4px}
-.service-filter{appearance:none;border:1px solid var(--line);background:var(--paper);color:var(--muted);
-  border-radius:999px;padding:9px 17px;font:inherit;font-size:.8rem;font-weight:800;cursor:pointer;
-  transition:background .25s ease,color .25s ease,border-color .25s ease}
+   Refined 2026-10-13 against the owner's note that the page read as chunky
+   rather than delicate. The measured faults were a type ladder with a 2.35x
+   hole between the section heading and the card heading and then seven sizes
+   crammed into five points, and weight 800-900 on almost everything. The scale
+   below is §23's. Equal weight is about billing, not about drawing six
+   identical boxes, so the first two cards are wide and the rest are not. */
+.service-map{background:var(--paper);color:var(--ink);padding:104px 0 96px}
+.service-map .split-heading{display:grid;grid-template-columns:1fr minmax(220px,320px);
+  gap:48px;align-items:end;margin-bottom:30px}
+.service-map .eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;color:var(--red);margin:0}
+.service-map .split-heading h2{margin:14px 0 0;font-size:clamp(1.55rem,2.35vw,2.1rem);
+  font-weight:800;letter-spacing:-.03em;line-height:1.38;max-width:19ch;text-wrap:balance}
+.service-map .heading-aside p{margin:0;color:var(--muted);font-size:.9rem;font-weight:300;line-height:2}
+
+.service-filters{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 26px}
+.service-filter{appearance:none;border:1px solid var(--line);background:var(--white);color:var(--muted);
+  border-radius:999px;padding:7px 15px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;
+  transition:background .3s ease,color .3s ease,border-color .3s ease}
 .service-filter:hover{border-color:var(--ink);color:var(--ink)}
 .service-filter[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--white)}
 
-.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.service-card{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line);
-  border-radius:24px;overflow:hidden;box-shadow:0 18px 44px #17171910;
-  transition:box-shadow .4s cubic-bezier(.16,1,.3,1),transform .4s cubic-bezier(.16,1,.3,1)}
-.service-card:hover{box-shadow:0 28px 64px #1717191f;transform:translateY(-4px)}
+/* Six cells on a six-column field: two wide, four narrow. */
+.service-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.service-card{grid-column:span 2;display:flex;flex-direction:column;background:var(--white);
+  border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  box-shadow:0 1px 2px #17171908,0 14px 30px -14px #17171914;
+  transition:box-shadow .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1),
+             border-color .45s ease}
+.service-card:nth-child(-n+2){grid-column:span 3;flex-direction:row}
+.service-card:nth-child(-n+2) .service-shot{aspect-ratio:auto;width:42%;flex:none;
+  border-bottom:0;border-inline-start:1px solid var(--line)}
+.service-card:hover{box-shadow:0 2px 4px #1717190a,0 30px 60px -24px #17171926;
+  transform:translateY(-3px);border-color:#ded7cb}
 .service-card[hidden]{display:none}
 
-.service-shot{margin:0;aspect-ratio:16/10;border-radius:0;border:0;border-bottom:1px solid var(--line);background:var(--paper-2)}
-.service-badge{position:absolute;inset-block-start:12px;inset-inline-start:12px;z-index:2;
-  background:var(--ink);color:var(--white);border-radius:999px;padding:5px 11px;font-size:.64rem;font-weight:800}
+.service-shot{margin:0;aspect-ratio:16/10;border-radius:0;border:0;
+  border-bottom:1px solid var(--line);background:var(--paper-2)}
+.service-badge{position:absolute;inset-block-start:11px;inset-inline-start:11px;z-index:2;
+  background:var(--ink);color:var(--white);border-radius:999px;padding:4px 10px;
+  font-size:10.5px;font-weight:600}
 
-.service-body{display:flex;flex-direction:column;gap:0;padding:20px 20px 22px;flex:1}
-.service-ico{width:38px;height:38px;border-radius:12px;background:var(--paper-2);display:grid;place-items:center;margin-bottom:14px}
-.service-ico svg{width:18px;height:18px;fill:var(--red)}
-.service-body h3{margin:0;font-size:1.06rem;font-weight:900;letter-spacing:-.02em;line-height:1.5;color:var(--ink)}
-.service-qualifier{margin:6px 0 0;color:var(--muted);font-size:.74rem;font-weight:700;line-height:1.7}
-.service-body-copy{margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);
-  color:var(--muted);font-size:.86rem;line-height:1.95}
-.service-points{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:7px}
-.service-points li{position:relative;padding-inline-start:16px;color:var(--ink);font-size:.8rem;line-height:1.75}
-.service-points li:before{content:"";position:absolute;inset-inline-start:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--red-gloss)}
-.service-link{margin-top:auto;padding-top:18px;display:inline-flex;align-items:center;gap:8px;
-  color:var(--ink);font-size:.82rem;font-weight:800;text-decoration:none}
-.service-link svg{width:13px;height:13px;fill:currentColor;transition:translate .3s cubic-bezier(.16,1,.3,1)}
-.service-link:hover svg{translate:-4px 0}
+.service-body{display:flex;flex-direction:column;padding:20px 20px 20px;flex:1;min-width:0}
+.service-ico{width:28px;height:28px;border-radius:9px;background:var(--paper);margin-bottom:14px}
+.service-ico svg{width:14px;height:14px}
+.service-body h3{margin:0;font-size:1.19rem;font-weight:700;letter-spacing:-.022em;
+  line-height:1.45;color:var(--ink)}
+.service-qualifier{margin:7px 0 0;color:var(--muted);font-size:.72rem;font-weight:600;line-height:1.75}
+.service-body-copy{margin:16px 0 0;padding-top:16px;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.875rem;font-weight:300;line-height:2.05}
+.service-points{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.service-points li{position:relative;padding-inline-start:15px;color:var(--ink);
+  font-size:.78rem;font-weight:400;line-height:1.8}
+.service-points li:before{content:"";position:absolute;inset-inline-start:0;top:.66em;
+  width:4px;height:4px;border-radius:50%;background:var(--red-gloss)}
+.service-link{margin-top:auto;padding-top:20px;display:inline-flex;align-items:center;gap:7px;
+  color:var(--ink);font-size:.78rem;font-weight:700;text-decoration:none}
+.service-link svg{width:11px;height:11px;fill:var(--red);transition:translate .3s cubic-bezier(.16,1,.3,1)}
+.service-card:hover .service-link svg{translate:-4px 0}
 
-@media (width<=1100px){.service-grid{grid-template-columns:repeat(2,1fr)}}
-@media (width<=980px){
-  .service-map{padding:66px 0 60px}
-  .service-map .split-heading{grid-template-columns:1fr;gap:16px;align-items:start}
-  /* The filter row scrolls rather than wrapping into three stacked lines,
+@media (width<=1180px){
+  .service-grid{grid-template-columns:repeat(4,1fr)}
+  .service-card{grid-column:span 2}
+  .service-card:nth-child(-n+2){grid-column:span 4}
+  .service-card:nth-child(-n+2) .service-shot{width:38%}
+}
+@media (width<=820px){
+  .service-map{padding:64px 0 58px}
+  .service-map .split-heading{grid-template-columns:1fr;gap:14px;align-items:start;margin-bottom:22px}
+  /* The chip row scrolls rather than wrapping into three stacked lines,
      clipped at the edge so more is obviously available (§12). */
-  .service-filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-20px;padding-inline:20px}
+  .service-filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    margin-inline:-20px;padding-inline:20px}
   .service-filters::-webkit-scrollbar{display:none}
   .service-filter{flex:0 0 auto}
-  .service-grid{grid-template-columns:1fr;gap:16px}
+  .service-grid{grid-template-columns:1fr;gap:14px}
+  .service-card,.service-card:nth-child(-n+2){grid-column:span 1;flex-direction:column}
+  .service-card:nth-child(-n+2) .service-shot{width:auto;aspect-ratio:16/9;
+    border-bottom:1px solid var(--line);border-inline-start:0}
   .service-shot{aspect-ratio:16/9}
-  .service-body{padding:18px 17px 20px}
+  .service-body{padding:18px 17px}
+  .service-body h3{font-size:1.08rem}
 }
 @media (prefers-reduced-motion:reduce){
   .service-card,.service-link svg{transition:none}
