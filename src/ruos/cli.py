@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Mapping
@@ -145,7 +146,7 @@ def _run_registry_refresh(args, project_root: Path) -> int:
     return 0
 
 
-def _write_composed_page(page, library, output_dir: Path) -> None:
+def _write_composed_page(page, library, output_dir: Path, spec=None) -> None:
     assets = output_dir / "assets"
     assets.mkdir(parents=True, exist_ok=True)
     (output_dir / "index.html").write_text(page.html, encoding="utf-8", newline="\n")
@@ -154,6 +155,7 @@ def _write_composed_page(page, library, output_dir: Path) -> None:
     for block_id in page.composed.used_blocks:
         for source in library.get(block_id).assets:
             (assets / source.name).write_bytes(source.read_bytes())
+    _copy_page_media(page, spec, assets)
     manifest = {
         **page.composed.manifest(),
         "library_sha256": library.sha256,
@@ -165,6 +167,43 @@ def _write_composed_page(page, library, output_dir: Path) -> None:
     )
 
 
+def _copy_page_media(page, spec, assets: Path) -> None:
+    """Copy the page's own photography into the build.
+
+    Only a *block's* assets/ directory was ever copied, so a page that names
+    real photographs in its data -- `assets/installation-01.jpg` and the like
+    -- shipped with those images broken. The approved straboard page has been
+    doing exactly that: five referenced photos, none of them in the build,
+    five broken images in every browser. A page says where its own media
+    lives with a `"media"` key (a directory, relative to the repo root).
+    """
+    if not spec:
+        return
+    media_dir = spec.get("media")
+    if not media_dir:
+        return
+    source_dir = Path(media_dir)
+    if not source_dir.is_absolute():
+        source_dir = Path(__file__).resolve().parents[2] / media_dir
+    if not source_dir.is_dir():
+        raise SystemExit(f"RUOS COMPOSE REJECTED: media directory not found: {media_dir}")
+    referenced = set(re.findall(r'(?:src|href)="assets/([^"]+)"', page.html))
+    copied, missing = 0, []
+    for name in sorted(referenced):
+        candidate = source_dir / name
+        if candidate.is_file():
+            (assets / name).write_bytes(candidate.read_bytes())
+            copied += 1
+        elif not (assets / name).is_file():
+            missing.append(name)
+    print(f"RUOS MEDIA: {copied} file(s) from {media_dir}")
+    if missing:
+        raise SystemExit(
+            "RUOS COMPOSE REJECTED: the page references media that does not exist in "
+            f"{media_dir}: {', '.join(missing)}"
+        )
+
+
 def _run_compose(args, project_root: Path) -> int:
     """Assemble one page out of the block library and write it to disk."""
     library = load_library(project_root / args.library)
@@ -172,7 +211,7 @@ def _run_compose(args, project_root: Path) -> int:
     page = render_page(spec, library)
 
     output_dir = project_root / args.output / page.slug
-    _write_composed_page(page, library, output_dir)
+    _write_composed_page(page, library, output_dir, spec)
 
     print(f"RUOS COMPOSE PASSED: {output_dir}")
     print(f"RUOS BLOCKS: {' -> '.join(block.block_id for block in page.composed.blocks)}")
@@ -264,7 +303,7 @@ def _run_generate(args, project_root: Path) -> int:
     page = report.generated_page
     library = report.generated_library
     output_dir = project_root / args.output / page.slug
-    _write_composed_page(page, library, output_dir)
+    _write_composed_page(page, library, output_dir, getattr(report, "generated_spec", None))
 
     print(f"RUOS GENERATE PASSED: {output_dir}")
     print(f"RUOS BLOCKS: {' -> '.join(block.block_id for block in page.composed.blocks)}")

@@ -6,6 +6,7 @@
   "description": "شش خانوادهٔ خدمت چتر قرمز در یک نقشه: تبلیغات محیطی، دیجیتال مارکتینگ، طراحی گرافیک، چاپ و تولید، عکاسی و فیلم‌برداری و مشاوره — در مجموع ۶۹ خدمت فعال.",
   "canonical": "https://chatreghermez.ir/services/",
   "shell": "@site",
+  "nav_section": "/services/",
   "blocks": [
     {
       "block": "product-hero",

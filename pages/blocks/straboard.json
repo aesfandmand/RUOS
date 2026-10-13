@@ -5,6 +5,7 @@
   "title": "استرابورد | معرفی، مدل‌ها، مشخصات فنی و قیمت",
   "description": "معرفی کامل استرابورد، مدل‌های عمودی و افقی، یک‌طرفه و دوطرفه، اجزا، مشخصات فنی، تفاوت با بیلبورد و پایه بنر، عوامل مؤثر بر قیمت، رنگ سفارشی، پروژه‌ها و درخواست مشاوره.",
   "canonical": "https://chatreghermez.ir/structures/straboard/",
+  "media": "media/structures/STR-004",
   "shell": "@site",
   "nav_section": "/services/",
   "blocks": [
@@ -29,19 +30,19 @@
             "label": "اسلاید ۱",
             "alt": "نمای کامل استرابورد نصب‌شده در فضای شهری",
             "caption": "فضای شهری",
-            "src": "assets/installation-01.jpg"
+            "src": "assets/installation-01.webp"
           },
           {
             "label": "اسلاید ۲",
             "alt": "استرابورد ۳×۵ افقی در پروژه واقعی",
             "caption": "پروژه واقعی",
-            "src": "assets/installation-02.jpg"
+            "src": "assets/installation-02.webp"
           },
           {
             "label": "اسلاید ۳",
             "alt": "استرابورد دوطرفه نصب‌شده در رفیوژ شهری",
             "caption": "رفیوژ بلوار",
-            "src": "assets/installation-03.jpg"
+            "src": "assets/installation-03.webp"
           }
         ],
         "primary": {
@@ -195,13 +196,13 @@
         "lead": "چند نمونه از نصب واقعی این خانواده سازه در فضای شهری — آرشیو دیده‌شو.",
         "items": [
           {
-            "src": "assets/installation-04.jpg",
+            "src": "assets/installation-04.webp",
             "alt": "استرابورد عمودی ۴×۳",
             "title": "استرابورد عمودی ۴×۳",
             "caption": "4×3 متر"
           },
           {
-            "src": "assets/installation-05.jpg",
+            "src": "assets/installation-05.webp",
             "alt": "استرابورد عمودی ۴×۳",
             "title": "استرابورد عمودی ۴×۳",
             "caption": "4×3 متر"

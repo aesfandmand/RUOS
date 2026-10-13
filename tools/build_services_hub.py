@@ -85,9 +85,7 @@ def main(out_path: Path) -> None:
          f"{fa(total_active)} خدمت فعال."),
         ("canonical", "https://chatreghermez.ir/services/"),
         ("shell", SITE_SHELL_REF),
-        # No bottom-nav entry covers /services/ (the bar is خانه · نمونه‌کارها ·
-        # سازه‌ها · سرمایه‌گذاری · تماس), so nothing is marked rather than
-        # lighting up a tab the visitor is not actually on.
+        ("nav_section", "/services/"),
         ("blocks", []),
     ])
 
