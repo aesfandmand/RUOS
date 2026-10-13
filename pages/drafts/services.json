@@ -2,309 +2,494 @@
   "slug": "services",
   "lang": "fa",
   "direction": "rtl",
-  "title": "خدمات چتر قرمز | شش خانواده خدمت، از تبلیغات محیطی تا مشاوره",
-  "description": "شش خانوادهٔ خدمت چتر قرمز در یک نقشه: تبلیغات محیطی، دیجیتال مارکتینگ، طراحی گرافیک، چاپ و تولید، عکاسی و فیلم‌برداری و مشاوره — در مجموع ۶۹ خدمت فعال.",
+  "title": "خدمات چتر قرمز | از طرح تا نصب، زیر یک سقف",
+  "description": "طراحی، چاپ، ساخت و نصب تبلیغات در اصفهان و شهرستان‌های اطراف. کارگاه و دستگاه چاپ تکستایل یووی مال خودمان است؛ یک شماره می‌گیرید و یک نفر جواب‌گوست.",
   "canonical": "https://chatreghermez.ir/services/",
   "shell": "@site",
   "nav_section": "/services/",
+  "schema_item_type": "Service",
+  "schema_area_served": [
+    "اصفهان",
+    "ایران"
+  ],
+  "motion_score": {
+    "declared": "service_hub",
+    "verbs": [
+      "skeleton-to-content",
+      "perspective-drag",
+      "kinetic-oversized-type"
+    ],
+    "note": "Three of the six verbs in the service_hub score. The other three (ambient-field, count-up-on-reveal, scroll-swaps-content) live in blocks that are locked by the structure-page lock, or depend on verified figures this page does not yet have (§3). Recorded here rather than claimed."
+  },
   "blocks": [
     {
       "block": "product-hero",
-      "id": "top",
+      "anchor": "top",
       "data": {
         "breadcrumb": [
           {
             "label": "خانه",
             "href": "/"
-          },
-          {
-            "label": "خدمات",
-            "href": "/services/"
           }
         ],
-        "title": "خدمات چتر قرمز",
-        "lead": "این صفحه فهرست نیست؛ نقشه است. شش خانوادهٔ خدمت با مرز روشن، تا بدانید کاری که در ذهن دارید زیر کدام خانواده می‌نشیند و از کجا باید شروع کنید.",
+        "title": "از طرح تا نصب، زیر یک سقف",
+        "lead": "طراح یکی، چاپخانه یکی، نصاب یکی؛ آخرش کسی جواب‌گو نیست. اینجا هر سه خودمانیم.",
         "slides": [
           {
-            "label": "جایگاه تصویر ۱",
-            "caption": "تبلیغات محیطی",
-            "alt": "جایگاه تصویر نمونه‌کار تبلیغات محیطی"
+            "label": "جایگاه عکس ۱",
+            "caption": "نصب سازه",
+            "alt": "تیم نصب در حال بالا بردن تابلو روی سازه، عکس از پروژهٔ واقعی"
           },
           {
-            "label": "جایگاه تصویر ۲",
-            "caption": "طراحی و چاپ",
-            "alt": "جایگاه تصویر نمونه‌کار طراحی گرافیک و چاپ"
+            "label": "جایگاه عکس ۲",
+            "caption": "کارگاه",
+            "alt": "کارگاه ساخت سازه و لایت‌باکس، نمای داخل سوله"
           },
           {
-            "label": "جایگاه تصویر ۳",
-            "caption": "دیجیتال و سوشال",
-            "alt": "جایگاه تصویر نمونه‌کار دیجیتال مارکتینگ"
+            "label": "جایگاه عکس ۳",
+            "caption": "چاپ تکستایل",
+            "alt": "دستگاه چاپ یووی در حال چاپ پارچهٔ بنر عریض"
           }
         ],
-        "stats": [
-          {
-            "value": "۶",
-            "label": "خانوادهٔ خدمت",
-            "icon": "icon-services-nav"
-          },
-          {
-            "value": "۶۹",
-            "label": "خدمت فعال",
-            "icon": "icon-check"
-          },
-          {
-            "value": "۸۵",
-            "label": "خدمت ثبت‌شده",
-            "icon": "icon-datasheet"
-          }
-        ],
-        "count": "۰۶",
+        "count": "۰۳",
         "primary": {
-          "label": "گفت‌وگو دربارهٔ پروژه",
-          "href": "#review"
-        },
-        "secondary": {
-          "label": "دیدن نمونه‌کارها",
-          "href": "/portfolio/"
+          "label": "بگویید چه کاری دارید",
+          "href": "#lead"
         },
         "icon": "icon-services-nav"
       }
     },
     {
       "block": "editorial-split",
-      "id": "model",
+      "anchor": "cost",
       "data": {
-        "eyebrow": "مدل دسته‌بندی",
-        "title": "چرا خدمات به شش خانواده تقسیم شده‌اند؟",
+        "eyebrow": "هزینهٔ پنهان",
+        "title": "پول تبلیغات چطور بی‌سروصدا آب می‌شود",
         "body": [
-          "هر خانواده یک مالک مشخص دارد؛ یعنی هر خدمت فقط در یک جا تعریف می‌شود، حتی اگر در چند جای دیگر هم به کار بیاید. «طراحی بنر» مالکش طراحی گرافیک است، چه روی یک سازهٔ محیطی دیده شود، چه در یک کمپین اینستاگرام.",
-          "این مرزبندی برای شما یک نتیجهٔ ساده دارد: سفارش دوباره‌کاری نمی‌شود و هر پروژه از همان ابتدا سراغ تیم درست می‌رود، حتی اگر از چند خانواده عبور کند."
+          "مشکل معمولاً کم‌بودن بودجه نیست. سه اتفاق است که خیلی‌ها اصلاً حواسشان به آن نیست.",
+          "اول، کار تکه‌تکه می‌شود. لوگو دست یکی، سایت دست یکی، بنر دست یکی؛ آخرش سه تا برند دارید و هیچ‌کدام آن چیزی نیست که می‌خواستید. دوم، هر تحویل یک بار از نو توضیح داده می‌شود و وقتی که سرِ این رفت‌وبرگشت‌ها می‌رود، خودش پول است.",
+          "سوم، وقتی کار خراب در می‌آید، گردن کسی نمی‌افتد. طراح می‌گوید چاپ خراب شده، چاپخانه می‌گوید فایل درست نبوده، نصاب می‌گوید جنس بد بوده. و همان تابلوی نیم‌بند می‌ماند روی دیوار.",
+          "دو سال."
         ],
         "image": {
-          "label": "جایگاه تصویر",
-          "alt": "نمودار شش خانوادهٔ خدمت و مرز میان آن‌ها"
+          "label": "جایگاه عکس",
+          "alt": "تابلوی فرسوده و رنگ‌رفته روی نمای یک مغازه، نمونهٔ کار نیم‌بند"
         }
       }
     },
     {
-      "block": "numbered-features",
-      "id": "families",
+      "block": "service-map",
+      "anchor": "services",
       "data": {
-        "eyebrow": "شش خانوادهٔ خدمت",
-        "title": "کارتان زیر کدام خانواده می‌نشیند؟",
-        "lead": "در مجموع ۶۹ خدمت فعال، گروه‌بندی‌شده بر اساس اینکه چه چیزی تولید می‌شود — نه بر اساس اینکه در کدام کانال دیده می‌شود.",
-        "items": [
+        "eyebrow": "کارهایی که انجام می‌دهیم",
+        "title": "هر کدام را جدا هم می‌گیریم، با هم هم می‌گیریم",
+        "aside": "هیچ‌کدام اصلی و فرعی نیست؛ همه در یک رده‌اند. اگر می‌دانید کارتان برای کجاست، فیلتر را بزنید.",
+        "filters": [
           {
-            "index": "۰۱",
-            "title": "تبلیغات محیطی",
-            "body": "۳ خدمت ثبت‌شده در ۳ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true,
-            "icon": "icon-fam-outdoor"
+            "value": "all",
+            "label": "همه"
           },
           {
-            "index": "۰۲",
-            "title": "دیجیتال مارکتینگ",
-            "body": "۳۴ خدمت ثبت‌شده در ۸ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true,
-            "icon": "icon-fam-digital"
+            "value": "public",
+            "label": "شهرداری و نهاد"
           },
           {
-            "index": "۰۳",
-            "title": "طراحی گرافیک",
-            "body": "۱۸ خدمت ثبت‌شده در ۱۰ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true,
-            "icon": "icon-fam-graphic"
+            "value": "b2b",
+            "label": "شرکت و کارخانه"
           },
           {
-            "index": "۰۴",
-            "title": "چاپ و تولید",
-            "body": "۱۴ خدمت ثبت‌شده در ۲ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true,
-            "icon": "icon-fam-print"
+            "value": "local",
+            "label": "کسب‌وکار محلی"
           },
           {
-            "index": "۰۵",
-            "title": "عکاسی و فیلم‌برداری",
-            "body": "۷ خدمت ثبت‌شده در ۲ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true,
-            "icon": "icon-fam-photo"
-          },
-          {
-            "index": "۰۶",
-            "title": "مشاوره",
-            "body": "۹ خدمت ثبت‌شده در ۴ زیرشاخه. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true,
-            "icon": "icon-fam-consult"
+            "value": "expo",
+            "label": "نمایشگاه"
           }
         ],
-        "icon": "icon-services-nav"
-      }
-    },
-    {
-      "block": "audience-section-final",
-      "id": "audiences",
-      "data": {
-        "eyebrow": "این خدمات برای چه کسانی است؟",
-        "title": "خدمات یکسان‌اند؛ مسئلهٔ سفارش‌دهنده‌ها یکسان نیست.",
-        "lead": "اگر مسئله‌تان را در یکی از این چهار گروه می‌بینید، راهکار همان گروه ترکیب آماده‌تری از همین خدمات به شما می‌دهد.",
-        "items": [
+        "services": [
           {
-            "tag": "۰۱",
-            "title": "شهرداری‌ها و نهادهای عمومی",
-            "body": "ترکیب خدمات سازمانی، سازه، پروژه و مسیر سرمایه‌گذاری"
+            "id": "ooh",
+            "groups": "public b2b local",
+            "icon": "icon-fam-outdoor",
+            "title": "تبلیغات محیطی",
+            "qualifier": "بیلبورد، استرابورد، تابلوی سردر، اکران شهری",
+            "body": "سازه را خودمان می‌سازیم و خودمان نصب می‌کنیم. برای پروژه‌های مشارکتی با شهرداری هم مدل کار همین است: شهرداری هزینه‌ای نمی‌پردازد و ساخت و نگهداری با ماست.",
+            "points": [
+              {
+                "value": "ساخت و نصب سازه"
+              },
+              {
+                "value": "اجاره و اکران"
+              },
+              {
+                "value": "نگهداری و تعویض بنر"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "استرابورد نصب‌شده در بلوار شهری، نمای روز",
+            "href": "/services/outdoor/",
+            "link_label": "جزئیات تبلیغات محیطی",
+            "link_aria": "جزئیات خدمات تبلیغات محیطی",
+            "meta": {
+              "type": "Outdoor advertising"
+            }
           },
           {
-            "tag": "۰۲",
-            "title": "شرکت‌های صنعتی و B2B",
-            "body": "پکیج چندخدمتی برای شرکت/کارخانه"
+            "id": "print",
+            "groups": "b2b local expo public",
+            "icon": "icon-fam-print",
+            "title": "چاپ و ساخت",
+            "qualifier": "چاپ تکستایل، لایت‌باکس، ساخت حروف و سازه",
+            "body": "دستگاه یووی داریم؛ یعنی تکستایل را خودمان چاپ می‌کنیم و برای نوبت چاپخانهٔ کسی معطل نمی‌مانیم. همین یک چیز، تحویل را از چند روز به چند ساعت می‌رساند.",
+            "points": [
+              {
+                "value": "چاپ پارچه و بنر عریض"
+              },
+              {
+                "value": "لایت‌باکس بدون قاب"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "دستگاه چاپ یووی در کارگاه، لحظهٔ چاپ روی پارچهٔ عریض",
+            "href": "/services/printing/",
+            "link_label": "جزئیات چاپ و ساخت",
+            "link_aria": "جزئیات خدمات چاپ و ساخت",
+            "meta": {
+              "type": "Printing and fabrication"
+            }
           },
           {
-            "tag": "۰۳",
-            "title": "حضور در نمایشگاه",
-            "body": "بسته زمانی و چندخدمتی نمایشگاه"
+            "id": "graphic",
+            "groups": "b2b local expo public",
+            "icon": "icon-fam-graphic",
+            "title": "طراحی گرافیک",
+            "qualifier": "هویت بصری، بسته‌بندی، کاتالوگ، طرح تبلیغ",
+            "body": "طرح را با چشمِ کسی می‌زنیم که قرار است همان را چاپ کند. فایلی که از اینجا بیرون می‌رود، سرِ دستگاه غافلگیرمان نمی‌کند.",
+            "points": [
+              {
+                "value": "لوگو و هویت بصری"
+              },
+              {
+                "value": "کاتالوگ و بروشور"
+              },
+              {
+                "value": "طرح بیلبورد و بنر"
+              },
+              {
+                "value": "بسته‌بندی"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "چند نمونه کاتالوگ و بروشور چیده‌شده روی میز، نمای بالا",
+            "href": "/services/graphic-design/",
+            "link_label": "جزئیات طراحی گرافیک",
+            "link_aria": "جزئیات خدمات طراحی گرافیک",
+            "meta": {
+              "type": "Graphic design"
+            }
           },
           {
-            "tag": "۰۴",
-            "title": "کسب‌وکارهای محلی و اصناف",
-            "body": "راهکار رشد و دیده‌شدن محلی"
+            "id": "digital",
+            "groups": "b2b local public",
+            "icon": "icon-fam-digital",
+            "title": "وب‌سایت و سوشال",
+            "qualifier": "طراحی و بازطراحی سایت، مدیریت اینستاگرام",
+            "body": "سایت را طوری می‌سازیم که خودتان بتوانید محتوایش را عوض کنید. اینستاگرام را هم ماهانه می‌گردانیم، با تقویم محتوا و عکس و ویدیوی خودمان.",
+            "points": [
+              {
+                "value": "طراحی و بازطراحی سایت"
+              },
+              {
+                "value": "مدیریت ماهانهٔ اینستاگرام"
+              },
+              {
+                "value": "تولید محتوای تصویری"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "نمای صفحهٔ یک سایت روی لپ‌تاپ کنار صفحهٔ اینستاگرام روی موبایل",
+            "href": "/services/digital-marketing/",
+            "link_label": "جزئیات وب‌سایت و سوشال",
+            "link_aria": "جزئیات خدمات وب‌سایت و سوشال مدیا",
+            "meta": {
+              "type": "Digital marketing"
+            }
+          },
+          {
+            "id": "photo",
+            "groups": "b2b local expo",
+            "icon": "icon-fam-photo",
+            "title": "عکس و ویدیو",
+            "qualifier": "عکس صنعتی، تیزر، ویدیوی معرفی",
+            "body": "عکس محصول و خط تولید، و تیزرهای کوتاهی که هم روی سایت بنشیند هم در اینستاگرام. فیلم‌برداری در کارخانه را هم خودمان می‌رویم.",
+            "points": [
+              {
+                "value": "عکاسی صنعتی و محصول"
+              },
+              {
+                "value": "تیزر تبلیغاتی"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "عکاسی صنعتی از خط تولید با نورپردازی کارگاهی",
+            "href": "/services/photo-video/",
+            "link_label": "جزئیات عکس و ویدیو",
+            "link_aria": "جزئیات خدمات عکاسی و فیلم‌برداری",
+            "meta": {
+              "type": "Photography and video"
+            }
+          },
+          {
+            "id": "consult",
+            "groups": "b2b public local",
+            "icon": "icon-fam-consult",
+            "title": "مشاوره",
+            "qualifier": "جایگاه برند، برنامهٔ یک‌ساله، بودجه‌بندی تبلیغات",
+            "body": "اگر هنوز روشن نیست پول کجا باید خرج شود، از همین‌جا شروع می‌کنیم. گاهی نتیجهٔ همین جلسه این است که فعلاً لازم نیست چیزی بسازید.",
+            "points": [
+              {
+                "value": "تعیین جایگاه و پیام"
+              },
+              {
+                "value": "برنامهٔ یک‌سالهٔ تبلیغات"
+              },
+              {
+                "value": "تقسیم بودجه بین کانال‌ها"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "میز جلسه با برگه‌های برنامهٔ تبلیغاتی و تقویم یک‌ساله",
+            "href": "/consulting/",
+            "link_label": "جزئیات مشاوره",
+            "link_aria": "جزئیات خدمات مشاوره",
+            "meta": {
+              "type": "Marketing consulting"
+            }
           }
         ]
       }
     },
     {
-      "block": "checklist-section",
-      "id": "brief",
+      "block": "parts-zigzag",
+      "anchor": "producer",
       "data": {
-        "eyebrow": "پیش از سفارش",
-        "title": "چه چیزهایی را از قبل آماده کنید؟",
-        "lead": "هرچه این موارد روشن‌تر باشند، برآورد زمان و هزینه دقیق‌تر در می‌آید و رفت‌وبرگشت کمتر می‌شود.",
+        "eyebrow": "چرا ما",
+        "title": "واسطه نیستیم؛ خودمان می‌سازیم",
+        "lead": "این تفاوت را روز تحویل می‌فهمید، نه روز قرارداد.",
         "items": [
           {
-            "value": "هدف کار: آگاهی از برند، فروش مستقیم، یا معرفی یک محصول مشخص"
+            "side": "start",
+            "icon": "icon-factory",
+            "title": "کارگاه مال خودمان است",
+            "body": "سازه، لایت‌باکس و حروف را همین‌جا می‌سازیم. یعنی وقتی وسط کار چیزی باید عوض شود، سراغ کسی نمی‌رویم که نوبت بدهد.",
+            "label": "جایگاه عکس",
+            "alt": "نمای داخل کارگاه ساخت، میز کار و پروفیل‌های آماده"
           },
           {
-            "value": "مخاطب: چه کسی قرار است این را ببیند و کجا"
+            "side": "end",
+            "icon": "icon-palette",
+            "title": "دستگاه یووی داریم",
+            "body": "تکستایل را خودمان چاپ می‌کنیم. برای یک بنر فوری، کار از صف چاپخانه بیرون می‌آید و همان روز می‌رود روی سازه.",
+            "label": "جایگاه عکس",
+            "alt": "خروج پارچهٔ چاپ‌شده از دستگاه یووی"
           },
           {
-            "value": "محدودهٔ زمانی و تاریخ‌های قطعی، مثل افتتاحیه یا نمایشگاه"
+            "side": "start",
+            "icon": "icon-repair",
+            "title": "نصب هم با خودمان است",
+            "body": "تیم نصب خودمان می‌رود بالا. اگر دو سال بعد بنر پاره شد، همان شماره را می‌گیرید؛ لازم نیست دنبال نصاب قبلی بگردید.",
+            "label": "جایگاه عکس",
+            "alt": "تیم نصب با بالابر در حال نصب بنر روی سازهٔ شهری"
           },
           {
-            "value": "دارایی‌های موجود: لوگو، فونت، رنگ سازمانی، عکس‌های قبلی"
-          },
-          {
-            "value": "محدودهٔ بودجه، حتی به‌صورت یک بازه"
-          },
-          {
-            "value": "تصمیم‌گیرندگان و اینکه تأیید نهایی با چه کسی است"
+            "side": "end",
+            "icon": "icon-shield",
+            "title": "اگر کاری از دستمان برنیاید، همان را می‌گوییم",
+            "body": "بعضی کارها به ما نمی‌خورد. در آن صورت همان اول می‌گوییم و اگر کسی را بشناسیم که کارش این است، معرفی می‌کنیم.",
+            "label": "جایگاه عکس",
+            "alt": "جلسهٔ کوتاه کارفرما و تیم در دفتر، لحظهٔ گفت‌وگو"
           }
-        ],
-        "note": {
-          "title": "اگر بخشی از این‌ها را هنوز ندارید، مشکلی نیست.",
-          "body": "مشاوره خودش یکی از شش خانوادهٔ خدمت است. اگر هدف یا مخاطب هنوز روشن نیست، از همان‌جا شروع می‌کنیم و بقیهٔ موارد در طول کار شکل می‌گیرد."
-        }
+        ]
+      }
+    },
+    {
+      "block": "service-coverflow",
+      "anchor": "solutions",
+      "data": {
+        "eyebrow": "بسته به اینکه که هستید",
+        "title": "همین خدمات، با ترکیب متفاوت",
+        "lead": "کارت‌ها را بکشید. هر کدام همین کارها را دارد، فقط به ترتیبی که به درد آن نوع سفارش می‌خورد.",
+        "items": [
+          {
+            "kicker": "شهرداری و نهاد عمومی",
+            "title": "مشارکت بدون هزینهٔ اولیه",
+            "body": "شهرداری هیچ هزینه‌ای نمی‌پردازد. ما می‌سازیم، ما نگه می‌داریم و درآمد بر اساس قرارداد تقسیم می‌شود. ریسک ساخت با ماست.",
+            "points": [
+              {
+                "value": "ساخت و نگهداری سازه"
+              },
+              {
+                "value": "قرارداد بهره‌برداری"
+              },
+              {
+                "value": "گزارش دوره‌ای اکران"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "سازهٔ تبلیغاتی نصب‌شده در ورودی شهر، پروژهٔ مشارکتی",
+            "href": "/solutions/public-sector/",
+            "link_label": "جزئیات مشارکت شهری"
+          },
+          {
+            "kicker": "شرکت صنعتی و B2B",
+            "title": "یک سال، یک برنامه",
+            "body": "برای شرکتی که سالی چند نمایشگاه و چند کمپین دارد، کار تکه‌ای جواب نمی‌دهد. برنامهٔ یک‌ساله می‌بندیم و همان را جلو می‌بریم.",
+            "points": [
+              {
+                "value": "برنامهٔ یک‌سالهٔ تبلیغات"
+              },
+              {
+                "value": "عکس و ویدیوی صنعتی"
+              },
+              {
+                "value": "کاتالوگ و سایت"
+              },
+              {
+                "value": "غرفه و اقلام نمایشگاهی"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "عکاسی صنعتی در سالن تولید یک کارخانه",
+            "href": "/solutions/b2b/",
+            "link_label": "جزئیات بستهٔ شرکتی"
+          },
+          {
+            "kicker": "نمایشگاه",
+            "title": "چند روز تا نمایشگاه؟",
+            "body": "غرفه، استند، بروشور و تیزر، همه با یک ددلاین. چون چاپ و ساخت خودمان است، جدول زمانی را واقعی می‌بندیم و همان را تحویل می‌دهیم.",
+            "points": [
+              {
+                "value": "طراحی و ساخت غرفه"
+              },
+              {
+                "value": "اقلام چاپی نمایشگاه"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "غرفهٔ نمایشگاهی آماده پیش از افتتاح، نمای روبه‌رو",
+            "href": "/solutions/expo/",
+            "link_label": "جزئیات بستهٔ نمایشگاه"
+          },
+          {
+            "kicker": "کسب‌وکار محلی",
+            "title": "مشتری از جلوی در رد شد و ندیدت",
+            "body": "سردرِ خوانا، ویترین مرتب و یک صفحهٔ اینستاگرام که مرده نباشد. عکس مغازه را بفرستید، بگوییم چند.",
+            "points": [
+              {
+                "value": "تابلوی سردر و لایت‌باکس"
+              },
+              {
+                "value": "طرح ویترین و اقلام چاپی"
+              },
+              {
+                "value": "مدیریت اینستاگرام"
+              }
+            ],
+            "label": "جایگاه عکس",
+            "alt": "سردر روشن یک مغازه در شب، نمای از پیاده‌رو",
+            "href": "/solutions/local/",
+            "link_label": "جزئیات بستهٔ محلی"
+          }
+        ]
       }
     },
     {
       "block": "process-section-final",
-      "id": "process",
+      "anchor": "process",
       "data": {
-        "eyebrow": "فرایند",
-        "title": "یک پروژه معمولاً از چند خانواده عبور می‌کند",
-        "lead": "کمتر پروژه‌ای فقط یک خدمت لازم دارد. ترتیب زیر همان ترتیبی است که کار واقعاً در آن جلو می‌رود؛ آنچه بین خانواده‌ها فرق می‌کند طول هر مرحله است.",
+        "eyebrow": "مسیر کار",
+        "title": "از اولین تماس تا روزی که کار بالاست",
+        "lead": "طول هر مرحله فرق می‌کند؛ ترتیبش نه.",
         "steps": [
           {
-            "title": "تعریف مسئله و انتخاب مسیر",
-            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true
+            "title": "یک ربع حرف بزنیم",
+            "body": "مجانی و بدون هیچ قید و شرطی. می‌فهمیم کارتان چیست و کجا لنگ می‌زند. گاهی همین‌جا معلوم می‌شود چیزی که لازم دارید، آن چیزی نیست که فکر می‌کردید."
           },
           {
-            "title": "طراحی و آماده‌سازی خروجی",
-            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true
+            "title": "برآورد با عدد",
+            "body": "هزینه و زمان را می‌نویسیم و می‌فرستیم. اگر چیزی هنوز قطعی نیست، همان را هم می‌نویسیم؛ عدد سرِدستی نمی‌دهیم که بعد عوض شود."
           },
           {
-            "title": "تولید، چاپ یا اجرا",
-            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true
+            "title": "طرح، تأیید، ساخت",
+            "body": "طرح را می‌بینید و تأیید می‌کنید. بعد از تأیید می‌رود سرِ دستگاه. چون چاپ و ساخت هر دو همین‌جاست، بین تأیید و تولید معطلی‌ای نیست."
           },
           {
-            "title": "اکران، انتشار و اندازه‌گیری",
-            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true
-          }
-        ]
-      }
-    },
-    {
-      "block": "compare-cards",
-      "id": "choose",
-      "data": {
-        "eyebrow": "انتخاب خانواده",
-        "title": "اگر بین دو خانواده مردد هستید",
-        "lead": "این سه مورد بیشترین ابهام را ایجاد می‌کنند.",
-        "items": [
-          {
-            "index": "۰۱",
-            "title": "طراحی گرافیک یا چاپ و تولید؟",
-            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true,
-            "icon": "icon-compare"
-          },
-          {
-            "index": "۰۲",
-            "title": "دیجیتال مارکتینگ یا عکاسی و فیلم‌برداری؟",
-            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true,
-            "icon": "icon-compare"
-          },
-          {
-            "index": "۰۳",
-            "title": "تبلیغات محیطی یا سازه‌ها؟",
-            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true,
-            "icon": "icon-compare"
+            "title": "نصب و تحویل",
+            "body": "تیم خودمان نصبش می‌کند و عکس کار نصب‌شده را برایتان می‌فرستیم."
           }
         ],
-        "icon": "icon-compare"
+        "honest_no": {
+          "title": "چه کارهایی را قبول نمی‌کنیم",
+          "body": "کاری که تا ددلاینش وقت نرسد، قبول نمی‌کنیم؛ تحویل دیر، برای هر دومان بدتر از نگرفتن کار است. طرحی را هم که فقط برای پر کردن یک فضا باشد و پشتش حرفی نباشد، نمی‌گیریم."
+        }
       }
     },
     {
-      "block": "faq-section-final",
-      "id": "faq",
+      "block": "proof-section-final",
+      "anchor": "proof",
       "data": {
-        "eyebrow": "پرسش‌های پرتکرار",
-        "title": "پیش از تماس، جواب کوتاه را همین‌جا ببینید",
-        "lead": "برای برآورد دقیق هزینه و زمان، به جزئیات پروژه نیاز است؛ پاسخ‌های اینجا عمومی‌اند.",
-        "questions": [
+        "eyebrow": "نمونه‌کارها",
+        "title": "کارهایی که بالا رفته‌اند",
+        "aside": "این بخش هنوز عکس و اسم واقعی ندارد. تا وقتی که داشته باشد، جای خالی را با چیز ساختگی پر نمی‌کنیم.",
+        "items": [
           {
-            "q": "آیا فقط یک خدمت را هم سفارش می‌دهید؟",
-            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "tag": "در دست آماده‌سازی",
+            "caption": "عکس پروژه",
+            "alt": "جایگاه عکس پروژهٔ تبلیغات محیطی، سازهٔ نصب‌شده",
+            "kicker": "تبلیغات محیطی",
+            "title": "نام پروژه و سال",
+            "href": "/portfolio/",
+            "link_label": "دیدن همهٔ نمونه‌کارها",
             "placeholder": true
           },
           {
-            "q": "خدمات شما فقط در اصفهان ارائه می‌شود؟",
-            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "tag": "در دست آماده‌سازی",
+            "caption": "عکس پروژه",
+            "alt": "جایگاه عکس پروژهٔ چاپ و ساخت، لایت‌باکس نصب‌شده",
+            "kicker": "چاپ و ساخت",
+            "title": "نام پروژه و سال",
+            "href": "/portfolio/",
+            "link_label": "دیدن همهٔ نمونه‌کارها",
             "placeholder": true
           },
           {
-            "q": "برآورد هزینه چقدر طول می‌کشد؟",
-            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            "placeholder": true
-          },
-          {
-            "q": "اگر طرح آماده داشته باشم، فقط چاپ و اجرا را انجام می‌دهید؟",
-            "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+            "tag": "در دست آماده‌سازی",
+            "caption": "عکس پروژه",
+            "alt": "جایگاه عکس پروژهٔ هویت بصری و اقلام چاپی",
+            "kicker": "طراحی گرافیک",
+            "title": "نام پروژه و سال",
+            "href": "/portfolio/",
+            "link_label": "دیدن همهٔ نمونه‌کارها",
             "placeholder": true
           }
         ]
+      }
+    },
+    {
+      "block": "golden-line",
+      "anchor": "golden",
+      "data": {
+        "eyebrow": "حرف حساب",
+        "line": "کاری کنیم اسم شما جزو همان دو سه تا باشد.",
+        "support": "شهر پر از تبلیغ است؛ مشتری از هر صنف فقط دو سه اسم را به خاطر می‌سپارد. کارِ ما همین است."
       }
     },
     {
       "block": "knowledge-carousel",
-      "id": "knowledge",
+      "anchor": "knowledge",
       "data": {
-        "eyebrow": "مرکز دانش",
-        "title": "مقاله‌ها و ویدیوهای مرتبط با خدمات",
+        "eyebrow": "از بلاگ",
+        "title": "پیش از سفارش، این‌ها را بخوانید",
         "groups": [
           {
             "title": "مقاله‌ها",
@@ -348,13 +533,6 @@
                 "meta": "در دست تهیه",
                 "alt": "جایگاه کاور ویدیو",
                 "placeholder": true
-              },
-              {
-                "label": "کاور ویدیو",
-                "title": "عنوان ویدیو",
-                "meta": "در دست تهیه",
-                "alt": "جایگاه کاور ویدیو",
-                "placeholder": true
               }
             ]
           }
@@ -362,18 +540,121 @@
       }
     },
     {
-      "block": "review-gate",
-      "id": "review",
+      "block": "faq-section-final",
+      "anchor": "faq",
+      "data": {
+        "eyebrow": "پرسش‌های پرتکرار",
+        "title": "آنچه معمولاً اول می‌پرسند",
+        "lead": "برآورد دقیق به جزئیات کار بستگی دارد؛ این جواب‌ها عمومی‌اند.",
+        "questions": [
+          {
+            "q": "فقط یک قلم کار هم قبول می‌کنید؟",
+            "a": "بله. اگر فقط چاپ می‌خواهید یا فقط طرح، همان را می‌گیریم. لازم نیست کل کار را به ما بسپارید."
+          },
+          {
+            "q": "طرح آماده دارم؛ فقط چاپ و نصب را انجام می‌دهید؟",
+            "a": "بله. فایل را بفرستید تا پیش از چاپ نگاهش کنیم؛ اگر چیزی سرِ دستگاه دردسر می‌شود، همان اول می‌گوییم."
+          },
+          {
+            "q": "فقط در اصفهان کار می‌کنید؟",
+            "a": "نه. دفتر در اصفهان است و بیشتر پروژه‌های محیطی در شهرستان‌های اطراف بوده. طراحی، چاپ و سایت را برای هر جای ایران انجام می‌دهیم؛ برای نصب، بسته به فاصله حرف می‌زنیم."
+          },
+          {
+            "q": "برآورد هزینه چقدر طول می‌کشد؟",
+            "a": "برای کارهای مشخص مثل یک بنر یا یک تابلو، معمولاً همان روز. برای پروژه‌ای که چند بخش دارد، بعد از یک جلسهٔ کوتاه."
+          },
+          {
+            "q": "قرارداد مشارکت با شهرداری چطور کار می‌کند؟",
+            "a": "شهرداری بدون هزینه وارد می‌شود. ساخت، نصب و نگهداری سازه با ماست و درآمد اکران بر اساس قرارداد تقسیم می‌شود. جزئیاتش در صفحهٔ سرمایه‌گذاری آمده."
+          }
+        ]
+      }
+    },
+    {
+      "block": "page-cursor",
+      "anchor": "cursor",
+      "data": {
+        "states": [
+          {
+            "selector": "[data-block=\"service-coverflow\"] .service-cf-card",
+            "state": "drag",
+            "label": "بکشید"
+          },
+          {
+            "selector": "[data-block=\"service-map\"] .service-card",
+            "state": "view",
+            "label": "ببینید"
+          },
+          {
+            "selector": "[data-block=\"proof-section-final\"] article",
+            "state": "view",
+            "label": "ببینید"
+          },
+          {
+            "selector": "[data-block=\"faq-section-final\"] summary",
+            "state": "open",
+            "label": "+"
+          },
+          {
+            "selector": "[data-block=\"lead-form\"] .primary-button",
+            "state": "send",
+            "label": ""
+          }
+        ]
+      }
+    },
+    {
+      "block": "lead-form",
+      "anchor": "lead",
       "data": {
         "eyebrow": "قدم بعدی",
-        "title": "بگویید چه کاری در دست دارید.",
-        "body": "لازم نیست از قبل بدانید کارتان زیر کدام خانواده می‌نشیند. صورت مسئله را بگویید؛ مسیر درست را با هم پیدا می‌کنیم.",
-        "primary": {
-          "label": "شروع گفت‌وگو"
-        },
-        "secondary": {
-          "label": "بازگشت به بالای صفحه ↑",
-          "href": "#top"
+        "title": "بگویید چه کاری در دست دارید",
+        "lead": "لازم نیست از قبل بدانید کارتان زیر کدام سرویس می‌نشیند. صورت مسئله را بنویسید؛ مسیر درست را با هم پیدا می‌کنیم.",
+        "icon": "icon-rfq",
+        "fields": [
+          {
+            "name": "subject",
+            "label": "کارتان کدام است؟",
+            "type": "text",
+            "inputmode": "text",
+            "autocomplete": "off",
+            "placeholder": "تابلو و سازه / چاپ / طرح گرافیک / سایت و اینستاگرام / نمایشگاه / هنوز معلوم نیست",
+            "icon": "icon-services-nav"
+          },
+          {
+            "name": "name",
+            "label": "اسم و نام مجموعه",
+            "type": "text",
+            "inputmode": "text",
+            "autocomplete": "organization",
+            "placeholder": "مثلاً رضا محمدی، صنایع فلزی آریا",
+            "icon": "icon-user"
+          },
+          {
+            "name": "phone",
+            "label": "شماره تماس",
+            "type": "tel",
+            "inputmode": "tel",
+            "autocomplete": "tel",
+            "placeholder": "۰۹۱۳۱۲۳۴۵۶۷",
+            "icon": "icon-phone"
+          },
+          {
+            "name": "brief",
+            "label": "کوتاه بنویسید چه می‌خواهید",
+            "multiline": true,
+            "placeholder": "مثلاً: سردر مغازه عوض شود، ابعاد حدودی ۳ در ۱، تا آخر ماه لازمش دارم.",
+            "icon": "icon-article"
+          }
+        ],
+        "submit": "بفرست",
+        "aside": {
+          "title": "ترجیح می‌دهید زنگ بزنید؟",
+          "body": "یک زنگ بزنید؛ اگر دستمان بند بود، همان روز برمی‌گردیم. عکس کار فعلی را هم بفرستید، برآورد دقیق‌تر می‌شود.",
+          "cta": {
+            "label": "۰۹۱۳ ۳۳۵ ۳۴۳۲",
+            "href": "tel:+989133353432"
+          }
         }
       }
     }

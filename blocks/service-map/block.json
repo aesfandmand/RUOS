@@ -1,0 +1,52 @@
+{
+  "id": "service-map",
+  "name": {
+    "fa": "نقشهٔ خدمات",
+    "en": "service-map"
+  },
+  "role": "content",
+  "family": "catalog",
+  "surface": "paper",
+  "composition": "Equal-weight service cards, body-anatomy (photo panel over a white body), filterable by who the work is for. Card anatomy from reference/card-anatomy-references/04 and /11; chips-above-the-grid from /08.",
+  "serves_intent": [
+    "browse",
+    "compare"
+  ],
+  "position": "any",
+  "behavior": true,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "motion": "skeleton-to-content",
+  "source": {
+    "page": "reference/card-anatomy-references/README.md",
+    "selector": "two-card-variants-overlay-vs-body"
+  },
+  "slots": {
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "aside": {
+      "type": "text",
+      "required": false
+    },
+    "filters": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 6
+    },
+    "services": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 12
+    }
+  },
+  "layout": "catalog"
+}

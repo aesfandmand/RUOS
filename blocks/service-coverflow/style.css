@@ -1,0 +1,77 @@
+/* Vendored: swiper 14.1.0 core CSS, MIT - see assets/swiper.LICENSE.md.
+   Carried here because this block can appear on a page that has no other
+   swiper block; where one is also present the core simply repeats, and the
+   card width below is scoped (0,2,0) so a bare .swiper-slide rule from the
+   other block's copy cannot win over it. */
+/**
+ * Swiper 14.1.0
+ * Most modern mobile touch slider and framework with hardware accelerated transitions
+ * https://swiperjs.com
+ *
+ * Copyright 2014-2026 Vladimir Kharlampidi
+ *
+ * Released under the MIT License
+ *
+ * Released on: August 6, 2026
+ */
+
+:root{--swiper-theme-color:#007aff}:host{display:block;margin-left:auto;margin-right:auto;position:relative;z-index:1}.swiper{display:block;list-style:none;margin-left:auto;margin-right:auto;overflow:hidden;padding:0;position:relative;z-index:1}.swiper-vertical>.swiper-wrapper{flex-direction:column}.swiper-wrapper{box-sizing:initial;display:flex;height:100%;position:relative;transition-property:transform;transition-timing-function:var(--swiper-wrapper-transition-timing-function,initial);width:100%;z-index:1}.swiper-android .swiper-slide,.swiper-ios .swiper-slide,.swiper-wrapper{transform:translateZ(0)}.swiper-horizontal{touch-action:pan-y}.swiper-vertical{touch-action:pan-x}.swiper-slide{display:block;flex-shrink:0;height:100%;position:relative;transition-property:transform;width:100%}.swiper-slide-invisible-blank{visibility:hidden}.swiper-autoheight,.swiper-autoheight .swiper-slide{height:auto}.swiper-autoheight .swiper-wrapper{align-items:flex-start;transition-property:transform,height}.swiper-backface-hidden .swiper-slide{backface-visibility:hidden;transform:translateZ(0)}.swiper-3d.swiper-css-mode .swiper-wrapper{perspective:1200px}.swiper-3d .swiper-wrapper{transform-style:preserve-3d}.swiper-3d{perspective:1200px;.swiper-cube-shadow,.swiper-slide{transform-style:preserve-3d}}.swiper-css-mode{>.swiper-wrapper{overflow:auto;scrollbar-width:none;-ms-overflow-style:none;&::-webkit-scrollbar{display:none}}>.swiper-wrapper>.swiper-slide{scroll-snap-align:start start}&.swiper-horizontal{>.swiper-wrapper{scroll-snap-type:x mandatory}>.swiper-wrapper>.swiper-slide:first-child{margin-inline-start:var(--swiper-slides-offset-before);scroll-margin-inline-start:var(--swiper-slides-offset-before)}>.swiper-wrapper>.swiper-slide:last-child{margin-inline-end:var(--swiper-slides-offset-after)}}&.swiper-vertical{>.swiper-wrapper{scroll-snap-type:y mandatory}>.swiper-wrapper>.swiper-slide:first-child{margin-block-start:var(--swiper-slides-offset-before);scroll-margin-block-start:var(--swiper-slides-offset-before)}>.swiper-wrapper>.swiper-slide:last-child{margin-block-end:var(--swiper-slides-offset-after)}}&.swiper-free-mode{>.swiper-wrapper{scroll-snap-type:none}>.swiper-wrapper>.swiper-slide{scroll-snap-align:none}}&.swiper-centered{>.swiper-wrapper:before{content:"";flex-shrink:0;order:9999}>.swiper-wrapper>.swiper-slide{scroll-snap-align:center center;scroll-snap-stop:always}}&.swiper-centered.swiper-horizontal{>.swiper-wrapper>.swiper-slide:first-child{margin-inline-start:var(--swiper-centered-offset-before)}>.swiper-wrapper:before{height:100%;min-height:1px;width:var(--swiper-centered-offset-after)}}&.swiper-centered.swiper-vertical{>.swiper-wrapper>.swiper-slide:first-child{margin-block-start:var(--swiper-centered-offset-before)}>.swiper-wrapper:before{height:var(--swiper-centered-offset-after);min-width:1px;width:100%}}}.swiper-3d{.swiper-slide-shadow,.swiper-slide-shadow-bottom,.swiper-slide-shadow-left,.swiper-slide-shadow-right,.swiper-slide-shadow-top{height:100%;left:0;pointer-events:none;position:absolute;top:0;width:100%;z-index:10}.swiper-slide-shadow{background:#00000026}.swiper-slide-shadow-left{background-image:linear-gradient(270deg,#00000080,#0000)}.swiper-slide-shadow-right{background-image:linear-gradient(90deg,#00000080,#0000)}.swiper-slide-shadow-top{background-image:linear-gradient(0deg,#00000080,#0000)}.swiper-slide-shadow-bottom{background-image:linear-gradient(180deg,#00000080,#0000)}}.swiper-lazy-preloader{border:4px solid var(--swiper-preloader-color,var(--swiper-theme-color));border-radius:50%;border-top:4px solid #0000;box-sizing:border-box;height:42px;left:50%;margin-left:-21px;margin-top:-21px;position:absolute;top:50%;transform-origin:50%;width:42px;z-index:10}.swiper-watch-progress .swiper-slide-visible,.swiper:not(.swiper-watch-progress){.swiper-lazy-preloader{animation:swiper-preloader-spin 1s linear infinite}}.swiper-lazy-preloader-white{--swiper-preloader-color:#fff}.swiper-lazy-preloader-black{--swiper-preloader-color:#000}@keyframes swiper-preloader-spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}
+
+
+/* A real 3D coverflow. The vendored Swiper core CSS is already on the page via
+   structure-gallery/structure-related when either is present; this block ships
+   only the parts it needs so the core is not duplicated a third time. */
+.service-cf{background:var(--white);color:var(--ink);padding:110px 0 90px;overflow:hidden}
+.service-cf-head{text-align:center;max-width:660px;margin:0 auto 40px}
+.service-cf-head .eyebrow{color:var(--red);display:flex;align-items:center;justify-content:center;gap:9px}
+.service-cf-head .eyebrow:before{content:"";background:var(--red-gloss);width:7px;height:7px;display:inline-block}
+.service-cf-head h2{margin:14px 0 0;font-size:clamp(1.7rem,2.8vw,2.5rem);font-weight:900;letter-spacing:-.035em;line-height:1.4}
+.service-cf-head p{color:var(--muted);margin:14px 0 0;font-size:.93rem;line-height:1.95}
+
+.service-cf-stage{max-width:1120px;margin:0 auto;position:relative}
+.service-cf-swiper{padding:42px 0 26px}
+/* The depth that makes it read as a stack rather than a lean. Kept, not
+   dropped: `preserve-3d` on the track plus an isolated compositing layer on
+   each face is the fix for the Safari flattening, not removing rotateY. */
+.service-cf-swiper.swiper-3d{perspective:1100px}
+.service-cf-swiper.swiper-3d .swiper-wrapper{transform-style:preserve-3d}
+.service-cf .service-cf-card{width:min(74vw,460px);height:auto;background:var(--white);
+  border:1px solid var(--line);border-radius:26px;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 30px 70px #17171922;
+  transform-style:preserve-3d;backface-visibility:hidden;will-change:transform;
+  opacity:.5;transition:opacity .45s cubic-bezier(.33,.2,.28,1),box-shadow .45s}
+.service-cf-card.swiper-slide-active{opacity:1;box-shadow:0 44px 96px #17171940}
+
+.service-cf-shot{margin:0;aspect-ratio:16/10;border:0;border-radius:0;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.service-cf-index{position:absolute;inset-block-end:10px;inset-inline-end:14px;z-index:2;
+  color:var(--ink);font-size:1.5rem;font-weight:900;letter-spacing:-.04em;opacity:.3;font-variant-numeric:tabular-nums}
+.service-cf-copy{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
+.service-cf-kicker{margin:0;color:var(--red);font-size:.68rem;font-weight:800;letter-spacing:.02em}
+.service-cf-copy h3{margin:8px 0 0;font-size:1.1rem;font-weight:900;letter-spacing:-.025em;line-height:1.5}
+.service-cf-body{margin:12px 0 0;color:var(--muted);font-size:.86rem;line-height:1.95}
+.service-cf-points{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.service-cf-points li{position:relative;padding-inline-start:16px;font-size:.8rem;line-height:1.75;color:var(--ink)}
+.service-cf-points li:before{content:"";position:absolute;inset-inline-start:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--red-gloss)}
+.service-cf-link{margin-top:auto;padding-top:18px;color:var(--ink);font-size:.82rem;font-weight:800;text-decoration:none;border-bottom:0}
+.service-cf-link:hover{color:var(--red)}
+
+.service-cf-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:10px}
+.service-cf-prev,.service-cf-next{background:var(--white);border:1px solid var(--line);border-radius:50%;
+  width:46px;height:46px;display:grid;place-items:center;color:var(--ink);cursor:pointer;
+  box-shadow:0 14px 30px #1717190f;transition:background .3s ease,color .3s ease,border-color .3s ease}
+.service-cf-prev:hover,.service-cf-next:hover{background:var(--red-gloss);border-color:var(--red);color:#fff}
+.service-cf-prev svg,.service-cf-next svg{width:15px;height:15px;fill:currentColor}
+.service-cf .swiper-button-disabled{opacity:.35;pointer-events:none}
+.service-cf-pagination{color:var(--muted);direction:ltr;font-variant-numeric:tabular-nums;
+  letter-spacing:.04em;font-size:.8rem;font-weight:800;min-width:62px;text-align:center}
+.service-cf-pagination .swiper-pagination-current{color:var(--ink)}
+
+@media (width<=980px){
+  .service-cf{padding:64px 0 54px}
+  .service-cf .service-cf-card{width:80vw}
+  .service-cf-swiper.swiper-3d{perspective:820px}
+  .service-cf-copy{padding:18px 18px 20px}
+}
+@media (prefers-reduced-motion:reduce){
+  .service-cf-card{transition:none;opacity:1}
+}

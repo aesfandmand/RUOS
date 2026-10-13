@@ -1,0 +1,24 @@
+{
+  "id": "golden-line",
+  "name": { "fa": "جملهٔ طلایی", "en": "golden-line" },
+  "role": "content",
+  "family": "statement",
+  "surface": "light",
+  "composition": "Part 6 of the mandatory page skeleton (قرارداد بازطراحی صفحات §۶)",
+  "serves_intent": ["believe"],
+  "position": "any",
+  "behavior": true,
+  "adjacency": { "not_after_same_family": true },
+  "motion": "kinetic-oversized-type",
+  "source": {
+    "page": "05-rules/website/motion-verbs-v1.yaml",
+    "selector": "verbs[kinetic-oversized-type]"
+  },
+  "slots": {
+    "line": { "type": "text", "required": true },
+    "support": { "type": "text", "required": false },
+    "eyebrow": { "type": "text", "required": false },
+    "attribution": { "type": "text", "required": false }
+  },
+  "layout": "band"
+}

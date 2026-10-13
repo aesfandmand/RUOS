@@ -169,17 +169,21 @@ verbs:
     fa: تایپ غول‌پیکر از عرض صفحه عبور می‌کند
     family: typographic
     what: >
-      One sentence, far larger than any heading on the page, travels across the
-      viewport as the visitor scrolls. It is a statement, not a marquee: it
-      moves once and it is readable at every point of its travel.
+      One sentence, far larger than any heading on the page, travels as the
+      visitor scrolls. It is a statement, not a marquee: it moves once, and it
+      is readable at every point of its travel -- which means the travel runs
+      into the slack beside the line, never out through the section's clip.
     reference:
       - stills/03-propfirm-locked-card-stack--kinetic-oversized-type.jpg
     use_for: [golden-sentence, positioning-claim]
     max_per_page: 1
     cost: light
     mobile: >
-      In Persian this travels right-to-left. Font size caps so a four-word line
-      still fits two lines at 360px.
+      No horizontal travel. At phone width the line wraps to the full column
+      and there is no slack left to move through, so any travel clips a word
+      and breaks this verb's own readable-at-every-point rule. It degrades to
+      the shared rise-and-fade. Font size also caps so a four-word line still
+      fits two lines at 360px.
     reduced_motion: sits still, centred
     fails_open: it is a normal heading in the markup
     library: none

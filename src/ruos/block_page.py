@@ -87,20 +87,51 @@ def _schema_graph(spec: Mapping[str, Any], composed: ComposedPage) -> dict[str, 
 
     by_block = {entry["block"]: entry for entry in spec["blocks"]}
 
-    catalog = by_block.get("products-section")
+    catalog = by_block.get("products-section") or by_block.get("service-map")
     if catalog:
-        families = catalog.get("data", {}).get("products", [])
+        data = catalog.get("data", {})
+        families = data.get("products") or data.get("services") or []
+        # A service hub's list items are Services, not bare names: the page
+        # exists to be found for the service, so the item has to carry the
+        # type, the provider and where the service is offered. Any other page
+        # keeps the plain ListItem it has always emitted.
+        as_service = spec.get("schema_item_type") == "Service"
+        area_served = spec.get("schema_area_served") or []
+
+        def _element(index: int, family: Mapping[str, Any]) -> dict[str, Any]:
+            name = family.get("title", "")
+            description = (
+                family.get("meta", {}).get("use")
+                or family.get("qualifier")
+                or ""
+            )
+            element: dict[str, Any] = {"@type": "ListItem", "position": index}
+            if not as_service:
+                element["name"] = name
+                element["description"] = description
+                return element
+            service: dict[str, Any] = {
+                "@type": "Service",
+                "name": name,
+                "serviceType": family.get("meta", {}).get("type", name),
+                "provider": {"@type": "Organization", "name": brand},
+            }
+            if description:
+                service["description"] = description
+            if area_served:
+                service["areaServed"] = [
+                    {"@type": "AdministrativeArea", "name": area} for area in area_served
+                ]
+            if family.get("href"):
+                service["url"] = family["href"]
+            element["item"] = service
+            return element
+
         graph.append({
             "@type": "ItemList",
-            "name": catalog.get("data", {}).get("title", ""),
+            "name": data.get("title", ""),
             "itemListElement": [
-                {
-                    "@type": "ListItem",
-                    "position": index,
-                    "name": family.get("title", ""),
-                    "description": family.get("meta", {}).get("use", ""),
-                }
-                for index, family in enumerate(families, start=1)
+                _element(index, family) for index, family in enumerate(families, start=1)
             ],
         })
 

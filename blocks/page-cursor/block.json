@@ -1,0 +1,33 @@
+{
+  "id": "page-cursor",
+  "name": {
+    "fa": "مکان‌نمای روایت‌ساز",
+    "en": "page-cursor"
+  },
+  "role": "content",
+  "family": "chrome",
+  "surface": "none",
+  "composition": "The cursor arc (design model §21)",
+  "serves_intent": [
+    "orient"
+  ],
+  "position": "any",
+  "behavior": true,
+  "adjacency": {
+    "not_after_same_family": true
+  },
+  "motion": "none",
+  "source": {
+    "page": "05-rules/website/motion-verbs-v1.yaml",
+    "selector": "cursor"
+  },
+  "slots": {
+    "states": {
+      "type": "list",
+      "required": true,
+      "min": 1,
+      "max": 6
+    }
+  },
+  "layout": "band"
+}

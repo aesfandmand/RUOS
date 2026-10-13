@@ -1,0 +1,32 @@
+/* kinetic-oversized-type (design model §21). The sentence is a real heading in
+   the markup, so with JS off it simply sits still and reads — `fails_open`. */
+.golden-line{background:var(--paper);padding:clamp(96px,14vh,170px) max(24px,50vw - 580px);overflow:hidden;position:relative}
+.golden-line .eyebrow{margin:0 0 26px}
+.golden-line-copy{margin:0;font-weight:900;letter-spacing:-.05em;line-height:1.3;color:var(--ink);
+  font-size:clamp(2.1rem,5.2vw,4.6rem);text-wrap:balance;max-width:16ch}
+.golden-line-track{display:inline-block;will-change:transform;
+  /* --kin runs 0 → 1 across the section and the line settles at rest. The
+     travel is NEGATIVE (toward the inline end) on purpose: the heading is
+     capped at 16ch and sits against the start edge, so all the slack is on
+     that side. Travelling the other way pushed the first word out through
+     `overflow:hidden` and the line was captured with a letter missing --
+     §21 requires it to be readable at every point of its travel. */
+  transform:translateX(calc((1 - var(--kin,1)) * var(--kin-travel,-10vw)))}
+.golden-line-support{margin:34px 0 0;max-width:52ch;color:var(--muted);font-size:1.02rem;line-height:2.05}
+.golden-line-attribution{margin:18px 0 0;color:var(--muted);font-size:.86rem}
+.golden-line:after{content:"";position:absolute;inset-inline-end:max(24px,50vw - 580px);top:50%;
+  width:clamp(44px,6vw,92px);height:3px;background:var(--red-gloss);translate:0 -50%;opacity:.9}
+
+@media (width<=980px){
+  .golden-line{padding:84px 20px}
+  .golden-line-copy{font-size:clamp(1.85rem,8.4vw,2.7rem);max-width:none}
+  /* At phone width the line wraps to the full column, so there is no slack to
+     travel through without clipping a word. The verb degrades to the shared
+     rise-and-fade rather than moving sideways. */
+  .golden-line-track{--kin-travel:0px}
+  .golden-line:after{top:auto;bottom:34px;inset-inline-end:20px;width:52px}
+  .golden-line-support{font-size:.95rem;line-height:1.95}
+}
+@media (prefers-reduced-motion:reduce){
+  .golden-line-track{transform:none}
+}
