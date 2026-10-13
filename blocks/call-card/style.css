@@ -1,0 +1,90 @@
+/* The call card as a motion graphic. Owner, 2026-10-14: this section has to
+   draw the eye, and the card itself should become the motion, with a handset.
+
+   The motion is one idea told three ways, on one clock: the handset tips as if
+   it has just started ringing, the signal arcs leave it in time with that, and
+   the rings travel out behind the whole badge. Nothing moves on its own
+   schedule, which is what separates a motion graphic from three animations in
+   the same box. Everything is `prefers-reduced-motion` aware and the card is a
+   plain tel: link with or without any of it. */
+.call-card{background:var(--paper);padding:88px max(24px,50vw - 640px)}
+
+.call-card-face{position:relative;display:grid;grid-template-columns:auto auto auto;align-items:center;
+  justify-content:center;gap:clamp(20px,3vw,46px);width:100%;overflow:hidden;
+  background:var(--red-gloss);box-shadow:var(--red-gloss-shadow);
+  border-radius:26px;padding:clamp(26px,3.4vw,40px) clamp(24px,3.6vw,46px);
+  color:#fff;text-decoration:none;border:0;isolation:isolate;
+  transition:translate .45s cubic-bezier(.16,1,.3,1),box-shadow .45s}
+.call-card-face:hover{translate:0 -3px}
+
+/* rings travelling out from behind the badge; anchored on the badge itself so
+   they stay centred on it whatever the card's width does */
+.call-ring{position:absolute;inset:0;pointer-events:none;z-index:-1}
+.call-ring i{position:absolute;inset:0;border-radius:999px;border:1.5px solid #ffffff6b;
+  opacity:0;animation:call-pulse 3.2s cubic-bezier(.22,.8,.3,1) infinite}
+.call-ring i:nth-child(2){animation-delay:.42s}
+.call-ring i:nth-child(3){animation-delay:.84s}
+@keyframes call-pulse{
+  0%{transform:scale(.55);opacity:0}
+  18%{opacity:.85}
+  100%{transform:scale(2.5);opacity:0}}
+
+/* the badge and the handset inside it */
+.call-ico{position:relative;z-index:1;width:84px;height:84px;isolation:isolate;border-radius:999px;
+  display:grid;place-items:center;background:#ffffff1f;border:1px solid #ffffff5c;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  box-shadow:inset 0 1px 0 #ffffff6b,0 14px 30px -14px #00000059}
+.call-ico svg{width:40px;height:40px;fill:none;stroke:#fff;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.call-handset{transform-origin:24px 40px;animation:call-tilt 3.2s cubic-bezier(.36,0,.2,1) infinite}
+@keyframes call-tilt{
+  0%,62%,100%{transform:rotate(0)}
+  68%{transform:rotate(-13deg)}
+  74%{transform:rotate(10deg)}
+  80%{transform:rotate(-7deg)}
+  86%{transform:rotate(4deg)}
+  92%{transform:rotate(0)}}
+.call-wave path{opacity:0;animation:call-emit 3.2s cubic-bezier(.22,.8,.3,1) infinite}
+.call-wave path:nth-child(2){animation-delay:.16s}
+.call-wave-b path{animation-delay:.08s}
+.call-wave-b path:nth-child(2){animation-delay:.24s}
+@keyframes call-emit{
+  0%,54%{opacity:0;transform:scale(.88)}
+  66%{opacity:1;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.1)}}
+
+/* the number is the largest thing on the card */
+.call-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;
+  gap:5px;min-width:0}
+.call-copy small{font-size:11px;font-weight:700;letter-spacing:.09em;color:#ffffffc4}
+.call-copy strong{font-size:clamp(1rem,1.5vw,1.26rem);font-weight:700;line-height:1.55;
+  letter-spacing:-.02em}
+/* The number is the point of the card, so it gets its own column at the far
+   end and the largest size on it. direction:ltr keeps the digits in the right
+   order; without the explicit alignment the isolated run drifts to the wrong
+   edge of its own box, which is exactly what it did on the first build. */
+.call-dial{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+.call-number{display:block;font-size:clamp(1.6rem,3vw,2.6rem);font-weight:900;letter-spacing:.01em;
+  line-height:1.2;direction:ltr;unicode-bidi:isolate;text-align:right;
+  font-variant-numeric:tabular-nums;text-shadow:0 2px 18px #00000038}
+.call-go{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;
+  color:#fff;background:#ffffff26;border:1px solid #ffffff52;border-radius:999px;padding:6px 13px;
+  -webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+.call-go svg{width:12px;height:12px;fill:currentColor}
+.call-copy em{font-style:normal;font-size:12px;color:#ffffffcc;line-height:1.8;margin-top:2px}
+
+@media (width<=820px){
+  .call-card{padding:56px 20px}
+  .call-card-face{grid-template-columns:auto 1fr;justify-content:start;gap:16px 14px;padding:24px 20px}
+  .call-dial{grid-column:1 / -1;align-items:flex-start}
+  .call-number{font-size:clamp(1.55rem,8vw,2rem)}
+  .call-ico{width:64px;height:64px}
+  .call-ico svg{width:31px;height:31px}
+}
+@media (prefers-reduced-motion:reduce){
+  .call-ring i,.call-handset,.call-wave path{animation:none}
+  .call-wave path{opacity:1}
+  .call-ring i:first-child{opacity:.5;transform:scale(1.5)}
+  .call-card-face{transition:none}
+  .call-card-face:hover{translate:0}
+}

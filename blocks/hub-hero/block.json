@@ -7,7 +7,7 @@
   "role": "content",
   "family": "hero",
   "surface": "light",
-  "composition": "The one-viewport hero (design model §22). On desktop it is exactly tall enough to fill the screen under the header and leave a deliberate sliver of the next section showing, so the visitor can see there is more without scrolling to find out. Asymmetric: copy against the start edge, a photo panel bleeding off the end edge, and a trust strip overlapping the panel's lower edge.",
+  "composition": "The one-viewport hero (design model §22). The media slot is the first thing in the hero, above the copy, at every width — the owner's note, 2026-10-14. Asymmetric: media stage on one side with the trust strip overlapping its lower edge, copy on the other; stacked media-first on a phone.",
   "serves_intent": [
     "orient",
     "convert"
@@ -63,6 +63,10 @@
       "required": false
     },
     "title_html": {
+      "type": "text",
+      "required": false
+    },
+    "crumb_current": {
       "type": "text",
       "required": false
     }

@@ -1,0 +1,21 @@
+{
+  "id": "call-card",
+  "name": { "fa": "کارت تماس متحرک", "en": "call-card" },
+  "role": "content",
+  "family": "conversion",
+  "surface": "light",
+  "composition": "The call card as a motion graphic rather than a dark box with a number in it (owner, 2026-10-14). A handset that rings on its own rhythm, signal arcs leaving it, and the number as the largest thing on the card.",
+  "serves_intent": ["convert"],
+  "position": "any",
+  "behavior": false,
+  "adjacency": { "not_after_same_family": true },
+  "motion": "ambient-field",
+  "source": { "page": "owner instruction 2026-10-14", "selector": "«این کارت خودش یک موشن گرافیک بشود»" },
+  "slots": {
+    "eyebrow": { "type": "text", "required": false },
+    "title": { "type": "text", "required": true },
+    "number": { "type": "object", "required": true },
+    "note": { "type": "text", "required": false }
+  },
+  "layout": "band"
+}

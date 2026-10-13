@@ -1,0 +1,16 @@
+{
+  "id": "site-type",
+  "name": { "fa": "قواعد نگارش صفحه", "en": "site-type" },
+  "role": "content",
+  "family": "typography",
+  "surface": "none",
+  "composition": "Site-wide typographic rules that have to reach blocks this build is not allowed to edit. Carries no markup and paints no surface; it exists so a rule written once applies everywhere (design model §24).",
+  "serves_intent": ["read"],
+  "position": "any",
+  "behavior": false,
+  "adjacency": { "not_after_same_family": true },
+  "motion": "none",
+  "source": { "page": "05-rules/website/red-umbrella-design-model-v1.md", "selector": "§24" },
+  "slots": {},
+  "layout": "editorial"
+}

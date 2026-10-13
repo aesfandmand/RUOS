@@ -1044,3 +1044,50 @@ site and no amount of type scale will change that. The slots are correctly
 sized and described (§4, and the owner's instruction not to treat a missing
 photo as a defect); they are waiting on photography, and that is the one
 remaining gap this section cannot close.
+
+## 24. Justified paragraphs, site-wide
+
+Owner's rule, 2026-10-14: «قاعده جاستیفای باید در کل وب‌سایت رعایت شود و قانون
+بسیار مهمی است».
+
+Running paragraphs are justified. Headings, labels, chips, list rows, numbers,
+breadcrumbs and buttons are not — justification tears holes in a line that is
+only a few words long, which is the opposite of what the rule is for.
+
+- `text-align: justify` with **`text-align-last: start`**, so the last line of a
+  paragraph is not stretched across the column. A naive `justify` without this
+  is the usual giveaway.
+- **No `hyphens: auto`.** Persian does not hyphenate; turning it on produces
+  breaks that are simply wrong.
+- Below 560px the narrow card columns release the rule, because a justified
+  column under roughly 34 characters opens rivers in any script.
+
+The rule lives in `blocks/site-type/style.css`, a block that carries no markup
+and paints no surface. It exists because several blocks that need the rule are
+frozen by the structure-page lock and cannot be edited here; a stylesheet that
+every page already loads is the only way to reach them without touching a
+locked file.
+
+## 25. What Red Umbrella is not
+
+Owner, 2026-10-14, as a standing rule:
+
+> ما تابلوساز نیستیم که تابلو سر در مغازه بسازیم. به هیچ عنوان محتوای مرتبط با
+> سر در مغازه تا اطلاع ثانوی نخواهیم داشت و هیچ کجا استفاده نشود.
+
+**No shopfront signage anywhere**, on any page, in any copy, alt text, form
+placeholder or example — until he says otherwise. Not as a service, not as a
+scene, not as an illustration of a small business.
+
+This is a positioning rule, not a wording preference, and it has a second half
+that is just as important: the services hub is **not** the outdoor-advertising
+page. His words on the same day: «در کل این صفحه بجای صفحه هاب خدمات با صفحه
+تبلیغات محیطی اشتباه گرفتی». A hub page that keeps reaching for billboards for
+its hero, its process, its proof and its examples has quietly become a
+different page. Every section of a services hub has to be true of **all six**
+service areas, or it belongs on the page for the one it is actually about.
+
+`tests/test_positioning_guard.py` fails the build on shopfront vocabulary in
+any page spec. It cannot reach the locked site-header, whose mega-menu note
+still reads «ویترین خروجی‌های واقعی» — «خروجی» is itself on the banned list,
+and that one needs the owner's approval to unlock before it can be fixed.

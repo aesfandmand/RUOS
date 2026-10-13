@@ -21,16 +21,26 @@
     #000 0%,#000a 34%,#0004 58%,#0000 78%);
   mask-image:radial-gradient(circle 330px at var(--lx,50%) var(--ly,42%),
     #000 0%,#000a 34%,#0004 58%,#0000 78%)}
-.hub-hero-grid,.hub-scroll{position:relative;z-index:1}
+.hub-scroll{position:relative;z-index:1}
 @media (hover:none),(pointer:coarse){.hub-hero-field{display:none}}
 @media (prefers-reduced-motion:reduce){.hub-hero-field{opacity:.28}}
 
-.hub-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
-  gap:clamp(32px,4vw,72px);align-items:center;width:100%}
+/* Media first. On desktop the stage leads on the inline-start side and the
+   copy sits beside it; on a phone the stage is simply the first thing in the
+   hero. Either way the visitor meets a picture before a paragraph. */
+.hub-hero-inner{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);
+  gap:clamp(28px,3.4vw,60px);align-items:center;width:100%;position:relative;z-index:1}
+/* Explicit placement rather than template areas: in a right-to-left document
+   column 1 is the right-hand column, which is where the eye lands first, and
+   that is where the media goes. The owner's rule is that a hero meets the
+   visitor with a picture, not a paragraph. */
+.hub-crumb{grid-column:1 / -1;grid-row:1}
+.hub-hero-stage{grid-column:1;grid-row:2;position:relative;min-width:0}
+.hub-hero-copy{grid-column:2;grid-row:2}
 
 /* ── copy ─────────────────────────────────────────────────────────────── */
 .hub-hero-copy{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-.hub-crumb{display:flex;gap:8px;align-items:center;font-size:11.5px;color:var(--muted);margin:0 0 26px}
+.hub-crumb{display:flex;gap:8px;align-items:center;font-size:11.5px;color:var(--muted);margin:0}
 .hub-crumb a{color:var(--muted);text-decoration:none;border:0}
 .hub-crumb a:after{content:"/";margin-inline-start:8px;opacity:.5}
 .hub-crumb a:hover{color:var(--ink)}
@@ -61,8 +71,7 @@
 .hub-cta:hover svg{translate:-4px 0}
 
 /* ── panel ────────────────────────────────────────────────────────────── */
-.hub-hero-panel{position:relative;min-width:0}
-.hub-panel-shot{margin:0;border-radius:22px;aspect-ratio:4/3.1;max-height:min(58svh,560px);
+.hub-panel-shot{margin:0;border-radius:22px;aspect-ratio:16/10;max-height:min(54svh,520px);
   border-color:var(--line)}
 .hub-strip{margin:0;position:absolute;inset-inline-start:22px;inset-block-end:-26px;
   display:grid;grid-auto-flow:column;gap:clamp(18px,2vw,34px);
@@ -83,7 +92,10 @@
   40%{transform:scaleY(1);opacity:1}100%{transform:scaleY(.2);transform-origin:bottom;opacity:0}}
 
 @media (width<=1100px){
-  .hub-hero-grid{grid-template-columns:1fr;gap:34px}
+  .hub-hero-inner{grid-template-columns:1fr;gap:24px}
+  .hub-crumb{grid-column:1;grid-row:1}
+  .hub-hero-stage{grid-column:1;grid-row:2}
+  .hub-hero-copy{grid-column:1;grid-row:3}
   .hub-hero{min-height:0;padding-block:40px 64px}
   .hub-title{max-width:none}
   .hub-strip{position:static;margin-top:18px;grid-auto-flow:row;gap:12px;

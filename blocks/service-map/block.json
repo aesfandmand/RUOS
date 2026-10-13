@@ -46,6 +46,10 @@
       "required": true,
       "min": 2,
       "max": 12
+    },
+    "filter_label": {
+      "type": "text",
+      "required": false
     }
   },
   "layout": "catalog"

@@ -88,3 +88,16 @@
   .service-card,.service-link svg{transition:none}
   .service-card:hover{transform:none}
 }
+
+/* The chip row says what it is. Without a label the owner read these as
+   products sitting above the services rather than as a filter on them. */
+.service-filter-row{display:flex;align-items:center;gap:16px;margin:0 0 26px;flex-wrap:wrap}
+.service-filter-label{margin:0;flex:none;font-size:12px;font-weight:700;color:var(--ink)}
+.service-filter-label:after{content:"";display:inline-block;width:14px;height:1px;
+  background:var(--line);margin-inline-start:12px;vertical-align:middle}
+.service-filter-row .service-filters{margin:0;flex:1 1 auto;min-width:0}
+@media (width<=820px){
+  .service-filter-row{gap:10px;flex-wrap:nowrap;align-items:baseline}
+  .service-filter-label{font-size:11.5px}
+  .service-filter-label:after{display:none}
+}

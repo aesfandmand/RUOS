@@ -1,0 +1,48 @@
+/* ── §24: justified paragraphs, site-wide ────────────────────────────────
+   Owner's rule, 2026-10-14: «قاعده جاستیفای باید در کل وب سایت رعایت شود و
+   قانون بسیار مهمی است».
+
+   Persian is a connected script and its justification is cleaner than Latin's,
+   but a justified column still opens rivers if it is narrow or if the words are
+   long. So: justify the running paragraphs, and leave alone the places where
+   justification does damage — headings, single-line labels, numbers, buttons,
+   list rows and anything inside a card too narrow to justify without gaps.
+
+   `text-align: justify` with `text-align-last: start` keeps the final line from
+   being stretched across the column, which is the usual giveaway of a naive
+   justify. `hyphens: auto` is deliberately NOT set: Persian does not hyphenate.
+
+   This block exists because several of the blocks that need the rule are
+   frozen by the structure-page lock and cannot be edited here. */
+.hub-lead,
+.service-body-copy,
+.service-cf-body,
+.golden-line-support,
+.zz-copy p,
+.zz-lead,
+.editorial-copy p,
+.lead-intro,
+.section-intro > p,
+.split-heading .heading-aside p,
+.faq-answer p,
+.proof-section-final .heading-aside p,
+.process-section-final .section-intro p,
+.p-hero-lead{
+  text-align:justify;
+  text-align-last:start;
+  text-justify:inter-word}
+
+/* Never justified: too short to justify without tearing a hole in the line. */
+.hub-eyebrow,.eyebrow,.hub-chips li,.service-qualifier,.service-points li,
+.service-cf-points li,.hub-strip dt,.hub-strip dd,.hub-crumb,
+h1,h2,h3,h4,.hub-title,.golden-line-copy,
+button,.hub-cta,.primary-button,.service-link,.service-cf-link{
+  text-align:start;
+  text-align-last:auto}
+
+/* A justified column under about 34 characters opens rivers whatever the
+   script, so the rule releases itself rather than being switched off by hand
+   in every narrow card. */
+@media (width<=560px){
+  .service-body-copy,.service-cf-body{text-align:start}
+}
