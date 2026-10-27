@@ -42,7 +42,9 @@ def test_opening_and_closing_blocks_exist_for_every_archetype() -> None:
     # hero a standing rule for desktop (design model §22) and product-hero,
     # which is locked by the structure-page lock, cannot meet it. Hub pages
     # open with hub-hero; a structure page keeps the approved archetype.
-    assert openers == {"hero-scroll-scene", "structure-hero", "product-hero", "hub-hero"}
+    # portfolio-hero joined on 2026-10-27: the portfolio hub's own opener,
+    # carrying the active-card-becomes-hero verb its motion score names.
+    assert openers == {"hero-scroll-scene", "structure-hero", "product-hero", "hub-hero", "portfolio-hero"}
     assert closers == {"review-gate", "lead-form"}
 
 

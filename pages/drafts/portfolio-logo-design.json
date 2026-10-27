@@ -1,0 +1,3283 @@
+{
+  "slug": "portfolio-logo-design",
+  "lang": "fa",
+  "direction": "rtl",
+  "title": "نمونه کار طراحی لوگو | چتر قرمز",
+  "description": "نمونه‌کار با نام پروژه، شهر، سال و نقش ما؛ بر اساس خدمت.",
+  "canonical": "https://chatreghermez.com/portfolio/service/logo-design/",
+  "shell": "@site",
+  "nav_section": "/portfolio/",
+  "schema_item_type": "CreativeWork",
+  "schema_area_served": [
+    "اصفهان",
+    "ایران"
+  ],
+  "motion_score": {
+    "declared": "portfolio_hub",
+    "verbs": [
+      "active-card-becomes-hero",
+      "skeleton-to-content",
+      "horizontal-accordion",
+      "kinetic-oversized-type"
+    ],
+    "note": "The full portfolio_hub score. call-card runs `still` so ambient-field stays out (owner, 2026-10-27)."
+  },
+  "blocks": [
+    {
+      "block": "portfolio-hero",
+      "anchor": "top",
+      "data": {
+        "breadcrumb": [
+          {
+            "label": "خانه",
+            "href": "/"
+          },
+          {
+            "label": "نمونه‌کارها",
+            "href": "/portfolio/"
+          }
+        ],
+        "crumb_current": "طراحی لوگو",
+        "eyebrow": "نمونه‌کار · طراحی گرافیک",
+        "title": "نمونه کار طراحی لوگو",
+        "lead": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+        "primary": {
+          "label": "دریافت رزومه و مدارک",
+          "href": "#lead"
+        },
+        "share": {
+          "label": "کپی لینک همین صفحه",
+          "done": "لینک کپی شد"
+        },
+        "rail_label": "نمونه‌های منتخب",
+        "slides": [
+          {
+            "title": "نمونه‌کار طراحی لوگو ۱",
+            "service": "طراحی لوگو",
+            "client": "صنعت مشتری",
+            "city": "شهر",
+            "year": "سال",
+            "role": "نقش ما",
+            "label": "جایگاه ویدئو (Remotion)",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "title": "نمونه‌کار طراحی لوگو ۲",
+            "service": "طراحی لوگو",
+            "client": "صنعت مشتری",
+            "city": "شهر",
+            "year": "سال",
+            "role": "نقش ما",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "title": "نمونه‌کار طراحی لوگو ۳",
+            "service": "طراحی لوگو",
+            "client": "صنعت مشتری",
+            "city": "شهر",
+            "year": "سال",
+            "role": "نقش ما",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "title": "نمونه‌کار طراحی هویت بصری",
+            "service": "طراحی هویت بصری",
+            "client": "صنعت مشتری",
+            "city": "شهر",
+            "year": "سال",
+            "role": "نقش ما",
+            "label": "جایگاه عکس",
+            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "title": "نمونه‌کار طراحی ست اداری",
+            "service": "طراحی ست اداری",
+            "client": "صنعت مشتری",
+            "city": "شهر",
+            "year": "سال",
+            "role": "نقش ما",
+            "label": "جایگاه عکس",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
+            "placeholder": true
+          }
+        ],
+        "slides_total": "۰۵"
+      }
+    },
+    {
+      "block": "portfolio-grid",
+      "anchor": "samples",
+      "data": {
+        "eyebrow": "نمونه‌ها",
+        "title": "نمونه‌های طراحی لوگو",
+        "aside": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+        "family_label": "حوزهٔ کار",
+        "service_label": "خدمت",
+        "all_label": "همه",
+        "families": [
+          {
+            "value": "ooh",
+            "label": "تبلیغات محیطی",
+            "icon": "icon-fam-outdoor"
+          },
+          {
+            "value": "digital",
+            "label": "دیجیتال مارکتینگ",
+            "icon": "icon-fam-digital"
+          },
+          {
+            "value": "graphic",
+            "label": "طراحی گرافیک",
+            "icon": "icon-fam-graphic"
+          },
+          {
+            "value": "print",
+            "label": "چاپ و تولید",
+            "icon": "icon-fam-print"
+          },
+          {
+            "value": "photo",
+            "label": "عکاسی و فیلم‌برداری",
+            "icon": "icon-fam-photo"
+          },
+          {
+            "value": "consult",
+            "label": "مشاوره",
+            "icon": "icon-fam-consult"
+          }
+        ],
+        "services": [
+          {
+            "value": "media-rental",
+            "label": "اجاره و اکران رسانه",
+            "family": "ooh",
+            "href": "/portfolio/service/media-rental/"
+          },
+          {
+            "value": "corporate-web-design",
+            "label": "طراحی سایت شرکتی",
+            "family": "digital",
+            "href": "/portfolio/service/corporate-web-design/"
+          },
+          {
+            "value": "ecommerce-web-design",
+            "label": "طراحی سایت فروشگاهی",
+            "family": "digital",
+            "href": "/portfolio/service/ecommerce-web-design/"
+          },
+          {
+            "value": "custom-web-design",
+            "label": "طراحی سایت اختصاصی",
+            "family": "digital",
+            "href": "/portfolio/service/custom-web-design/"
+          },
+          {
+            "value": "wordpress-web-design",
+            "label": "طراحی سایت وردپرس",
+            "family": "digital",
+            "href": "/portfolio/service/wordpress-web-design/"
+          },
+          {
+            "value": "website-redesign",
+            "label": "بازطراحی سایت",
+            "family": "digital",
+            "href": "/portfolio/service/website-redesign/"
+          },
+          {
+            "value": "landing-page-design",
+            "label": "طراحی لندینگ پیج",
+            "family": "digital",
+            "href": "/portfolio/service/landing-page-design/"
+          },
+          {
+            "value": "ui-ux-design",
+            "label": "طراحی UI/UX",
+            "family": "digital",
+            "href": "/portfolio/service/ui-ux-design/"
+          },
+          {
+            "value": "ecommerce-seo",
+            "label": "سئو فروشگاهی",
+            "family": "digital",
+            "href": "/portfolio/service/ecommerce-seo/"
+          },
+          {
+            "value": "local-seo",
+            "label": "سئو محلی",
+            "family": "digital",
+            "href": "/portfolio/service/local-seo/"
+          },
+          {
+            "value": "technical-seo",
+            "label": "سئو تکنیکال",
+            "family": "digital",
+            "href": "/portfolio/service/technical-seo/"
+          },
+          {
+            "value": "seo-consulting",
+            "label": "مشاوره سئو",
+            "family": "digital",
+            "href": "/portfolio/service/seo-consulting/"
+          },
+          {
+            "value": "website-support",
+            "label": "پشتیبانی سایت",
+            "family": "digital",
+            "href": "/portfolio/service/website-support/"
+          },
+          {
+            "value": "wordpress-support",
+            "label": "پشتیبانی وردپرس",
+            "family": "digital",
+            "href": "/portfolio/service/wordpress-support/"
+          },
+          {
+            "value": "website-speed-optimization",
+            "label": "افزایش سرعت سایت",
+            "family": "digital",
+            "href": "/portfolio/service/website-speed-optimization/"
+          },
+          {
+            "value": "website-troubleshooting",
+            "label": "رفع مشکلات سایت",
+            "family": "digital",
+            "href": "/portfolio/service/website-troubleshooting/"
+          },
+          {
+            "value": "instagram-management",
+            "label": "مدیریت پیج اینستاگرام",
+            "family": "digital",
+            "href": "/portfolio/service/instagram-management/"
+          },
+          {
+            "value": "instagram-content-production",
+            "label": "تولید محتوای اینستاگرام",
+            "family": "digital",
+            "href": "/portfolio/service/instagram-content-production/"
+          },
+          {
+            "value": "reels-production",
+            "label": "تولید ریلز",
+            "family": "digital",
+            "href": "/portfolio/service/reels-production/"
+          },
+          {
+            "value": "logo-design",
+            "label": "طراحی لوگو",
+            "family": "graphic",
+            "href": "/portfolio/service/logo-design/"
+          },
+          {
+            "value": "visual-identity-design",
+            "label": "طراحی هویت بصری",
+            "family": "graphic",
+            "href": "/portfolio/service/visual-identity-design/"
+          },
+          {
+            "value": "stationery-design",
+            "label": "طراحی ست اداری",
+            "family": "graphic",
+            "href": "/portfolio/service/stationery-design/"
+          },
+          {
+            "value": "business-card-design",
+            "label": "طراحی کارت ویزیت",
+            "family": "graphic",
+            "href": "/portfolio/service/business-card-design/"
+          },
+          {
+            "value": "catalog-design",
+            "label": "طراحی کاتالوگ",
+            "family": "graphic",
+            "href": "/portfolio/service/catalog-design/"
+          },
+          {
+            "value": "brochure-design",
+            "label": "طراحی بروشور",
+            "family": "graphic",
+            "href": "/portfolio/service/brochure-design/"
+          },
+          {
+            "value": "banner-design",
+            "label": "طراحی بنر",
+            "family": "graphic",
+            "href": "/portfolio/service/banner-design/"
+          },
+          {
+            "value": "website-banner-design",
+            "label": "طراحی بنر سایت",
+            "family": "graphic",
+            "href": "/portfolio/service/website-banner-design/"
+          },
+          {
+            "value": "billboard-design",
+            "label": "طراحی بیلبورد",
+            "family": "graphic",
+            "href": "/portfolio/service/billboard-design/"
+          },
+          {
+            "value": "poster-design",
+            "label": "طراحی پوستر",
+            "family": "graphic",
+            "href": "/portfolio/service/poster-design/"
+          },
+          {
+            "value": "lightbox-design",
+            "label": "طراحی لایت‌باکس",
+            "family": "graphic",
+            "href": "/portfolio/service/lightbox-design/"
+          },
+          {
+            "value": "exhibition-stand-design",
+            "label": "طراحی استند نمایشگاهی",
+            "family": "graphic",
+            "href": "/portfolio/service/exhibition-stand-design/"
+          },
+          {
+            "value": "exhibition-backlight-design",
+            "label": "طراحی بک‌لایت نمایشگاهی",
+            "family": "graphic",
+            "href": "/portfolio/service/exhibition-backlight-design/"
+          },
+          {
+            "value": "packaging-design",
+            "label": "طراحی بسته‌بندی",
+            "family": "graphic",
+            "href": "/portfolio/service/packaging-design/"
+          },
+          {
+            "value": "label-design",
+            "label": "طراحی لیبل",
+            "family": "graphic",
+            "href": "/portfolio/service/label-design/"
+          },
+          {
+            "value": "banner-printing",
+            "label": "چاپ بنر",
+            "family": "print",
+            "href": "/portfolio/service/banner-printing/"
+          },
+          {
+            "value": "vinyl-printing",
+            "label": "چاپ استیکر / وینیل",
+            "family": "print",
+            "href": "/portfolio/service/vinyl-printing/"
+          },
+          {
+            "value": "backlit-printing",
+            "label": "چاپ بک‌لایت",
+            "family": "print",
+            "href": "/portfolio/service/backlit-printing/"
+          },
+          {
+            "value": "lightbox-fabric-printing",
+            "label": "چاپ پارچه لایت‌باکس",
+            "family": "print",
+            "href": "/portfolio/service/lightbox-fabric-printing/"
+          },
+          {
+            "value": "catalog-printing",
+            "label": "چاپ کاتالوگ",
+            "family": "print",
+            "href": "/portfolio/service/catalog-printing/"
+          },
+          {
+            "value": "brochure-printing",
+            "label": "چاپ بروشور",
+            "family": "print",
+            "href": "/portfolio/service/brochure-printing/"
+          },
+          {
+            "value": "stationery-printing",
+            "label": "چاپ ست اداری",
+            "family": "print",
+            "href": "/portfolio/service/stationery-printing/"
+          },
+          {
+            "value": "business-card-printing",
+            "label": "چاپ کارت ویزیت",
+            "family": "print",
+            "href": "/portfolio/service/business-card-printing/"
+          },
+          {
+            "value": "industrial-photography",
+            "label": "عکاسی صنعتی",
+            "family": "photo",
+            "href": "/portfolio/service/industrial-photography/"
+          },
+          {
+            "value": "advertising-photography",
+            "label": "عکاسی تبلیغاتی",
+            "family": "photo",
+            "href": "/portfolio/service/advertising-photography/"
+          },
+          {
+            "value": "product-photography",
+            "label": "عکاسی محصول",
+            "family": "photo",
+            "href": "/portfolio/service/product-photography/"
+          },
+          {
+            "value": "advertising-video-production",
+            "label": "ساخت تیزر تبلیغاتی",
+            "family": "photo",
+            "href": "/portfolio/service/advertising-video-production/"
+          },
+          {
+            "value": "industrial-video-production",
+            "label": "فیلم صنعتی",
+            "family": "photo",
+            "href": "/portfolio/service/industrial-video-production/"
+          },
+          {
+            "value": "advertising-consulting",
+            "label": "مشاوره تبلیغات",
+            "family": "consult",
+            "href": "/portfolio/service/advertising-consulting/"
+          },
+          {
+            "value": "marketing-consulting",
+            "label": "مشاوره بازاریابی",
+            "family": "consult",
+            "href": "/portfolio/service/marketing-consulting/"
+          },
+          {
+            "value": "marketing-strategy",
+            "label": "استراتژی بازاریابی",
+            "family": "consult",
+            "href": "/portfolio/service/marketing-strategy/"
+          },
+          {
+            "value": "business-consulting",
+            "label": "مشاوره کسب‌وکار",
+            "family": "consult",
+            "href": "/portfolio/service/business-consulting/"
+          },
+          {
+            "value": "business-systemization",
+            "label": "سیستم‌سازی کسب‌وکار",
+            "family": "consult",
+            "href": "/portfolio/service/business-systemization/"
+          }
+        ],
+        "items": [
+          {
+            "family": "graphic",
+            "service": "logo-design",
+            "service_label": "طراحی لوگو",
+            "code": "RU-GD-001-01",
+            "title": "نمونه‌کار طراحی لوگو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/logo-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "logo-design",
+            "service_label": "طراحی لوگو",
+            "code": "RU-GD-001-02",
+            "title": "نمونه‌کار طراحی لوگو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/logo-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "ooh",
+            "service": "media-rental",
+            "service_label": "اجاره و اکران رسانه",
+            "code": "RU-OOH-002-01",
+            "title": "نمونه‌کار اجاره و اکران رسانه",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "نصب و اکران"
+              }
+            ],
+            "href": "/portfolio/media-rental-01/",
+            "label": "جایگاه عکس",
+            "alt": "اجاره و اکران رسانه برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار اجاره و اکران رسانه چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "ooh",
+            "service": "media-rental",
+            "service_label": "اجاره و اکران رسانه",
+            "code": "RU-OOH-002-02",
+            "title": "نمونه‌کار اجاره و اکران رسانه",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "نصب و اکران"
+              }
+            ],
+            "href": "/portfolio/media-rental-02/",
+            "label": "جایگاه عکس",
+            "alt": "اجاره و اکران رسانه برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار اجاره و اکران رسانه چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "corporate-web-design",
+            "service_label": "طراحی سایت شرکتی",
+            "code": "RU-WEB-002-01",
+            "title": "نمونه‌کار طراحی سایت شرکتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/corporate-web-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی سایت شرکتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی سایت شرکتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "corporate-web-design",
+            "service_label": "طراحی سایت شرکتی",
+            "code": "RU-WEB-002-02",
+            "title": "نمونه‌کار طراحی سایت شرکتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/corporate-web-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی سایت شرکتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی سایت شرکتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "ecommerce-web-design",
+            "service_label": "طراحی سایت فروشگاهی",
+            "code": "RU-WEB-003-01",
+            "title": "نمونه‌کار طراحی سایت فروشگاهی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/ecommerce-web-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی سایت فروشگاهی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی سایت فروشگاهی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "ecommerce-web-design",
+            "service_label": "طراحی سایت فروشگاهی",
+            "code": "RU-WEB-003-02",
+            "title": "نمونه‌کار طراحی سایت فروشگاهی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/ecommerce-web-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی سایت فروشگاهی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی سایت فروشگاهی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "custom-web-design",
+            "service_label": "طراحی سایت اختصاصی",
+            "code": "RU-WEB-004-01",
+            "title": "نمونه‌کار طراحی سایت اختصاصی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/custom-web-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی سایت اختصاصی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی سایت اختصاصی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "custom-web-design",
+            "service_label": "طراحی سایت اختصاصی",
+            "code": "RU-WEB-004-02",
+            "title": "نمونه‌کار طراحی سایت اختصاصی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/custom-web-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی سایت اختصاصی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی سایت اختصاصی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "wordpress-web-design",
+            "service_label": "طراحی سایت وردپرس",
+            "code": "RU-WEB-005-01",
+            "title": "نمونه‌کار طراحی سایت وردپرس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/wordpress-web-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی سایت وردپرس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی سایت وردپرس چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "wordpress-web-design",
+            "service_label": "طراحی سایت وردپرس",
+            "code": "RU-WEB-005-02",
+            "title": "نمونه‌کار طراحی سایت وردپرس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/wordpress-web-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی سایت وردپرس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی سایت وردپرس چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "website-redesign",
+            "service_label": "بازطراحی سایت",
+            "code": "RU-WEB-006-01",
+            "title": "نمونه‌کار بازطراحی سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/website-redesign-01/",
+            "label": "جایگاه عکس",
+            "alt": "بازطراحی سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار بازطراحی سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "website-redesign",
+            "service_label": "بازطراحی سایت",
+            "code": "RU-WEB-006-02",
+            "title": "نمونه‌کار بازطراحی سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/website-redesign-02/",
+            "label": "جایگاه عکس",
+            "alt": "بازطراحی سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار بازطراحی سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "landing-page-design",
+            "service_label": "طراحی لندینگ پیج",
+            "code": "RU-WEB-007-01",
+            "title": "نمونه‌کار طراحی لندینگ پیج",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/landing-page-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لندینگ پیج برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لندینگ پیج چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "landing-page-design",
+            "service_label": "طراحی لندینگ پیج",
+            "code": "RU-WEB-007-02",
+            "title": "نمونه‌کار طراحی لندینگ پیج",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/landing-page-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لندینگ پیج برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لندینگ پیج چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "ui-ux-design",
+            "service_label": "طراحی UI/UX",
+            "code": "RU-WEB-008-01",
+            "title": "نمونه‌کار طراحی UI/UX",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/ui-ux-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی UI/UX برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی UI/UX چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "ui-ux-design",
+            "service_label": "طراحی UI/UX",
+            "code": "RU-WEB-008-02",
+            "title": "نمونه‌کار طراحی UI/UX",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/ui-ux-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی UI/UX برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی UI/UX چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "ecommerce-seo",
+            "service_label": "سئو فروشگاهی",
+            "code": "RU-SEO-002-01",
+            "title": "نمونه‌کار سئو فروشگاهی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/ecommerce-seo-01/",
+            "label": "جایگاه عکس",
+            "alt": "سئو فروشگاهی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار سئو فروشگاهی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "ecommerce-seo",
+            "service_label": "سئو فروشگاهی",
+            "code": "RU-SEO-002-02",
+            "title": "نمونه‌کار سئو فروشگاهی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/ecommerce-seo-02/",
+            "label": "جایگاه عکس",
+            "alt": "سئو فروشگاهی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار سئو فروشگاهی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "local-seo",
+            "service_label": "سئو محلی",
+            "code": "RU-SEO-003-01",
+            "title": "نمونه‌کار سئو محلی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/local-seo-01/",
+            "label": "جایگاه عکس",
+            "alt": "سئو محلی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار سئو محلی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "local-seo",
+            "service_label": "سئو محلی",
+            "code": "RU-SEO-003-02",
+            "title": "نمونه‌کار سئو محلی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/local-seo-02/",
+            "label": "جایگاه عکس",
+            "alt": "سئو محلی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار سئو محلی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "technical-seo",
+            "service_label": "سئو تکنیکال",
+            "code": "RU-SEO-004-01",
+            "title": "نمونه‌کار سئو تکنیکال",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/technical-seo-01/",
+            "label": "جایگاه عکس",
+            "alt": "سئو تکنیکال برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار سئو تکنیکال چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "technical-seo",
+            "service_label": "سئو تکنیکال",
+            "code": "RU-SEO-004-02",
+            "title": "نمونه‌کار سئو تکنیکال",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/technical-seo-02/",
+            "label": "جایگاه عکس",
+            "alt": "سئو تکنیکال برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار سئو تکنیکال چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "seo-consulting",
+            "service_label": "مشاوره سئو",
+            "code": "RU-SEO-005-01",
+            "title": "نمونه‌کار مشاوره سئو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/seo-consulting-01/",
+            "label": "جایگاه عکس",
+            "alt": "مشاوره سئو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مشاوره سئو چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "seo-consulting",
+            "service_label": "مشاوره سئو",
+            "code": "RU-SEO-005-02",
+            "title": "نمونه‌کار مشاوره سئو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/seo-consulting-02/",
+            "label": "جایگاه عکس",
+            "alt": "مشاوره سئو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مشاوره سئو چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "website-support",
+            "service_label": "پشتیبانی سایت",
+            "code": "RU-SUP-001-01",
+            "title": "نمونه‌کار پشتیبانی سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/website-support-01/",
+            "label": "جایگاه عکس",
+            "alt": "پشتیبانی سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار پشتیبانی سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "website-support",
+            "service_label": "پشتیبانی سایت",
+            "code": "RU-SUP-001-02",
+            "title": "نمونه‌کار پشتیبانی سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/website-support-02/",
+            "label": "جایگاه عکس",
+            "alt": "پشتیبانی سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار پشتیبانی سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "wordpress-support",
+            "service_label": "پشتیبانی وردپرس",
+            "code": "RU-SUP-002-01",
+            "title": "نمونه‌کار پشتیبانی وردپرس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/wordpress-support-01/",
+            "label": "جایگاه عکس",
+            "alt": "پشتیبانی وردپرس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار پشتیبانی وردپرس چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "wordpress-support",
+            "service_label": "پشتیبانی وردپرس",
+            "code": "RU-SUP-002-02",
+            "title": "نمونه‌کار پشتیبانی وردپرس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/wordpress-support-02/",
+            "label": "جایگاه عکس",
+            "alt": "پشتیبانی وردپرس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار پشتیبانی وردپرس چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "website-speed-optimization",
+            "service_label": "افزایش سرعت سایت",
+            "code": "RU-SUP-003-01",
+            "title": "نمونه‌کار افزایش سرعت سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/website-speed-optimization-01/",
+            "label": "جایگاه عکس",
+            "alt": "افزایش سرعت سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار افزایش سرعت سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "website-speed-optimization",
+            "service_label": "افزایش سرعت سایت",
+            "code": "RU-SUP-003-02",
+            "title": "نمونه‌کار افزایش سرعت سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/website-speed-optimization-02/",
+            "label": "جایگاه عکس",
+            "alt": "افزایش سرعت سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار افزایش سرعت سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "website-troubleshooting",
+            "service_label": "رفع مشکلات سایت",
+            "code": "RU-SUP-004-01",
+            "title": "نمونه‌کار رفع مشکلات سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/website-troubleshooting-01/",
+            "label": "جایگاه عکس",
+            "alt": "رفع مشکلات سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار رفع مشکلات سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "website-troubleshooting",
+            "service_label": "رفع مشکلات سایت",
+            "code": "RU-SUP-004-02",
+            "title": "نمونه‌کار رفع مشکلات سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/website-troubleshooting-02/",
+            "label": "جایگاه عکس",
+            "alt": "رفع مشکلات سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار رفع مشکلات سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "instagram-management",
+            "service_label": "مدیریت پیج اینستاگرام",
+            "code": "RU-SOC-002-01",
+            "title": "نمونه‌کار مدیریت پیج اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-management-01/",
+            "label": "جایگاه عکس",
+            "alt": "مدیریت پیج اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مدیریت پیج اینستاگرام چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "instagram-management",
+            "service_label": "مدیریت پیج اینستاگرام",
+            "code": "RU-SOC-002-02",
+            "title": "نمونه‌کار مدیریت پیج اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-management-02/",
+            "label": "جایگاه عکس",
+            "alt": "مدیریت پیج اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مدیریت پیج اینستاگرام چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "instagram-content-production",
+            "service_label": "تولید محتوای اینستاگرام",
+            "code": "RU-SOC-003-01",
+            "title": "نمونه‌کار تولید محتوای اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-content-production-01/",
+            "label": "جایگاه عکس",
+            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "instagram-content-production",
+            "service_label": "تولید محتوای اینستاگرام",
+            "code": "RU-SOC-003-02",
+            "title": "نمونه‌کار تولید محتوای اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-content-production-02/",
+            "label": "جایگاه عکس",
+            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "reels-production",
+            "service_label": "تولید ریلز",
+            "code": "RU-SOC-004-01",
+            "title": "نمونه‌کار تولید ریلز",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/reels-production-01/",
+            "label": "جایگاه ویدئو",
+            "alt": "تولید ریلز برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید ریلز چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "digital",
+            "service": "reels-production",
+            "service_label": "تولید ریلز",
+            "code": "RU-SOC-004-02",
+            "title": "نمونه‌کار تولید ریلز",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/reels-production-02/",
+            "label": "جایگاه ویدئو",
+            "alt": "تولید ریلز برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید ریلز چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "visual-identity-design",
+            "service_label": "طراحی هویت بصری",
+            "code": "RU-GD-002-01",
+            "title": "نمونه‌کار طراحی هویت بصری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/visual-identity-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "visual-identity-design",
+            "service_label": "طراحی هویت بصری",
+            "code": "RU-GD-002-02",
+            "title": "نمونه‌کار طراحی هویت بصری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/visual-identity-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "stationery-design",
+            "service_label": "طراحی ست اداری",
+            "code": "RU-GD-003-01",
+            "title": "نمونه‌کار طراحی ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/stationery-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "stationery-design",
+            "service_label": "طراحی ست اداری",
+            "code": "RU-GD-003-02",
+            "title": "نمونه‌کار طراحی ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/stationery-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "business-card-design",
+            "service_label": "طراحی کارت ویزیت",
+            "code": "RU-GD-004-01",
+            "title": "نمونه‌کار طراحی کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/business-card-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "business-card-design",
+            "service_label": "طراحی کارت ویزیت",
+            "code": "RU-GD-004-02",
+            "title": "نمونه‌کار طراحی کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/business-card-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "catalog-design",
+            "service_label": "طراحی کاتالوگ",
+            "code": "RU-GD-007-01",
+            "title": "نمونه‌کار طراحی کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/catalog-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "catalog-design",
+            "service_label": "طراحی کاتالوگ",
+            "code": "RU-GD-007-02",
+            "title": "نمونه‌کار طراحی کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/catalog-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "brochure-design",
+            "service_label": "طراحی بروشور",
+            "code": "RU-GD-008-01",
+            "title": "نمونه‌کار طراحی بروشور",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/brochure-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بروشور چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "brochure-design",
+            "service_label": "طراحی بروشور",
+            "code": "RU-GD-008-02",
+            "title": "نمونه‌کار طراحی بروشور",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/brochure-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بروشور چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "banner-design",
+            "service_label": "طراحی بنر",
+            "code": "RU-GD-009-01",
+            "title": "نمونه‌کار طراحی بنر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/banner-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "banner-design",
+            "service_label": "طراحی بنر",
+            "code": "RU-GD-009-02",
+            "title": "نمونه‌کار طراحی بنر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/banner-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "website-banner-design",
+            "service_label": "طراحی بنر سایت",
+            "code": "RU-GD-010-01",
+            "title": "نمونه‌کار طراحی بنر سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/website-banner-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "website-banner-design",
+            "service_label": "طراحی بنر سایت",
+            "code": "RU-GD-010-02",
+            "title": "نمونه‌کار طراحی بنر سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/website-banner-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر سایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "billboard-design",
+            "service_label": "طراحی بیلبورد",
+            "code": "RU-GD-011-01",
+            "title": "نمونه‌کار طراحی بیلبورد",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/billboard-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "billboard-design",
+            "service_label": "طراحی بیلبورد",
+            "code": "RU-GD-011-02",
+            "title": "نمونه‌کار طراحی بیلبورد",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/billboard-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "poster-design",
+            "service_label": "طراحی پوستر",
+            "code": "RU-GD-012-01",
+            "title": "نمونه‌کار طراحی پوستر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/poster-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی پوستر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی پوستر چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "poster-design",
+            "service_label": "طراحی پوستر",
+            "code": "RU-GD-012-02",
+            "title": "نمونه‌کار طراحی پوستر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/poster-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی پوستر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی پوستر چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "lightbox-design",
+            "service_label": "طراحی لایت‌باکس",
+            "code": "RU-GD-013-01",
+            "title": "نمونه‌کار طراحی لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/lightbox-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "lightbox-design",
+            "service_label": "طراحی لایت‌باکس",
+            "code": "RU-GD-013-02",
+            "title": "نمونه‌کار طراحی لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/lightbox-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "exhibition-stand-design",
+            "service_label": "طراحی استند نمایشگاهی",
+            "code": "RU-GD-014-01",
+            "title": "نمونه‌کار طراحی استند نمایشگاهی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/exhibition-stand-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی استند نمایشگاهی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی استند نمایشگاهی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "exhibition-stand-design",
+            "service_label": "طراحی استند نمایشگاهی",
+            "code": "RU-GD-014-02",
+            "title": "نمونه‌کار طراحی استند نمایشگاهی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/exhibition-stand-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی استند نمایشگاهی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی استند نمایشگاهی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "exhibition-backlight-design",
+            "service_label": "طراحی بک‌لایت نمایشگاهی",
+            "code": "RU-GD-015-01",
+            "title": "نمونه‌کار طراحی بک‌لایت نمایشگاهی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/exhibition-backlight-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بک‌لایت نمایشگاهی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بک‌لایت نمایشگاهی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "exhibition-backlight-design",
+            "service_label": "طراحی بک‌لایت نمایشگاهی",
+            "code": "RU-GD-015-02",
+            "title": "نمونه‌کار طراحی بک‌لایت نمایشگاهی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/exhibition-backlight-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بک‌لایت نمایشگاهی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بک‌لایت نمایشگاهی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "packaging-design",
+            "service_label": "طراحی بسته‌بندی",
+            "code": "RU-GD-016-01",
+            "title": "نمونه‌کار طراحی بسته‌بندی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/packaging-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "packaging-design",
+            "service_label": "طراحی بسته‌بندی",
+            "code": "RU-GD-016-02",
+            "title": "نمونه‌کار طراحی بسته‌بندی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/packaging-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "label-design",
+            "service_label": "طراحی لیبل",
+            "code": "RU-GD-017-01",
+            "title": "نمونه‌کار طراحی لیبل",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/label-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لیبل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لیبل چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "graphic",
+            "service": "label-design",
+            "service_label": "طراحی لیبل",
+            "code": "RU-GD-017-02",
+            "title": "نمونه‌کار طراحی لیبل",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/label-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لیبل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لیبل چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "banner-printing",
+            "service_label": "چاپ بنر",
+            "code": "RU-PRN-002-01",
+            "title": "نمونه‌کار چاپ بنر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/banner-printing-01/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ بنر چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "banner-printing",
+            "service_label": "چاپ بنر",
+            "code": "RU-PRN-002-02",
+            "title": "نمونه‌کار چاپ بنر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/banner-printing-02/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ بنر چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "vinyl-printing",
+            "service_label": "چاپ استیکر / وینیل",
+            "code": "RU-PRN-003-01",
+            "title": "نمونه‌کار چاپ استیکر / وینیل",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/vinyl-printing-01/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ استیکر / وینیل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ استیکر / وینیل چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "vinyl-printing",
+            "service_label": "چاپ استیکر / وینیل",
+            "code": "RU-PRN-003-02",
+            "title": "نمونه‌کار چاپ استیکر / وینیل",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/vinyl-printing-02/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ استیکر / وینیل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ استیکر / وینیل چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "backlit-printing",
+            "service_label": "چاپ بک‌لایت",
+            "code": "RU-PRN-004-01",
+            "title": "نمونه‌کار چاپ بک‌لایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/backlit-printing-01/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ بک‌لایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ بک‌لایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "backlit-printing",
+            "service_label": "چاپ بک‌لایت",
+            "code": "RU-PRN-004-02",
+            "title": "نمونه‌کار چاپ بک‌لایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/backlit-printing-02/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ بک‌لایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ بک‌لایت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "lightbox-fabric-printing",
+            "service_label": "چاپ پارچه لایت‌باکس",
+            "code": "RU-PRN-005-01",
+            "title": "نمونه‌کار چاپ پارچه لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/lightbox-fabric-printing-01/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ پارچه لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ پارچه لایت‌باکس چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "lightbox-fabric-printing",
+            "service_label": "چاپ پارچه لایت‌باکس",
+            "code": "RU-PRN-005-02",
+            "title": "نمونه‌کار چاپ پارچه لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/lightbox-fabric-printing-02/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ پارچه لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ پارچه لایت‌باکس چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "catalog-printing",
+            "service_label": "چاپ کاتالوگ",
+            "code": "RU-PRN-008-01",
+            "title": "نمونه‌کار چاپ کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/catalog-printing-01/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ کاتالوگ چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "catalog-printing",
+            "service_label": "چاپ کاتالوگ",
+            "code": "RU-PRN-008-02",
+            "title": "نمونه‌کار چاپ کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/catalog-printing-02/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ کاتالوگ چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "brochure-printing",
+            "service_label": "چاپ بروشور",
+            "code": "RU-PRN-009-01",
+            "title": "نمونه‌کار چاپ بروشور",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/brochure-printing-01/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ بروشور چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "brochure-printing",
+            "service_label": "چاپ بروشور",
+            "code": "RU-PRN-009-02",
+            "title": "نمونه‌کار چاپ بروشور",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/brochure-printing-02/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ بروشور چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "stationery-printing",
+            "service_label": "چاپ ست اداری",
+            "code": "RU-PRN-010-01",
+            "title": "نمونه‌کار چاپ ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/stationery-printing-01/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ ست اداری چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "stationery-printing",
+            "service_label": "چاپ ست اداری",
+            "code": "RU-PRN-010-02",
+            "title": "نمونه‌کار چاپ ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/stationery-printing-02/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ ست اداری چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "business-card-printing",
+            "service_label": "چاپ کارت ویزیت",
+            "code": "RU-PRN-011-01",
+            "title": "نمونه‌کار چاپ کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/business-card-printing-01/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ کارت ویزیت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "print",
+            "service": "business-card-printing",
+            "service_label": "چاپ کارت ویزیت",
+            "code": "RU-PRN-011-02",
+            "title": "نمونه‌کار چاپ کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "آماده‌سازی فایل"
+              },
+              {
+                "value": "چاپ"
+              },
+              {
+                "value": "تحویل"
+              }
+            ],
+            "href": "/portfolio/business-card-printing-02/",
+            "label": "جایگاه عکس",
+            "alt": "چاپ کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ کارت ویزیت چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "industrial-photography",
+            "service_label": "عکاسی صنعتی",
+            "code": "RU-PF-001-01",
+            "title": "نمونه‌کار عکاسی صنعتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/industrial-photography-01/",
+            "label": "جایگاه عکس",
+            "alt": "عکاسی صنعتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار عکاسی صنعتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "industrial-photography",
+            "service_label": "عکاسی صنعتی",
+            "code": "RU-PF-001-02",
+            "title": "نمونه‌کار عکاسی صنعتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/industrial-photography-02/",
+            "label": "جایگاه عکس",
+            "alt": "عکاسی صنعتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار عکاسی صنعتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "advertising-photography",
+            "service_label": "عکاسی تبلیغاتی",
+            "code": "RU-PF-002-01",
+            "title": "نمونه‌کار عکاسی تبلیغاتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/advertising-photography-01/",
+            "label": "جایگاه عکس",
+            "alt": "عکاسی تبلیغاتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار عکاسی تبلیغاتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "advertising-photography",
+            "service_label": "عکاسی تبلیغاتی",
+            "code": "RU-PF-002-02",
+            "title": "نمونه‌کار عکاسی تبلیغاتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/advertising-photography-02/",
+            "label": "جایگاه عکس",
+            "alt": "عکاسی تبلیغاتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار عکاسی تبلیغاتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "product-photography",
+            "service_label": "عکاسی محصول",
+            "code": "RU-PF-003-01",
+            "title": "نمونه‌کار عکاسی محصول",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/product-photography-01/",
+            "label": "جایگاه عکس",
+            "alt": "عکاسی محصول برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار عکاسی محصول چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "product-photography",
+            "service_label": "عکاسی محصول",
+            "code": "RU-PF-003-02",
+            "title": "نمونه‌کار عکاسی محصول",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/product-photography-02/",
+            "label": "جایگاه عکس",
+            "alt": "عکاسی محصول برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار عکاسی محصول چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "advertising-video-production",
+            "service_label": "ساخت تیزر تبلیغاتی",
+            "code": "RU-PF-004-01",
+            "title": "نمونه‌کار ساخت تیزر تبلیغاتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/advertising-video-production-01/",
+            "label": "جایگاه ویدئو",
+            "alt": "ساخت تیزر تبلیغاتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار ساخت تیزر تبلیغاتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "advertising-video-production",
+            "service_label": "ساخت تیزر تبلیغاتی",
+            "code": "RU-PF-004-02",
+            "title": "نمونه‌کار ساخت تیزر تبلیغاتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/advertising-video-production-02/",
+            "label": "جایگاه ویدئو",
+            "alt": "ساخت تیزر تبلیغاتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار ساخت تیزر تبلیغاتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "industrial-video-production",
+            "service_label": "فیلم صنعتی",
+            "code": "RU-PF-005-01",
+            "title": "نمونه‌کار فیلم صنعتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/industrial-video-production-01/",
+            "label": "جایگاه ویدئو",
+            "alt": "فیلم صنعتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار فیلم صنعتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "photo",
+            "service": "industrial-video-production",
+            "service_label": "فیلم صنعتی",
+            "code": "RU-PF-005-02",
+            "title": "نمونه‌کار فیلم صنعتی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "کارگردانی"
+              },
+              {
+                "value": "تصویربرداری"
+              },
+              {
+                "value": "تدوین"
+              }
+            ],
+            "href": "/portfolio/industrial-video-production-02/",
+            "label": "جایگاه ویدئو",
+            "alt": "فیلم صنعتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار فیلم صنعتی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "advertising-consulting",
+            "service_label": "مشاوره تبلیغات",
+            "code": "RU-CON-001-01",
+            "title": "نمونه‌کار مشاوره تبلیغات",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/advertising-consulting-01/",
+            "label": "جایگاه عکس",
+            "alt": "مشاوره تبلیغات برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مشاوره تبلیغات چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "advertising-consulting",
+            "service_label": "مشاوره تبلیغات",
+            "code": "RU-CON-001-02",
+            "title": "نمونه‌کار مشاوره تبلیغات",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/advertising-consulting-02/",
+            "label": "جایگاه عکس",
+            "alt": "مشاوره تبلیغات برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مشاوره تبلیغات چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "marketing-consulting",
+            "service_label": "مشاوره بازاریابی",
+            "code": "RU-CON-004-01",
+            "title": "نمونه‌کار مشاوره بازاریابی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/marketing-consulting-01/",
+            "label": "جایگاه عکس",
+            "alt": "مشاوره بازاریابی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مشاوره بازاریابی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "marketing-consulting",
+            "service_label": "مشاوره بازاریابی",
+            "code": "RU-CON-004-02",
+            "title": "نمونه‌کار مشاوره بازاریابی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/marketing-consulting-02/",
+            "label": "جایگاه عکس",
+            "alt": "مشاوره بازاریابی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مشاوره بازاریابی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "marketing-strategy",
+            "service_label": "استراتژی بازاریابی",
+            "code": "RU-CON-005-01",
+            "title": "نمونه‌کار استراتژی بازاریابی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/marketing-strategy-01/",
+            "label": "جایگاه عکس",
+            "alt": "استراتژی بازاریابی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار استراتژی بازاریابی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "marketing-strategy",
+            "service_label": "استراتژی بازاریابی",
+            "code": "RU-CON-005-02",
+            "title": "نمونه‌کار استراتژی بازاریابی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/marketing-strategy-02/",
+            "label": "جایگاه عکس",
+            "alt": "استراتژی بازاریابی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار استراتژی بازاریابی چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "business-consulting",
+            "service_label": "مشاوره کسب‌وکار",
+            "code": "RU-CON-007-01",
+            "title": "نمونه‌کار مشاوره کسب‌وکار",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/business-consulting-01/",
+            "label": "جایگاه عکس",
+            "alt": "مشاوره کسب‌وکار برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مشاوره کسب‌وکار چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "business-consulting",
+            "service_label": "مشاوره کسب‌وکار",
+            "code": "RU-CON-007-02",
+            "title": "نمونه‌کار مشاوره کسب‌وکار",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/business-consulting-02/",
+            "label": "جایگاه عکس",
+            "alt": "مشاوره کسب‌وکار برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار مشاوره کسب‌وکار چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "business-systemization",
+            "service_label": "سیستم‌سازی کسب‌وکار",
+            "code": "RU-CON-008-01",
+            "title": "نمونه‌کار سیستم‌سازی کسب‌وکار",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/business-systemization-01/",
+            "label": "جایگاه عکس",
+            "alt": "سیستم‌سازی کسب‌وکار برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار سیستم‌سازی کسب‌وکار چتر قرمز",
+            "placeholder": true
+          },
+          {
+            "family": "consult",
+            "service": "business-systemization",
+            "service_label": "سیستم‌سازی کسب‌وکار",
+            "code": "RU-CON-008-02",
+            "title": "نمونه‌کار سیستم‌سازی کسب‌وکار",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "تشخیص"
+              },
+              {
+                "value": "برنامه"
+              },
+              {
+                "value": "همراهی اجرا"
+              }
+            ],
+            "href": "/portfolio/business-systemization-02/",
+            "label": "جایگاه عکس",
+            "alt": "سیستم‌سازی کسب‌وکار برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار سیستم‌سازی کسب‌وکار چتر قرمز",
+            "placeholder": true
+          }
+        ],
+        "items_total": "۱۰۴",
+        "count_word": "نمونه",
+        "more_label": "نمونه‌های بیشتر",
+        "empty_text": "برای این خدمت هنوز نمونه‌ای منتشر نشده است.",
+        "view_base": "/portfolio/service/",
+        "hub_href": "/portfolio/",
+        "initial_service": "logo-design"
+      }
+    },
+    {
+      "block": "portfolio-accordion",
+      "anchor": "areas",
+      "data": {
+        "eyebrow": "سایر کارها",
+        "title": "همین مشتری‌ها، کارهای دیگری هم از ما گرفته‌اند",
+        "lead": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+        "panels": [
+          {
+            "index": "۰۱",
+            "title": "تبلیغات محیطی",
+            "icon": "icon-fam-outdoor",
+            "label": "جایگاه عکس",
+            "alt": "نمونه کارهای تبلیغات محیطی چتر قرمز",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "links": [
+              {
+                "label": "اجاره و اکران رسانه",
+                "href": "/portfolio/service/media-rental/"
+              }
+            ],
+            "href": "/portfolio/service/media-rental/",
+            "cta": "همهٔ نمونه‌های تبلیغات محیطی"
+          },
+          {
+            "index": "۰۲",
+            "title": "دیجیتال مارکتینگ",
+            "icon": "icon-fam-digital",
+            "label": "جایگاه عکس",
+            "alt": "نمونه کارهای دیجیتال مارکتینگ چتر قرمز",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "links": [
+              {
+                "label": "طراحی سایت شرکتی",
+                "href": "/portfolio/service/corporate-web-design/"
+              },
+              {
+                "label": "طراحی سایت فروشگاهی",
+                "href": "/portfolio/service/ecommerce-web-design/"
+              },
+              {
+                "label": "طراحی سایت اختصاصی",
+                "href": "/portfolio/service/custom-web-design/"
+              },
+              {
+                "label": "طراحی سایت وردپرس",
+                "href": "/portfolio/service/wordpress-web-design/"
+              }
+            ],
+            "href": "/portfolio/service/corporate-web-design/",
+            "cta": "همهٔ نمونه‌های دیجیتال مارکتینگ"
+          },
+          {
+            "index": "۰۳",
+            "title": "طراحی گرافیک",
+            "icon": "icon-fam-graphic",
+            "label": "جایگاه عکس",
+            "alt": "نمونه کارهای طراحی گرافیک چتر قرمز",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "links": [
+              {
+                "label": "طراحی لوگو",
+                "href": "/portfolio/service/logo-design/"
+              },
+              {
+                "label": "طراحی هویت بصری",
+                "href": "/portfolio/service/visual-identity-design/"
+              },
+              {
+                "label": "طراحی ست اداری",
+                "href": "/portfolio/service/stationery-design/"
+              },
+              {
+                "label": "طراحی کارت ویزیت",
+                "href": "/portfolio/service/business-card-design/"
+              }
+            ],
+            "href": "/portfolio/service/logo-design/",
+            "cta": "همهٔ نمونه‌های طراحی گرافیک"
+          },
+          {
+            "index": "۰۴",
+            "title": "چاپ و تولید",
+            "icon": "icon-fam-print",
+            "label": "جایگاه عکس",
+            "alt": "نمونه کارهای چاپ و تولید چتر قرمز",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "links": [
+              {
+                "label": "چاپ بنر",
+                "href": "/portfolio/service/banner-printing/"
+              },
+              {
+                "label": "چاپ استیکر / وینیل",
+                "href": "/portfolio/service/vinyl-printing/"
+              },
+              {
+                "label": "چاپ بک‌لایت",
+                "href": "/portfolio/service/backlit-printing/"
+              },
+              {
+                "label": "چاپ پارچه لایت‌باکس",
+                "href": "/portfolio/service/lightbox-fabric-printing/"
+              }
+            ],
+            "href": "/portfolio/service/banner-printing/",
+            "cta": "همهٔ نمونه‌های چاپ و تولید"
+          },
+          {
+            "index": "۰۵",
+            "title": "عکاسی و فیلم‌برداری",
+            "icon": "icon-fam-photo",
+            "label": "جایگاه عکس",
+            "alt": "نمونه کارهای عکاسی و فیلم‌برداری چتر قرمز",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "links": [
+              {
+                "label": "عکاسی صنعتی",
+                "href": "/portfolio/service/industrial-photography/"
+              },
+              {
+                "label": "عکاسی تبلیغاتی",
+                "href": "/portfolio/service/advertising-photography/"
+              },
+              {
+                "label": "عکاسی محصول",
+                "href": "/portfolio/service/product-photography/"
+              },
+              {
+                "label": "ساخت تیزر تبلیغاتی",
+                "href": "/portfolio/service/advertising-video-production/"
+              }
+            ],
+            "href": "/portfolio/service/industrial-photography/",
+            "cta": "همهٔ نمونه‌های عکاسی و فیلم‌برداری"
+          },
+          {
+            "index": "۰۶",
+            "title": "مشاوره",
+            "icon": "icon-fam-consult",
+            "label": "جایگاه عکس",
+            "alt": "نمونه کارهای مشاوره چتر قرمز",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "links": [
+              {
+                "label": "مشاوره تبلیغات",
+                "href": "/portfolio/service/advertising-consulting/"
+              },
+              {
+                "label": "مشاوره بازاریابی",
+                "href": "/portfolio/service/marketing-consulting/"
+              },
+              {
+                "label": "استراتژی بازاریابی",
+                "href": "/portfolio/service/marketing-strategy/"
+              },
+              {
+                "label": "مشاوره کسب‌وکار",
+                "href": "/portfolio/service/business-consulting/"
+              }
+            ],
+            "href": "/portfolio/service/advertising-consulting/",
+            "cta": "همهٔ نمونه‌های مشاوره"
+          }
+        ]
+      }
+    },
+    {
+      "block": "golden-line",
+      "anchor": "golden",
+      "data": {
+        "eyebrow": "حرف حساب",
+        "line": "جملهٔ طلایی صفحه، در مرحلهٔ متن نوشته می‌شود",
+        "support": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز."
+      }
+    },
+    {
+      "block": "editorial-split",
+      "anchor": "stakes",
+      "data": {
+        "eyebrow": "هزینهٔ انتخاب بدون نمونه",
+        "title": "پیمانکاری که نمونهٔ مشابه ندارد، چقدر برایتان تمام می‌شود؟",
+        "body": [
+          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز."
+        ],
+        "image": {
+          "label": "جایگاه عکس",
+          "alt": "پشت صحنهٔ آماده‌سازی غرفهٔ نمایشگاه با مهلت تنگ، کارگاه چتر قرمز"
+        }
+      }
+    },
+    {
+      "block": "numbered-features",
+      "anchor": "steps",
+      "data": {
+        "eyebrow": "سه قدم",
+        "title": "از دیدن نمونه تا شروع کار",
+        "lead": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+        "icon": "icon-process",
+        "items": [
+          {
+            "index": "۰۱",
+            "title": "نمونهٔ همان کار را ببینید",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "icon": "icon-portfolio"
+          },
+          {
+            "index": "۰۲",
+            "title": "رزومه و مدارک را بگیرید",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "icon": "icon-datasheet"
+          },
+          {
+            "index": "۰۳",
+            "title": "بریف کار را بفرستید",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "icon": "icon-rfq"
+          }
+        ]
+      }
+    },
+    {
+      "block": "compare-cards",
+      "anchor": "beyond",
+      "data": {
+        "eyebrow": "فراتر از نمونه‌کار",
+        "title": "پروژه‌های شهری و سازه‌ها صفحهٔ خودشان را دارند",
+        "lead": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+        "icon": "icon-related",
+        "items": [
+          {
+            "index": "۰۱",
+            "title": "پروژه‌های شهری و مشارکتی",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "icon": "icon-projects",
+            "cta": {
+              "label": "دیدن پروژه‌ها",
+              "href": "/projects/"
+            }
+          },
+          {
+            "index": "۰۲",
+            "title": "سازه‌های تبلیغاتی",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "icon": "icon-structures",
+            "cta": {
+              "label": "دیدن سازه‌ها",
+              "href": "/structures/"
+            }
+          },
+          {
+            "index": "۰۳",
+            "title": "همهٔ خدمات",
+            "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true,
+            "icon": "icon-services-nav",
+            "cta": {
+              "label": "دیدن خدمات",
+              "href": "/services/"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "block": "faq-section-final",
+      "anchor": "faq",
+      "data": {
+        "eyebrow": "پرسش‌های پرتکرار",
+        "title": "پیش از تماس، جواب کوتاه را همین‌جا ببینید",
+        "lead": "پرسش‌ها در مرحلهٔ متن از پیشنهاد خودکار گوگل ایران برداشته می‌شوند.",
+        "questions": [
+          {
+            "q": "پرسش ۱ از تقاضای واقعی جست‌وجو",
+            "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true
+          },
+          {
+            "q": "پرسش ۲ از تقاضای واقعی جست‌وجو",
+            "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true
+          },
+          {
+            "q": "پرسش ۳ از تقاضای واقعی جست‌وجو",
+            "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true
+          },
+          {
+            "q": "پرسش ۴ از تقاضای واقعی جست‌وجو",
+            "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true
+          },
+          {
+            "q": "پرسش ۵ از تقاضای واقعی جست‌وجو",
+            "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+            "placeholder": true
+          }
+        ]
+      }
+    },
+    {
+      "block": "call-card",
+      "anchor": "call",
+      "data": {
+        "eyebrow": "سریع‌ترین راه",
+        "title": "برای دریافت رزومه، تماس بگیرید",
+        "number": {
+          "display": "۰۹۱۳ ۳۳۵ ۳۴۳۲",
+          "href": "tel:+989133353432",
+          "aria": "تماس با چتر قرمز، ۰۹۱۳ ۳۳۵ ۳۴۳۲"
+        },
+        "note": "اگر دستمان بند بود، همان روز برمی‌گردیم.",
+        "still": "1"
+      }
+    },
+    {
+      "block": "site-type",
+      "anchor": "type",
+      "data": {}
+    },
+    {
+      "block": "page-cursor",
+      "anchor": "cursor",
+      "data": {
+        "states": [
+          {
+            "selector": "[data-block=\"portfolio-hero\"] .pf-stage-frame",
+            "state": "drag",
+            "label": "بکشید"
+          },
+          {
+            "selector": "[data-block=\"portfolio-hero\"] .pf-slide.is-video",
+            "state": "play",
+            "label": ""
+          },
+          {
+            "selector": "[data-block=\"portfolio-grid\"] .pf-card",
+            "state": "view",
+            "label": "ببینید"
+          },
+          {
+            "selector": "[data-block=\"portfolio-accordion\"] .pfa-panel",
+            "state": "drag",
+            "label": "باز کنید"
+          },
+          {
+            "selector": "[data-block=\"faq-section-final\"] summary",
+            "state": "open",
+            "label": "+"
+          },
+          {
+            "selector": "[data-block=\"lead-form\"] .primary-button",
+            "state": "send",
+            "label": ""
+          }
+        ]
+      }
+    },
+    {
+      "block": "lead-form",
+      "anchor": "lead",
+      "data": {
+        "eyebrow": "قدم بعدی",
+        "title": "رزومه و مدارک را برایتان بفرستیم",
+        "lead": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
+        "icon": "icon-rfq",
+        "fields": [
+          {
+            "name": "name",
+            "label": "اسم و نام مجموعه",
+            "type": "text",
+            "inputmode": "text",
+            "autocomplete": "organization",
+            "placeholder": "مثلاً رضا محمدی، صنایع فلزی آریا",
+            "icon": "icon-user"
+          },
+          {
+            "name": "phone",
+            "label": "شماره تماس",
+            "type": "tel",
+            "inputmode": "tel",
+            "autocomplete": "tel",
+            "placeholder": "۰۹۱۳۱۲۳۴۵۶۷",
+            "icon": "icon-phone"
+          },
+          {
+            "name": "subject",
+            "label": "نمونهٔ چه کاری را می‌خواهید؟",
+            "type": "text",
+            "inputmode": "text",
+            "autocomplete": "off",
+            "placeholder": "طراحی لوگو",
+            "icon": "icon-portfolio"
+          }
+        ],
+        "submit": "بفرستید"
+      }
+    }
+  ]
+}

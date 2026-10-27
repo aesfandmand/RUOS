@@ -1,0 +1,24 @@
+{
+  "id": "portfolio-accordion",
+  "name": { "fa": "آکاردئون افقی خانواده‌های کار", "en": "portfolio-accordion" },
+  "role": "content",
+  "family": "media-gallery",
+  "surface": "light",
+  "composition": "The horizontal-accordion verb (§21). Six panels share one row; the active one opens to a full photo with the family's final services as links into their own portfolio views, the others collapse to a numbered vertical label. On a phone it turns ninety degrees: panels stack and the collapsed label runs across, it never becomes a plain list (§14). Layout from motion-strategy-references/stills/02-vistahaven-horizontal-accordion--horizontal-accordion.jpg.",
+  "serves_intent": ["browse", "route"],
+  "position": "any",
+  "behavior": true,
+  "adjacency": { "not_after_same_family": true },
+  "motion": "horizontal-accordion",
+  "source": {
+    "page": "reference/motion-strategy-references/stills/02-vistahaven-horizontal-accordion--horizontal-accordion.jpg",
+    "selector": "horizontal accordion"
+  },
+  "slots": {
+    "eyebrow": { "type": "text", "required": false },
+    "title": { "type": "text", "required": true },
+    "lead": { "type": "text", "required": false },
+    "panels": { "type": "list", "required": true, "min": 3, "max": 6 }
+  },
+  "layout": "gallery"
+}

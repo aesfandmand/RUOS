@@ -1,0 +1,127 @@
+/* portfolio-grid — every sample as a plated card, filtered at the level the
+   visitor searches at (the final service), grouped by family only to keep
+   fifty-odd chips findable. Type ladder, radii, shadows and section rhythm
+   are §23's: h2 32-34/800, h3 19/700, body 14/400, small 12.5, eyebrow
+   11/700; radii 10/16/22/999; two shadow levels; padding 104. */
+.pf-grid-section{background:var(--paper);color:var(--ink);padding:104px 0}
+.pf-grid-section .eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;color:var(--red);margin:0}
+.pf-grid-head{display:grid;grid-template-columns:1fr minmax(220px,340px);gap:48px;align-items:end;margin-bottom:34px}
+.pf-grid-head h2{margin:14px 0 0;font-size:clamp(1.55rem,2.35vw,2.1rem);font-weight:800;
+  letter-spacing:-.03em;line-height:1.38;max-width:20ch;text-wrap:balance}
+.pf-grid-aside{margin:0;color:var(--muted);font-size:.9rem;font-weight:300;line-height:2;
+  text-align:justify;text-align-last:start}
+
+/* ── the filter: it says it is a filter, and it changes what is below ── */
+.pf-filter{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:14px 18px;
+  display:grid;gap:10px;margin-bottom:28px;
+  box-shadow:0 1px 2px #17171908,0 14px 30px -14px #17171914}
+.pf-filter-row{display:flex;align-items:center;gap:14px;min-width:0}
+.pf-filter-label{margin:0;flex:none;width:62px;font-size:11px;font-weight:700;color:var(--muted)}
+.pf-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;padding-block:2px;
+  -webkit-mask-image:linear-gradient(to left,#000 calc(100% - 28px),#0000);
+  mask-image:linear-gradient(to left,#000 calc(100% - 28px),#0000)}
+.pf-chips::-webkit-scrollbar{display:none}
+.pf-chip{appearance:none;flex:none;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);
+  background:var(--white);color:var(--muted);border-radius:999px;padding:6px 13px;font:inherit;
+  font-size:12px;font-weight:600;line-height:1.6;cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s cubic-bezier(.34,1.4,.44,1)}
+.pf-chip svg{width:13px;height:13px;fill:currentColor}
+.pf-chip:hover{border-color:var(--ink);color:var(--ink)}
+.pf-chip:active{transform:scale(.96)}
+.pf-chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.pf-chip--svc[hidden]{display:none}
+/* the service row appears once a family is chosen: fifty-two chips at once is a wall */
+.pf-filter.is-all .pf-filter-row--svc{display:none}
+.pf-filter-row--svc .pf-chip[aria-pressed=true]{background:var(--red-gloss);border-color:transparent;color:#fff}
+.pf-count{margin:0;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.pf-count b{color:var(--ink);font-weight:800}
+
+/* ── the field: six columns, a wide cell opens every group of five ───── */
+.pf-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;grid-auto-flow:dense}
+.pf-card{grid-column:span 2;position:relative;display:flex;flex-direction:column;background:var(--white);
+  border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  box-shadow:0 1px 2px #17171908,0 14px 30px -14px #17171914;
+  transition:box-shadow .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1),border-color .45s}
+.pf-card[hidden]{display:none}
+.pf-card:hover{box-shadow:0 2px 4px #1717190a,0 30px 60px -24px #17171926;transform:translateY(-3px);border-color:#ded7cb}
+.pf-card-link{position:absolute;inset:0;z-index:3;border-radius:inherit}
+.pf-card-link:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+.pf-shot{margin:0;aspect-ratio:4/3;border:0;border-radius:0;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.pf-shot img,.pf-shot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
+.pf-card:hover .pf-shot img,.pf-card:hover .pf-shot video{transform:scale(1.04)}
+.pf-tag{position:absolute;inset-block-start:12px;inset-inline-start:12px;z-index:2;background:var(--white);
+  color:var(--ink);border-radius:999px;padding:4px 11px;font-size:10.5px;font-weight:600;
+  box-shadow:0 1px 2px #17171914}
+
+.pf-body{display:flex;flex-direction:column;padding:18px 20px 20px;flex:1;min-width:0}
+.pf-code{margin:0 0 6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);direction:ltr;text-align:end}
+.pf-body h3{margin:0;font-size:19px;font-weight:700;letter-spacing:-.02em;line-height:1.45}
+.pf-meta{margin:6px 0 0;font-size:12.5px;color:var(--muted);line-height:1.8}
+.pf-roles{margin:14px 0 0;padding:14px 0 0;border-top:1px solid var(--line);list-style:none;
+  display:flex;flex-wrap:wrap;gap:5px}
+.pf-roles li{font-size:11px;font-weight:600;color:var(--ink);background:var(--paper);border-radius:999px;padding:3px 10px;line-height:1.7}
+.pf-more-link{margin-top:auto;padding-top:16px;display:inline-flex;align-items:center;gap:7px;
+  font-size:12.5px;font-weight:700;color:var(--ink)}
+.pf-more-link svg{width:11px;height:11px;fill:var(--red);transition:translate .3s cubic-bezier(.16,1,.3,1)}
+.pf-card:hover .pf-more-link svg{translate:-4px 0}
+
+/* Wide card: image beside the plate. Assigned by behavior.js to the first
+   of every five *visible* cards; nth-child is the no-script fallback. */
+.pf-grid:not(.is-js) .pf-card:nth-child(5n+1),.pf-grid.is-js .pf-card.is-wide{grid-column:span 4;flex-direction:row}
+.pf-grid.is-js .pf-card:not(.is-wide){grid-column:span 2;flex-direction:column}
+.pf-grid:not(.is-js) .pf-card:nth-child(5n+1) .pf-shot,.pf-grid.is-js .pf-card.is-wide .pf-shot{aspect-ratio:auto;width:58%;flex:none;
+  border-bottom:0;border-inline-start:1px solid var(--line)}
+.pf-grid.is-js .pf-card:not(.is-wide) .pf-shot{aspect-ratio:4/3;width:auto;border-inline-start:0;border-bottom:1px solid var(--line)}
+.pf-grid:not(.is-js) .pf-card:nth-child(5n+1) .pf-body,.pf-grid.is-js .pf-card.is-wide .pf-body{justify-content:flex-end;padding:26px 26px 24px}
+.pf-grid.is-js .pf-card.is-wide h3{font-size:24px;line-height:1.4}
+
+/* ── skeleton-to-content (§21): a filter change shows the shape first ── */
+.pf-grid.is-loading .pf-card:not([hidden]) .pf-shot:after,
+.pf-grid.is-loading .pf-card:not([hidden]) .pf-body:after{content:"";position:absolute;inset:0;z-index:4;
+  background:linear-gradient(100deg,var(--paper-2) 30%,#fbf9f6 50%,var(--paper-2) 70%) 0 0/300% 100%;
+  animation:pf-shimmer .9s linear infinite}
+.pf-body{position:relative}
+@keyframes pf-shimmer{to{background-position:-150% 0}}
+
+.pf-empty{margin:24px 0 0;padding:30px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted);font-size:13px}
+.pf-more-row{display:flex;justify-content:center;margin-top:30px}
+.pf-more{appearance:none;border:1px solid var(--ink);background:var(--white);color:var(--ink);border-radius:999px;
+  padding:12px 26px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:background .3s,color .3s}
+.pf-more:hover{background:var(--ink);color:var(--white)}
+
+@media (width<=1180px){
+  .pf-grid{grid-template-columns:repeat(4,1fr)}
+  .pf-grid:not(.is-js) .pf-card:nth-child(5n+1),.pf-grid.is-js .pf-card.is-wide{grid-column:span 4}
+  .pf-grid:not(.is-js) .pf-card:nth-child(5n+1) .pf-shot,.pf-grid.is-js .pf-card.is-wide .pf-shot{width:52%}
+}
+@media (width<=820px){
+  .pf-grid-section{padding:72px 0}
+  .pf-grid-head{grid-template-columns:1fr;gap:12px;margin-bottom:22px}
+  .pf-filter{padding:10px 12px;border-radius:14px}
+  .pf-filter-label{width:auto;font-size:10.5px}
+  .pf-filter-row{gap:8px}
+  /* §14 on a phone: one full-width card, then two half-width ones */
+  .pf-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .pf-card,.pf-grid.is-js .pf-card:not(.is-wide){grid-column:span 1}
+  .pf-grid:not(.is-js) .pf-card:nth-child(5n+1),.pf-grid.is-js .pf-card.is-wide{grid-column:span 2;flex-direction:column}
+  .pf-grid:not(.is-js) .pf-card:nth-child(5n+1) .pf-shot,.pf-grid.is-js .pf-card.is-wide .pf-shot{width:auto;aspect-ratio:16/10;
+    border-inline-start:0;border-bottom:1px solid var(--line)}
+  .pf-body,.pf-grid.is-js .pf-card.is-wide .pf-body{padding:13px 13px 14px}
+  .pf-body h3{font-size:14.5px;line-height:1.55}
+  .pf-grid.is-js .pf-card.is-wide h3{font-size:18px}
+  .pf-meta{font-size:11px}
+  .pf-roles{gap:4px;margin-top:10px;padding-top:10px}
+  .pf-roles li{font-size:10px;padding:2px 8px}
+  .pf-tag{font-size:9.5px;padding:3px 8px;inset-block-start:8px;inset-inline-start:8px}
+  .pf-code{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .pf-card,.pf-shot img,.pf-shot video,.pf-chip{transition:none}
+  .pf-card:hover{transform:none}
+  .pf-grid.is-loading .pf-shot:after,.pf-grid.is-loading .pf-body:after{animation:none}
+}
+@media (width<=820px){
+  .pf-grid.is-js .pf-card:not(.is-wide) .pf-shot{aspect-ratio:1/1}
+}

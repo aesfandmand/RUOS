@@ -1,0 +1,84 @@
+/* portfolio-accordion — §21 `horizontal-accordion`.
+   Six panels share one row. The active one is a full photo with a white card
+   over its lower edge; the rest are narrow numbered spines with the name
+   running vertically. Fails open: until behavior.js marks the section ready,
+   every panel is open and stacked, so nothing is ever hidden behind a script. */
+.pfa{background:var(--white);color:var(--ink);padding:104px 0}
+.pfa .eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;color:var(--red);margin:0}
+.pfa-head{max-width:640px;margin-bottom:34px}
+.pfa-head h2{margin:14px 0 0;font-size:clamp(1.55rem,2.35vw,2.1rem);font-weight:800;letter-spacing:-.03em;
+  line-height:1.38;text-wrap:balance}
+.pfa-lead{margin:14px 0 0;color:var(--muted);font-size:.95rem;font-weight:300;line-height:2.05;
+  text-align:justify;text-align-last:start}
+
+/* no-script / pre-ready: a plain stack of open panels */
+.pfa-row{display:grid;gap:14px}
+.pfa-panel{position:relative;border-radius:22px;overflow:hidden;background:var(--paper-2)}
+.pfa-tab{display:none}
+.pfa-open{position:relative}
+.pfa-shot{margin:0;border:0;border-radius:0;aspect-ratio:16/9;background:var(--paper-2)}
+.pfa-shot img{transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+
+.pfa-card{position:relative;background:var(--white);border:1px solid var(--line);border-radius:16px;
+  padding:20px 22px 20px;box-shadow:0 2px 4px #1717190a,0 30px 60px -24px #17171926}
+.pfa-card-num{position:absolute;inset-block-start:-34px;inset-inline-end:18px;margin:0;font-size:46px;
+  font-weight:900;letter-spacing:-.04em;line-height:1;color:var(--white);
+  text-shadow:0 2px 18px #17171933}
+.pfa-card h3{margin:0;display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;letter-spacing:-.02em;line-height:1.45}
+.pfa-ico{width:28px;height:28px;border-radius:9px;background:var(--paper-2)}
+.pfa-ico svg{width:14px;height:14px}
+.pfa-body{margin:10px 0 0;color:var(--muted);font-size:14px;font-weight:400;line-height:2.05;text-align:justify;text-align-last:start}
+.pfa-links{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.pfa-links a{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;
+  font-weight:600;color:var(--ink);text-decoration:none;transition:border-color .3s,background .3s}
+.pfa-links a:hover{border-color:var(--ink);background:var(--paper)}
+.pfa-all{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;
+  color:var(--ink);text-decoration:none}
+.pfa-all svg{width:13px;height:13px;fill:var(--red);transition:translate .3s cubic-bezier(.16,1,.3,1)}
+.pfa-all:hover svg{translate:-4px 0}
+
+/* ── desktop: the accordion proper ─────────────────────────────────── */
+@media (width>820px){
+  .pfa.is-ready .pfa-row{display:flex;gap:10px;height:clamp(440px,58svh,560px)}
+  .pfa.is-ready .pfa-panel{flex:0 0 76px;transition:flex-basis .75s cubic-bezier(.16,1,.3,1),background .4s;
+    background:var(--paper);border:1px solid var(--line)}
+  .pfa.is-ready .pfa-panel.is-active{flex:1 1 auto;background:var(--paper-2);border-color:transparent}
+  .pfa.is-ready .pfa-tab{display:flex;position:absolute;inset:0;z-index:2;appearance:none;border:0;
+    background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:flex-end;
+    gap:14px;padding:22px 0;font:inherit;color:var(--ink)}
+  .pfa.is-ready .pfa-panel.is-active .pfa-tab{display:none}
+  .pfa-num{font-size:12px;font-weight:700;color:var(--red);letter-spacing:.04em}
+  .pfa-name{writing-mode:vertical-rl;font-size:15px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;color:var(--muted);
+    transition:color .3s}
+  .pfa.is-ready .pfa-panel:hover .pfa-name{color:var(--ink)}
+  .pfa.is-ready .pfa-open{position:absolute;inset:0;opacity:0;pointer-events:none;
+    transition:opacity .5s ease .15s}
+  .pfa.is-ready .pfa-panel.is-active .pfa-open{opacity:1;pointer-events:auto}
+  .pfa.is-ready .pfa-shot{position:absolute;inset:0;aspect-ratio:auto;height:100%}
+  .pfa.is-ready .pfa-panel:not(.is-active) .pfa-shot img{transform:scale(1.08)}
+  .pfa.is-ready .pfa-card{position:absolute;inset-inline-start:22px;inset-block-end:22px;width:min(420px,calc(100% - 44px))}
+  /* without script: two columns of open panels, photo beside card */
+  .pfa:not(.is-ready) .pfa-row{grid-template-columns:1fr 1fr}
+}
+
+/* ── phone: turned ninety degrees, never a plain list (§14) ────────── */
+@media (width<=820px){
+  .pfa{padding:72px 0}
+  .pfa.is-ready .pfa-row{gap:8px}
+  .pfa.is-ready .pfa-panel{background:var(--paper);border:1px solid var(--line);border-radius:16px}
+  .pfa.is-ready .pfa-tab{display:flex;width:100%;appearance:none;border:0;background:transparent;font:inherit;color:var(--ink);
+    align-items:center;gap:12px;padding:15px 16px;cursor:pointer;text-align:start}
+  .pfa.is-ready .pfa-panel.is-active .pfa-tab{display:none}
+  .pfa-name{font-size:14px;font-weight:700}
+  .pfa.is-ready .pfa-open{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s cubic-bezier(.16,1,.3,1)}
+  .pfa.is-ready .pfa-open>*{overflow:hidden;min-height:0}
+  .pfa.is-ready .pfa-panel.is-active .pfa-open{grid-template-rows:1fr}
+  .pfa.is-ready .pfa-panel:not(.is-active) .pfa-open{display:none}
+  .pfa-shot{aspect-ratio:4/3}
+  .pfa-card{margin:-34px 12px 12px;padding:16px 16px 16px}
+  .pfa-card-num{font-size:34px;inset-block-start:-26px}
+  .pfa-card h3{font-size:17px}
+}
+@media (prefers-reduced-motion:reduce){
+  .pfa.is-ready .pfa-panel,.pfa.is-ready .pfa-open,.pfa-shot img{transition:none}
+}

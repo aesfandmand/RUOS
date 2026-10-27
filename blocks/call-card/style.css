@@ -88,3 +88,9 @@
   .call-card-face{transition:none}
   .call-card-face:hover{translate:0}
 }
+
+/* still: for a page whose motion score has no ambient-field (§21 rule 3).
+   The card keeps its composition; only the loop stops. */
+.call-card.is-still .call-ring i,.call-card.is-still .call-handset,.call-card.is-still .call-wave path{animation:none}
+.call-card.is-still .call-ring i{opacity:0}
+.call-card.is-still .call-wave path{opacity:.55}
