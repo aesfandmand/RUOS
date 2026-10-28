@@ -37,6 +37,10 @@ LOREM = ("لورم ایپسوم متن ساختگی با تولید سادگی �
          "که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.")
 DIGITS = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
 VIEW_BASE = "/portfolio/service/"
+# Editorial review dates (ru-senior-seo §5-ب.14): stated, not derived.
+REVIEWED_ISO = "2026-10-28"
+REVIEWED_FA = "۷ آبان ۱۴۰۵"
+NEXT_REVIEW_FA = "۷ بهمن ۱۴۰۵"
 
 # Family order and icons as the services hub uses them.
 FAMILIES = [
@@ -150,6 +154,18 @@ FAQ = [
     ("فقط در اصفهان کار می‌کنید؟",
      "نه. در اصفهان چاپخانهٔ لارج‌فرمت، دفتر مدیریت سرمایه‌گذاری و آژانس داریم و در تهران کارگاه ساخت سازه، چاپخانه و دفتر فروش. پروژه در شهرهای دیگر و خارج از ایران، مثل کرکوک و سلیمانیه در عراق، هم اجرا کرده‌ایم."),
 ]
+# One line per carousel card, about that service, not its family: a
+# billboard card must not read like a catalogue card (publish gate,
+# extraction test, 2026-10-28). No claims, no numbers.
+FEATURED_COPY = {
+    "billboard-design": "بیلبورد را از پشت فرمان و در چند ثانیه می‌بینند؛ طرح باید از همان فاصله خوانده شود.",
+    "stationery-design": "سربرگ، کارت ویزیت و پاکت با یک زبان؛ تا نامهٔ شما پیش از خوانده‌شدن معرفی‌تان کند.",
+    "packaging-design": "بسته‌بندی در قفسه چند ثانیه فرصت دارد؛ باید محصول را بفروشد، نه فقط بپوشاند.",
+    "instagram-content-production": "پستی که برای مخاطب شما ساخته شده، نه برای پر کردن صفحه.",
+    "catalog-design": "کاتالوگی که کارشناس خرید بتواند در جلسه ورق بزند و مشخصات را زود پیدا کند.",
+    "lightbox-design": "لایت‌باکس شب هم کار می‌کند؛ طرحش باید با نور پشت آن هم خوانا بماند.",
+    "logo-design": "لوگویی که روی سربرگ، تابلو و صفحهٔ گوشی یکی دیده شود.",
+}
 FEATURED = [  # the 3D carousel: one strong picture per area
     ("billboard-design", "straboard-06.jpg"), ("stationery-design", "identity-07.jpg"),
     ("packaging-design", "packaging-04.jpg"), ("instagram-content-production", "instagram-05.jpg"),
@@ -220,7 +236,25 @@ def build(view: dict | None, services: list[dict]) -> dict:
             for b in buckets.values():
                 if b:
                     mixed.append(b.pop(0))
-        items = mixed + rest
+        # The hub carries only pictured samples. Empty reserved slots live on
+        # each service view, where the owner fills them; on the hub they were
+        # most of the HTML weight and said nothing (ru-senior-seo checklist 21).
+        items = mixed
+    # HTML budget (180KB, critic "performance"): the static page carries a
+    # bounded set; WordPress paginates the full archive server-side. The hub
+    # keeps two pictured samples per service; a service view keeps every slot
+    # of its own service and one pictured sample of each other service.
+    per_service: dict[str, int] = collections.Counter()
+    bounded = []
+    for i in items:
+        own = view is not None and i["service"] == view["slug"]
+        cap = 99 if own else (2 if view is None else 1)
+        if not own and "src" not in i:
+            continue
+        if per_service[i["service"]] < cap:
+            per_service[i["service"]] += 1
+            bounded.append(i)
+    items = bounded
 
     # ── hero slides: pinned pictured samples ────────────────────────────
     if view and DEMO.get(view["slug"]):
@@ -255,7 +289,7 @@ def build(view: dict | None, services: list[dict]) -> dict:
         "breadcrumb": crumb,
         "crumb_current": name or "نمونه‌کارها",
         "eyebrow": "نمونه‌کار · " + (dict((k, f) for k, f, _ in FAMILIES)[view["family"]] if view else "چتر قرمز"),
-        "title": f"نمونه کار {name}" if view else "نمونه کارهای شرکت تبلیغاتی چتر قرمز",
+        "title": f"نمونه کار {name}" if view else "نمونه کارهای شرکت تبلیغاتی چتر قرمز؛ از لوگو تا بیلبورد",
         "lead": (f"نمونه کارهای {name} چتر قرمز، یک‌جا. کنار هر نمونه نوشته‌ایم برای چه صنعتی "
                  "و در چه سالی انجام شده است. اگر برای استعلام دنبال مدرک هستید، "
                  "لینک همین صفحه را برای مدیرتان بفرستید." if view else
@@ -305,7 +339,7 @@ def build(view: dict | None, services: list[dict]) -> dict:
         })
     blocks.append({"block": "portfolio-accordion", "anchor": "areas", "data": {
         "eyebrow": "سایر کارها",
-        "title": "کارهای دیگر ما، در شش حوزه",
+        "title": "نمونهٔ کار دیگری هم لازم دارید؟",
         "lead": "اگر نمونهٔ کار دیگری هم لازم دارید، از همین‌جا به همان بخش بروید.",
         "panels": panels,
     }})
@@ -343,7 +377,7 @@ def build(view: dict | None, services: list[dict]) -> dict:
 
     blocks.append({"block": "compare-cards", "anchor": "beyond", "data": {
         "eyebrow": "فراتر از نمونه‌کار",
-        "title": "پروژه‌های شهری و سازه‌ها صفحهٔ خودشان را دارند",
+        "title": "دنبال پروژهٔ شهری یا سازهٔ تبلیغاتی هستید؟",
         "lead": ("نمونه‌کار اینجا یعنی کاری که برای یک کسب‌وکار یا سازمان طراحی یا تولید کرده‌ایم. "
                  "پروژه‌های سرمایه‌گذاری شهری و سازه‌های تبلیغاتی جای جداگانه دارند."),
         "icon": "icon-related",
@@ -355,6 +389,24 @@ def build(view: dict | None, services: list[dict]) -> dict:
             {"index": "۰۳", "title": "همهٔ خدمات", "body": "شش حوزهٔ خدمت چتر قرمز، از تبلیغات محیطی تا مشاوره، و اینکه هر کار در کدام حوزه می‌نشیند.",
              "icon": "icon-services-nav", "cta": {"label": "دیدن خدمات", "href": "/services/"}},
         ],
+    }})
+
+    # ── facts at a glance (ru-senior-seo §5-ب.7–8): every row is from the
+    #    owner-approved introduction (owner-voice §9, §13); none is invented.
+    blocks.append({"block": "spec-table", "anchor": "facts", "data": {
+        "eyebrow": "چتر قرمز در یک نگاه",
+        "title": "چتر قرمز کیست و از کجا کار می‌کند؟",
+        "lead": "اگر برای استعلام باید چند خط دربارهٔ پیمانکار بنویسید، این جدول همان است.",
+        "columns": [{"value": "چتر قرمز"}],
+        "rows": [
+            {"label": "شروع فعالیت", "values": [{"value": "سال ۱۳۹۲، با مجوز ادارهٔ کل فرهنگ و ارشاد اسلامی استان اصفهان"}]},
+            {"label": "نخستین پروژهٔ سرمایه‌گذاری شهری", "values": [{"value": "فولادشهر، سال ۱۳۹۵"}]},
+            {"label": "واحدهای تهران", "values": [{"value": "کارگاه ساخت سازه‌های تبلیغاتی، چاپخانهٔ لارج‌فرمت، دفتر فروش"}]},
+            {"label": "واحدهای اصفهان", "values": [{"value": "چاپخانهٔ لارج‌فرمت، دفتر مدیریت سرمایه‌گذاری، آژانس تبلیغاتی"}]},
+            {"label": "حوزه‌های خدمت", "values": [{"value": f"شش حوزه و {fa(len(services))} خدمت؛ از تبلیغات محیطی تا مشاوره"}]},
+            {"label": "پروژه بیرون از ایران", "values": [{"value": "کرکوک و سلیمانیه در عراق، از بیلبورد عرشهٔ پل تا بیلبورد تک‌پایه"}]},
+        ],
+        "footnote": f"آخرین بازبینی این صفحه: {REVIEWED_FA} · بازبینی بعدی: {NEXT_REVIEW_FA}",
     }})
 
     blocks.append({"block": "faq-section-final", "anchor": "faq", "data": {
@@ -401,19 +453,23 @@ def build(view: dict | None, services: list[dict]) -> dict:
     by_slug = {x["slug"]: x for x in services}
     blocks.append({"block": "service-coverflow", "anchor": "featured", "data": {
         "eyebrow": "کارهای منتخب",
-        "title": "چند کار از شش حوزه، کنار هم",
+        "title": "کدام کار به کار شما نزدیک‌تر است؟",
         "lead": "کارت‌ها را بکشید. هر کارت یک نمونهٔ واقعی است و به نمای همان خدمت می‌رود.",
         "prev_label": "نمونهٔ قبلی", "next_label": "نمونهٔ بعدی",
         "items": [{
             "kicker": by_slug[sl]["name"],
             "title": f"نمونه‌کار {by_slug[sl]['name']}",
-            "body": FAMILY_COPY[by_slug[sl]["family"]],
+            "body": FEATURED_COPY[sl],
             "points": [{"value": r} for r in ROLES[by_slug[sl]["family"]]],
             "src": f"assets/{pic}", "label": "جایگاه عکس", "alt": alt_for(by_slug[sl]["name"]),
             "href": f"{VIEW_BASE}{sl}/", "link_label": f"نمونه‌های {by_slug[sl]['name']}",
-        } for sl, pic in FEATURED],
+            "index": fa(k, 2),
+        } for k, (sl, pic) in enumerate(FEATURED, start=1)],
     }})
-    order = ["top", "samples", "featured", "golden", "stakes", "areas", "steps", "beyond",
+    # facts sits right after the catalogue: the composer allows no third
+    # light surface in a row anywhere else, and after the samples is where a
+    # scout writing a vendor note needs it (2026-10-28).
+    order = ["top", "featured", "samples", "facts", "golden", "stakes", "areas", "steps", "beyond",
              "faq", "call", "type", "cursor", "lead"]
     blocks.sort(key=lambda bl: order.index(bl["anchor"]))
     for bl in blocks:
@@ -433,6 +489,16 @@ def build(view: dict | None, services: list[dict]) -> dict:
         ("shell", SITE_SHELL_REF), ("nav_section", "/portfolio/"),
         ("media", DEMO_MEDIA),
         ("schema_item_type", "CreativeWork"), ("schema_area_served", ["اصفهان", "ایران"]),
+        # ── SEO pack (ru-senior-seo, pages/drafts/portfolio.seo.md) ───────
+        ("page_type", "CollectionPage"),
+        ("robots", "index, follow, max-image-preview:large"),
+        ("date_published", REVIEWED_ISO), ("date_modified", REVIEWED_ISO),
+        ("breadcrumb", [{"name": "خانه", "url": "https://chatreghermez.com/"},
+                        {"name": "نمونه‌کارها", "url": "https://chatreghermez.com/portfolio/"}]
+         + ([{"name": name, "url": f"https://chatreghermez.com{VIEW_BASE}{view['slug']}/"}] if view else [])),
+        ("og", {"type": "website", "site_name": "چتر قرمز",
+                "image": "https://chatreghermez.com/media/og/portfolio-1200x630.jpg",
+                "image_alt": f"نمونه کارهای {name} چتر قرمز" if view else "نمونه کارهای چتر قرمز، از لوگو تا بیلبورد"}),
         ("motion_score", {"declared": "portfolio_hub",
                           "verbs": ["active-card-becomes-hero", "skeleton-to-content", "perspective-drag",
                                     "kinetic-oversized-type", "horizontal-accordion"],

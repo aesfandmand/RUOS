@@ -74,18 +74,68 @@ def _schema_graph(spec: Mapping[str, Any], composed: ComposedPage) -> dict[str, 
     """Derive structured data from the blocks that are actually on the page."""
     slug = spec["slug"]
     brand = (spec.get("shell", {}).get("site-header", {}).get("brand", {})).get("name", "")
-    graph: list[dict[str, Any]] = [
-        {
-            "@type": "WebPage",
-            "@id": f"#{slug}",
-            "name": spec["title"],
-            "description": spec["description"],
-            "inLanguage": spec.get("lang", "fa"),
-            "isPartOf": {"@type": "WebSite", "name": brand},
-        }
-    ]
+    page_node: dict[str, Any] = {
+        "@type": spec.get("page_type", "WebPage"),
+        "@id": f"#{slug}",
+        "name": spec["title"],
+        "description": spec["description"],
+        "inLanguage": spec.get("lang", "fa"),
+        "isPartOf": {"@type": "WebSite", "name": brand},
+    }
+    if spec.get("canonical"):
+        page_node["url"] = spec["canonical"]
+    # Dates are stated, never derived: a page's review date is an editorial
+    # promise (ru-senior-seo §5-ب.14), not the time the composer ran.
+    for key, prop in (("date_published", "datePublished"), ("date_modified", "dateModified")):
+        if spec.get(key):
+            page_node[prop] = spec[key]
+    graph: list[dict[str, Any]] = [page_node]
+
+    # BreadcrumbList from the spec's stated trail (names from sitemap v5).
+    trail = spec.get("breadcrumb") or []
+    if trail:
+        graph.append({
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i, "name": step["name"], "item": step["url"]}
+                for i, step in enumerate(trail, start=1)
+            ],
+        })
 
     by_block = {entry["block"]: entry for entry in spec["blocks"]}
+
+    # A portfolio grid is a collection of creative works. Only samples that
+    # carry a picture are emitted, and only the fields the card shows: an
+    # empty slot is not a work, and a field WordPress has not filled yet
+    # (client, city, year) is not stated here.
+    grid = by_block.get("portfolio-grid")
+    if grid:
+        limit = int(spec.get("schema_items_limit", 12))
+        works = [item for item in grid.get("data", {}).get("items", []) if item.get("src")][:limit]
+        if works:
+            graph.append({
+                "@type": "ItemList",
+                "name": grid.get("data", {}).get("title", ""),
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": i,
+                        "item": {
+                            "@type": "CreativeWork",
+                            "name": item.get("title", ""),
+                            "genre": item.get("service_label", ""),
+                            "url": item.get("href", ""),
+                            "creator": {"@type": "Organization", "name": brand},
+                            "image": {
+                                "@type": "ImageObject",
+                                "contentUrl": item.get("src", ""),
+                                "description": item.get("alt", ""),
+                            },
+                        },
+                    }
+                    for i, item in enumerate(works, start=1)
+                ],
+            })
 
     catalog = by_block.get("products-section") or by_block.get("service-map")
     if catalog:
@@ -190,6 +240,27 @@ def render_page(spec: Mapping[str, Any], library: BlockLibrary | None = None) ->
     )
     icon_sprite = _icon_sprite(library)
 
+    # Robots and Open Graph are stated per page. A page that states neither
+    # renders exactly the head it always did.
+    head_extra: list[str] = []
+    if spec.get("robots"):
+        head_extra.append(f'<meta name="robots" content="{_esc(spec["robots"])}">')
+    og = spec.get("og") or {}
+    if og:
+        og_fields = [
+            ("og:type", og.get("type", "website")),
+            ("og:locale", og.get("locale", "fa_IR")),
+            ("og:site_name", og.get("site_name", "")),
+            ("og:title", og.get("title", spec["title"])),
+            ("og:description", og.get("description", spec["description"])),
+            ("og:url", canonical),
+            ("og:image", og.get("image", "")),
+            ("og:image:alt", og.get("image_alt", "")),
+        ]
+        head_extra += [f'<meta property="{p}" content="{_esc(v)}">' for p, v in og_fields if v]
+        head_extra.append('<meta name="twitter:card" content="summary_large_image">')
+    head_extra_html = "".join(line + "\n" for line in head_extra)
+
     document = (
         "<!doctype html>\n"
         f'<html lang="{_esc(lang)}" dir="{_esc(direction)}" data-page="{_esc(spec["slug"])}">\n'
@@ -200,6 +271,7 @@ def render_page(spec: Mapping[str, Any], library: BlockLibrary | None = None) ->
         f"<title>{_esc(spec['title'])}</title>\n"
         f'<meta name="description" content="{_esc(spec["description"])}">\n'
         f"{canonical_tag}\n"
+        f"{head_extra_html}"
         '<link rel="stylesheet" href="assets/styles.css">\n'
         f'<script type="application/ld+json">{schema}</script>\n'
         "</head>\n"
