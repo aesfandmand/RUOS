@@ -7,6 +7,7 @@
   "canonical": "https://chatreghermez.com/portfolio/",
   "shell": "@site",
   "nav_section": "/portfolio/",
+  "media": "media/portfolio-demo",
   "schema_item_type": "CreativeWork",
   "schema_area_served": [
     "اصفهان",
@@ -48,58 +49,73 @@
         "rail_label": "نمونه‌های منتخب",
         "slides": [
           {
-            "title": "نمونه‌کار اجاره و اکران رسانه",
-            "service": "اجاره و اکران رسانه",
+            "title": "نمونه‌کار طراحی بیلبورد",
+            "service": "طراحی بیلبورد",
             "client": "صنعت مشتری",
             "city": "شهر",
             "year": "سال",
             "role": "نقش ما",
-            "label": "جایگاه ویدئو (Remotion)",
-            "alt": "اجاره و اکران رسانه برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار اجاره و اکران رسانه چتر قرمز",
+            "src": "assets/straboard-05.jpg",
+            "thumb": "assets/straboard-05.jpg",
+            "eager": "1",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
             "placeholder": true
           },
           {
-            "title": "نمونه‌کار طراحی سایت شرکتی",
-            "service": "طراحی سایت شرکتی",
+            "title": "نمونه‌کار طراحی ست اداری",
+            "service": "طراحی ست اداری",
             "client": "صنعت مشتری",
             "city": "شهر",
             "year": "سال",
             "role": "نقش ما",
+            "src": "assets/identity-07.jpg",
+            "thumb": "assets/identity-07.jpg",
+            "eager": "",
             "label": "جایگاه عکس",
-            "alt": "طراحی سایت شرکتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی سایت شرکتی چتر قرمز",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
             "placeholder": true
           },
           {
-            "title": "نمونه‌کار طراحی لوگو",
-            "service": "طراحی لوگو",
+            "title": "نمونه‌کار طراحی بسته‌بندی",
+            "service": "طراحی بسته‌بندی",
             "client": "صنعت مشتری",
             "city": "شهر",
             "year": "سال",
             "role": "نقش ما",
+            "src": "assets/packaging-04.jpg",
+            "thumb": "assets/packaging-04.jpg",
+            "eager": "",
             "label": "جایگاه عکس",
-            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
             "placeholder": true
           },
           {
-            "title": "نمونه‌کار چاپ بنر",
-            "service": "چاپ بنر",
+            "title": "نمونه‌کار تولید محتوای اینستاگرام",
+            "service": "تولید محتوای اینستاگرام",
             "client": "صنعت مشتری",
             "city": "شهر",
             "year": "سال",
             "role": "نقش ما",
+            "src": "assets/instagram-05.jpg",
+            "thumb": "assets/instagram-05.jpg",
+            "eager": "",
             "label": "جایگاه عکس",
-            "alt": "چاپ بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار چاپ بنر چتر قرمز",
+            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
             "placeholder": true
           },
           {
-            "title": "نمونه‌کار عکاسی صنعتی",
-            "service": "عکاسی صنعتی",
+            "title": "نمونه‌کار طراحی لایت‌باکس",
+            "service": "طراحی لایت‌باکس",
             "client": "صنعت مشتری",
             "city": "شهر",
             "year": "سال",
             "role": "نقش ما",
+            "src": "assets/lightbox-h-01.jpg",
+            "thumb": "assets/lightbox-h-01.jpg",
+            "eager": "",
             "label": "جایگاه عکس",
-            "alt": "عکاسی صنعتی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار عکاسی صنعتی چتر قرمز",
+            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
             "placeholder": true
           }
         ],
@@ -463,6 +479,1758 @@
           }
         ],
         "items": [
+          {
+            "family": "digital",
+            "service": "instagram-content-production",
+            "service_label": "تولید محتوای اینستاگرام",
+            "code": "RU-SOC-003-01",
+            "title": "نمونه‌کار تولید محتوای اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-content-production-01/",
+            "label": "جایگاه عکس",
+            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
+            "placeholder": true,
+            "src": "assets/instagram-05.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "logo-design",
+            "service_label": "طراحی لوگو",
+            "code": "RU-GD-001-01",
+            "title": "نمونه‌کار طراحی لوگو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/logo-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true,
+            "src": "assets/logo-01.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "visual-identity-design",
+            "service_label": "طراحی هویت بصری",
+            "code": "RU-GD-002-01",
+            "title": "نمونه‌کار طراحی هویت بصری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/visual-identity-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/identity-03.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "stationery-design",
+            "service_label": "طراحی ست اداری",
+            "code": "RU-GD-003-01",
+            "title": "نمونه‌کار طراحی ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/stationery-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/identity-07.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "business-card-design",
+            "service_label": "طراحی کارت ویزیت",
+            "code": "RU-GD-004-01",
+            "title": "نمونه‌کار طراحی کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/business-card-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
+            "placeholder": true,
+            "src": "assets/business-card-02.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "catalog-design",
+            "service_label": "طراحی کاتالوگ",
+            "code": "RU-GD-007-01",
+            "title": "نمونه‌کار طراحی کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/catalog-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-04.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "brochure-design",
+            "service_label": "طراحی بروشور",
+            "code": "RU-GD-008-01",
+            "title": "نمونه‌کار طراحی بروشور",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/brochure-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بروشور چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-06.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "banner-design",
+            "service_label": "طراحی بنر",
+            "code": "RU-GD-009-01",
+            "title": "نمونه‌کار طراحی بنر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/banner-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر چتر قرمز",
+            "placeholder": true,
+            "src": "assets/banner-06.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "website-banner-design",
+            "service_label": "طراحی بنر سایت",
+            "code": "RU-GD-010-01",
+            "title": "نمونه‌کار طراحی بنر سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/website-banner-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر سایت چتر قرمز",
+            "placeholder": true,
+            "src": "assets/website-07.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "billboard-design",
+            "service_label": "طراحی بیلبورد",
+            "code": "RU-GD-011-01",
+            "title": "نمونه‌کار طراحی بیلبورد",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/billboard-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
+            "placeholder": true,
+            "src": "assets/straboard-05.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "poster-design",
+            "service_label": "طراحی پوستر",
+            "code": "RU-GD-012-01",
+            "title": "نمونه‌کار طراحی پوستر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/poster-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی پوستر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی پوستر چتر قرمز",
+            "placeholder": true,
+            "src": "assets/flyer-08.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "lightbox-design",
+            "service_label": "طراحی لایت‌باکس",
+            "code": "RU-GD-013-01",
+            "title": "نمونه‌کار طراحی لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/lightbox-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
+            "placeholder": true,
+            "src": "assets/lightbox-h-01.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "packaging-design",
+            "service_label": "طراحی بسته‌بندی",
+            "code": "RU-GD-016-01",
+            "title": "نمونه‌کار طراحی بسته‌بندی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/packaging-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
+            "placeholder": true,
+            "src": "assets/packaging-04.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "label-design",
+            "service_label": "طراحی لیبل",
+            "code": "RU-GD-017-01",
+            "title": "نمونه‌کار طراحی لیبل",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/label-design-01/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لیبل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لیبل چتر قرمز",
+            "placeholder": true,
+            "src": "assets/label-01.jpg"
+          },
+          {
+            "family": "digital",
+            "service": "instagram-content-production",
+            "service_label": "تولید محتوای اینستاگرام",
+            "code": "RU-SOC-003-02",
+            "title": "نمونه‌کار تولید محتوای اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-content-production-02/",
+            "label": "جایگاه عکس",
+            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
+            "placeholder": true,
+            "src": "assets/instagram-01.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "logo-design",
+            "service_label": "طراحی لوگو",
+            "code": "RU-GD-001-02",
+            "title": "نمونه‌کار طراحی لوگو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/logo-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true,
+            "src": "assets/logo-09.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "visual-identity-design",
+            "service_label": "طراحی هویت بصری",
+            "code": "RU-GD-002-02",
+            "title": "نمونه‌کار طراحی هویت بصری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/visual-identity-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/identity-01.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "stationery-design",
+            "service_label": "طراحی ست اداری",
+            "code": "RU-GD-003-02",
+            "title": "نمونه‌کار طراحی ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/stationery-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/identity-09.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "business-card-design",
+            "service_label": "طراحی کارت ویزیت",
+            "code": "RU-GD-004-02",
+            "title": "نمونه‌کار طراحی کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/business-card-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
+            "placeholder": true,
+            "src": "assets/business-card-07.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "catalog-design",
+            "service_label": "طراحی کاتالوگ",
+            "code": "RU-GD-007-02",
+            "title": "نمونه‌کار طراحی کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/catalog-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-09.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "brochure-design",
+            "service_label": "طراحی بروشور",
+            "code": "RU-GD-008-02",
+            "title": "نمونه‌کار طراحی بروشور",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/brochure-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بروشور چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-07.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "banner-design",
+            "service_label": "طراحی بنر",
+            "code": "RU-GD-009-02",
+            "title": "نمونه‌کار طراحی بنر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/banner-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر چتر قرمز",
+            "placeholder": true,
+            "src": "assets/banner-07.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "website-banner-design",
+            "service_label": "طراحی بنر سایت",
+            "code": "RU-GD-010-02",
+            "title": "نمونه‌کار طراحی بنر سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/website-banner-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر سایت چتر قرمز",
+            "placeholder": true,
+            "src": "assets/website-08.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "billboard-design",
+            "service_label": "طراحی بیلبورد",
+            "code": "RU-GD-011-02",
+            "title": "نمونه‌کار طراحی بیلبورد",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/billboard-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
+            "placeholder": true,
+            "src": "assets/straboard-08.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "poster-design",
+            "service_label": "طراحی پوستر",
+            "code": "RU-GD-012-02",
+            "title": "نمونه‌کار طراحی پوستر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/poster-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی پوستر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی پوستر چتر قرمز",
+            "placeholder": true,
+            "src": "assets/flyer-07.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "lightbox-design",
+            "service_label": "طراحی لایت‌باکس",
+            "code": "RU-GD-013-02",
+            "title": "نمونه‌کار طراحی لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/lightbox-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
+            "placeholder": true,
+            "src": "assets/lightbox-h-02.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "packaging-design",
+            "service_label": "طراحی بسته‌بندی",
+            "code": "RU-GD-016-02",
+            "title": "نمونه‌کار طراحی بسته‌بندی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/packaging-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
+            "placeholder": true,
+            "src": "assets/packaging-09.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "label-design",
+            "service_label": "طراحی لیبل",
+            "code": "RU-GD-017-02",
+            "title": "نمونه‌کار طراحی لیبل",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/label-design-02/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لیبل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لیبل چتر قرمز",
+            "placeholder": true,
+            "src": "assets/label-04.jpg"
+          },
+          {
+            "family": "digital",
+            "service": "instagram-content-production",
+            "service_label": "تولید محتوای اینستاگرام",
+            "code": "RU-SOC-003-03",
+            "title": "نمونه‌کار تولید محتوای اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-content-production-03/",
+            "label": "جایگاه عکس",
+            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
+            "placeholder": true,
+            "src": "assets/instagram-03.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "logo-design",
+            "service_label": "طراحی لوگو",
+            "code": "RU-GD-001-03",
+            "title": "نمونه‌کار طراحی لوگو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/logo-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true,
+            "src": "assets/logo-07.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "visual-identity-design",
+            "service_label": "طراحی هویت بصری",
+            "code": "RU-GD-002-03",
+            "title": "نمونه‌کار طراحی هویت بصری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/visual-identity-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/identity-02.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "stationery-design",
+            "service_label": "طراحی ست اداری",
+            "code": "RU-GD-003-03",
+            "title": "نمونه‌کار طراحی ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/stationery-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/identity-10.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "business-card-design",
+            "service_label": "طراحی کارت ویزیت",
+            "code": "RU-GD-004-03",
+            "title": "نمونه‌کار طراحی کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/business-card-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
+            "placeholder": true,
+            "src": "assets/business-card-03.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "catalog-design",
+            "service_label": "طراحی کاتالوگ",
+            "code": "RU-GD-007-03",
+            "title": "نمونه‌کار طراحی کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/catalog-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-11.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "brochure-design",
+            "service_label": "طراحی بروشور",
+            "code": "RU-GD-008-03",
+            "title": "نمونه‌کار طراحی بروشور",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/brochure-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بروشور چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-08.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "banner-design",
+            "service_label": "طراحی بنر",
+            "code": "RU-GD-009-03",
+            "title": "نمونه‌کار طراحی بنر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/banner-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر چتر قرمز",
+            "placeholder": true,
+            "src": "assets/banner-08.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "website-banner-design",
+            "service_label": "طراحی بنر سایت",
+            "code": "RU-GD-010-03",
+            "title": "نمونه‌کار طراحی بنر سایت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/website-banner-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر سایت چتر قرمز",
+            "placeholder": true,
+            "src": "assets/website-09.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "billboard-design",
+            "service_label": "طراحی بیلبورد",
+            "code": "RU-GD-011-03",
+            "title": "نمونه‌کار طراحی بیلبورد",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/billboard-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
+            "placeholder": true,
+            "src": "assets/straboard-01.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "poster-design",
+            "service_label": "طراحی پوستر",
+            "code": "RU-GD-012-03",
+            "title": "نمونه‌کار طراحی پوستر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/poster-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی پوستر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی پوستر چتر قرمز",
+            "placeholder": true,
+            "src": "assets/flyer-02.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "lightbox-design",
+            "service_label": "طراحی لایت‌باکس",
+            "code": "RU-GD-013-03",
+            "title": "نمونه‌کار طراحی لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/lightbox-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
+            "placeholder": true,
+            "src": "assets/lightbox-v-06.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "packaging-design",
+            "service_label": "طراحی بسته‌بندی",
+            "code": "RU-GD-016-03",
+            "title": "نمونه‌کار طراحی بسته‌بندی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/packaging-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
+            "placeholder": true,
+            "src": "assets/packaging-05.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "label-design",
+            "service_label": "طراحی لیبل",
+            "code": "RU-GD-017-03",
+            "title": "نمونه‌کار طراحی لیبل",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/label-design-03/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لیبل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لیبل چتر قرمز",
+            "placeholder": true,
+            "src": "assets/label-02.jpg"
+          },
+          {
+            "family": "digital",
+            "service": "instagram-content-production",
+            "service_label": "تولید محتوای اینستاگرام",
+            "code": "RU-SOC-003-04",
+            "title": "نمونه‌کار تولید محتوای اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-content-production-04/",
+            "label": "جایگاه عکس",
+            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
+            "placeholder": true,
+            "src": "assets/instagram-04.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "logo-design",
+            "service_label": "طراحی لوگو",
+            "code": "RU-GD-001-04",
+            "title": "نمونه‌کار طراحی لوگو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/logo-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true,
+            "src": "assets/logo-11.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "visual-identity-design",
+            "service_label": "طراحی هویت بصری",
+            "code": "RU-GD-002-04",
+            "title": "نمونه‌کار طراحی هویت بصری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/visual-identity-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/identity-04.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "stationery-design",
+            "service_label": "طراحی ست اداری",
+            "code": "RU-GD-003-04",
+            "title": "نمونه‌کار طراحی ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/stationery-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/stationery-02.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "business-card-design",
+            "service_label": "طراحی کارت ویزیت",
+            "code": "RU-GD-004-04",
+            "title": "نمونه‌کار طراحی کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/business-card-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
+            "placeholder": true,
+            "src": "assets/business-card-01.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "catalog-design",
+            "service_label": "طراحی کاتالوگ",
+            "code": "RU-GD-007-04",
+            "title": "نمونه‌کار طراحی کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/catalog-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-03.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "brochure-design",
+            "service_label": "طراحی بروشور",
+            "code": "RU-GD-008-04",
+            "title": "نمونه‌کار طراحی بروشور",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/brochure-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بروشور چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-05.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "banner-design",
+            "service_label": "طراحی بنر",
+            "code": "RU-GD-009-04",
+            "title": "نمونه‌کار طراحی بنر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/banner-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر چتر قرمز",
+            "placeholder": true,
+            "src": "assets/banner-09.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "billboard-design",
+            "service_label": "طراحی بیلبورد",
+            "code": "RU-GD-011-04",
+            "title": "نمونه‌کار طراحی بیلبورد",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/billboard-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
+            "placeholder": true,
+            "src": "assets/straboard-10.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "poster-design",
+            "service_label": "طراحی پوستر",
+            "code": "RU-GD-012-04",
+            "title": "نمونه‌کار طراحی پوستر",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/poster-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی پوستر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی پوستر چتر قرمز",
+            "placeholder": true,
+            "src": "assets/flyer-01.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "lightbox-design",
+            "service_label": "طراحی لایت‌باکس",
+            "code": "RU-GD-013-04",
+            "title": "نمونه‌کار طراحی لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/lightbox-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
+            "placeholder": true,
+            "src": "assets/lightbox-v-02.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "packaging-design",
+            "service_label": "طراحی بسته‌بندی",
+            "code": "RU-GD-016-04",
+            "title": "نمونه‌کار طراحی بسته‌بندی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/packaging-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
+            "placeholder": true,
+            "src": "assets/packaging-02.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "label-design",
+            "service_label": "طراحی لیبل",
+            "code": "RU-GD-017-04",
+            "title": "نمونه‌کار طراحی لیبل",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/label-design-04/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لیبل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لیبل چتر قرمز",
+            "placeholder": true,
+            "src": "assets/label-05.jpg"
+          },
+          {
+            "family": "digital",
+            "service": "instagram-content-production",
+            "service_label": "تولید محتوای اینستاگرام",
+            "code": "RU-SOC-003-05",
+            "title": "نمونه‌کار تولید محتوای اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-content-production-05/",
+            "label": "جایگاه عکس",
+            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
+            "placeholder": true,
+            "src": "assets/instagram-08.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "logo-design",
+            "service_label": "طراحی لوگو",
+            "code": "RU-GD-001-05",
+            "title": "نمونه‌کار طراحی لوگو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/logo-design-05/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true,
+            "src": "assets/logo-04.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "visual-identity-design",
+            "service_label": "طراحی هویت بصری",
+            "code": "RU-GD-002-05",
+            "title": "نمونه‌کار طراحی هویت بصری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/visual-identity-design-05/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/identity-05.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "stationery-design",
+            "service_label": "طراحی ست اداری",
+            "code": "RU-GD-003-05",
+            "title": "نمونه‌کار طراحی ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/stationery-design-05/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/stationery-03.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "business-card-design",
+            "service_label": "طراحی کارت ویزیت",
+            "code": "RU-GD-004-05",
+            "title": "نمونه‌کار طراحی کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/business-card-design-05/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
+            "placeholder": true,
+            "src": "assets/business-card-06.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "catalog-design",
+            "service_label": "طراحی کاتالوگ",
+            "code": "RU-GD-007-05",
+            "title": "نمونه‌کار طراحی کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/catalog-design-05/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-10.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "billboard-design",
+            "service_label": "طراحی بیلبورد",
+            "code": "RU-GD-011-05",
+            "title": "نمونه‌کار طراحی بیلبورد",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/billboard-design-05/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
+            "placeholder": true,
+            "src": "assets/straboard-03.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "lightbox-design",
+            "service_label": "طراحی لایت‌باکس",
+            "code": "RU-GD-013-05",
+            "title": "نمونه‌کار طراحی لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/lightbox-design-05/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
+            "placeholder": true,
+            "src": "assets/lightbox-v-09.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "packaging-design",
+            "service_label": "طراحی بسته‌بندی",
+            "code": "RU-GD-016-05",
+            "title": "نمونه‌کار طراحی بسته‌بندی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/packaging-design-05/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
+            "placeholder": true,
+            "src": "assets/packaging-08.jpg"
+          },
+          {
+            "family": "digital",
+            "service": "instagram-content-production",
+            "service_label": "تولید محتوای اینستاگرام",
+            "code": "RU-SOC-003-06",
+            "title": "نمونه‌کار تولید محتوای اینستاگرام",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "پیاده‌سازی"
+              },
+              {
+                "value": "محتوا"
+              }
+            ],
+            "href": "/portfolio/instagram-content-production-06/",
+            "label": "جایگاه عکس",
+            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
+            "placeholder": true,
+            "src": "assets/instagram-02.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "logo-design",
+            "service_label": "طراحی لوگو",
+            "code": "RU-GD-001-06",
+            "title": "نمونه‌کار طراحی لوگو",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/logo-design-06/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
+            "placeholder": true,
+            "src": "assets/logo-12.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "visual-identity-design",
+            "service_label": "طراحی هویت بصری",
+            "code": "RU-GD-002-06",
+            "title": "نمونه‌کار طراحی هویت بصری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/visual-identity-design-06/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/identity-06.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "stationery-design",
+            "service_label": "طراحی ست اداری",
+            "code": "RU-GD-003-06",
+            "title": "نمونه‌کار طراحی ست اداری",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/stationery-design-06/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
+            "placeholder": true,
+            "src": "assets/stationery-05.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "business-card-design",
+            "service_label": "طراحی کارت ویزیت",
+            "code": "RU-GD-004-06",
+            "title": "نمونه‌کار طراحی کارت ویزیت",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/business-card-design-06/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
+            "placeholder": true,
+            "src": "assets/business-card-12.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "catalog-design",
+            "service_label": "طراحی کاتالوگ",
+            "code": "RU-GD-007-06",
+            "title": "نمونه‌کار طراحی کاتالوگ",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/catalog-design-06/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
+            "placeholder": true,
+            "src": "assets/catalogue-12.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "billboard-design",
+            "service_label": "طراحی بیلبورد",
+            "code": "RU-GD-011-06",
+            "title": "نمونه‌کار طراحی بیلبورد",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/billboard-design-06/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
+            "placeholder": true,
+            "src": "assets/straboard-06.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "lightbox-design",
+            "service_label": "طراحی لایت‌باکس",
+            "code": "RU-GD-013-06",
+            "title": "نمونه‌کار طراحی لایت‌باکس",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/lightbox-design-06/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
+            "placeholder": true,
+            "src": "assets/lightbox-v-03.jpg"
+          },
+          {
+            "family": "graphic",
+            "service": "packaging-design",
+            "service_label": "طراحی بسته‌بندی",
+            "code": "RU-GD-016-06",
+            "title": "نمونه‌کار طراحی بسته‌بندی",
+            "meta": "صنعت مشتری · شهر · سال",
+            "roles": [
+              {
+                "value": "ایده"
+              },
+              {
+                "value": "طراحی"
+              },
+              {
+                "value": "آماده‌سازی چاپ"
+              }
+            ],
+            "href": "/portfolio/packaging-design-06/",
+            "label": "جایگاه عکس",
+            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
+            "placeholder": true,
+            "src": "assets/packaging-10.jpg"
+          },
           {
             "family": "ooh",
             "service": "media-rental",
@@ -1247,52 +3015,6 @@
           },
           {
             "family": "digital",
-            "service": "instagram-content-production",
-            "service_label": "تولید محتوای اینستاگرام",
-            "code": "RU-SOC-003-01",
-            "title": "نمونه‌کار تولید محتوای اینستاگرام",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "پیاده‌سازی"
-              },
-              {
-                "value": "محتوا"
-              }
-            ],
-            "href": "/portfolio/instagram-content-production-01/",
-            "label": "جایگاه عکس",
-            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "digital",
-            "service": "instagram-content-production",
-            "service_label": "تولید محتوای اینستاگرام",
-            "code": "RU-SOC-003-02",
-            "title": "نمونه‌کار تولید محتوای اینستاگرام",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "پیاده‌سازی"
-              },
-              {
-                "value": "محتوا"
-              }
-            ],
-            "href": "/portfolio/instagram-content-production-02/",
-            "label": "جایگاه عکس",
-            "alt": "تولید محتوای اینستاگرام برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید محتوای اینستاگرام چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "digital",
             "service": "reels-production",
             "service_label": "تولید ریلز",
             "code": "RU-SOC-004-01",
@@ -1335,512 +3057,6 @@
             "href": "/portfolio/reels-production-02/",
             "label": "جایگاه ویدئو",
             "alt": "تولید ریلز برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار تولید ریلز چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "logo-design",
-            "service_label": "طراحی لوگو",
-            "code": "RU-GD-001-01",
-            "title": "نمونه‌کار طراحی لوگو",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/logo-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "logo-design",
-            "service_label": "طراحی لوگو",
-            "code": "RU-GD-001-02",
-            "title": "نمونه‌کار طراحی لوگو",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/logo-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی لوگو برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لوگو چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "visual-identity-design",
-            "service_label": "طراحی هویت بصری",
-            "code": "RU-GD-002-01",
-            "title": "نمونه‌کار طراحی هویت بصری",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/visual-identity-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "visual-identity-design",
-            "service_label": "طراحی هویت بصری",
-            "code": "RU-GD-002-02",
-            "title": "نمونه‌کار طراحی هویت بصری",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/visual-identity-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی هویت بصری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی هویت بصری چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "stationery-design",
-            "service_label": "طراحی ست اداری",
-            "code": "RU-GD-003-01",
-            "title": "نمونه‌کار طراحی ست اداری",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/stationery-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "stationery-design",
-            "service_label": "طراحی ست اداری",
-            "code": "RU-GD-003-02",
-            "title": "نمونه‌کار طراحی ست اداری",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/stationery-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی ست اداری برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی ست اداری چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "business-card-design",
-            "service_label": "طراحی کارت ویزیت",
-            "code": "RU-GD-004-01",
-            "title": "نمونه‌کار طراحی کارت ویزیت",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/business-card-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "business-card-design",
-            "service_label": "طراحی کارت ویزیت",
-            "code": "RU-GD-004-02",
-            "title": "نمونه‌کار طراحی کارت ویزیت",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/business-card-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی کارت ویزیت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کارت ویزیت چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "catalog-design",
-            "service_label": "طراحی کاتالوگ",
-            "code": "RU-GD-007-01",
-            "title": "نمونه‌کار طراحی کاتالوگ",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/catalog-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "catalog-design",
-            "service_label": "طراحی کاتالوگ",
-            "code": "RU-GD-007-02",
-            "title": "نمونه‌کار طراحی کاتالوگ",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/catalog-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی کاتالوگ برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی کاتالوگ چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "brochure-design",
-            "service_label": "طراحی بروشور",
-            "code": "RU-GD-008-01",
-            "title": "نمونه‌کار طراحی بروشور",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/brochure-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بروشور چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "brochure-design",
-            "service_label": "طراحی بروشور",
-            "code": "RU-GD-008-02",
-            "title": "نمونه‌کار طراحی بروشور",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/brochure-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بروشور برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بروشور چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "banner-design",
-            "service_label": "طراحی بنر",
-            "code": "RU-GD-009-01",
-            "title": "نمونه‌کار طراحی بنر",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/banner-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "banner-design",
-            "service_label": "طراحی بنر",
-            "code": "RU-GD-009-02",
-            "title": "نمونه‌کار طراحی بنر",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/banner-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بنر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "website-banner-design",
-            "service_label": "طراحی بنر سایت",
-            "code": "RU-GD-010-01",
-            "title": "نمونه‌کار طراحی بنر سایت",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/website-banner-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بنر سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر سایت چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "website-banner-design",
-            "service_label": "طراحی بنر سایت",
-            "code": "RU-GD-010-02",
-            "title": "نمونه‌کار طراحی بنر سایت",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/website-banner-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بنر سایت برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بنر سایت چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "billboard-design",
-            "service_label": "طراحی بیلبورد",
-            "code": "RU-GD-011-01",
-            "title": "نمونه‌کار طراحی بیلبورد",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/billboard-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "billboard-design",
-            "service_label": "طراحی بیلبورد",
-            "code": "RU-GD-011-02",
-            "title": "نمونه‌کار طراحی بیلبورد",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/billboard-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بیلبورد برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بیلبورد چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "poster-design",
-            "service_label": "طراحی پوستر",
-            "code": "RU-GD-012-01",
-            "title": "نمونه‌کار طراحی پوستر",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/poster-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی پوستر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی پوستر چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "poster-design",
-            "service_label": "طراحی پوستر",
-            "code": "RU-GD-012-02",
-            "title": "نمونه‌کار طراحی پوستر",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/poster-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی پوستر برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی پوستر چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "lightbox-design",
-            "service_label": "طراحی لایت‌باکس",
-            "code": "RU-GD-013-01",
-            "title": "نمونه‌کار طراحی لایت‌باکس",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/lightbox-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "lightbox-design",
-            "service_label": "طراحی لایت‌باکس",
-            "code": "RU-GD-013-02",
-            "title": "نمونه‌کار طراحی لایت‌باکس",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/lightbox-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی لایت‌باکس برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لایت‌باکس چتر قرمز",
             "placeholder": true
           },
           {
@@ -1933,98 +3149,6 @@
             "href": "/portfolio/exhibition-backlight-design-02/",
             "label": "جایگاه عکس",
             "alt": "طراحی بک‌لایت نمایشگاهی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بک‌لایت نمایشگاهی چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "packaging-design",
-            "service_label": "طراحی بسته‌بندی",
-            "code": "RU-GD-016-01",
-            "title": "نمونه‌کار طراحی بسته‌بندی",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/packaging-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "packaging-design",
-            "service_label": "طراحی بسته‌بندی",
-            "code": "RU-GD-016-02",
-            "title": "نمونه‌کار طراحی بسته‌بندی",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/packaging-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی بسته‌بندی برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی بسته‌بندی چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "label-design",
-            "service_label": "طراحی لیبل",
-            "code": "RU-GD-017-01",
-            "title": "نمونه‌کار طراحی لیبل",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/label-design-01/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی لیبل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لیبل چتر قرمز",
-            "placeholder": true
-          },
-          {
-            "family": "graphic",
-            "service": "label-design",
-            "service_label": "طراحی لیبل",
-            "code": "RU-GD-017-02",
-            "title": "نمونه‌کار طراحی لیبل",
-            "meta": "صنعت مشتری · شهر · سال",
-            "roles": [
-              {
-                "value": "ایده"
-              },
-              {
-                "value": "طراحی"
-              },
-              {
-                "value": "آماده‌سازی چاپ"
-              }
-            ],
-            "href": "/portfolio/label-design-02/",
-            "label": "جایگاه عکس",
-            "alt": "طراحی لیبل برای {نام پروژه یا صنعت مشتری}، {شهر}، {سال} — نمونه کار طراحی لیبل چتر قرمز",
             "placeholder": true
           },
           {
@@ -2856,7 +3980,7 @@
             "placeholder": true
           }
         ],
-        "items_total": "۱۰۴",
+        "items_total": "۱۴۹",
         "count_word": "نمونه",
         "more_label": "نمونه‌های بیشتر",
         "empty_text": "برای این خدمت هنوز نمونه‌ای منتشر نشده است.",
@@ -2878,6 +4002,7 @@
             "title": "تبلیغات محیطی",
             "icon": "icon-fam-outdoor",
             "label": "جایگاه عکس",
+            "src": "assets/straboard-08.jpg",
             "alt": "نمونه کارهای تبلیغات محیطی چتر قرمز",
             "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true,
@@ -2895,6 +4020,7 @@
             "title": "دیجیتال مارکتینگ",
             "icon": "icon-fam-digital",
             "label": "جایگاه عکس",
+            "src": "assets/website-06.jpg",
             "alt": "نمونه کارهای دیجیتال مارکتینگ چتر قرمز",
             "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true,
@@ -2924,6 +4050,7 @@
             "title": "طراحی گرافیک",
             "icon": "icon-fam-graphic",
             "label": "جایگاه عکس",
+            "src": "assets/identity-07.jpg",
             "alt": "نمونه کارهای طراحی گرافیک چتر قرمز",
             "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true,
@@ -2953,6 +4080,7 @@
             "title": "چاپ و تولید",
             "icon": "icon-fam-print",
             "label": "جایگاه عکس",
+            "src": "assets/catalogue-10.jpg",
             "alt": "نمونه کارهای چاپ و تولید چتر قرمز",
             "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true,
@@ -2982,6 +4110,7 @@
             "title": "عکاسی و فیلم‌برداری",
             "icon": "icon-fam-photo",
             "label": "جایگاه عکس",
+            "src": "assets/website-04.jpg",
             "alt": "نمونه کارهای عکاسی و فیلم‌برداری چتر قرمز",
             "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true,
@@ -3011,6 +4140,7 @@
             "title": "مشاوره",
             "icon": "icon-fam-consult",
             "label": "جایگاه عکس",
+            "src": "assets/website-02.jpg",
             "alt": "نمونه کارهای مشاوره چتر قرمز",
             "body": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true,
@@ -3043,7 +4173,7 @@
       "anchor": "golden",
       "data": {
         "eyebrow": "حرف حساب",
-        "line": "جملهٔ طلایی صفحه، در مرحلهٔ متن نوشته می‌شود",
+        "line": "اول نمونهٔ همان کار را ببینید، بعد تصمیم بگیرید.",
         "support": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز."
       }
     },
@@ -3059,7 +4189,8 @@
         ],
         "image": {
           "label": "جایگاه عکس",
-          "alt": "پشت صحنهٔ آماده‌سازی غرفهٔ نمایشگاه با مهلت تنگ، کارگاه چتر قرمز"
+          "src": "assets/lightbox-v-02.jpg",
+          "alt": "لایت‌باکس تبلیغاتی نصب‌شده در خیابان، نمونه کار چتر قرمز"
         }
       }
     },
@@ -3150,27 +4281,27 @@
         "lead": "پرسش‌ها در مرحلهٔ متن از پیشنهاد خودکار گوگل ایران برداشته می‌شوند.",
         "questions": [
           {
-            "q": "پرسش ۱ از تقاضای واقعی جست‌وجو",
+            "q": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم است؟",
             "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true
           },
           {
-            "q": "پرسش ۲ از تقاضای واقعی جست‌وجو",
+            "q": "چاپگرها و متون بلکه روزنامه و مجله در ستون چگونه است؟",
             "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true
           },
           {
-            "q": "پرسش ۳ از تقاضای واقعی جست‌وجو",
+            "q": "طراحان گرافیک برای شرایط فعلی چه نیازی دارند؟",
             "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true
           },
           {
-            "q": "پرسش ۴ از تقاضای واقعی جست‌وجو",
+            "q": "کتابهای زیادی در شصت و سه درصد گذشته حال و آینده؟",
             "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true
           },
           {
-            "q": "پرسش ۵ از تقاضای واقعی جست‌وجو",
+            "q": "جامعه و متخصصان را می طلبد تا با نرم افزارها چه کنند؟",
             "a": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است؛ چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز.",
             "placeholder": true
           }

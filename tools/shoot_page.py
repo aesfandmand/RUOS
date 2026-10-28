@@ -64,6 +64,13 @@ def standalone(page, out_path: Path) -> Path:
     logo = ROOT / "blocks" / "site-header" / "assets" / "logo.png"
     html = html.replace('src="assets/logo.png"',
                         'src="data:image/png;base64,' + base64.b64encode(logo.read_bytes()).decode("ascii") + '"')
+    # the page's own media (spec "media"), inlined so the file stands alone
+    mime = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}
+    for name in set(re.findall(r'(?:src|href)="assets/([^"]+)"', html)):
+        f = out_path.parent / "assets" / name
+        if f.is_file() and f.suffix.lower() in mime:
+            uri = f"data:{mime[f.suffix.lower()]};base64," + base64.b64encode(f.read_bytes()).decode("ascii")
+            html = html.replace(f'"assets/{name}"', f'"{uri}"')
     out_path.write_text(html, encoding="utf-8")
     return out_path
 

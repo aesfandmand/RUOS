@@ -92,6 +92,37 @@ ROLES = {
 }
 
 
+# Preview-only photography: the owner's real samples, taken from the agency's
+# Telegram samples group on 2026-10-28 (media/portfolio-demo/). The owner
+# uploads the finals in WordPress; until then these make the draft read as
+# the launched page it will be (owner's design benchmark rule, 2026-10-27).
+# Mapped by what each picture shows, to the final service it is a sample of.
+DEMO_MEDIA = "media/portfolio-demo"
+def _r(prefix: str, *nums: int) -> list[str]:
+    return [f"{prefix}-{n:02d}.jpg" for n in nums]
+DEMO = {
+    "logo-design": _r("logo", 1, 9, 7, 11, 4, 12),
+    "visual-identity-design": _r("identity", 3, 1, 2, 4, 5, 6),
+    "stationery-design": _r("identity", 7, 9, 10) + _r("stationery", 2, 3, 5),
+    "business-card-design": _r("business-card", 2, 7, 3, 1, 6, 12),
+    "catalog-design": _r("catalogue", 4, 9, 11, 3, 10, 12),
+    "brochure-design": _r("catalogue", 6, 7, 8, 5),
+    "poster-design": _r("flyer", 8, 7, 2, 1),
+    "banner-design": _r("banner", 6, 7, 8, 9),
+    "billboard-design": _r("straboard", 5, 8, 1, 10, 3, 6),
+    "lightbox-design": _r("lightbox-h", 1, 2) + _r("lightbox-v", 6, 2, 9, 3),
+    "packaging-design": _r("packaging", 4, 9, 5, 2, 8, 10),
+    "label-design": _r("label", 1, 4, 2, 5),
+    "instagram-content-production": _r("instagram", 5, 1, 3, 4, 8, 2),
+    "website-banner-design": _r("website", 7, 8, 9),
+}
+# The agency's own red service graphics stand in as family covers.
+FAMILY_COVER = {
+    "ooh": "straboard-08.jpg", "digital": "website-06.jpg", "graphic": "identity-07.jpg",
+    "print": "catalogue-10.jpg", "photo": "website-04.jpg", "consult": "website-02.jpg",
+}
+
+
 def fa(n: int, width: int = 0) -> str:
     return str(n).rjust(width, "0").translate(DIGITS)
 
@@ -119,12 +150,13 @@ def build(view: dict | None, services: list[dict]) -> dict:
     for s in services:
         by_family[s["family"]].append(s)
 
-    # ── samples: two placeholder samples per final service ────────────
-    items, n = [], 0
+    # ── samples: the owner's real pictures where the preview has them,
+    #    otherwise two reserved slots per final service ────────────────
+    items = []
     for key, _, _ in FAMILIES:
         for s in by_family[key]:
-            for k in (1, 2):
-                n += 1
+            pics = DEMO.get(s["slug"]) or [None, None]
+            for k, pic in enumerate(pics, start=1):
                 item = {
                     "family": key, "service": s["slug"], "service_label": s["name"],
                     "code": f"RU-{s['id']}-{k:02d}",
@@ -136,25 +168,44 @@ def build(view: dict | None, services: list[dict]) -> dict:
                     "alt": alt_for(s["name"]),
                     "placeholder": True,
                 }
+                if pic:
+                    item["src"] = f"assets/{pic}"
                 items.append(item)
-    if view:
-        items.sort(key=lambda i: i["service"] != view["slug"])
+    # Pictured samples lead, and on a service view that service leads.
+    items.sort(key=lambda i: ((view is not None and i["service"] != view["slug"]), "src" not in i))
+    if not view:
+        # interleave services so the hub's first screens show range, not one service
+        pictured = [i for i in items if "src" in i]
+        rest = [i for i in items if "src" not in i]
+        buckets = collections.OrderedDict()
+        for i in pictured:
+            buckets.setdefault(i["service"], []).append(i)
+        mixed = []
+        while any(buckets.values()):
+            for b in buckets.values():
+                if b:
+                    mixed.append(b.pop(0))
+        items = mixed + rest
 
-    # ── hero slides: pinned samples for this view, or one per family ──
-    if view:
-        pinned = [view] * 3 + [s for s in by_family[view["family"]] if s is not view][:2]
+    # ── hero slides: pinned pictured samples ────────────────────────────
+    if view and DEMO.get(view["slug"]):
+        pins = [(view, p) for p in DEMO[view["slug"]][:5]]
     else:
-        pinned = [by_family[k][0] for k, _, _ in FAMILIES[:5]]
+        pins = [(next(x for x in services if x["slug"] == slug), DEMO[slug][0]) for slug in
+                ("billboard-design", "stationery-design", "packaging-design",
+                 "instagram-content-production", "lightbox-design")]
     slides = []
-    for i, s in enumerate(pinned, start=1):
+    for i, (s, pic) in enumerate(pins, start=1):
         slides.append({
-            "title": f"نمونه‌کار {s['name']}" + (f" {fa(i)}" if view and s is view else ""),
+            "title": f"نمونه‌کار {s['name']}" + (f" {fa(i)}" if view else ""),
             "service": s["name"],
             "client": "صنعت مشتری",
             "city": "شهر",
             "year": "سال",
             "role": "نقش ما",
-            "label": "جایگاه ویدئو (Remotion)" if s["video"] or i == 1 else "جایگاه عکس",
+            "src": f"assets/{pic}", "thumb": f"assets/{pic}",
+            "eager": "1" if i == 1 else "",
+            "label": "جایگاه عکس",
             "alt": alt_for(s["name"]),
             "placeholder": True,
         })
@@ -204,6 +255,7 @@ def build(view: dict | None, services: list[dict]) -> dict:
         panels.append({
             "index": fa(n_, 2),
             "title": fam, "icon": icon, "label": "جایگاه عکس",
+            "src": f"assets/{FAMILY_COVER[key]}",
             "alt": f"نمونه کارهای {fam} چتر قرمز",
             "body": LOREM, "placeholder": True,
             "links": [{"label": s["name"], "href": f"{VIEW_BASE}{s['slug']}/"} for s in svc[:4]],
@@ -219,7 +271,7 @@ def build(view: dict | None, services: list[dict]) -> dict:
 
     blocks.append({"block": "golden-line", "anchor": "golden", "data": {
         "eyebrow": "حرف حساب",
-        "line": "جملهٔ طلایی صفحه، در مرحلهٔ متن نوشته می‌شود",
+        "line": "اول نمونهٔ همان کار را ببینید، بعد تصمیم بگیرید.",  # draft; final in stage 4
         "support": LOREM,
     }})
 
@@ -227,8 +279,8 @@ def build(view: dict | None, services: list[dict]) -> dict:
         "eyebrow": "هزینهٔ انتخاب بدون نمونه",
         "title": "پیمانکاری که نمونهٔ مشابه ندارد، چقدر برایتان تمام می‌شود؟",
         "body": [LOREM, LOREM],
-        "image": {"label": "جایگاه عکس",
-                  "alt": "پشت صحنهٔ آماده‌سازی غرفهٔ نمایشگاه با مهلت تنگ، کارگاه چتر قرمز"},
+        "image": {"label": "جایگاه عکس", "src": "assets/lightbox-v-02.jpg",
+                  "alt": "لایت‌باکس تبلیغاتی نصب‌شده در خیابان، نمونه کار چتر قرمز"},
     }})
 
     blocks.append({"block": "numbered-features", "anchor": "steps", "data": {
@@ -262,8 +314,12 @@ def build(view: dict | None, services: list[dict]) -> dict:
         "eyebrow": "پرسش‌های پرتکرار",
         "title": "پیش از تماس، جواب کوتاه را همین‌جا ببینید",
         "lead": "پرسش‌ها در مرحلهٔ متن از پیشنهاد خودکار گوگل ایران برداشته می‌شوند.",
-        "questions": [{"q": f"پرسش {fa(i)} از تقاضای واقعی جست‌وجو", "a": LOREM, "placeholder": True}
-                      for i in range(1, 6)],
+        "questions": [{"q": q, "a": LOREM, "placeholder": True} for q in (
+            "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم است؟",
+            "چاپگرها و متون بلکه روزنامه و مجله در ستون چگونه است؟",
+            "طراحان گرافیک برای شرایط فعلی چه نیازی دارند؟",
+            "کتابهای زیادی در شصت و سه درصد گذشته حال و آینده؟",
+            "جامعه و متخصصان را می طلبد تا با نرم افزارها چه کنند؟")],
     }})
 
     blocks.append({"block": "call-card", "anchor": "call", "data": {
@@ -307,6 +363,7 @@ def build(view: dict | None, services: list[dict]) -> dict:
         ("canonical", f"https://chatreghermez.com{VIEW_BASE}{view['slug']}/" if view
          else "https://chatreghermez.com/portfolio/"),
         ("shell", SITE_SHELL_REF), ("nav_section", "/portfolio/"),
+        ("media", DEMO_MEDIA),
         ("schema_item_type", "CreativeWork"), ("schema_area_served", ["اصفهان", "ایران"]),
         ("motion_score", {"declared": "portfolio_hub",
                           "verbs": ["active-card-becomes-hero", "skeleton-to-content",
