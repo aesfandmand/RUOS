@@ -123,6 +123,41 @@ FAMILY_COVER = {
 }
 
 
+# ── Stage-4 copy (ru-content, 2026-10-28) ─────────────────────────────────
+# Persona 3 (vendor scout). Every fact below is from the owner-approved
+# introduction (ru-content owner-voice §9, §13): licence 1392 from the
+# Isfahan Ershad directorate, first investment project Fooladshahr 1395,
+# Tehran workshop + large-format print shop + sales office, Isfahan
+# large-format print shop + investment office + agency, projects in Kirkuk
+# and Sulaymaniyah. No number here is invented.
+FAMILY_COPY = {
+    "ooh": "از طراحی بیلبورد و استرابورد تا چاپ و نصب. سازه‌ها را در کارگاه خودمان در تهران می‌سازیم و از سال ۱۳۹۵ با شهرداری‌ها پروژهٔ شهری اجرا کرده‌ایم.",
+    "digital": "سایت و اینستاگرام شما باید بعد از تحویل هم کار کنند، نه فقط روز رونمایی زیبا باشند.",
+    "graphic": "از لوگو و هویت بصری تا کاتالوگ و بسته‌بندی. برند شما باید روی کاغذ و روی گوشی یکی دیده شود.",
+    "print": "چاپ لارج‌فرمت در دو چاپخانهٔ خودمان در تهران و اصفهان؛ کار شما بدون واسطه چاپ می‌شود.",
+    "photo": "عکس و فیلمی که پشت کاتالوگ و سایت شما می‌ایستد؛ از عکاسی محصول تا فیلم صنعتی.",
+    "consult": "پیش از اینکه بودجه‌تان خرج شود، روشن می‌کنیم کدام کار لازم است و کدام نه.",
+}
+FAQ = [
+    ("رزومه و مدارک چتر قرمز را چطور بگیرم؟",
+     "فرم پایین همین صفحه را پر کنید یا تماس بگیرید. رزومهٔ شرکت و مدارک فعالیت را برایتان می‌فرستیم؛ چتر قرمز از سال ۱۳۹۲ با مجوز ادارهٔ کل فرهنگ و ارشاد اسلامی استان اصفهان در تبلیغات محیطی کار می‌کند."),
+    ("نمونهٔ کاری شبیه کار ما دارید؟",
+     "در بخش نمونه‌ها اول حوزهٔ کار و بعد خدمت را انتخاب کنید. اگر نمونهٔ همان صنعت را پیدا نکردید، در فرم بنویسید چه کاری دارید؛ نزدیک‌ترین نمونه‌ها را جدا برایتان می‌فرستیم."),
+    ("قیمت تقریبی کار چقدر است؟",
+     "قیمت ثابت نداریم. قیمت به اندازهٔ کار، زمان تحویل و آنچه از قبل دارید بستگی دارد، پس برای کار مشخص برآورد را پس از دیدن شرح کار می‌فرستیم. عدد سرِدستی نمی‌دهیم."),
+    ("انجام کار چقدر طول می‌کشد؟",
+     "به نوع کار بستگی دارد و طراحی یک لوگو با ساخت یک سازه زمان یکسانی ندارد. زمان دقیق را همراه برآورد هزینه اعلام می‌کنیم. اگر مهلت ثابتی مثل نمایشگاه دارید، همان را در فرم بنویسید."),
+    ("فقط در اصفهان کار می‌کنید؟",
+     "نه. در اصفهان چاپخانهٔ لارج‌فرمت، دفتر مدیریت سرمایه‌گذاری و آژانس داریم و در تهران کارگاه ساخت سازه، چاپخانه و دفتر فروش. پروژه در شهرهای دیگر و خارج از ایران، مثل کرکوک و سلیمانیه در عراق، هم اجرا کرده‌ایم."),
+]
+FEATURED = [  # the 3D carousel: one strong picture per area
+    ("billboard-design", "straboard-06.jpg"), ("stationery-design", "identity-07.jpg"),
+    ("packaging-design", "packaging-04.jpg"), ("instagram-content-production", "instagram-05.jpg"),
+    ("catalog-design", "catalogue-09.jpg"), ("lightbox-design", "lightbox-h-01.jpg"),
+    ("logo-design", "logo-07.jpg"),
+]
+
+
 def fa(n: int, width: int = 0) -> str:
     return str(n).rjust(width, "0").translate(DIGITS)
 
@@ -221,7 +256,12 @@ def build(view: dict | None, services: list[dict]) -> dict:
         "crumb_current": name or "نمونه‌کارها",
         "eyebrow": "نمونه‌کار · " + (dict((k, f) for k, f, _ in FAMILIES)[view["family"]] if view else "چتر قرمز"),
         "title": f"نمونه کار {name}" if view else "نمونه کارهای شرکت تبلیغاتی چتر قرمز",
-        "lead": LOREM,
+        "lead": (f"نمونه کارهای {name} چتر قرمز، یک‌جا. کنار هر نمونه نوشته‌ایم برای چه صنعتی "
+                 "و در چه سالی انجام شده است. اگر برای استعلام دنبال مدرک هستید، "
+                 "لینک همین صفحه را برای مدیرتان بفرستید." if view else
+                 "دنبال نمونهٔ همان کاری هستید که باید تا فردا برای مدیرتان بفرستید؟ اینجا نمونه‌کارهای چتر قرمز "
+                 "را بر اساس خدمت چیده‌ایم و کنار هر نمونه نوشته‌ایم برای چه صنعتی بوده و سهم ما در آن چه بوده است. "
+                 "خدمت موردنظرتان را انتخاب کنید و لینک همان صفحه را بفرستید."),
         "primary": {"label": "دریافت رزومه و مدارک", "href": "#lead"},
         "share": {"label": "کپی لینک همین صفحه", "done": "لینک کپی شد"},
         "rail_label": "نمونه‌های منتخب",
@@ -232,7 +272,8 @@ def build(view: dict | None, services: list[dict]) -> dict:
     blocks.append({"block": "portfolio-grid", "anchor": "samples", "data": {
         "eyebrow": "نمونه‌ها",
         "title": f"نمونه‌های {name}" if view else "نمونهٔ همان کاری را می‌خواهید؟",
-        "aside": LOREM,
+        "aside": ("اول حوزهٔ کار را انتخاب کنید، بعد خدمت را. شمار نمونه‌ها همان لحظه عوض می‌شود "
+                  "و نشانی صفحه هم با انتخاب شما تغییر می‌کند تا همان را بفرستید."),
         "family_label": "حوزهٔ کار",
         "service_label": "خدمت",
         "all_label": "همه",
@@ -257,28 +298,33 @@ def build(view: dict | None, services: list[dict]) -> dict:
             "title": fam, "icon": icon, "label": "جایگاه عکس",
             "src": f"assets/{FAMILY_COVER[key]}",
             "alt": f"نمونه کارهای {fam} چتر قرمز",
-            "body": LOREM, "placeholder": True,
+            "body": FAMILY_COPY[key],
             "links": [{"label": s["name"], "href": f"{VIEW_BASE}{s['slug']}/"} for s in svc[:4]],
             "href": f"{VIEW_BASE}{svc[0]['slug']}/",
             "cta": f"همهٔ نمونه‌های {fam}",
         })
     blocks.append({"block": "portfolio-accordion", "anchor": "areas", "data": {
         "eyebrow": "سایر کارها",
-        "title": "همین مشتری‌ها، کارهای دیگری هم از ما گرفته‌اند",
-        "lead": LOREM,
+        "title": "کارهای دیگر ما، در شش حوزه",
+        "lead": "اگر نمونهٔ کار دیگری هم لازم دارید، از همین‌جا به همان بخش بروید.",
         "panels": panels,
     }})
 
     blocks.append({"block": "golden-line", "anchor": "golden", "data": {
         "eyebrow": "حرف حساب",
-        "line": "اول نمونهٔ همان کار را ببینید، بعد تصمیم بگیرید.",  # draft; final in stage 4
-        "support": LOREM,
+        "line": "اول نمونهٔ همان کار را ببینید، بعد تصمیم بگیرید.",
+        "support": "صفحه‌ای که پر از ادعاست به کار جلسهٔ شما نمی‌آید. نمونهٔ نام‌دار می‌آید.",
     }})
 
     blocks.append({"block": "editorial-split", "anchor": "stakes", "data": {
         "eyebrow": "هزینهٔ انتخاب بدون نمونه",
         "title": "پیمانکاری که نمونهٔ مشابه ندارد، چقدر برایتان تمام می‌شود؟",
-        "body": [LOREM, LOREM],
+        "body": [
+            "مدیر می‌پرسد: «نمونهٔ همین کار را دارند؟» و جوابی نیست. پیمانکار با چند عکس بی‌نام انتخاب "
+            "می‌شود و کار، سه هفته مانده به نمایشگاه، به دوباره‌کاری می‌افتد.",
+            "هزینهٔ این انتخاب فقط پول نیست. فرصت کمپین از دست می‌رود و پرسش‌ها به سمت کسی برمی‌گردد که "
+            "پیمانکار را معرفی کرده بود؛ یعنی خود شما. برای همین کنار هر نمونهٔ این صفحه نوشته‌ایم برای چه کسی، کی و با چه سهمی از ما انجام شده است.",
+        ],
         "image": {"label": "جایگاه عکس", "src": "assets/lightbox-v-02.jpg",
                   "alt": "لایت‌باکس تبلیغاتی نصب‌شده در خیابان، نمونه کار چتر قرمز"},
     }})
@@ -286,26 +332,27 @@ def build(view: dict | None, services: list[dict]) -> dict:
     blocks.append({"block": "numbered-features", "anchor": "steps", "data": {
         "eyebrow": "سه قدم",
         "title": "از دیدن نمونه تا شروع کار",
-        "lead": LOREM,
+        "lead": "سه قدم، و هیچ‌کدام تماس اجباری ندارد.",
         "icon": "icon-process",
         "items": [
-            {"index": "۰۱", "title": "نمونهٔ همان کار را ببینید", "body": LOREM, "placeholder": True, "icon": "icon-portfolio"},
-            {"index": "۰۲", "title": "رزومه و مدارک را بگیرید", "body": LOREM, "placeholder": True, "icon": "icon-datasheet"},
-            {"index": "۰۳", "title": "بریف کار را بفرستید", "body": LOREM, "placeholder": True, "icon": "icon-rfq"},
+            {"index": "۰۱", "title": "نمونهٔ همان کار را ببینید", "body": "خدمت را از فیلتر انتخاب کنید و لینک همان نما را برای مدیرتان بفرستید.", "icon": "icon-portfolio"},
+            {"index": "۰۲", "title": "رزومه و مدارک را بگیرید", "body": "نام و شماره را در فرم پایین بگذارید تا رزومهٔ شرکت و مدارک را برایتان بفرستیم.", "icon": "icon-datasheet"},
+            {"index": "۰۳", "title": "شرح کار را بفرستید", "body": "هر وقت تصمیم گرفته شد، شرح کار را بفرستید تا زمان و هزینه را برآورد کنیم.", "icon": "icon-rfq"},
         ],
     }})
 
     blocks.append({"block": "compare-cards", "anchor": "beyond", "data": {
         "eyebrow": "فراتر از نمونه‌کار",
         "title": "پروژه‌های شهری و سازه‌ها صفحهٔ خودشان را دارند",
-        "lead": LOREM,
+        "lead": ("نمونه‌کار اینجا یعنی کاری که برای یک کسب‌وکار یا سازمان طراحی یا تولید کرده‌ایم. "
+                 "پروژه‌های سرمایه‌گذاری شهری و سازه‌های تبلیغاتی جای جداگانه دارند."),
         "icon": "icon-related",
         "items": [
-            {"index": "۰۱", "title": "پروژه‌های شهری و مشارکتی", "body": LOREM, "placeholder": True,
+            {"index": "۰۱", "title": "پروژه‌های شهری و مشارکتی", "body": "پروژه‌های مشارکتی با شهرداری‌ها، از فولادشهر در سال ۱۳۹۵ به بعد، با نوع قرارداد، شهر و مدت بهره‌برداری.",
              "icon": "icon-projects", "cta": {"label": "دیدن پروژه‌ها", "href": "/projects/"}},
-            {"index": "۰۲", "title": "سازه‌های تبلیغاتی", "body": LOREM, "placeholder": True,
+            {"index": "۰۲", "title": "سازه‌های تبلیغاتی", "body": "بیلبورد، استرابورد، لایت‌باکس و دیگر سازه‌هایی که در کارگاه خودمان در تهران ساخته می‌شوند، با ابعاد و مشخصات فنی.",
              "icon": "icon-structures", "cta": {"label": "دیدن سازه‌ها", "href": "/structures/"}},
-            {"index": "۰۳", "title": "همهٔ خدمات", "body": LOREM, "placeholder": True,
+            {"index": "۰۳", "title": "همهٔ خدمات", "body": "شش حوزهٔ خدمت چتر قرمز، از تبلیغات محیطی تا مشاوره، و اینکه هر کار در کدام حوزه می‌نشیند.",
              "icon": "icon-services-nav", "cta": {"label": "دیدن خدمات", "href": "/services/"}},
         ],
     }})
@@ -313,13 +360,8 @@ def build(view: dict | None, services: list[dict]) -> dict:
     blocks.append({"block": "faq-section-final", "anchor": "faq", "data": {
         "eyebrow": "پرسش‌های پرتکرار",
         "title": "پیش از تماس، جواب کوتاه را همین‌جا ببینید",
-        "lead": "پرسش‌ها در مرحلهٔ متن از پیشنهاد خودکار گوگل ایران برداشته می‌شوند.",
-        "questions": [{"q": q, "a": LOREM, "placeholder": True} for q in (
-            "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم است؟",
-            "چاپگرها و متون بلکه روزنامه و مجله در ستون چگونه است؟",
-            "طراحان گرافیک برای شرایط فعلی چه نیازی دارند؟",
-            "کتابهای زیادی در شصت و سه درصد گذشته حال و آینده؟",
-            "جامعه و متخصصان را می طلبد تا با نرم افزارها چه کنند؟")],
+        "lead": "پرسش‌هایی که کارشناس‌ها و مدیران پیش از استعلام می‌پرسند؛ هر جواب جداگانه کامل است.",
+        "questions": [{"q": q, "a": a} for q, a in FAQ],
     }})
 
     blocks.append({"block": "call-card", "anchor": "call", "data": {
@@ -342,7 +384,7 @@ def build(view: dict | None, services: list[dict]) -> dict:
     blocks.append({"block": "lead-form", "anchor": "lead", "data": {
         "eyebrow": "قدم بعدی",
         "title": "رزومه و مدارک را برایتان بفرستیم",
-        "lead": LOREM,
+        "lead": "نام، شماره و کاری که دنبال نمونه‌اش هستید را بنویسید. همین کافی است؛ بقیه را ما پیگیری می‌کنیم.",
         "icon": "icon-rfq",
         "fields": [
             {"name": "name", "label": "اسم و نام مجموعه", "type": "text", "inputmode": "text",
@@ -355,20 +397,46 @@ def build(view: dict | None, services: list[dict]) -> dict:
         "submit": "بفرستید",
     }})
 
+    # ── the 3D carousel of selected work (owner, 2026-10-28) ─────────────
+    by_slug = {x["slug"]: x for x in services}
+    blocks.append({"block": "service-coverflow", "anchor": "featured", "data": {
+        "eyebrow": "کارهای منتخب",
+        "title": "چند کار از شش حوزه، کنار هم",
+        "lead": "کارت‌ها را بکشید. هر کارت یک نمونهٔ واقعی است و به نمای همان خدمت می‌رود.",
+        "prev_label": "نمونهٔ قبلی", "next_label": "نمونهٔ بعدی",
+        "items": [{
+            "kicker": by_slug[sl]["name"],
+            "title": f"نمونه‌کار {by_slug[sl]['name']}",
+            "body": FAMILY_COPY[by_slug[sl]["family"]],
+            "points": [{"value": r} for r in ROLES[by_slug[sl]["family"]]],
+            "src": f"assets/{pic}", "label": "جایگاه عکس", "alt": alt_for(by_slug[sl]["name"]),
+            "href": f"{VIEW_BASE}{sl}/", "link_label": f"نمونه‌های {by_slug[sl]['name']}",
+        } for sl, pic in FEATURED],
+    }})
+    order = ["top", "samples", "featured", "golden", "stakes", "areas", "steps", "beyond",
+             "faq", "call", "type", "cursor", "lead"]
+    blocks.sort(key=lambda bl: order.index(bl["anchor"]))
+    for bl in blocks:
+        if bl["block"] == "page-cursor":
+            bl["data"]["states"][0:0] = [{"selector": "[data-block=\"service-coverflow\"] .service-cf-card",
+                                          "state": "drag", "label": "بکشید"}]
+            bl["data"]["states"] = [st for st in bl["data"]["states"] if st["state"] != "play"][:6]
+
     slug = f"portfolio-{view['slug']}" if view else "portfolio"
     return collections.OrderedDict([
         ("slug", slug), ("lang", "fa"), ("direction", "rtl"),
-        ("title", f"نمونه کار {name} | چتر قرمز" if view else "نمونه کارهای شرکت تبلیغاتی چتر قرمز"),
-        ("description", "نمونه‌کار با نام پروژه، شهر، سال و نقش ما؛ بر اساس خدمت."),
+        ("title", f"نمونه کار {name} | چتر قرمز" if view else "نمونه کارهای شرکت تبلیغاتی چتر قرمز | از لوگو تا بیلبورد"),
+        ("description", (f"نمونه کارهای {name} چتر قرمز، با صنعت مشتری و سهم ما در هر کار. لینک را برای مدیرتان بفرستید یا رزومه و مدارک را بگیرید."
+                         if view else "نمونه کارهای چتر قرمز در شش حوزه، از طراحی لوگو تا بیلبورد؛ کنار هر نمونه صنعت مشتری و سهم ما آمده است. لینکش را برای مدیرتان بفرستید.")),
         ("canonical", f"https://chatreghermez.com{VIEW_BASE}{view['slug']}/" if view
          else "https://chatreghermez.com/portfolio/"),
         ("shell", SITE_SHELL_REF), ("nav_section", "/portfolio/"),
         ("media", DEMO_MEDIA),
         ("schema_item_type", "CreativeWork"), ("schema_area_served", ["اصفهان", "ایران"]),
         ("motion_score", {"declared": "portfolio_hub",
-                          "verbs": ["active-card-becomes-hero", "skeleton-to-content",
-                                    "horizontal-accordion", "kinetic-oversized-type"],
-                          "note": "The full portfolio_hub score. call-card runs `still` so ambient-field stays out (owner, 2026-10-27)."}),
+                          "verbs": ["active-card-becomes-hero", "skeleton-to-content", "perspective-drag",
+                                    "kinetic-oversized-type", "horizontal-accordion"],
+                          "note": "The full portfolio_hub score, plus perspective-drag for the selected-work 3D carousel: a second heavy verb, an exception to §21 rule 4 the owner chose on 2026-10-28. call-card runs `still` so ambient-field stays out (owner, 2026-10-27)."}),
         ("blocks", blocks),
     ])
 

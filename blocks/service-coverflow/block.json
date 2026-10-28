@@ -1,25 +1,57 @@
 {
   "id": "service-coverflow",
-  "name": { "fa": "کاروسل سه‌بعدی راهکارها", "en": "service-coverflow" },
+  "name": {
+    "fa": "کاروسل سه‌بعدی راهکارها",
+    "en": "service-coverflow"
+  },
   "role": "content",
   "family": "media-gallery",
   "surface": "light",
   "composition": "A real 3D coverflow: the cards rotate on their own Y axis with the stack standing behind the active one. Perspective is kept and the compositing layer isolated, rather than dropping rotateY to dodge a Safari bug (motion-verbs-v1.yaml, perspective-drag note). Image slots render their alt at full size when no photograph exists yet.",
-  "serves_intent": ["explore", "build-trust"],
+  "serves_intent": [
+    "explore",
+    "build-trust"
+  ],
   "position": "any",
   "behavior": true,
-  "vendor": ["swiper"],
-  "adjacency": { "not_after_same_family": true },
+  "vendor": [
+    "swiper"
+  ],
+  "adjacency": {
+    "not_after_same_family": true
+  },
   "motion": "perspective-drag",
   "source": {
     "page": "reference/motion-strategy-references/clips/05-vmag-3d-page-turn.mp4",
     "selector": "perspective-page-turn"
   },
   "slots": {
-    "eyebrow": { "type": "text", "required": false },
-    "title": { "type": "text", "required": true },
-    "lead": { "type": "text", "required": false },
-    "items": { "type": "list", "required": true, "min": 2, "max": 8 }
+    "eyebrow": {
+      "type": "text",
+      "required": false
+    },
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "lead": {
+      "type": "text",
+      "required": false
+    },
+    "items": {
+      "type": "list",
+      "required": true,
+      "min": 2,
+      "max": 8
+    },
+    "prev_label": {
+      "type": "text",
+      "required": false
+    },
+    "next_label": {
+      "type": "text",
+      "required": false
+    }
   },
   "layout": "gallery"
 }
