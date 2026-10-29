@@ -27,7 +27,7 @@
 .page-cursor[data-state=view] .page-cursor-ring,
 .page-cursor[data-state=play] .page-cursor-ring,
 .page-cursor[data-state=drag] .page-cursor-ring{
-  --cur-size:78px;
+  --cur-size:54px;
   /* Tinted toward ink, not white: a white panel over a white page left the
      label at a contrast nobody could read. Dark glass carries a white label
      on both the cream sections and a photograph. */

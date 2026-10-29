@@ -43,8 +43,6 @@
 .service-cf-card.swiper-slide-active{opacity:1;box-shadow:0 44px 96px #17171940}
 
 .service-cf-shot{margin:0;aspect-ratio:16/10;border:0;border-radius:0;border-bottom:1px solid var(--line);background:var(--paper-2)}
-.service-cf-index{position:absolute;inset-block-end:10px;inset-inline-end:14px;z-index:2;
-  color:var(--ink);font-size:1.5rem;font-weight:900;letter-spacing:-.04em;opacity:.3;font-variant-numeric:tabular-nums}
 .service-cf-copy{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
 .service-cf-kicker{margin:0;color:var(--red);font-size:.68rem;font-weight:800;letter-spacing:.02em}
 .service-cf-copy h3{margin:8px 0 0;font-size:1.1rem;font-weight:900;letter-spacing:-.025em;line-height:1.5}
