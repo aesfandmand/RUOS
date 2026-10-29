@@ -38,15 +38,22 @@
   box-shadow:0 6px 18px -6px #17171966}
 
 /* the next-sample card: the rail, reduced to the one card that matters —
-   what comes next is always named on screen (slider reference). Genuinely
-   glass over the photo, not a near-opaque panel: low-opacity tint plus a
-   strong blur, so the picture underneath stays legible through it. */
+   what comes next is always named on screen (slider reference). The one
+   place on this page a card still sits over a photo (everywhere else it
+   moved beside the image instead, per the owner's note that a heavy blur
+   just hides the picture rather than reading as glass). Here the card is
+   small enough to keep: light blur, low tint, a brightness/contrast lift
+   and a thin diagonal sheen so the photo stays clearly recognizable
+   through it, with just enough optical distortion to read as a material. */
 .pf-next{position:absolute;z-index:2;bottom:14px;inset-inline-start:calc(max(16px,50vw - 620px) + 14px);
   display:none;align-items:center;gap:10px;max-width:min(62%,300px);padding:5px 12px 5px 5px;
-  border:1px solid #ffffff40;border-radius:16px;background:#ffffff40;
-  backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);
-  color:#fff;text-shadow:0 1px 8px #17171959;font:inherit;text-align:start;cursor:pointer;
-  box-shadow:inset 0 1px 0 #ffffff40,0 10px 30px -12px #17171966;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+  overflow:hidden;border:1px solid #ffffff52;border-radius:16px;background:#ffffff21;
+  backdrop-filter:blur(6px) saturate(1.5) brightness(1.1) contrast(1.05);
+  -webkit-backdrop-filter:blur(6px) saturate(1.5) brightness(1.1) contrast(1.05);
+  color:#fff;text-shadow:0 1px 6px #17171973;font:inherit;text-align:start;cursor:pointer;
+  box-shadow:inset 0 1px 0 #ffffff52,0 10px 30px -12px #17171966;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.pf-next:before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,#fff0 30%,#ffffff40 48%,#fff0 62%)}
 .pf-hero.is-ready .pf-next{display:inline-flex}
 .pf-next:hover{transform:translateY(-2px)}
 .pf-next:active{transform:scale(.97)}
